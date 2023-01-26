@@ -11,6 +11,10 @@
 		049833422954975400724C7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049833412954975400724C7B /* ContentView.swift */; };
 		049833442954975700724C7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049833432954975700724C7B /* Assets.xcassets */; };
 		049833472954975700724C7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049833462954975700724C7B /* Preview Assets.xcassets */; };
+		049FAB6C2982CF4F001CDC84 /* Personal-Trainer-PT.json in Resources */ = {isa = PBXBuildFile; fileRef = 049FAB682982CF4F001CDC84 /* Personal-Trainer-PT.json */; };
+		049FAB6D2982CF4F001CDC84 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049FAB6A2982CF4F001CDC84 /* TextFieldView.swift */; };
+		049FAB6E2982CF4F001CDC84 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049FAB6B2982CF4F001CDC84 /* LoginPage.swift */; };
+		049FAB702982D297001CDC84 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 049FAB6F2982D297001CDC84 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		049833412954975400724C7B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		049833432954975700724C7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		049833462954975700724C7B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		049FAB682982CF4F001CDC84 /* Personal-Trainer-PT.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Personal-Trainer-PT.json"; sourceTree = "<group>"; };
+		049FAB6A2982CF4F001CDC84 /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		049FAB6B2982CF4F001CDC84 /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		049FAB6F2982D297001CDC84 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +43,7 @@
 		049833332954975400724C7B = {
 			isa = PBXGroup;
 			children = (
+				049FAB6F2982D297001CDC84 /* .gitignore */,
 				0498333E2954975400724C7B /* Fitness_App */,
 				0498333D2954975400724C7B /* Products */,
 			);
@@ -51,6 +60,8 @@
 		0498333E2954975400724C7B /* Fitness_App */ = {
 			isa = PBXGroup;
 			children = (
+				049FAB652982CF4F001CDC84 /* LoginPage */,
+				049FAB612982CF31001CDC84 /* User Regstration Page */,
 				0498333F2954975400724C7B /* Fitness_AppApp.swift */,
 				049833412954975400724C7B /* ContentView.swift */,
 				049833432954975700724C7B /* Assets.xcassets */,
@@ -65,6 +76,71 @@
 				049833462954975700724C7B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		049FAB612982CF31001CDC84 /* User Regstration Page */ = {
+			isa = PBXGroup;
+			children = (
+				049FAB622982CF31001CDC84 /* ViewModel */,
+				049FAB632982CF31001CDC84 /* Model */,
+				049FAB642982CF31001CDC84 /* View */,
+			);
+			path = "User Regstration Page";
+			sourceTree = "<group>";
+		};
+		049FAB622982CF31001CDC84 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		049FAB632982CF31001CDC84 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		049FAB642982CF31001CDC84 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		049FAB652982CF4F001CDC84 /* LoginPage */ = {
+			isa = PBXGroup;
+			children = (
+				049FAB662982CF4F001CDC84 /* Model */,
+				049FAB692982CF4F001CDC84 /* View */,
+			);
+			path = LoginPage;
+			sourceTree = "<group>";
+		};
+		049FAB662982CF4F001CDC84 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				049FAB672982CF4F001CDC84 /* Resources */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		049FAB672982CF4F001CDC84 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				049FAB682982CF4F001CDC84 /* Personal-Trainer-PT.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		049FAB692982CF4F001CDC84 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				049FAB6A2982CF4F001CDC84 /* TextFieldView.swift */,
+				049FAB6B2982CF4F001CDC84 /* LoginPage.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +201,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049FAB702982D297001CDC84 /* .gitignore in Resources */,
 				049833472954975700724C7B /* Preview Assets.xcassets in Resources */,
 				049833442954975700724C7B /* Assets.xcassets in Resources */,
+				049FAB6C2982CF4F001CDC84 /* Personal-Trainer-PT.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +215,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049FAB6E2982CF4F001CDC84 /* LoginPage.swift in Sources */,
 				049833422954975400724C7B /* ContentView.swift in Sources */,
 				049833402954975400724C7B /* Fitness_AppApp.swift in Sources */,
+				049FAB6D2982CF4F001CDC84 /* TextFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
