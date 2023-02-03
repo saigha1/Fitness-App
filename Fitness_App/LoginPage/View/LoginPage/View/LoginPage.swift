@@ -19,7 +19,7 @@ import FirebaseAuth
 ///Enabled Firebase for Google and now Facebook
 ///
 
-struct LoginPage: View {
+struct LoginPage: View {    
     @State private var email = ""
     @State private var password = ""
     let loginButton = FBLoginButton()
@@ -48,17 +48,19 @@ struct LoginPage: View {
             GoogleSignInButton(action: GoogleFirebaseSignIn.handleSignInButton)
                 .frame(width: 200)
             
-            Text ("Sign in with Apple").bold()  //Step 3: Apple wiith Oauth2
+//            Text ("Sign in with Apple").bold()  //Step 3: Apple wiith Oauth2
+            FireBaseSignInWithAppleView()
             
             Text("Sign in with Regular Email").bold().underline() .padding(5) //Step 4: Might not need Oauth2 Firebase maybe
             
-            Text("Enter your Email: ")
-                .bold()
-                .frame(alignment: .center)
-            
-            TextFieldView(textInput: $email, placeholder: "Email", isPassword: false)
-            
-            TextFieldView(textInput: $password, placeholder: "Password: ", isPassword: true)
+//            Text("Enter your Email: ")
+//                .bold()
+//                .frame(alignment: .center)
+//
+//            TextFieldView(textInput: $email, placeholder: "Email", isPassword: false)
+//
+//            TextFieldView(textInput: $password, placeholder: "Password: ", isPassword: true)
+            FireBaseSignInWithEmailView()
             
         }
     }
