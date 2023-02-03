@@ -18,7 +18,6 @@ struct TextFieldView: View{
                     placeholder, text: textInput
                 )
                 
-                
             } else{
                 SecureField(
                     placeholder,
@@ -26,13 +25,11 @@ struct TextFieldView: View{
                 )
             }
         }
-        
         .font(Font.title2.weight(.bold))
         .frame(width: 300, height: 30)
         .textFieldStyle(.roundedBorder)
         .border(.black, width: 1)
         .padding()
-        
         
         
         
