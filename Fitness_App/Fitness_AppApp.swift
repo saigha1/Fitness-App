@@ -14,21 +14,23 @@ struct Fitness_AppApp: App {
     /// AppDelegateAdapter that registers the app delegate for firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate     //Firebase recommends adding var delegate instead of var appDelegate
         
-    @StateObject var googleFireBaseVM = GoogleSignInWithFirebase()
-    @StateObject var facebookFirebaseSignIn = UserLoginManager()
+//    @StateObject var googleFireBaseVM = GoogleSignInWithFirebase()
+//    @StateObject var facebookFirebaseSignIn = UserLoginManager()
+//    @StateObject private var authVMEmail: FireBaseSignInWithEmailViewModel
+    
     /// Declare the authentication view model instance to be used as an environment object for signin & signup views
-    @StateObject private var authVMEmail: FireBaseSignInWithEmailViewModel
+    @StateObject private var authenticationVM: AuthViewModel
     
     init() {
-        self._authVMEmail = StateObject(wrappedValue: .init())
+        self._authenticationVM = StateObject(wrappedValue: .init())
     }
     
     var body: some Scene {
         WindowGroup {
             LoginPage()
-                .environmentObject(googleFireBaseVM)
-                .environmentObject(facebookFirebaseSignIn)
-                .environmentObject(authVMEmail)
+//                .environmentObject(googleFireBaseVM)
+//                .environmentObject(facebookFirebaseSignIn)
+                .environmentObject(authenticationVM)
             
             .onOpenURL { url in
                       GIDSignIn.sharedInstance.handle(url)

@@ -20,17 +20,19 @@ import FirebaseAuth
 ///
 
 struct LoginPage: View {    
-    @State private var email = ""
-    @State private var password = ""
+//    @State private var email = ""
+//    @State private var password = ""
     let loginButton = FBLoginButton()
   
     
-    @EnvironmentObject var GoogleFirebaseSignIn : GoogleSignInWithFirebase
-    @EnvironmentObject var FacebookFirebaseSignIn: UserLoginManager
+//    @EnvironmentObject var GoogleFirebaseSignIn : GoogleSignInWithFirebase
+//    @EnvironmentObject var FacebookFirebaseSignIn: UserLoginManager
+    @EnvironmentObject var authVM: AuthViewModel
     
+    @MainActor
     var body: some View {
         VStack{
-            if FacebookFirebaseSignIn.isPresented{
+            if authVM.isPresented{
                 Text("Welcome Facebook-Firebase")
             }
                 
@@ -39,13 +41,13 @@ struct LoginPage: View {
             
             
             Button(action: {
-                self.FacebookFirebaseSignIn.facebookLogin()
+                self.authVM.facebookLogin()
             }) {
                 Text("Continue with Facebook")
             }
             .background(.pink)
  
-            GoogleSignInButton(action: GoogleFirebaseSignIn.handleSignInButton)
+            GoogleSignInButton(action: authVM.handleSignInWithGoogleButton)
                 .frame(width: 200)
             
 //            Text ("Sign in with Apple").bold()  //Step 3: Apple wiith Oauth2

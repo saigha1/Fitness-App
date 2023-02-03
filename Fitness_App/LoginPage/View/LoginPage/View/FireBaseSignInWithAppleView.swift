@@ -12,12 +12,13 @@ struct FireBaseSignInWithAppleView: View {
     /// Environment properties that detects the UI appearance, used for style of SignInWithAppleButton
     @Environment(\.colorScheme) var colorScheme
     
-    @StateObject private var vm = FireBaseSignInWithAppleViewModel()
+//    @StateObject private var vm = FireBaseSignInWithAppleViewModel()
+    @EnvironmentObject var authVM: AuthViewModel
     
     var body: some View {
         VStack {
             signInButton
-            if vm.authState == .authenticated {
+            if authVM.authState == .authenticated {
                 greeting
                 signOutButton
             }
@@ -28,6 +29,7 @@ struct FireBaseSignInWithAppleView: View {
 struct FireBaseSignInWithAppleView_Previews: PreviewProvider {
     static var previews: some View {
         FireBaseSignInWithAppleView()
+            .environmentObject(AuthViewModel())
     }
 }
 
@@ -35,10 +37,10 @@ extension FireBaseSignInWithAppleView {
     private var signInButton: some View {
         SignInWithAppleButton(
             onRequest: { request in
-                vm.handleSignInWithAppleRequest(request)
+                authVM.handleSignInWithAppleRequest(request)
             },
             onCompletion: { result in
-                vm.handleSignInWithAppleCompletion(result)
+                authVM.handleSignInWithAppleCompletion(result)
             }
         )
         .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
@@ -47,12 +49,12 @@ extension FireBaseSignInWithAppleView {
     }
     
     private var greeting: some View {
-        Text("Hello \(vm.displayName ?? "")!")
+        Text("Hello \(authVM.displayName)!")
     }
     
     private var signOutButton: some View {
         Button {
-            vm.signOut()
+            authVM.signOut()
         } label: {
             Text("Sign Out")
                 .foregroundColor(.red)

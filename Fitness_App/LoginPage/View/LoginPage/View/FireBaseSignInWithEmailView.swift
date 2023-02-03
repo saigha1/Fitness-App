@@ -11,7 +11,7 @@ struct FireBaseSignInWithEmailView: View {
     /// Environment properties that detects the UI appearance, used for style of SignInWithAppleButton
     @Environment(\.colorScheme) var colorScheme
     
-    @EnvironmentObject var vm: FireBaseSignInWithEmailViewModel
+    @EnvironmentObject var authVM: AuthViewModel
     
     @MainActor
     var body: some View {
@@ -25,15 +25,15 @@ struct FireBaseSignInWithEmailView: View {
 struct FireBaseSignInWithEmail_Previews: PreviewProvider {
     static var previews: some View {
         FireBaseSignInWithEmailView()
-            .environmentObject(AuthenticationViewModel())
+            .environmentObject(AuthViewModel())
     }
 }
 
 extension FireBaseSignInWithEmailView {
     private var form: some View {
         VStack {
-            TextField("Your Email", text: $vm.email)
-            SecureField("Password", text: $vm.password)
+            TextField("Your Email", text: $authVM.email)
+            SecureField("Password", text: $authVM.password)
             signInButton
             Spacer()
         }
@@ -44,8 +44,8 @@ extension FireBaseSignInWithEmailView {
     private var signInButton: some View {
         Button {
             Task {
-                if !(await vm.signInWithEmail()) {
-                    let _ = await vm.signUpWithEmail()
+                if !(await authVM.signInWithEmail()) {
+                    let _ = await authVM.signUpWithEmail()
                 }
             }
         } label: {
