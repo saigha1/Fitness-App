@@ -91,7 +91,7 @@
 		2545A606298D60D800310999 /* FireBaseSignInWithAppleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithAppleView.swift; sourceTree = "<group>"; };
 		2545A607298D60D900310999 /* FireBaseSignInWithEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithEmailView.swift; sourceTree = "<group>"; };
 		2570932C298D6E62004D9176 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		25CE3F66298D840F0097CB44 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Fitness_App.app; path = "/Users/xavier/Documents/Fitness-App/build/Debug-iphoneos/Fitness_App.app"; sourceTree = "<absolute>"; };
+		25E6D8F1299137EC0015B8B0 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,10 +179,6 @@
 		0480661429881423005CD151 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */,
-				04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */,
-				2545A5FC298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift */,
-				2545A5FD298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift */,
 				2570932C298D6E62004D9176 /* AuthViewModel.swift */,
 			);
 			path = ViewModel;
@@ -202,6 +198,7 @@
 				047200F9298ACA7E00B04964 /* Fitness-App-Info.plist */,
 				04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */,
 				0498333E2954975400724C7B /* Fitness_App */,
+				25E6D8F1299137EC0015B8B0 /* Fitness_App.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -251,6 +248,7 @@
 		2570932A298D6E16004D9176 /* Archive */ = {
 			isa = PBXGroup;
 			children = (
+				25E6D8F229913B8C0015B8B0 /* AuthenticationViewModels */,
 				2570932B298D6E23004D9176 /* GoogleSignIn-OAuth2 */,
 			);
 			path = Archive;
@@ -263,6 +261,17 @@
 				0480661529881600005CD151 /* AuthenticationViewModel.swift */,
 			);
 			path = "GoogleSignIn-OAuth2";
+			sourceTree = "<group>";
+		};
+		25E6D8F229913B8C0015B8B0 /* AuthenticationViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */,
+				04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */,
+				2545A5FC298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift */,
+				2545A5FD298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift */,
+			);
+			path = AuthenticationViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,7 +325,7 @@
 				25A8E77B298D8130008FA6FD /* GoogleSignInSwift */,
 			);
 			productName = Fitness_App;
-			productReference = 25CE3F66298D840F0097CB44 /* Fitness_App.app */;
+			productReference = 25E6D8F1299137EC0015B8B0 /* Fitness_App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
