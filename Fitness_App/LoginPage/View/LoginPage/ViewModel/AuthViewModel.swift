@@ -147,6 +147,13 @@ class AuthViewModel: ObservableObject {
 
 //MARK: Facebook
 extension AuthViewModel {
+    
+    
+    /// SignInWithFaceBook
+    ///
+    /// This function will:
+    /// 1. invoke the login(permissions, viewController) method in of an instance of FBSDKLoginManager
+    /// 2. invoke the signIn(with) function in the FireBaseAuth package
     func facebookLogin() {
         
         fbLoginManager.logIn(permissions: [.publicProfile, .email], viewController: nil) { loginResult in //API call for FB-login
@@ -242,6 +249,12 @@ extension AuthViewModel {
 
 //MARK: Google
 extension AuthViewModel {
+    
+    /// SignInWithGoogle
+    ///
+    /// This function will:
+    /// 1. invoke the signIn(with, presenting) function in GoogleSignIn package with local configuration variables
+    /// 2. invoke the signIn(with) function in the FireBaseAuth package
     func handleSignInWithGoogleButton() {
         print("Sign-in with Google Clicked")
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
@@ -272,8 +285,8 @@ extension AuthViewModel {
             
             Auth.auth().signIn(with: credential) { authResult, error in     //Authentication code for Google Sign In
                 if let error = error {
-                    let authError = error as! NSError
-                    if isMFAEnabled, authError.code == AuthErrorCode.secondFactorRequired.rawValue {
+                    let authError = error as NSError
+                    if self.isMFAEnabled, authError.code == AuthErrorCode.secondFactorRequired.rawValue {
                         // The user is a multi-factor user. Second factor challenge is required.
                         let resolver = authError
                             .userInfo[AuthErrorUserInfoMultiFactorResolverKey] as! MultiFactorResolver
@@ -397,6 +410,13 @@ extension AuthViewModel {
 
 //MARK: Email
 extension AuthViewModel {
+    
+    /// SignInWithEmail
+    /// - Returns: a boolean value that represents if the authentication is successful
+    ///
+    /// This function will:
+    /// 1. update authState in the view model to present the stage of the authentication process
+    /// 2. invoke the signIn(withEmail, password) function in the FireBaseAuth package
     func signInWithEmail() async -> Bool {
         authState = .authenticating
         do {
@@ -411,6 +431,13 @@ extension AuthViewModel {
             return false
         }
     }
+    
+    /// SignUpWithEmail
+    /// - Returns: a boolean value that represents if the authentication is successful
+    ///
+    /// This function will:
+    /// 1. update authState in the view model to present the stage of the authentication process
+    /// 2. invoke the signUp(withEmail, password) function in the FireBaseAuth package
     func signUpWithEmail() async -> Bool {
         print("auth")
         authState = .authenticating
