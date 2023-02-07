@@ -78,7 +78,7 @@
 		047200FB298ACFF300B04964 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04720104298AD69700B04964 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		047C5F5229914E59000A4F49 /* facebookLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = facebookLogin.swift; sourceTree = "<group>"; };
-		047C5F5429916C70000A4F49 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		047C5F5429916C70000A4F49 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Fitness_App.app; path = "/Users/mac/Documents/Fitness-App-4/build/Debug-iphoneos/Fitness_App.app"; sourceTree = "<absolute>"; };
 		047C5F5629929EC6000A4F49 /* Sign-Up View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sign-Up View.swift"; sourceTree = "<group>"; };
 		047C5F592992AD47000A4F49 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		047C5F5D2992AD7B000A4F49 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -234,7 +234,6 @@
 				047200F9298ACA7E00B04964 /* Fitness-App-Info.plist */,
 				04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */,
 				0498333E2954975400724C7B /* Fitness_App */,
-				047C5F5429916C70000A4F49 /* Fitness_App.app */,
 			);
 			sourceTree = "<group>";
 		};
