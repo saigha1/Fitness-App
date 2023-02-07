@@ -44,8 +44,8 @@ extension FireBaseSignInWithAppleView {
             }
         )
         .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
-        .frame(width: 200, height: 60)
-        .cornerRadius(8)
+        .frame(width: 220, height: 50)
+        .cornerRadius(2)
     }
     
     private var greeting: some View {

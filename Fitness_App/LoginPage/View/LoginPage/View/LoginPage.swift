@@ -13,57 +13,62 @@ import FacebookCore
 import Foundation
 import FirebaseCore
 import FirebaseAuth
+import UIKit
 
 
 ///Refactored Code for Google Sign In and Facebook Sign In
 ///Enabled Firebase for Google and now Facebook
 ///
 
-struct LoginPage: View {    
-//    @State private var email = ""
-//    @State private var password = ""
-    let loginButton = FBLoginButton()
-  
-    
-//    @EnvironmentObject var GoogleFirebaseSignIn : GoogleSignInWithFirebase
-//    @EnvironmentObject var FacebookFirebaseSignIn: UserLoginManager
+struct LoginPage: View {
+
     @EnvironmentObject var authVM: AuthViewModel
     
     @MainActor
     var body: some View {
-        VStack{
-            if authVM.isPresented{
-                Text("Welcome Facebook-Firebase")
-            }
+        ZStack{
+            Image("Sign-in-bgimage")
+                .resizable()
+                .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height, alignment: .center)
+                .scaledToFit()
+                .ignoresSafeArea()
+                .overlay() {
+                    Color(white: 1, opacity: 0.8).ignoresSafeArea()
+                }
+            
+            VStack{
+                Text("Sign In").bold()
                 
-            Text("Sign In").bold()
-                .underline()
-            
-            
-            Button(action: {
-                self.authVM.facebookLogin()
-            }) {
-                Text("Continue with Facebook")
+                FireBaseSignInWithEmailView()
+                
+                Divider()
+                    .frame(minHeight: 0.8)
+                    .frame(width: 150)
+                    .background(Color.gray)
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                //Facebook Login Button
+                Button(action: {
+                    self.authVM.facebookLogin()
+                }) {
+                    facebookLogin()
+                }
+                .frame(width: 220, height: 50, alignment: .center)
+                .cornerRadius(4)
+                
+                Spacer()
+                    .frame(height: 8)
+                
+                //Google Login Button
+                GoogleSignInButton(action: authVM.handleSignInWithGoogleButton)
+                    .frame(width: 220)
+                
+                
+                //Apple Login Button
+                FireBaseSignInWithAppleView()
             }
-            .background(.pink)
- 
-            GoogleSignInButton(action: authVM.handleSignInWithGoogleButton)
-                .frame(width: 200)
-            
-//            Text ("Sign in with Apple").bold()  //Step 3: Apple wiith Oauth2
-            FireBaseSignInWithAppleView()
-            
-            Text("Sign in with Regular Email").bold().underline() .padding(5) //Step 4: Might not need Oauth2 Firebase maybe
-            
-//            Text("Enter your Email: ")
-//                .bold()
-//                .frame(alignment: .center)
-//
-//            TextFieldView(textInput: $email, placeholder: "Email", isPassword: false)
-//
-//            TextFieldView(textInput: $password, placeholder: "Password: ", isPassword: true)
-            FireBaseSignInWithEmailView()
-            
         }
     }
 }
@@ -73,5 +78,6 @@ struct LoginPage: View {
 struct LoginPage_Previews: PreviewProvider {
     static var previews: some View {
         LoginPage()
+            .environmentObject(AuthViewModel())
     }
 }

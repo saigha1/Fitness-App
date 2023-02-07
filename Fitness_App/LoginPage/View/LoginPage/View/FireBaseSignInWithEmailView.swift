@@ -33,12 +33,24 @@ extension FireBaseSignInWithEmailView {
     private var form: some View {
         VStack {
             TextField("Your Email", text: $authVM.email)
+                .frame(width: 310, height: 30)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(.black, lineWidth: 1)
+                    )
+                
             SecureField("Password", text: $authVM.password)
+                .frame(width: 310, height: 30)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(.black, lineWidth: 1)
+                    )
+                
             signInButton
-            Spacer()
         }
-        .frame(height: 300)
-        .padding()
+        .frame(width: 325, height: 150)
+        
+        
     }
     
     private var signInButton: some View {
@@ -56,9 +68,9 @@ extension FireBaseSignInWithEmailView {
             }
             .padding()
             .foregroundColor(colorScheme == .light ? Color.white : Color.black)
-            .frame(width: 240, height: 60)
+            .frame(width: 220, height: 50)
             .background(colorScheme == .light ? Color.black : Color.white)
-            .cornerRadius(8)
+            .cornerRadius(4)
         }
     }
 }
