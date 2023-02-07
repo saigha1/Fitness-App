@@ -256,7 +256,6 @@ extension AuthViewModel {
     /// 1. invoke the signIn(with, presenting) function in GoogleSignIn package with local configuration variables
     /// 2. invoke the signIn(with) function in the FireBaseAuth package
     func handleSignInWithGoogleButton() {
-        print("Sign-in with Google Clicked")
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         
         // Create Google Sign In configuration object.
