@@ -49,8 +49,6 @@ extension FireBaseSignInWithEmailView {
             signInButton
         }
         .frame(width: 325, height: 150)
-        
-        
     }
     
     private var signInButton: some View {

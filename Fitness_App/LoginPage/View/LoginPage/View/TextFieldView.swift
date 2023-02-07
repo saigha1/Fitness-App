@@ -11,13 +11,20 @@ struct TextFieldView: View{
     @State var textInput : Binding<String>
     let placeholder: String
     let isPassword: Bool
+    var cornerRadius: CGFloat = 6
+    var strokeColor: Color = .black
+    var strokeWidth: CGFloat = 1
+    var offsetX: CGFloat = -10
+    var offsetY: CGFloat = 0
+    var width: CGFloat = 310
+    var height: CGFloat = 60
+    
     var body: some View{
         Group {
             if !isPassword{
                 TextField(
                     placeholder, text: textInput
                 )
-                
             } else{
                 SecureField(
                     placeholder,
@@ -25,13 +32,22 @@ struct TextFieldView: View{
                 )
             }
         }
-        .font(Font.title2.weight(.bold))
-        .frame(width: 300, height: 30)
-        .textFieldStyle(.roundedBorder)
-        .border(.black, width: 1)
-        .padding()
-        
-        
-        
+        .frame(width: width, height: height)
+        .overlay(
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .stroke(strokeColor, lineWidth: strokeWidth)
+                .offset(x: offsetX, y: offsetY)
+        )
+    }
+}
+
+struct TextFieldView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            TextFieldView(textInput: .constant("user"), placeholder: "", isPassword: false)
+            TextFieldView(textInput: .constant("password"), placeholder: "", isPassword: true)
+            TextFieldView(
+                textInput: .constant(""), placeholder: "Placerholder", isPassword: false, cornerRadius: 5, strokeColor: .red, strokeWidth: 2, offsetX: -15, offsetY: 0, width: 210, height: 30)
+        }
     }
 }
