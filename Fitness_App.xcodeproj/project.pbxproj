@@ -62,6 +62,7 @@
 		2545A608298D60D900310999 /* FireBaseSignInWithAppleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A606298D60D800310999 /* FireBaseSignInWithAppleView.swift */; };
 		2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A607298D60D900310999 /* FireBaseSignInWithEmailView.swift */; };
 		2570932D298D6E62004D9176 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570932C298D6E62004D9176 /* AuthViewModel.swift */; };
+		259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */; };
 		25A8E77A298D8130008FA6FD /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 25A8E779298D8130008FA6FD /* GoogleSignIn */; };
 		25A8E77C298D8130008FA6FD /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 25A8E77B298D8130008FA6FD /* GoogleSignInSwift */; };
 		25E6D8F529914A220015B8B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F429914A220015B8B0 /* Color.swift */; };
@@ -96,11 +97,11 @@
 		2545A606298D60D800310999 /* FireBaseSignInWithAppleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithAppleView.swift; sourceTree = "<group>"; };
 		2545A607298D60D900310999 /* FireBaseSignInWithEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithEmailView.swift; sourceTree = "<group>"; };
 		2570932C298D6E62004D9176 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		25E6D8F1299137EC0015B8B0 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Fitness_App.app; path = "/Users/xavier/Documents/Fitness-App/build/Debug-iphoneos/Fitness_App.app"; sourceTree = "<absolute>"; };
+		2598132E2992A16A00EA9B36 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Fitness_App.app; path = "/Users/xavier/Documents/Fitness-App/build/Debug-iphoneos/Fitness_App.app"; sourceTree = "<absolute>"; };
+		2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelWithIconView.swift; sourceTree = "<group>"; };
 		25E6D8F429914A220015B8B0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		25E6D8F629914D5E0015B8B0 /* EndUser.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EndUser.json; sourceTree = "<group>"; };
 		25E6D8F929915FC00015B8B0 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
-		25E6D8F1299137EC0015B8B0 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Fitness_App.app; path = "/Users/mac/Documents/Fitness-App-4/build/Debug-iphoneos/Fitness_App.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				0446396F2983FC8500C1741B /* TextFieldView.swift */,
+				2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */,
 				044639702983FC8500C1741B /* LoginPage.swift */,
 				0446397429841B9E00C1741B /* rootViewController.swift */,
 				2545A606298D60D800310999 /* FireBaseSignInWithAppleView.swift */,
@@ -337,7 +339,7 @@
 				25A8E77B298D8130008FA6FD /* GoogleSignInSwift */,
 			);
 			productName = Fitness_App;
-			productReference = 25E6D8F1299137EC0015B8B0 /* Fitness_App.app */;
+			productReference = 2598132E2992A16A00EA9B36 /* Fitness_App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -415,6 +417,7 @@
 				2545A608298D60D900310999 /* FireBaseSignInWithAppleView.swift in Sources */,
 				049833402954975400724C7B /* Fitness_AppApp.swift in Sources */,
 				2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */,
+				259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */,
 				0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */,
 				0446397529841B9E00C1741B /* rootViewController.swift in Sources */,
 				044639732983FC8500C1741B /* LoginPage.swift in Sources */,
