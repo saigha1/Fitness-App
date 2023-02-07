@@ -39,6 +39,7 @@ struct LoginPage: View {
             VStack{
                 Text("Sign In").bold()
                 
+                //Email Login
                 FireBaseSignInWithEmailView()
                 
                 Divider()
