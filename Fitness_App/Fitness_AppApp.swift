@@ -27,7 +27,7 @@ struct Fitness_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LoginPage()
+            UserProfileIconView()
 //                .environmentObject(googleFireBaseVM)
 //                .environmentObject(facebookFirebaseSignIn)
                 .environmentObject(authenticationVM)

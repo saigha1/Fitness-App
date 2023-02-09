@@ -8,6 +8,15 @@
 import SwiftUI
 import Charts
 
+
+var appointsOfCurrentUser: [WorkOutAppointment] {
+    appointments.filter { appointment in
+        appointment.userID == userIDMichaelLogan
+    }
+}
+let groupedAppoints = appointsOfCurrentUser.sliced(by: [.year, .month], for: \.date)
+let sortedKeys = Array(groupedAppoints.keys).sorted(by: <)
+
 struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
     
@@ -57,10 +66,19 @@ struct UserProfileView: View {
             
             Spacer()
         }
+        .onAppear {
+            working()
+        }
     }
 }
 
 extension UserProfileView {
+    
+    private func working() {
+        print("Fetching data...")
+        
+    }
+    
     private var workoutJouney: some View {
         VStack {
             VStack(alignment: .leading, spacing: 2) {
@@ -69,25 +87,15 @@ extension UserProfileView {
                     Text("Workout Journey")
                         .bold()
                 }
+                .foregroundColor(.indigo)
                 
                 if #available(iOS 16.0, *) {
                     Chart {
-                        LineMark(
-                            x: .value("Shape Type", "Nov"),
-                            y: .value("Total Count", 2)
-                        )
-                        LineMark(
-                            x: .value("Shape Type", "Dec"),
-                            y: .value("Total Count", 4)
-                        )
-                        LineMark(
-                            x: .value("Shape Type", "Jan"),
-                            y: .value("Total Count", 1)
-                        )
-                        LineMark(
-                            x: .value("Shape Type", "Feb"),
-                            y: .value("Total Count", 3)
-                        )
+                        
+                        ForEach(sortedKeys, id: \.self) { key in
+                            BarMark(x: .value("Month", key.asStringYYYYMM()), y: .value("# of workout", groupedAppoints[key]?.count ?? 0))
+                                .foregroundStyle(.indigo.opacity(0.8))
+                        }
                     }
                 } else {
                     // Fallback on earlier versions
