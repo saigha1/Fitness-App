@@ -110,7 +110,7 @@
 		259813332992B2DE00EA9B36 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		259813352992B2E900EA9B36 /* UserSignUpFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpFormView.swift; sourceTree = "<group>"; };
 		259813372992B32700EA9B36 /* UserProfileIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileIconView.swift; sourceTree = "<group>"; };
-		25C09DAC2995338700099C8E /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25C09DAC2995338700099C8E /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Fitness_App.app; path = "/Users/xavier/Documents/Fitness-App/build/Debug-iphoneos/Fitness_App.app"; sourceTree = "<absolute>"; };
 		25C09DAD299536A500099C8E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		25C09DAF29953E7F00099C8E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		25E6D8F429914A220015B8B0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -221,7 +221,6 @@
 				047200F9298ACA7E00B04964 /* Fitness-App-Info.plist */,
 				04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */,
 				0498333E2954975400724C7B /* Fitness_App */,
-				25C09DAC2995338700099C8E /* Fitness_App.app */,
 			);
 			sourceTree = "<group>";
 		};
