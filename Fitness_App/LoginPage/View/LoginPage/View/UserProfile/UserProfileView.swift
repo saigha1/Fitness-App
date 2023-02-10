@@ -9,11 +9,34 @@ import SwiftUI
 
 struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
+    //State private properties for editing mode
+    @State var isEditing: Bool = false
+    @State var phoneNumber: String = user.phoneNum
+    @State var email: String = user.email
+    @State var gymLoocation: String = user.gymLocation
+    @State var typesOfWorkout: [String] = user.typesOfWorkout
+    @State var heightFeet: Int = user.heightFt
+    @State var heightInch: Double = user.heightIn
+    @State var skeletalMuscleMass: Double = user.skeletalMuscleMass
+    @State var currentWeight: Double = user.currentWeight
+    @State var currentBodyFat: Double = user.currentBodyFat
+    @State var targetWeight: Double = user.targetWeight
+    @State var targetBodyFat: Double = user.targetBodyFat
+    
     
     var body: some View {
         ScrollView {
             header
             VStack(alignment: .leading, spacing: 15) {
+                HStack {
+                    Spacer()
+                    Button {
+                        isEditing = isEditing ? false : true
+                    } label: {
+                        Text(isEditing ? "Done" : "Edit")
+                            .foregroundColor(.accentColor)
+                    }
+                }
                 personalInfo
                     .background(
                         RoundedRectangle(cornerRadius: 8, style: .continuous)

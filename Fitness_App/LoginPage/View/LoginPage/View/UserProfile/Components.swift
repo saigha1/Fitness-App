@@ -55,21 +55,40 @@ extension UserProfileView {
             .foregroundColor(Color.assetColor.purple)
             Divider()
             
-            
-            HStack(alignment: .top) {
-                VStack(alignment: .leading) {
-                    Text("Age")
-                        .bold()
-                    Text("Phone Number")
-                        .bold()
-                    Text("Email")
-                        .bold()
-                }
+            //Age
+            HStack {
+                Text("Age")
+                    .bold()
                 Spacer()
-                VStack(alignment: .trailing) {
-                    Text("\(user.age)")
-                    Text(user.phoneNum)
-                    Text(user.email)
+                Text("\(user.age)")
+            }
+            
+            //Phone Number
+            HStack {
+                Text("Phone Number")
+                    .bold()
+                Spacer()
+                Group {
+                    if isEditing {
+                        TextFieldView(textInput: $phoneNumber, placeholder: user.phoneNum, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 112, height: 8)
+                            .keyboardType(.numberPad)
+                    } else {
+                        Text(user.phoneNum)
+                    }
+                }
+            }
+            
+            //Email
+            HStack {
+                Text("Email")
+                    .bold()
+                Spacer()
+                Group {
+                    if isEditing {
+                        TextFieldView(textInput: $email, placeholder: user.email, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
+                    } else {
+                        Text(user.email)
+                    }
                 }
             }
         }
