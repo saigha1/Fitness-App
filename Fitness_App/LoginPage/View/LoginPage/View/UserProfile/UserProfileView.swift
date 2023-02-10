@@ -21,7 +21,7 @@ struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
+        ScrollView {
             HStack {
                 Spacer()
                 Button {
@@ -66,18 +66,10 @@ struct UserProfileView: View {
             
             Spacer()
         }
-        .onAppear {
-            working()
-        }
     }
 }
 
 extension UserProfileView {
-    
-    private func working() {
-        print("Fetching data...")
-        
-    }
     
     private var workoutJouney: some View {
         VStack {
@@ -89,17 +81,43 @@ extension UserProfileView {
                 }
                 .foregroundColor(.indigo)
                 
+                Divider()
+                
                 if #available(iOS 16.0, *) {
                     Chart {
-                        
                         ForEach(sortedKeys, id: \.self) { key in
                             BarMark(x: .value("Month", key.asStringYYYYMM()), y: .value("# of workout", groupedAppoints[key]?.count ?? 0))
-                                .foregroundStyle(.indigo.opacity(0.8))
+                                .foregroundStyle(.indigo.opacity(0.7))
+                            LineMark(x: .value("Month", key.asStringYYYYMM()), y: .value("# of workout", groupedAppoints[key]?.count ?? 0))
+                                .foregroundStyle(.indigo)
+
                         }
                     }
                 } else {
-                    // Fallback on earlier versions
+                    //Fallback on earlier versions
+                    HStack(alignment: .bottom) {
+                        ForEach(sortedKeys, id: \.self) { key in
+                            VStack {
+                                Spacer()
+                                Text("\(groupedAppoints[key]?.count ?? 0)")
+                                    .offset(x: 0, y: 10)
+                                Rectangle()
+                                    .fill(Color.indigo)
+                                    .frame(
+                                        width: CGFloat(UIScreen.main.bounds.width/CGFloat(sortedKeys.count)/3 * 2),
+                                        height: CGFloat(groupedAppoints[key]?.count ?? 0) * 15)
+                                Text(key.asString("MMM-yy"))
+                                    .foregroundColor(.secondary)
+                                    .font(.footnote)
+                                    .frame(height: 20)
+                            }
+                        }
+                    }
                 }
+                Text("Workout appointments attended by month")
+                    .font(.footnote)
+                    .bold()
+                    .foregroundColor(.secondary)
             }
         }
     }

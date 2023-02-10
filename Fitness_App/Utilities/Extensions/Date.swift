@@ -28,4 +28,11 @@ extension Date {
         formatter.dateFormat = "yyyy-MM"
         return formatter.string(from: self)
     }
+    
+    
+    func asString(_ format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
 }
