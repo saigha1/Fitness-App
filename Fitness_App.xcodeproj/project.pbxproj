@@ -52,6 +52,9 @@
 		04BC0EF8298C073D000EE16E /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 04BC0EF7298C073D000EE16E /* FirebaseStorageCombine-Community */; };
 		04BC0EFA298C1C77000EE16E /* Google-Firebase-LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */; };
 		04BC0EFC298C1EF7000EE16E /* FacebookFirebaseSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */; };
+		251A499C2995EEC70066A9CF /* EndUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A499B2995EEC70066A9CF /* EndUser.swift */; };
+		251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A499D2995F6870066A9CF /* WorkOutAppointment.swift */; };
+		251A49A12995F6F20066A9CF /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A49A02995F6F20066A9CF /* Components.swift */; };
 		253ADE0B298D647D0038AE85 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0A298D647D0038AE85 /* FacebookCore */; };
 		253ADE0D298D647D0038AE85 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0C298D647D0038AE85 /* FacebookLogin */; };
 		253ADE0F298D647D0038AE85 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0E298D647D0038AE85 /* FacebookShare */; };
@@ -97,6 +100,9 @@
 		04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Google-Firebase-LoginVM.swift"; sourceTree = "<group>"; };
 		04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookFirebaseSignIn.swift; sourceTree = "<group>"; };
+		251A499B2995EEC70066A9CF /* EndUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUser.swift; sourceTree = "<group>"; };
+		251A499D2995F6870066A9CF /* WorkOutAppointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutAppointment.swift; sourceTree = "<group>"; };
+		251A49A02995F6F20066A9CF /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		253542D72995585F00FB4709 /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Fitness_App.app; path = "/Users/xavier/Documents/Fitness-App/build/Debug-iphoneos/Fitness_App.app"; sourceTree = "<absolute>"; };
 		2545A5FC298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithAppleViewModel.swift; sourceTree = "<group>"; };
 		2545A5FD298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithEmailViewModel.swift; sourceTree = "<group>"; };
@@ -175,6 +181,8 @@
 		0446396B2983FC8500C1741B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				251A499B2995EEC70066A9CF /* EndUser.swift */,
+				251A499D2995F6870066A9CF /* WorkOutAppointment.swift */,
 				0446396C2983FC8500C1741B /* Resources */,
 			);
 			path = Model;
@@ -289,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				259813332992B2DE00EA9B36 /* UserProfileView.swift */,
+				251A49A02995F6F20066A9CF /* Components.swift */,
 				259813372992B32700EA9B36 /* UserProfileIconView.swift */,
 			);
 			path = UserProfile;
@@ -455,12 +464,15 @@
 				259813382992B32700EA9B36 /* UserProfileIconView.swift in Sources */,
 				2545A608298D60D900310999 /* FireBaseSignInWithAppleView.swift in Sources */,
 				049833402954975400724C7B /* Fitness_AppApp.swift in Sources */,
+				251A49A12995F6F20066A9CF /* Components.swift in Sources */,
+				251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */,
 				259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */,
 				259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */,
 				2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */,
 				259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */,
 				0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */,
 				0446397529841B9E00C1741B /* rootViewController.swift in Sources */,
+				251A499C2995EEC70066A9CF /* EndUser.swift in Sources */,
 				044639732983FC8500C1741B /* LoginPage.swift in Sources */,
 				25C09DAE299536A500099C8E /* Date.swift in Sources */,
 				25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */,
