@@ -23,6 +23,9 @@ struct UserProfileView: View {
     @State var targetWeight: Double = user.targetWeight
     @State var targetBodyFat: Double = user.targetBodyFat
     
+    // Temp properties for pickers
+    var trainerGenders = ["Male", "Female"]
+    @State var selectedPTGender: String = user.preferredPTGender
     
     var body: some View {
         ScrollView {

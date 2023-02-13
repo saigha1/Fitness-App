@@ -97,6 +97,7 @@ extension UserProfileView {
 
 //MARK: Preferences Section
 extension UserProfileView {
+    
     var preferences: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
@@ -107,10 +108,32 @@ extension UserProfileView {
             .foregroundColor(Color.assetColor.blue)
             Divider()
             
+            HStack {
+                Text("Gym Location")
+                    .bold()
+                Spacer()
+                Text("\(user.gymLocation)")
+            }
+            
+            HStack {
+                Text("Trainer Gender")
+                    .bold()
+                Spacer()
+                Group {
+                    if isEditing {
+                        Picker("Gender", selection: $selectedPTGender) {
+                            ForEach(trainerGenders, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                    } else {
+                        Text("\(selectedPTGender)")
+                    }
+                }
+            }
+            
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
-                    Text("Trainer Gender")
-                        .bold()
                     Text("Gym Location")
                         .bold()
                     Text("Types of Workout")
@@ -118,7 +141,6 @@ extension UserProfileView {
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Text("\(user.preferredPTGender)")
                     Text("\(user.gymLocation)")
                     VStack(alignment: .trailing) {
                         ForEach(user.typesOfWorkout, id: \.self) {type in
