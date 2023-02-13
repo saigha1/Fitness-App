@@ -8,71 +8,84 @@
 import SwiftUI
 
 struct Sign_Up_View: View {
-    @State var name: String?
+
+    @StateObject var modelData : ModelData = ModelData()
+    
     var body: some View {
         VStack{
             Text("Sign up as a Trainer")
+                .underline()
+            profileSummary
+            profileImage
+            IntroductionImages
+            IntroductionVideo
+            IDNCertifications
             
-            
-            
-            
-            
+
         }
-        
     }
+    //true= profile.user.approved
+//                if (true){
+//                    //                Text(\(profile.user.name)) // Needs to be Object
+//                } else{
+//                    TextField(<#T##title: StringProtocol##StringProtocol#>, text: <#T##Binding<String>#>)
+//                }
     
-    var ProfileSummary: some View{
+    var profileSummary: some View{
         VStack{
             HStack{
-                Text("Name")
-                TextField(name, text: "Name") // Needs to be Object
+                Text("Name:")
+                Text("\(modelData.gym[0].id)")
+                
             }
             HStack{
                 Text("Gender")
-                TextField("Male") // Needs to be Object
+//                TextField("Male") // Needs to be Object
             }
             HStack{
                 Text("Training Category")
-                Picker() //Add up to 3
+//                Picker() //Add up to 3
             }
             HStack{
                 Text("Experience Level")
-                TextField("10 years")  // Needs to be Object
+//                TextField("10 years")  // Needs to be Object
             }
             HStack{
                 Text("Education")
-                TextField("B.S. in Sports Management. M.S. in Health, Exercise, & Sports Science")
+//                TextField("B.S. in Sports Management. M.S. in Health, Exercise, & Sports Science")
             }
             
             HStack{
                 Text("Certification")
-                TextField("Certficate in IV Fitness")
+//                TextField("Certficate in IV Fitness")
             }
             
             HStack{
                 Text("Motto")
-                TextField("If you still look cute at the end of your workout, you didn't work hard enough)
+//                TextField("If you still look cute at the end of your workout, you didn't work hard enough")
             }
             HStack{
                 Text("Location")
-                TextField("Mississauga, ON")
+//                TextField("Mississauga, ON")
             }
-                          
+            
             HStack{
                 Text("Preferred Gyms")
-                TextField("GoodLife, LifeTime, Planet Fitness")
+//                TextField("GoodLife, LifeTime, Planet Fitness")
             }
-                          
-          HStack{
-              Text("Description")
-              TextField("Weight Lifting ptrofessional with 10+ years of experience training individuals and athletes. Competed provincially and won silver medal.")
-          }
-                          
-          Button(action: submitForConfirmation(), label: "Submit")
+            
+            HStack{
+                Text("Description")
+//                TextField("Weight Lifting ptrofessional with 10+ years of experience training individuals and athletes. Competed provincially and won silver medal.")
+            }
+            
+            //          Button(action: submitForConfirmation(), label: "Submit")
+            //        }
+            
         }
     }
     
-    var ProfileImage: some View{
+    var profileImage: some View{
         HStack{
             Text("Profile Images")
             Image("")
@@ -80,7 +93,7 @@ struct Sign_Up_View: View {
         }
     }
     
-    var Introduction Images: some View{
+    var IntroductionImages: some View{
         HStack{
             Text("Introduction Images")
             VStack{
@@ -109,10 +122,6 @@ struct Sign_Up_View: View {
            
         }
     }
-    
-   
-    
-    
     
 }
 

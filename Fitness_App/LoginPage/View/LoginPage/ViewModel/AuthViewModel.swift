@@ -33,7 +33,7 @@ class AuthViewModel: ObservableObject {
     @Published var authState: AuthenticationState = .unauthenticated
     @Published var errorMsg: String = ""
     @Published var displayName: String = ""
-    //@Published var user: User?
+//    @Published var user: User?
     @Published var errorMessage: String?
     @Published var currentUser: User?
     
@@ -155,8 +155,12 @@ extension AuthViewModel {
     /// 1. invoke the login(permissions, viewController) method in of an instance of FBSDKLoginManager
     /// 2. invoke the signIn(with) function in the FireBaseAuth package
     func facebookLogin() {
-        
+        authState = .authenticating
+
+        ApplicationDelegate.initializeSDK(nil)
         fbLoginManager.logIn(permissions: [.publicProfile, .email], viewController: nil) { loginResult in //API call for FB-login
+          
+
             switch loginResult {
             case .failed(let error):
                 print(error)
@@ -217,7 +221,7 @@ extension AuthViewModel {
                                                                                 "Multi factor finanlize sign in failed. Error: \(error.debugDescription)"
                                                                             )
                                                                         } else {
-                                                                            //                                                  self.navigationController?.popViewController(animated: true)
+//                                                                           self.navigationController?.popViewController(animated: true)
                                                                             
                                                                         }
                                                                     }
@@ -237,6 +241,14 @@ extension AuthViewModel {
                             // User is signed in
                             // ...
                             print("User is signed in using FB-Firebase. --")
+//                            let credential = FacebookAuthProvider.credential(withAccessToken: id)
+//                            let result = try await Auth.auth().signIn(with: credential)
+////                            print(authState)
+                            self.authState = .authenticated
+//                            self.currentUser = result.user
+//                            print(currentUser)
+                            print(self.authState)
+                            //TODO: GET USER PROFILE INFO
                         }
                     }
                 })
@@ -256,6 +268,8 @@ extension AuthViewModel {
     /// 1. invoke the signIn(with, presenting) function in GoogleSignIn package with local configuration variables
     /// 2. invoke the signIn(with) function in the FireBaseAuth package
     func handleSignInWithGoogleButton() {
+        authState = .authenticating
+        
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         
         // Create Google Sign In configuration object.
@@ -326,6 +340,7 @@ extension AuthViewModel {
                                                                     "Multi factor finanlize sign in failed. Error: \(error.debugDescription)"
                                                                 )
                                                             } else {
+                                                                
 //                                                                self.navigationController?.popViewController(animated: true)
                                                                 
                                                             }
@@ -345,6 +360,8 @@ extension AuthViewModel {
                 }
                 // User is signed in
                 print("User signed in with Google using Firebase Authentication!")
+                self.authState = .authenticated
+                //TODO: GET USER PROFILE INFO
             }
         }
     }

@@ -1,0 +1,183 @@
+[
+    {
+        "id" : 1001,
+        "Brand" : "GoodLife",
+        "Site" :
+        [
+            {
+            "Name" : "GoodLife SquareOne",
+            "id" : "1001-01",
+            "Address" :
+                {
+                    "StreetAdd" : "100 City Centre Dr,",
+                    "City" : "Mississauga",
+                    "Province" : "ON",
+                    "PostalCode" : "L5B 2C9",
+                    "Country" : "Canada"
+                    
+                }
+            
+            },
+            {
+                "Name" : "GoodLife Meadowvale",
+                "id" : "1001-02",
+                "Address" :
+                    {
+                        "StreetAdd" : "6875 Meadowvale Town Centre Cir,",
+                        "City" : "Mississauga",
+                        "Province" : "ON",
+                        "PostalCode" : "L5N 2W7",
+                        "Country" : "Canada"
+                    }
+            },
+            {
+            "Name" : "GoodLife Eaton Centre",
+            "id" : "1001-03",
+            "Address" :
+                {
+                    "StreetAdd" : "483 Bay St.,",
+                    "City" : "Toronto",
+                    "Province" : "ON",
+                    "PostalCode" : "M5G 2C9",
+                    "Country" : "Canada"
+                    
+                
+                }
+            },
+            {
+                "Name" : "GoodLife Toronto",
+                "id" : "1001-04",
+                "Address" :
+                    {
+                        "StreetAdd" : "137 Yonge St,",
+                        "City" : "Toronto",
+                        "Province" : "ON",
+                        "PostalCode" : "M5C 1W6",
+                        "Country" : "Canada"
+                        
+                    
+                    }
+            },
+            {
+            "Name" : "GoodLife HeartLand",
+            "id" : "1001-05",
+            "Address" :
+                {
+                    "StreetAdd" : "785 Britannia Rd W,",
+                    "City" : "Mississauga",
+                    "Province" : "ON",
+                    "PostalCode" : "L5V 2X8",
+                    "Country" : "Canada"
+                    
+                
+                }
+            },
+            {
+                "Name" : "GoodLife Etobicoke",
+                "id" : "1001-06",
+                "Address" :
+                    {
+                        "StreetAdd" : "185 The West Mall,",
+                        "City" : "Etobicoke",
+                        "Province" : "ON",
+                        "PostalCode" : "M9C 5L5",
+                        "Country" : "Canada"
+                        
+                    
+                    }
+            },
+            {
+            "Name" : "GoodLife North York",
+            "id" : "1001-07",
+            "Address" :
+                {
+                    "StreetAdd" : "4950 Yonge St,",
+                    "City" : "North York",
+                    "Province" : "ON",
+                    "PostalCode" : "M2N 6K1",
+                    "Country" : "Canada"
+                    
+                
+                }
+            },
+            {
+                "Name" : "GoodLife Scarborough",
+                "id" : "1001-08",
+                "Address" :
+                    {
+                        "StreetAdd" : "3660 Kingston Rd,",
+                        "City" : "Scarborough",
+                        "Province" : "ON",
+                        "PostalCode" : "M1M 1R9",
+                        "Country" : "Canada"
+                        
+                    
+                    }
+            },
+            {
+            "Name" : "GoodLife Vancouver",
+            "id" : "1001-09",
+            "Address" :
+                {
+                    "StreetAdd" : "1401 W 8th Ave,",
+                    "City" : "Vancouver",
+                    "Province" : "BC",
+                    "PostalCode" : "V6H 1C9",
+                    "Country" : "Canada"
+                    
+                
+                }
+            },
+            {
+                "Name" : "GoodLife Halifax",
+                "id" : "1001-10",
+                "Address" :
+                    {
+                        "StreetAdd" : "3711 Joseph Howe Dr,",
+                        "City" : "Halifax",
+                        "Province" : "NS",
+                        "PostalCode" : "B3L 4H8",
+                        "Country" : "Canada"
+                        
+                    
+                    }
+            }
+            
+        ]
+    },
+    {
+        "id" : 1002,
+        "Brand" : "LAFitness",
+        "Site" :
+        [
+            {
+                "Name" : "LAFitness SquareOne",
+                "id" : "1002-01",
+                "Address" :
+                    {
+                        "StreetAdd" : "100 City Centre Dr..,",
+                        "City" : "Mississauga",
+                        "Province" : "ON",
+                        "PostalCode" : "L5B 2C9",
+                        "Country" : "Canada"
+                        
+                    
+                    }
+                
+            },
+            {
+                "Name" : "LAFitness Meadowvale",
+                "id" : "1002-02",
+                "Address" :
+                    {
+                        "StreetAdd" : "6875 Meadowvale Town Centre Cir,",
+                        "City" : "Mississauga",
+                        "Province" : "ON",
+                        "PostalCode" : "L5N 2W7",
+                        "Country" : "Canada"
+
+                    }
+            }
+        ]
+    }
+]
