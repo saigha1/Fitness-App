@@ -122,7 +122,7 @@ extension UserProfileView {
                 Group {
                     if isEditing {
                         Picker("Gender", selection: $selectedPTGender) {
-                            ForEach(trainerGenders, id: \.self) {
+                            ForEach(genders, id: \.self) {
                                 Text($0)
                             }
                         }
