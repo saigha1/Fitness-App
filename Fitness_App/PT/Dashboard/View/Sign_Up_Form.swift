@@ -11,6 +11,8 @@ struct Sign_Up_Form: View {
     
     @StateObject var EncodingJSON : encodingJSON = encodingJSON()
     @Binding var PT : PTModel
+    @State private var showingImagePicker = false
+    @State private var inputImage: UIImage?
     
     var body: some View {
         VStack{
@@ -87,28 +89,40 @@ struct Sign_Up_Form: View {
                 }
         }
         
-    var profileImage: some View{
-        VStack{
-            HStack{
-                Text("Description")
-                Divider()
-                TextField("Description", text: $PT.Description)
-            }
-            
-            HStack{
-                Text("Profile Images")
-                Image("")
+        var profileImage: some View{
+            VStack{
+                HStack{
+                    Text("Description")
+                    Divider()
+                    TextField("Description", text: $PT.Description)
+                }
                 
+                HStack{
+                    Text("Profile Images")
+                    Image("")
+                    
+                }
             }
         }
-    }
         
         var IntroductionImages: some View{
+            
             HStack{
                 Text("Introduction Images")
                 VStack{
                     Text("Add up to 6 images to show up on trainer profile page together with your profile image")
-                    //6 Image Thumbnails
+                    
+                    Rectangle()
+                        .fill(.secondary)
+                    
+                    Button( "Click to upload picture"){
+                            showingImagePicker = true
+                            loadImage()
+                    }
+//                    .onChange(of: inputImage) { _ in loadImage() } //TODO: Might need this
+                    .sheet(isPresented: $showingImagePicker) {
+                        ImagePicker(image: $inputImage)
+                    }
                 }
                
             }
@@ -141,6 +155,11 @@ struct Sign_Up_Form: View {
 //                .foregroundColor(Color.purple)
 //                .cornerRadius(10)
             }
+        }
+    
+        func loadImage() {
+            guard let inputImage = inputImage else { return }
+            image = Image(uiImage: inputImage)
         }
     }
 
