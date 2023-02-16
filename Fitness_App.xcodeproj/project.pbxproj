@@ -79,7 +79,6 @@
 		25C09DAE299536A500099C8E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C09DAD299536A500099C8E /* Date.swift */; };
 		25C09DB029953E7F00099C8E /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C09DAF29953E7F00099C8E /* Array.swift */; };
 		25E6D8F529914A220015B8B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F429914A220015B8B0 /* Color.swift */; };
-		25E6D8F729914D5E0015B8B0 /* EndUser.json in Resources */ = {isa = PBXBuildFile; fileRef = 25E6D8F629914D5E0015B8B0 /* EndUser.json */; };
 		25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F929915FC00015B8B0 /* Icons.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,7 +125,6 @@
 		25C09DAD299536A500099C8E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		25C09DAF29953E7F00099C8E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		25E6D8F429914A220015B8B0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		25E6D8F629914D5E0015B8B0 /* EndUser.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EndUser.json; sourceTree = "<group>"; };
 		25E6D8F929915FC00015B8B0 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,7 +196,6 @@
 			isa = PBXGroup;
 			children = (
 				0446396D2983FC8500C1741B /* Personal-Trainer-PT.json */,
-				25E6D8F629914D5E0015B8B0 /* EndUser.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -452,7 +449,6 @@
 				049FAB702982D297001CDC84 /* .gitignore in Resources */,
 				049833472954975700724C7B /* Preview Assets.xcassets in Resources */,
 				047200FA298ACA7E00B04964 /* Fitness-App-Info.plist in Resources */,
-				25E6D8F729914D5E0015B8B0 /* EndUser.json in Resources */,
 				049833442954975700724C7B /* Assets.xcassets in Resources */,
 				044639712983FC8500C1741B /* Personal-Trainer-PT.json in Resources */,
 				04BC0EC1298C041E000EE16E /* GoogleService-Info.plist in Resources */,
