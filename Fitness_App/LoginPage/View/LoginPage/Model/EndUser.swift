@@ -8,21 +8,21 @@
 import Foundation
 import SwiftUI
 
-struct EndUser {
-    var id: UUID
+struct EndUser: Codable {
+    var id: String // UUID string
     //personal info
     var name: String
-    var profileImageName: String
+    var profileImageName: String?
     var profileImage: Image {
-        Image(profileImageName)
+        Image(profileImageName ?? "")
     }
     var age: Int
-    var phoneNum: String
+    var phone: String
     var email: String
     //preferences
-    var preferredPTGender: String
+    var preferredTrainerGender: String
     var gymLocation: String
-    var typesOfWorkout: [String]
+    var typesOfWorkOut: [String]
     var preferredPriceRange: PriceRangePrefrence
     //health metrics
     var heightFt: Int
@@ -34,30 +34,30 @@ struct EndUser {
     var targetBodyFat: Double
 }
 
-struct PriceRangePrefrence {
-    var currencyCode: String
+struct PriceRangePrefrence: Codable {
+    var currency: String
     var min: Double
     var max: Double
 }
 
 //TODO: Replace with data from JSON
-let userIDMichaelLogan = UUID(uuidString: "a7a3c754-e154-4e15-bbab-2cbc03d2fe19") ?? UUID()
+let userIDMichaelLogan = "a7a3c754-e154-4e15-bbab-2cbc03d2fe19"
 let user = EndUser(
     id: userIDMichaelLogan,
     name: "Michael Logan",
     profileImageName: "User Profile Image",
     age: 23,
-    phoneNum: "437-123-1234",
+    phone: "437-123-1234",
     email: "mlogan2000@icloud.com",
-    preferredPTGender: "Male",
+    preferredTrainerGender: "Male",
     gymLocation: "Etobicoke, ON",
-    typesOfWorkout: [
+    typesOfWorkOut: [
         "Machine-based",
         "Weight-Lifting",
         "Boxing"
     ],
     preferredPriceRange: PriceRangePrefrence(
-        currencyCode: "CAD",
+        currency: "CAD",
         min: 400,
         max: 700),
     heightFt: 5,

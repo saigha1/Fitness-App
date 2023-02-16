@@ -54,7 +54,7 @@ class UserSignUpFormViewModel: ObservableObject {
             !typeOfWorkOut.contains(type)
         }
     }
-
+    
     func validateForm() {
         if validateName() {
             if validateAge() {
@@ -67,29 +67,34 @@ class UserSignUpFormViewModel: ObservableObject {
                                         if validMuscleMass() {
                                             if validateWeight() {
                                                 if validateBodyFat() {
-                                                        let user = EndUser(
-                                                            id: UUID(),
-                                                            name: name,
-                                                            profileImageName: "",
-                                                            age: ageToStore,
-                                                            phoneNum: phoneNumberToStore,
-                                                            email: emailToStore,
-                                                            preferredPTGender: trainerGenderToStore,
-                                                            gymLocation: gymLocationToStore,
-                                                            typesOfWorkout: typeOfWorkoutToStore,
-                                                            preferredPriceRange: PriceRangePrefrence(
-                                                                currencyCode: "CAD",
-                                                                min: priceRangeLowToStore,
-                                                                max: priceRangeHighToStore
-                                                            ),
-                                                            heightFt: heightFtToStore,
-                                                            heightIn: heightInToStore,
-                                                            skeletalMuscleMass: skeletalMuscleMassToStore,
-                                                            currentWeight: currentWeightToStore,
-                                                            targetWeight: targetWeightToStore,
-                                                            currentBodyFat: currentFatPercentageToStore,
-                                                            targetBodyFat: targetFatPercentageToStore)
-                                                    print(user)
+                                                    let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+                                                    print(usersBeforeCreating.count)
+                                                    let newUser = EndUser(
+                                                        id: UUID().uuidString,
+                                                        name: name,
+                                                        profileImageName: "",
+                                                        age: ageToStore,
+                                                        phone: phoneNumberToStore,
+                                                        email: emailToStore,
+                                                        preferredTrainerGender: trainerGenderToStore,
+                                                        gymLocation: gymLocationToStore,
+                                                        typesOfWorkOut: typeOfWorkoutToStore,
+                                                        preferredPriceRange: PriceRangePrefrence(
+                                                            currency: "CAD",
+                                                            min: priceRangeLowToStore,
+                                                            max: priceRangeHighToStore
+                                                        ),
+                                                        heightFt: heightFtToStore,
+                                                        heightIn: heightInToStore,
+                                                        skeletalMuscleMass: skeletalMuscleMassToStore,
+                                                        currentWeight: currentWeightToStore,
+                                                        targetWeight: targetWeightToStore,
+                                                        currentBodyFat: currentFatPercentageToStore,
+                                                        targetBodyFat: targetFatPercentageToStore
+                                                    )
+                                                    add(newEntry: newUser, filename: "EndUser.json", location: .document)
+                                                    let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+                                                    print(usersAfterCreating.count)
                                                 }
                                             }
                                         }
@@ -230,5 +235,80 @@ class UserSignUpFormViewModel: ObservableObject {
             error = "Invalid body fat."
             return false
         }
+    }
+    
+    // Read data from JSON
+    enum FileLocation {
+        case bundle
+        case document
+    }
+    func load<T: Decodable>(filename: String, location: FileLocation) -> T? {
+        var data: Data?
+        var file: URL
+        switch location {
+        case .bundle:
+            guard let fileURL = Bundle.main.url(forResource: filename, withExtension: nil)
+                else {
+                    fatalError("Couldn't find \(filename) in main bundle.")
+            }
+            file = fileURL
+        default:
+            do {
+                file = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                    .appendingPathComponent(filename)
+            } catch {
+                fatalError("Coudn't read or create \(filename): \(error.localizedDescription)")
+            }
+        }
+
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            print("Couldn't load \(filename) from main bundle or document directory :\n\(error)")
+        }
+
+        guard data != nil else { return nil }
+        
+        do {
+            let decoder = JSONDecoder()
+            print("Reading...  📖: \(file.description)")
+            return try decoder.decode(T.self, from: data!)
+        } catch {
+            fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+        }
+    }
+    
+    // Write data to JSON
+    func add<T: Codable>(newEntry: T, filename: String, location: FileLocation) {
+        var entities: [T] = load(filename: filename, location: location) ?? []
+        entities.append(newEntry)
+        var file: URL
+        switch location {
+        case .bundle:
+            guard let fileURL = Bundle.main.url(forResource: filename, withExtension: nil)
+                else {
+                    fatalError("Couldn't find \(filename) in main bundle.")
+            }
+            file = fileURL
+        default:
+            do {
+                file = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                    .appendingPathComponent(filename)
+            } catch {
+                fatalError("Coudn't read or create \(filename): \(error.localizedDescription)")
+            }
+        }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        do {
+            print("Saving...  📖: \(file.description)")
+            try encoder.encode(entities).write(to: file)
+        } catch {
+            print("Couldn’t save new entry to \(filename), \(error.localizedDescription)")
+        }
+    }
+    
+    func writeEndUser(_ entry: EndUser) {
+        add(newEntry: entry, filename: "EndUser.json", location: .document)
     }
 }

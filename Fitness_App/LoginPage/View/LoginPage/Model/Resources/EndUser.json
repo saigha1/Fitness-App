@@ -1,6 +1,8 @@
 [
     {
+        "id": "d1600470-d300-458b-af8b-313d8426cbf7",
         "name": "Michael",
+        "age": 23,
         "phone": "437-123-1234",
         "email": "mlogan2000@icloud.com",
         "preferredTrainerGender": "M",
@@ -22,7 +24,9 @@
         }
     },
     {
+        "id": "77b57c9a-0311-4472-afba-58de2d7e0f62",
         "name": "Eudocia",
+        "age": 24,
         "phone": "437-123-1235",
         "email": "eudocia@icloud.com",
         "preferredTrainerGender": "F",
@@ -43,7 +47,9 @@
         }
     },
     {
+        "id": "81983297-e8fe-4513-92f8-a87020d6620c",
         "name": "Rajni",
+        "age": 25,
         "phone": "437-123-1236",
         "email": "Rajni@icloud.com",
         "preferredTrainerGender": "F",
@@ -62,7 +68,9 @@
         }
     },
     {
+        "id": "13e9a458-770c-404d-8f49-cb3a65d8ded4",
         "name": "Weldon",
+        "age": 26,
         "phone": "437-123-1237",
         "email": "Weldon@icloud.com",
         "preferredTrainerGender": "M",
@@ -81,7 +89,9 @@
         }
     },
     {
+        "id": "f989344e-6013-4001-8be5-aee7d00cb99b",
         "name": "Milena",
+        "age": 27,
         "phone": "437-123-1238",
         "email": "Milena@icloud.com",
         "preferredTrainerGender": "F",
@@ -100,7 +110,9 @@
         }
     },
     {
+        "id": "78cb722f-ec20-43a9-a475-53d14a1bc95d",
         "name": "Madisyn",
+        "age": 28,
         "phone": "437-123-1239",
         "email": "Madisyn@icloud.com",
         "preferredTrainerGender": "F",
@@ -119,7 +131,9 @@
         }
     },
     {
+        "id": "dd5bffac-10d9-41b3-9899-8e9765035803",
         "name": "Quintin",
+        "age": 29,
         "phone": "437-123-1240",
         "email": "Quintin@icloud.com",
         "preferredTrainerGender": "M",
@@ -140,7 +154,9 @@
         }
     },
     {
+        "id": "ed81e2a5-92fc-4005-bed7-5cb47f3a9f0f",
         "name": "Elen",
+        "age": 30,
         "phone": "437-123-1241",
         "email": "Elen@icloud.com",
         "preferredTrainerGender": "M",
@@ -159,7 +175,9 @@
         }
     },
     {
+        "id": "c300ebb2-95a0-47e1-a77e-ae7b23a128ea",
         "name": "Sona",
+        "age": 31,
         "phone": "437-123-1242",
         "email": "Sona@icloud.com",
         "preferredTrainerGender": "F",
@@ -179,7 +197,9 @@
         }
     },
     {
+        "id": "00322c26-9add-46a3-a9fa-926a8bb449d3",
         "name": "Hiltrude",
+        "age": 32,
         "phone": "437-123-1243",
         "email": "Hiltrude@icloud.com",
         "preferredTrainerGender": "M",
@@ -199,7 +219,9 @@
         }
     },
     {
+        "id": "4d11269b-863f-47f0-af44-5fdf4983ccc9",
         "name": "Ramiro",
+        "age": 33,
         "phone": "437-123-1244",
         "email": "Ramiro@icloud.com",
         "preferredTrainerGender": "M",

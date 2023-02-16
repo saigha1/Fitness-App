@@ -70,10 +70,10 @@ extension UserProfileView {
                 Spacer()
                 Group {
                     if isEditing {
-                        TextFieldView(textInput: $phoneNumber, placeholder: user.phoneNum, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 112, height: 8)
+                        TextFieldView(textInput: $phoneNumber, placeholder: user.phone, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 112, height: 8)
                             .keyboardType(.numberPad)
                     } else {
-                        Text(user.phoneNum)
+                        Text(user.phone)
                     }
                 }
             }
@@ -143,7 +143,7 @@ extension UserProfileView {
                 VStack(alignment: .trailing) {
                     Text("\(user.gymLocation)")
                     VStack(alignment: .trailing) {
-                        ForEach(user.typesOfWorkout, id: \.self) {type in
+                        ForEach(user.typesOfWorkOut, id: \.self) {type in
                             Text(type)
                         }
                     }
@@ -175,8 +175,8 @@ extension UserProfileView {
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Text("\(user.heightFt)'\(user.heightIn.asStringWith2Decimals())" + "\"")
-                    Text("\(user.skeletalMuscleMass.asStringWith2Decimals()) lbs.")
+//                    Text("\(user.heightFt)'\(user.heightIn.asStringWith2Decimals())" + "\"")
+//                    Text("\(user.skeletalMuscleMass.asStringWith2Decimals()) lbs.")
                 }
             }
             
@@ -193,15 +193,15 @@ extension UserProfileView {
                 VStack(alignment: .trailing) {
                     Text("Current")
                         .foregroundColor(.secondary)
-                    Text(user.currentWeight.asStringWith2Decimals())
-                    Text(user.currentBodyFat.asPercentageStringWith2Decimals())
+//                    Text(user.currentWeight.asStringWith2Decimals())
+//                    Text(user.currentBodyFat.asPercentageStringWith2Decimals())
                 }
                 
                 VStack(alignment: .trailing) {
                     Text("Target")
                         .foregroundColor(.secondary)
-                    Text(user.targetWeight.asStringWith2Decimals())
-                    Text(user.targetBodyFat.asPercentageStringWith2Decimals())
+//                    Text(user.targetWeight.asStringWith2Decimals())
+//                    Text(user.targetBodyFat.asPercentageStringWith2Decimals())
                 }
             }
         }

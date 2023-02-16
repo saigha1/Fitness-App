@@ -210,8 +210,6 @@
 				2545A607298D60D900310999 /* FireBaseSignInWithEmailView.swift */,
 				25E6D8F929915FC00015B8B0 /* Icons.swift */,
 				047C5F5229914E59000A4F49 /* facebookLogin.swift */,
-				259813322992B2C400EA9B36 /* UserSignUpForm */,
-				259813312992B2BA00EA9B36 /* UserProfile */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -241,6 +239,8 @@
 				2570932A298D6E16004D9176 /* Archive */,
 				04972DC1298AB8C400BF96E7 /* Fitness_App.entitlements */,
 				2545A600298D60A400310999 /* Utilities */,
+				259813312992B2BA00EA9B36 /* UserProfile */,
+				259813322992B2C400EA9B36 /* UserSignUpForm */,
 				0446396A2983FC8400C1741B /* LoginPage */,
 				0498333F2954975400724C7B /* Fitness_AppApp.swift */,
 				047200FB298ACFF300B04964 /* AppDelegate.swift */,

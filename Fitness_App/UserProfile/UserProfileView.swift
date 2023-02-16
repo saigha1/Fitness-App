@@ -11,20 +11,20 @@ struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
     //State private properties for editing mode
     @State var isEditing: Bool = false
-    @State var phoneNumber: String = user.phoneNum
+    @State var phoneNumber: String = user.phone
     @State var email: String = user.email
     @State var gymLoocation: String = user.gymLocation
-    @State var typesOfWorkout: [String] = user.typesOfWorkout
-    @State var heightFeet: Int = user.heightFt
-    @State var heightInch: Double = user.heightIn
-    @State var skeletalMuscleMass: Double = user.skeletalMuscleMass
-    @State var currentWeight: Double = user.currentWeight
-    @State var currentBodyFat: Double = user.currentBodyFat
-    @State var targetWeight: Double = user.targetWeight
-    @State var targetBodyFat: Double = user.targetBodyFat
+    @State var typesOfWorkout: [String] = user.typesOfWorkOut
+//    @State var heightFeet: Int = user.heightFt
+//    @State var heightInch: Double = user.heightIn
+//    @State var skeletalMuscleMass: Double = user.skeletalMuscleMass
+//    @State var currentWeight: Double = user.currentWeight
+//    @State var currentBodyFat: Double = user.currentBodyFat
+//    @State var targetWeight: Double = user.targetWeight
+//    @State var targetBodyFat: Double = user.targetBodyFat
     
     // Temp properties for pickers
-    @State var selectedPTGender: String = user.preferredPTGender
+    @State var selectedPTGender: String = user.preferredTrainerGender
     
     var body: some View {
         ScrollView {

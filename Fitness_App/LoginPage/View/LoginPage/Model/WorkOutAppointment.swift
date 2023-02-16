@@ -9,7 +9,7 @@ import Foundation
 
 struct WorkOutAppointment {
     var appointmentID: UUID
-    var userID: UUID
+    var userID: String
     var trainerID: UUID
     var date: Date
     var isCompleted: Bool
