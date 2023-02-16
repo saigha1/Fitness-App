@@ -56,7 +56,7 @@ struct Sign_Up_View: View {
             
             }
             HStack{
-                Text("Training Category: \(TrainingCategory)")
+                Text("Training Category: \(PT.workoutTypes.rawValue)")
 //                Picker() //Add up to 3
             }
             HStack{
@@ -77,7 +77,7 @@ struct Sign_Up_View: View {
                 
             }
             HStack{
-                Text("Location: \(PT.gymLocation)")
+                Text("Location: \(PT.gymLocation.rawValue)")
             }
             
             HStack{
@@ -134,6 +134,6 @@ struct Sign_Up_View: View {
 
 struct Sign_Up_View_Previews: PreviewProvider {
     static var previews: some View {
-        Sign_Up_View()
+        Sign_Up_View(PT: PTModel(name: "Hello", gender: "Hello", phone: "Hello", email: "Hello", experienceLevel: "Hello", education: "Hello", Certification: "Hello", gymLocation: .GoodLife, workoutTypes: .Calisthenic, Description: "Hello", Motto: "Hello", PreferredGym: "Hello"))
     }
 }

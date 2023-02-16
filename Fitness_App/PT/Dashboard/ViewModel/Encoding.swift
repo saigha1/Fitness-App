@@ -18,7 +18,7 @@ class encodingJSON: ObservableObject{
         
         do{
             let data = try encoder.encode(users)
-            modelData.users += String(data: data, encoding: .utf8)!
+//   TODO: UNcomment         modelData.users += String(data: data, encoding: .utf8)!
 //                .append(contentsOf: data)
         } catch{
             print(error.localizedDescription)

@@ -21,7 +21,8 @@ class ModelData: ObservableObject{
         
         do{
             let data = try encoder.encode(users)
-            modelData.users.append(contentsOf: data)
+  //TODO: Uncomment
+//            modelData.users.append(contentsOf: data)
         } catch{
             print(error.localizedDescription)
         }

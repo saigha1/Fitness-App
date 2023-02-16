@@ -159,13 +159,13 @@ struct Sign_Up_Form: View {
     
         func loadImage() {
             guard let inputImage = inputImage else { return }
-            image = Image(uiImage: inputImage)
+ //TODO: Uncomment           image = Image(uiImage: inputImage)
         }
     }
 
 
 struct Sign_Up_Form_Previews: PreviewProvider {
     static var previews: some View {
-        Sign_Up_Form(PT: $PTModel)
+        Sign_Up_Form(PT: .constant(PTModel(name: "hello", gender: "hello", phone: "hello", email: "hello", experienceLevel: "hello", education: "hello", Certification: "hello", gymLocation: "hello", Description: "hello", Motto: "hello", PreferredGym: "hello")))
     }
 }

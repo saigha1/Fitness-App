@@ -16,13 +16,13 @@ struct PTModel: Hashable, Codable{
     var experienceLevel : String
     var education : String
     var Certification : String
-    var gymLocation : String
-//  var gymLocation = preferredGym.GoodLife
+    var gymLocation : preferredGym
+    var workoutTypes : typesOfWorkOut
     var Description : String
     var Motto : String
     var PreferredGym: String
     
-    enum preferredGym : String, Identifiable, CaseIterable{
+    enum preferredGym : String, Identifiable, CaseIterable, Codable{
         case GoodLife = "GoodLife"
         case FitnessPlanet = "Planet Fitness"
         case UFC = "UFC"
@@ -30,7 +30,7 @@ struct PTModel: Hashable, Codable{
         var id: String {rawValue}
     }
             
-    enum typesOfWorkOut: String{
+    enum typesOfWorkOut: String, Codable{
         case Calisthenic = "Calisthenic"
         case WeightTraining = "Weight Training"
         case Boxing = "Boxing"
