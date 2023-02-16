@@ -52,6 +52,8 @@
 		04BC0EF8298C073D000EE16E /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 04BC0EF7298C073D000EE16E /* FirebaseStorageCombine-Community */; };
 		04BC0EFA298C1C77000EE16E /* Google-Firebase-LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */; };
 		04BC0EFC298C1EF7000EE16E /* FacebookFirebaseSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */; };
+		2506A6DD299E9EF800FC5D7A /* FileLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506A6DC299E9EF800FC5D7A /* FileLocation.swift */; };
+		2506A6E0299E9F9300FC5D7A /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506A6DF299E9F9300FC5D7A /* JSONManager.swift */; };
 		251A499C2995EEC70066A9CF /* EndUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A499B2995EEC70066A9CF /* EndUser.swift */; };
 		251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A499D2995F6870066A9CF /* WorkOutAppointment.swift */; };
 		251A49A12995F6F20066A9CF /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A49A02995F6F20066A9CF /* Components.swift */; };
@@ -101,6 +103,8 @@
 		04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Google-Firebase-LoginVM.swift"; sourceTree = "<group>"; };
 		04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookFirebaseSignIn.swift; sourceTree = "<group>"; };
+		2506A6DC299E9EF800FC5D7A /* FileLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLocation.swift; sourceTree = "<group>"; };
+		2506A6DF299E9F9300FC5D7A /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		251A499B2995EEC70066A9CF /* EndUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUser.swift; sourceTree = "<group>"; };
 		251A499D2995F6870066A9CF /* WorkOutAppointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutAppointment.swift; sourceTree = "<group>"; };
 		251A49A02995F6F20066A9CF /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
@@ -260,9 +264,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		2506A6DE299E9F4600FC5D7A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				2506A6DF299E9F9300FC5D7A /* JSONManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		2545A600298D60A400310999 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2506A6DE299E9F4600FC5D7A /* Managers */,
 				25E6D8F329914A130015B8B0 /* Extensions */,
 				2545A601298D60AD00310999 /* Enums */,
 			);
@@ -274,6 +287,7 @@
 			children = (
 				2545A602298D60BC00310999 /* AuthenticationState.swift */,
 				2545A604298D60C500310999 /* AuthenticationFlow.swift */,
+				2506A6DC299E9EF800FC5D7A /* FileLocation.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -460,6 +474,7 @@
 				25369ACA299BDF510025628F /* UserSignUpFormViewModel.swift in Sources */,
 				04720105298AD69700B04964 /* SceneDelegate.swift in Sources */,
 				2545A5FE298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift in Sources */,
+				2506A6E0299E9F9300FC5D7A /* JSONManager.swift in Sources */,
 				047200FC298ACFF300B04964 /* AppDelegate.swift in Sources */,
 				049833422954975400724C7B /* ContentView.swift in Sources */,
 				2570932D298D6E62004D9176 /* AuthViewModel.swift in Sources */,
@@ -474,6 +489,7 @@
 				259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */,
 				259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */,
 				2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */,
+				2506A6DD299E9EF800FC5D7A /* FileLocation.swift in Sources */,
 				259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */,
 				0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */,
 				0446397529841B9E00C1741B /* rootViewController.swift in Sources */,
