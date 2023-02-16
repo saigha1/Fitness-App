@@ -10,10 +10,25 @@ import Combine
 
 class ModelData: ObservableObject{
     
-//    @Published var users: [EndUserModel] = load("EndUser.json")
+      @Published var users: [EndUserModel] = load("EndUser.json")
 //    @Published var PTs: [PTModel] = load("PTs.json")
       @Published var gym: [GymModel] = load("Gyms.json")
+      @Published var modelData : ModelData = ModelData()
     
+    func encode(users: [EndUserModel]){
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        
+        do{
+            let data = try encoder.encode(users)
+            modelData.users.append(contentsOf: data)
+        } catch{
+            print(error.localizedDescription)
+        }
+        
+//        print(String(data: data, encoding: .utf8)!)
+        
+    }
 }
 
 

@@ -10,9 +10,9 @@ import Foundation
 struct EndUserModel: Hashable, Codable, Identifiable{
     
     var id: Int
-    var name : String?
-    var phone : Int?
-    var email : String?
+    var name : String
+    var phone : Int
+    var email : String
     var preferredTrainerGender : String
     var gymLocation : String  //Get location using Google's API User Location
     

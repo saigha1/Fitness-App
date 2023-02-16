@@ -1,219 +1,230 @@
 [
     {
-        "name": "Michael",
-        "phone": "437-123-1234",
-        "email": "mlogan2000@icloud.com",
-        "preferredTrainerGender": "M",
-        "gymLocation": "Etobicoke, ON",
-        "preferredGym": [
+        "id" : 10010,
+        "name" : "Michael",
+        "phone" : "437-123-1234",
+        "email" : "mlogan2000@icloud.com",
+        "preferredTrainerGender" : "M",
+        "gymLocation" : "Etobicoke, ON",
+        "preferredGym" : [
             "LA Fitness",
             "GoodLife",
             "Anytime Fitness"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Machine-Based",
             "Weight-Lifting",
             "Boxing"
         ],
         "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 400.00,
-            "max": 700.00
+            "currency" : "CAD",
+            "min" : 400.00,
+            "max" : 700.00
         }
     },
     {
-        "name": "Eudocia",
-        "phone": "437-123-1235",
-        "email": "eudocia@icloud.com",
-        "preferredTrainerGender": "F",
-        "gymLocation": "Toronto, ON",
-        "preferredGym": [
+        "id" : 10011,
+        "name" : "Eudocia",
+        "phone" : "437-123-1235",
+        "email" : "eudocia@icloud.com",
+        "preferredTrainerGender" : "F",
+        "gymLocation" : "Toronto, ON",
+        "preferredGym" : [
             "LA Fitness",
             "GoodLife"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Machine-Based",
             "Weight-Lifting",
             "Boxing"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 50.00,
-            "max": 500.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 50.00,
+            "max" : 500.00
         }
     },
     {
-        "name": "Rajni",
-        "phone": "437-123-1236",
-        "email": "Rajni@icloud.com",
-        "preferredTrainerGender": "F",
-        "gymLocation": "Mississauga, ON",
-        "preferredGym": [
+        "id" : 10012,
+        "name" : "Rajni",
+        "phone" : "437-123-1236",
+        "email" : "Rajni@icloud.com",
+        "preferredTrainerGender" : "F",
+        "gymLocation" : "Mississauga, ON",
+        "preferredGym" : [
             "LA Fitness",
             "GoodLife"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Machine-Based"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 150.00,
-            "max": 2000.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 150.00,
+            "max" : 2000.00
         }
     },
     {
-        "name": "Weldon",
-        "phone": "437-123-1237",
-        "email": "Weldon@icloud.com",
-        "preferredTrainerGender": "M",
-        "gymLocation": "Mississauga, ON",
-        "preferredGym": [
+        "id" : 10013,
+        "name" : "Weldon",
+        "phone" : "437-123-1237",
+        "email" : "Weldon@icloud.com",
+        "preferredTrainerGender" : "M",
+        "gymLocation" : "Mississauga, ON",
+        "preferredGym" : [
             "LA Fitness",
             "GoodLife"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Boxing"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 0.00,
-            "max": 2500.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 0.00,
+            "max" : 2500.00
         }
     },
     {
-        "name": "Milena",
-        "phone": "437-123-1238",
-        "email": "Milena@icloud.com",
-        "preferredTrainerGender": "F",
-        "gymLocation": "Toronto, ON",
-        "preferredGym": [
+        "id" : 10014,
+        "name" : "Milena",
+        "phone" : "437-123-1238",
+        "email" : "Milena@icloud.com",
+        "preferredTrainerGender" : "F",
+        "gymLocation" : "Toronto, ON",
+        "preferredGym" : [
             "GoodLife",
             "LA Fitness"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Calisthenic"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 1000.00,
-            "max": 1500.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 1000.00,
+            "max" : 1500.00
         }
     },
     {
-        "name": "Madisyn",
-        "phone": "437-123-1239",
-        "email": "Madisyn@icloud.com",
-        "preferredTrainerGender": "F",
-        "gymLocation": "Toronto, ON",
-        "preferredGym": [
+        "id" : 10015,
+        "name" : "Madisyn",
+        "phone" : "437-123-1239",
+        "email" : "Madisyn@icloud.com",
+        "preferredTrainerGender" : "F",
+        "gymLocation" : "Toronto, ON",
+        "preferredGym" : [
             "LA Fitness"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Calisthenic",
             "Boxing"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 600.00,
-            "max": 1000.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 600.00,
+            "max" : 1000.00
         }
     },
     {
-        "name": "Quintin",
-        "phone": "437-123-1240",
-        "email": "Quintin@icloud.com",
-        "preferredTrainerGender": "M",
-        "gymLocation": "Mississauga, ON",
-        "preferredGym": [
+        "id" : 10016,
+        "name" : "Quintin",
+        "phone" : "437-123-1240",
+        "email" : "Quintin@icloud.com",
+        "preferredTrainerGender" : "M",
+        "gymLocation" : "Mississauga, ON",
+        "preferredGym" : [
             "LA Fitness",
             "GoodLife",
             "Anytime Fitness"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Boxing",
             "Machine-Based"
         ],
-        "preferredPriceRange": {
+        "preferredPriceRange" : {
             "currency": "CAD",
-            "min": 1000.00,
-            "max": 2500.00
+            "min" : 1000.00,
+            "max" : 2500.00
         }
     },
     {
-        "name": "Elen",
-        "phone": "437-123-1241",
-        "email": "Elen@icloud.com",
-        "preferredTrainerGender": "M",
-        "gymLocation": "Ajax, ON",
-        "preferredGym": [
+        "id" : 10017,
+        "name" : "Elen",
+        "phone" : "437-123-1241",
+        "email" : "Elen@icloud.com",
+        "preferredTrainerGender" : "M",
+        "gymLocation" : "Ajax, ON",
+        "preferredGym" : [
             "GoodLife",
             "Anytime Fitness"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Machine-Based"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 800.00,
-            "max": 1500.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 800.00,
+            "max" : 1500.00
         }
     },
     {
-        "name": "Sona",
-        "phone": "437-123-1242",
-        "email": "Sona@icloud.com",
-        "preferredTrainerGender": "F",
-        "gymLocation": "Hamilton, ON",
-        "preferredGym": [
+        "id" : 10018,
+        "name" : "Sona",
+        "phone" : "437-123-1242",
+        "email" : "Sona@icloud.com",
+        "preferredTrainerGender" : "F",
+        "gymLocation" : "Hamilton, ON",
+        "preferredGym" : [
             "Anytime Fitness",
             "FitForLess"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Machine-Based",
             "Boxing"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 200.00,
-            "max": 700.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 200.00,
+            "max" : 700.00
         }
     },
     {
-        "name": "Hiltrude",
-        "phone": "437-123-1243",
-        "email": "Hiltrude@icloud.com",
-        "preferredTrainerGender": "M",
-        "gymLocation": "Hamilton, ON",
-        "preferredGym": [
+        "id" : 10019,
+        "name" : "Hiltrude",
+        "phone" : "437-123-1243",
+        "email" : "Hiltrude@icloud.com",
+        "preferredTrainerGender" : "M",
+        "gymLocation" : "Hamilton, ON",
+        "preferredGym" : [
             "Anytime Fitness",
             "FitForLess",
             "LA Fitness"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Calisthenics"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 500.00,
-            "max": 800.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 500.00,
+            "max" : 800.00
         }
     },
     {
-        "name": "Ramiro",
-        "phone": "437-123-1244",
-        "email": "Ramiro@icloud.com",
-        "preferredTrainerGender": "M",
-        "gymLocation": "Mississauga, ON",
-        "preferredGym": [
+        "id" : 10020,
+        "name" : "Ramiro",
+        "phone" : "437-123-1244",
+        "email" : "Ramiro@icloud.com",
+        "preferredTrainerGender" : "M",
+        "gymLocation" : "Mississauga, ON",
+        "preferredGym" : [
             "LA Fitness"
         ],
-        "typesOfWorkOut": [
+        "typesOfWorkOut" : [
             "Boxing"
         ],
-        "preferredPriceRange": {
-            "currency": "CAD",
-            "min": 700.00,
-            "max": 1000.00
+        "preferredPriceRange" : {
+            "currency" : "CAD",
+            "min" : 700.00,
+            "max" : 1000.00
         }
     }
 

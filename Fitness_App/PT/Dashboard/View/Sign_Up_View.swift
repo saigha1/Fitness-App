@@ -8,99 +8,102 @@
 import SwiftUI
 
 struct Sign_Up_View: View {
-
+  
     @StateObject var modelData : ModelData = ModelData()
     
+    var PT : PTModel
+//    @StateObject var EncodingJSON : encodingJSON = encodingJSON()
+ 
+//    var user : [EndUserModel] = [EndUserModel(id: <#T##Int#>, name: <#T##String?#>, phone: <#T##Int?#>, email: <#T##String?#>, preferredTrainerGender: <#T##String#>, gymLocation: <#T##String#>)]
+    
+    //TODO: Delete.
+//    @State var endUserName : String?
+//    @State var name : String
+//    @State var gender : String
+//    @State var TrainingCategory : String
+//    @State var ExperienceLevel : String
+//    @State var Education : String
+//    @State var Certification : String
+//    @State var Location : String
+//    @State var PreferredGyms : String
+//    @State var Description : String
+//    @State var Motto : String
+//
+        
     var body: some View {
         VStack{
-            Text("Sign up as a Trainer")
+            Text("Your Profile")
                 .underline()
-            profileSummary
-            profileImage
-            IntroductionImages
-            IntroductionVideo
-            IDNCertifications
             
-
-        }
-    }
-    //true= profile.user.approved
-//                if (true){
-//                    //                Text(\(profile.user.name)) // Needs to be Object
-//                } else{
-//                    TextField(<#T##title: StringProtocol##StringProtocol#>, text: <#T##Binding<String>#>)
-//                }
+                    profileSummary
+                    profileImage
+                    IntroductionImages
+                    IntroductionVideo
+                    IDNCertifications
+                }
+            }
+        
     
+
     var profileSummary: some View{
         VStack{
-            HStack{
-                Text("Name:")
-                Text("\(modelData.gym[0].id)")
-                
+            HStack{ //No HStack. add padding.
+                Text("Name: \(PT.name)")
+
             }
             HStack{
-                Text("Gender")
-//                TextField("Male") // Needs to be Object
+                Text("Gender: \(PT.gender)")
+            
             }
             HStack{
-                Text("Training Category")
+                Text("Training Category: \(TrainingCategory)")
 //                Picker() //Add up to 3
             }
             HStack{
-                Text("Experience Level")
-//                TextField("10 years")  // Needs to be Object
+                Text("Experience Level: \(PT.experienceLevel)")
+                
             }
             HStack{
-                Text("Education")
-//                TextField("B.S. in Sports Management. M.S. in Health, Exercise, & Sports Science")
+                Text("Education: \(PT.education)")
+              
             }
             
             HStack{
-                Text("Certification")
-//                TextField("Certficate in IV Fitness")
+                Text("Certification: \(PT.Certification)")
             }
             
             HStack{
-                Text("Motto")
-//                TextField("If you still look cute at the end of your workout, you didn't work hard enough")
+                Text("Motto: \(PT.Motto)")
+                
             }
             HStack{
-                Text("Location")
-//                TextField("Mississauga, ON")
-            }
-            
-            HStack{
-                Text("Preferred Gyms")
-//                TextField("GoodLife, LifeTime, Planet Fitness")
+                Text("Location: \(PT.gymLocation)")
             }
             
             HStack{
-                Text("Description")
-//                TextField("Weight Lifting ptrofessional with 10+ years of experience training individuals and athletes. Competed provincially and won silver medal.")
+                Text("Preferred Gyms: \(PT.PreferredGym)")
             }
             
-            //          Button(action: submitForConfirmation(), label: "Submit")
-            //        }
-            
+            HStack{
+                Text("Description: \(PT.Description)")
+            }
         }
     }
     
     var profileImage: some View{
         HStack{
             Text("Profile Images")
-            Image("")
-           
+//            Image("")
         }
     }
     
     var IntroductionImages: some View{
         HStack{
-            Text("Introduction Images")
+            Text("Introduction Images") // TODO: Get this from LandMarks
             VStack{
                 Text("Add up to 6 images to show up on trainer profile page together with your profile image")
                 //6 Image Thumbnails
             }
-           
         }
     }
     
@@ -113,13 +116,17 @@ struct Sign_Up_View: View {
     }
     
     var IDNCertifications: some View{
-        HStack{
-            Text("ID & Certifications")
-            VStack{
-                Text("Upload a photo ID and a selfie and up to 3 certifications for verification purpose")
-                //3-5 Image Thumbnails
+        VStack{
+            HStack{
+                Text("ID & Certifications")
+                VStack{
+                    Text("Upload a photo ID and a selfie and up to 3 certifications for verification purpose")
+                    //3-5 Image Thumbnails
+                }
+                
             }
-           
+            
+          
         }
     }
     
