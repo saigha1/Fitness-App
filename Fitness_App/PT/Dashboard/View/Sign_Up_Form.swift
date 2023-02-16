@@ -166,6 +166,6 @@ struct Sign_Up_Form: View {
 
 struct Sign_Up_Form_Previews: PreviewProvider {
     static var previews: some View {
-        Sign_Up_Form(PT: .constant(PTModel(name: "hello", gender: "hello", phone: "hello", email: "hello", experienceLevel: "hello", education: "hello", Certification: "hello", gymLocation: "hello", Description: "hello", Motto: "hello", PreferredGym: "hello")))
+        Sign_Up_Form(PT: .constant(PTModel(name: "hello", gender: "hello", phone: "hello", email: "hello", experienceLevel: "hello", education: "hello", Certification: "hello", gymLocation: .GoodLife, workoutTypes: .Boxing, Description: "hello", Motto: "hello", PreferredGym: "hello")))
     }
 }

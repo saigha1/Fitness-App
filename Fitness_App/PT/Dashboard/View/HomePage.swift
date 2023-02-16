@@ -38,9 +38,9 @@ struct HomePage: View {
         } else if (!pTApproved && pending && !signUp) {
             pTPending()
         } else if (!pTApproved && !pending && signUp) {
-            Sign_Up_View()
+            //Sign_Up_View()
         } else{
-            Sign_Up_View()
+            //Sign_Up_View()
         }
     }
 }
