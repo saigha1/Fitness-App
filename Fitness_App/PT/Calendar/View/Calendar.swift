@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct Calendar: View {
+struct CalendarView: View {
     var body: some View {
         Text("Welcome to Calendar")
     }
 }
 
-struct Calendar_Previews: PreviewProvider {
+struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        Calendar()
+        CalendarView()
     }
 }

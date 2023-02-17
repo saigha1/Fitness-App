@@ -30,7 +30,7 @@ struct HomePage: View {
                         Label("Chat", systemImage: "message")
                     }
                     
-                Calendar()
+                CalendarView()
                     .tabItem{
                         Label("Calendar", systemImage: "calendar.badge.clock")
                     }
