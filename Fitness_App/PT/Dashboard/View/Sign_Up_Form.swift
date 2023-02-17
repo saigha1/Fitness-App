@@ -15,91 +15,190 @@ struct Sign_Up_Form: View {
     @State private var inputImage: UIImage?
     
     var body: some View {
-        VStack{
+        ScrollView{
             Text("Sign up as a Trainer")
                 .underline()
-            
-                    profileSummary
-                    profileImage
-                    IntroductionImages
-                    IntroductionVideo
-                    IDNCertifications
-                }
+            if inputImage != nil {
+                Image(uiImage : inputImage!)
+                    .resizable()
+                    .frame(width: 250, height: 250)
+                    .aspectRatio(contentMode: .fit)
             }
+            
+            
+            VStack(alignment: .center){
+                profileSummary
+                
+                profileImage
+                IntroductionImages
+                IntroductionVideo
+                IDNCertifications
+            }
+        }
+    }
         
         
         var profileSummary: some View{
             VStack{
                 HStack{ //No HStack. add padding.
+                  
                     Text("Name:")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
+                        
+                        
                     Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
                     TextField("Name", text: $PT.name)
-    //                }
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
+                        
+                        
+                    
                 }
+//                .frame(width: 200, height: 50, alignment: .center)
                 HStack{
-                    Text("Gender:")
-                    Divider()
-                    TextField("Male", text: $PT.gender)
+                        Text("Gender:")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
+                    
+                        Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
+                    
+                        TextField("Male", text: $PT.gender)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
                 }
                 HStack{
                     Text("Phone #:")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
                     Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
                     TextField("Male", text: $PT.phone)
-                }
-                HStack{
-                    Text("Training Category")
-                    Divider()
-//                    TextField("Male", text: $PT.typesOfWorkOut)
-    //                Picker() TODO: change to Picker or some type
-                }
-                HStack{
-                    Text("Experience Level")
-                    Divider()
-                    TextField("Experience Level", text: $PT.experienceLevel)  // Needs to be Object
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
                 }
                 HStack{
                     Text("Education")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
+                    
                     Divider()
-                    TextField("Education" , text: $PT.education)
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
+                    TextField("Education", text: $PT.education)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
+//                    TextField("Male", text: $PT.typesOfWorkOut)
+    //                Picker() TODO: change to Picker or some type
+                    
+                }
+                HStack{
+                    Text("Experience Level")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
+                    Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
+                    TextField("Experience Level", text: $PT.experienceLevel)  // Needs to be Object
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
+                }
+                HStack{
+                    Text("Training Category:")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
+                    Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
+                    TextField("Training Category:" , text: $PT.education)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
                 }
                 
                 HStack{
                     Text("Certification")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
                     Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
                     TextField("Certficates", text: $PT.Certification)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
                 }
                 
                 HStack{
                     Text("Motto")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
                     Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
                     TextField("Motto", text: $PT.Motto)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
     //                If you still look cute at the end of your workout, you didn't work hard enough
                 }
                 HStack{
                     Text("Location")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
                     Divider()
-//                    TextField("Mississauga, ON", text: $PT.gymLocation)// TODO: change to Picker or some type
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
+                    
+                    TextField("Mississauga, ON", text: $PT.Motto)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
+                    // TODO: change to Picker or some type //$PT.gymLocation.rawValue
                 }
                 
                 HStack{
                     Text("Preferred Gyms")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
                     Divider()
-//                    TextField("Preferred Gyms", text: $PT.preferredGym.rawValue) // TODO: change to Picker or some type
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
+                    TextField("Preferred Gyms", text: $PT.Motto)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
+                    //$PT.preferredGym.rawValue TODO: change to Picker or some type
                 }
-                }
+            }
+           
         }
         
         var profileImage: some View{
             VStack{
                 HStack{
                     Text("Description")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
                     Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
                     TextField("Description", text: $PT.Description)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
                 }
                 
                 HStack{
                     Text("Profile Images")
-                    Image("")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
+//                    Image("")
+                    Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
+                    TextField("Description", text: $PT.Description)
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.yellow)
                     
                 }
             }
@@ -108,18 +207,30 @@ struct Sign_Up_Form: View {
         var IntroductionImages: some View{
             
             HStack{
-                Text("Introduction Images")
-                VStack{
-                    Text("Add up to 6 images to show up on trainer profile page together with your profile image")
+                Text("Introduction Images:")
+                    .frame(width: UIScreen.main.bounds.width/4)
+                    .background(.blue)
+                Divider()
+                Spacer()
+                    .frame(width: UIScreen.main.bounds.width/15)
+                
+                ZStack{
+//                    Text("Add up to 6 images to show up on trainer profile page together with your profile image")
+//                        .frame(width: UIScreen.main.bounds.width/2)
+//                        .background(.yellow)
                     
                     Rectangle()
                         .fill(.secondary)
+                        .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
                     
-                    Button( "Click to upload picture"){
+                    Button("+"){
                             showingImagePicker = true
                             loadImage()
                     }
-//                    .onChange(of: inputImage) { _ in loadImage() } //TODO: Might need this
+                    .onChange(of: inputImage) { _ in loadImage() } //TODO: Might need this
+                    .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
+                    .background(.white)
+                    .cornerRadius(12)
                     .sheet(isPresented: $showingImagePicker) {
                         ImagePicker(image: $inputImage)
                     }
@@ -130,7 +241,15 @@ struct Sign_Up_Form: View {
         
         var IntroductionVideo: some View{
             HStack{
+                Text("Video:")
+                    .frame(width: UIScreen.main.bounds.width/4)
+                    .background(.blue)
+                Divider()
+                Spacer()
+                    .frame(width: UIScreen.main.bounds.width/15)
                 Text("Add up to 1 short video")
+                    .frame(width: UIScreen.main.bounds.width/4)
+                    .background(.yellow)
                 //Video("")
                
             }
@@ -139,9 +258,16 @@ struct Sign_Up_Form: View {
         var IDNCertifications: some View{
             VStack{
                 HStack{
-                    Text("ID & Certifications")
+                    Text("ID & Certifications:")
+                        .frame(width: UIScreen.main.bounds.width/4)
+                        .background(.blue)
+                    Divider()
+                    Spacer()
+                        .frame(width: UIScreen.main.bounds.width/15)
                     VStack{
-                        Text("Upload a photo ID and a selfie and up to 3 certifications for verification purpose")
+                        Text("Upload a photo ID and a selfie and up to 3 ")
+                            .frame(width: UIScreen.main.bounds.width/2)
+                            .background(.yellow)
                         //3-5 Image Thumbnails
                     }
                 }
@@ -158,14 +284,14 @@ struct Sign_Up_Form: View {
         }
     
         func loadImage() {
-            guard let inputImage = inputImage else { return }
- //TODO: Uncomment           image = Image(uiImage: inputImage)
+//            guard let inputImage = inputImage else { return }
+//       image = Image(uiImage: inputImage) // TO DO :hu
         }
     }
 
 
 struct Sign_Up_Form_Previews: PreviewProvider {
     static var previews: some View {
-        Sign_Up_Form(PT: .constant(PTModel(name: "hello", gender: "hello", phone: "hello", email: "hello", experienceLevel: "hello", education: "hello", Certification: "hello", gymLocation: .GoodLife, workoutTypes: .Boxing, Description: "hello", Motto: "hello", PreferredGym: "hello")))
+        Sign_Up_Form(PT: .constant(PTModel(name: "hello", gender: "hello", phone: "hello", email: "hello", experienceLevel: "hello", education: "Hello", Certification: "hello", gymLocation: .GoodLife, workoutTypes: .Boxing, Description: "hello", Motto: "hello", PreferredGym: "hello")))
     }
 }
