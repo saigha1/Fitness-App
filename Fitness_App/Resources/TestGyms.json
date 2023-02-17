@@ -1,0 +1,31 @@
+[
+    {
+        "id": "1001",
+        "brandName" : "GoodLife",
+        "sites" : [
+            {
+                "name" : "GoodLife Square One",
+                "id" : "1001-01",
+                "address" : {
+                    "street" : "100 City Center Dr",
+                    "city" : "Mississauga",
+                    "province" : "Ontario",
+                    "postalCode" : "L5B 2C9",
+                    "country": "CA"
+                }
+            },
+            
+            {
+                "name" : "GoodLife Finch",
+                "id" : "1001-02",
+                "address" : {
+                    "street" : "5650 Yonge St",
+                    "city" : "North York",
+                    "province" : "Ontario",
+                    "postalCode" : "M2N 4E9",
+                    "country": "CA"
+                }
+            }
+        ]
+    }
+]

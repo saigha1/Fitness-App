@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		044639712983FC8500C1741B /* Personal-Trainer-PT.json in Resources */ = {isa = PBXBuildFile; fileRef = 0446396D2983FC8500C1741B /* Personal-Trainer-PT.json */; };
+		0437CDC729968BB100E789F5 /* Gyms.json in Resources */ = {isa = PBXBuildFile; fileRef = 047C5FA4299411B4000A4F49 /* Gyms.json */; };
+		0437CDC92996B3E000E789F5 /* TestGyms.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437CDC82996B3E000E789F5 /* TestGyms.json */; };
+		044639712983FC8500C1741B /* PTs.json in Resources */ = {isa = PBXBuildFile; fileRef = 0446396D2983FC8500C1741B /* PTs.json */; };
 		044639722983FC8500C1741B /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446396F2983FC8500C1741B /* TextFieldView.swift */; };
 		044639732983FC8500C1741B /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044639702983FC8500C1741B /* LoginPage.swift */; };
 		0446397529841B9E00C1741B /* rootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446397429841B9E00C1741B /* rootViewController.swift */; };
@@ -15,6 +17,13 @@
 		047200FC298ACFF300B04964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047200FB298ACFF300B04964 /* AppDelegate.swift */; };
 		04720105298AD69700B04964 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04720104298AD69700B04964 /* SceneDelegate.swift */; };
 		047C5F5329914E59000A4F49 /* facebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5F5229914E59000A4F49 /* facebookLogin.swift */; };
+		047C5F5729929EC7000A4F49 /* Sign_Up_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5F5629929EC6000A4F49 /* Sign_Up_View.swift */; };
+		047C5F5A2992AD47000A4F49 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5F592992AD47000A4F49 /* ViewModel.swift */; };
+		047C5F5E2992AD7B000A4F49 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5F5D2992AD7B000A4F49 /* Model.swift */; };
+		047C5F622992F3A0000A4F49 /* EndUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5F612992F3A0000A4F49 /* EndUserModel.swift */; };
+		047C5FA02993EFE1000A4F49 /* PTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5F9F2993EFE1000A4F49 /* PTModel.swift */; };
+		047C5FA229940D1F000A4F49 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5FA129940D1F000A4F49 /* ModelData.swift */; };
+		047C5FA629942D82000A4F49 /* GymModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5FA529942D82000A4F49 /* GymModel.swift */; };
 		0480661629881600005CD151 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480661529881600005CD151 /* AuthenticationViewModel.swift */; };
 		0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480661829881E32005CD151 /* GoogleSignInAuthenticator.swift */; };
 		049833402954975400724C7B /* Fitness_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498333F2954975400724C7B /* Fitness_AppApp.swift */; };
@@ -22,6 +31,18 @@
 		049833442954975700724C7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049833432954975700724C7B /* Assets.xcassets */; };
 		049833472954975700724C7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049833462954975700724C7B /* Preview Assets.xcassets */; };
 		049FAB702982D297001CDC84 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 049FAB6F2982D297001CDC84 /* .gitignore */; };
+		04A19246299A8DF3000792B4 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19245299A8DF3000792B4 /* HomePage.swift */; };
+		04A19248299A9077000792B4 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19247299A9077000792B4 /* ChatView.swift */; };
+		04A1924A299A9400000792B4 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19249299A9400000792B4 /* Calendar.swift */; };
+		04A1924C299A9460000792B4 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1924B299A9460000792B4 /* Dashboard.swift */; };
+		04A19257299A9A15000792B4 /* pTPending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19256299A9A15000792B4 /* pTPending.swift */; };
+		04A1925A299C5911000792B4 /* EmptyEndUser.json in Resources */ = {isa = PBXBuildFile; fileRef = 04A19259299C5910000792B4 /* EmptyEndUser.json */; };
+		04A1925C299C6360000792B4 /* Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1925B299C6360000792B4 /* Encoding.swift */; };
+		04A1925E299C74E8000792B4 /* TrainingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1925D299C74E8000792B4 /* TrainingCategory.swift */; };
+		04A19260299C7685000792B4 /* GymOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1925F299C7685000792B4 /* GymOptions.swift */; };
+		04A19262299D629D000792B4 /* EditModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19261299D629D000792B4 /* EditModeView.swift */; };
+		04A19264299D747E000792B4 /* Sign_Up_Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19263299D747E000792B4 /* Sign_Up_Form.swift */; };
+		04A19266299E7614000792B4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19265299E7614000792B4 /* ImagePicker.swift */; };
 		04BC0EC1298C041E000EE16E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */; };
 		04BC0EC4298C073D000EE16E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 04BC0EC3298C073D000EE16E /* FirebaseAnalytics */; };
 		04BC0EC6298C073D000EE16E /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 04BC0EC5298C073D000EE16E /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -83,7 +104,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0446396D2983FC8500C1741B /* Personal-Trainer-PT.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Personal-Trainer-PT.json"; sourceTree = "<group>"; };
+		0437CDC82996B3E000E789F5 /* TestGyms.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestGyms.json; sourceTree = "<group>"; };
+		0446396D2983FC8500C1741B /* PTs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PTs.json; sourceTree = "<group>"; };
 		0446396F2983FC8500C1741B /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		044639702983FC8500C1741B /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		0446397429841B9E00C1741B /* rootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rootViewController.swift; sourceTree = "<group>"; };
@@ -91,14 +113,35 @@
 		047200FB298ACFF300B04964 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04720104298AD69700B04964 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		047C5F5229914E59000A4F49 /* facebookLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = facebookLogin.swift; sourceTree = "<group>"; };
+		047C5F5629929EC6000A4F49 /* Sign_Up_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign_Up_View.swift; sourceTree = "<group>"; };
+		047C5F592992AD47000A4F49 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		047C5F5D2992AD7B000A4F49 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		047C5F612992F3A0000A4F49 /* EndUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserModel.swift; sourceTree = "<group>"; };
+		047C5F9F2993EFE1000A4F49 /* PTModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTModel.swift; sourceTree = "<group>"; };
+		047C5FA129940D1F000A4F49 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		047C5FA4299411B4000A4F49 /* Gyms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Gyms.json; sourceTree = "<group>"; };
+		047C5FA529942D82000A4F49 /* GymModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymModel.swift; sourceTree = "<group>"; };
 		0480661529881600005CD151 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		0480661829881E32005CD151 /* GoogleSignInAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInAuthenticator.swift; sourceTree = "<group>"; };
 		04972DC1298AB8C400BF96E7 /* Fitness_App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fitness_App.entitlements; sourceTree = "<group>"; };
+		04973BFF2996ED110081B7EF /* Fitness_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0498333F2954975400724C7B /* Fitness_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_AppApp.swift; sourceTree = "<group>"; };
 		049833412954975400724C7B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		049833432954975700724C7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		049833462954975700724C7B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		049FAB6F2982D297001CDC84 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		04A19245299A8DF3000792B4 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		04A19247299A9077000792B4 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		04A19249299A9400000792B4 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		04A1924B299A9460000792B4 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		04A19256299A9A15000792B4 /* pTPending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pTPending.swift; sourceTree = "<group>"; };
+		04A19259299C5910000792B4 /* EmptyEndUser.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmptyEndUser.json; sourceTree = "<group>"; };
+		04A1925B299C6360000792B4 /* Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encoding.swift; sourceTree = "<group>"; };
+		04A1925D299C74E8000792B4 /* TrainingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingCategory.swift; sourceTree = "<group>"; };
+		04A1925F299C7685000792B4 /* GymOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOptions.swift; sourceTree = "<group>"; };
+		04A19261299D629D000792B4 /* EditModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModeView.swift; sourceTree = "<group>"; };
+		04A19263299D747E000792B4 /* Sign_Up_Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign_Up_Form.swift; sourceTree = "<group>"; };
+		04A19265299E7614000792B4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Google-Firebase-LoginVM.swift"; sourceTree = "<group>"; };
 		04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookFirebaseSignIn.swift; sourceTree = "<group>"; };
@@ -196,6 +239,11 @@
 			isa = PBXGroup;
 			children = (
 				0446396D2983FC8500C1741B /* Personal-Trainer-PT.json */,
+				0437CDC82996B3E000E789F5 /* TestGyms.json */,
+				0446396D2983FC8500C1741B /* PTs.json */,
+				25E6D8F629914D5E0015B8B0 /* EndUser.json */,
+				047C5FA4299411B4000A4F49 /* Gyms.json */,
+				04A19259299C5910000792B4 /* EmptyEndUser.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -215,6 +263,58 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		047C5F5529929E77000A4F49 /* PT */ = {
+			isa = PBXGroup;
+			children = (
+				04A19252299A955C000792B4 /* Calendar */,
+				04A1924E299A94F0000792B4 /* Chat */,
+				04A1924D299A94D5000792B4 /* Dashboard */,
+			);
+			path = PT;
+			sourceTree = "<group>";
+		};
+		047C5F582992AD21000A4F49 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04A19245299A8DF3000792B4 /* HomePage.swift */,
+				04A1924B299A9460000792B4 /* Dashboard.swift */,
+				047C5F5629929EC6000A4F49 /* Sign_Up_View.swift */,
+				04A19256299A9A15000792B4 /* pTPending.swift */,
+				04A19261299D629D000792B4 /* EditModeView.swift */,
+				04A19263299D747E000792B4 /* Sign_Up_Form.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		047C5F5B2992AD50000A4F49 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				047C5F592992AD47000A4F49 /* ViewModel.swift */,
+				04A1925B299C6360000792B4 /* Encoding.swift */,
+				04A19265299E7614000792B4 /* ImagePicker.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		047C5F5C2992AD67000A4F49 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				047C5F5D2992AD7B000A4F49 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		047C5F602992F36D000A4F49 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				047C5F612992F3A0000A4F49 /* EndUserModel.swift */,
+				047C5F9F2993EFE1000A4F49 /* PTModel.swift */,
+				047C5FA529942D82000A4F49 /* GymModel.swift */,
+				047C5FA129940D1F000A4F49 /* ModelData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0480661429881423005CD151 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,17 +330,21 @@
 				047200F9298ACA7E00B04964 /* Fitness-App-Info.plist */,
 				04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */,
 				0498333E2954975400724C7B /* Fitness_App */,
+				04973BFF2996ED110081B7EF /* Fitness_App.app */,
 			);
 			sourceTree = "<group>";
 		};
 		0498333E2954975400724C7B /* Fitness_App */ = {
 			isa = PBXGroup;
 			children = (
+				047C5F602992F36D000A4F49 /* Model */,
+				0446396C2983FC8500C1741B /* Resources */,
 				2570932A298D6E16004D9176 /* Archive */,
 				04972DC1298AB8C400BF96E7 /* Fitness_App.entitlements */,
 				2545A600298D60A400310999 /* Utilities */,
 				259813312992B2BA00EA9B36 /* UserProfile */,
 				259813322992B2C400EA9B36 /* UserSignUpForm */,
+				047C5F5529929E77000A4F49 /* PT */,
 				0446396A2983FC8400C1741B /* LoginPage */,
 				0498333F2954975400724C7B /* Fitness_AppApp.swift */,
 				047200FB298ACFF300B04964 /* AppDelegate.swift */,
@@ -260,12 +364,78 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		2506A6DE299E9F4600FC5D7A /* Managers */ = {
+		04A1924D299A94D5000792B4 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				2506A6DF299E9F9300FC5D7A /* JSONManager.swift */,
+				047C5F5C2992AD67000A4F49 /* Model */,
+				047C5F5B2992AD50000A4F49 /* ViewModel */,
+				047C5F582992AD21000A4F49 /* View */,
 			);
-			path = Managers;
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		04A1924E299A94F0000792B4 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				04A1924F299A950B000792B4 /* Model */,
+				04A19250299A9516000792B4 /* View */,
+				04A19251299A9527000792B4 /* ViewModel */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		04A1924F299A950B000792B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04A19250299A9516000792B4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04A19247299A9077000792B4 /* ChatView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04A19251299A9527000792B4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		04A19252299A955C000792B4 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				04A19253299A9569000792B4 /* Model */,
+				04A19255299A9582000792B4 /* View */,
+				04A19254299A9571000792B4 /* ViewModel */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		04A19253299A9569000792B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04A19254299A9571000792B4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		04A19255299A9582000792B4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04A19249299A9400000792B4 /* Calendar.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2545A600298D60A400310999 /* Utilities */ = {
@@ -284,6 +454,8 @@
 				2545A602298D60BC00310999 /* AuthenticationState.swift */,
 				2545A604298D60C500310999 /* AuthenticationFlow.swift */,
 				2506A6DC299E9EF800FC5D7A /* FileLocation.swift */,
+				04A1925D299C74E8000792B4 /* TrainingCategory.swift */,
+				04A1925F299C7685000792B4 /* GymOptions.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -400,6 +572,8 @@
 			);
 			productName = Fitness_App;
 			productReference = 25369AC8299BCC3A0025628F /* Fitness_App.app */;
+			productReference = 04973BFF2996ED110081B7EF /* Fitness_App.app */;
+			productReference = 256E909B2993DF6F005138B4 /* Fitness_App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -446,11 +620,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				049FAB702982D297001CDC84 /* .gitignore in Resources */,
+				0437CDC729968BB100E789F5 /* Gyms.json in Resources */,
 				049833472954975700724C7B /* Preview Assets.xcassets in Resources */,
 				047200FA298ACA7E00B04964 /* Fitness-App-Info.plist in Resources */,
+				04A1925A299C5911000792B4 /* EmptyEndUser.json in Resources */,
+				25E6D8F729914D5E0015B8B0 /* EndUser.json in Resources */,
 				049833442954975700724C7B /* Assets.xcassets in Resources */,
-				044639712983FC8500C1741B /* Personal-Trainer-PT.json in Resources */,
+				044639712983FC8500C1741B /* PTs.json in Resources */,
 				04BC0EC1298C041E000EE16E /* GoogleService-Info.plist in Resources */,
+				0437CDC92996B3E000E789F5 /* TestGyms.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,35 +641,53 @@
 			files = (
 				0480661629881600005CD151 /* AuthenticationViewModel.swift in Sources */,
 				044639722983FC8500C1741B /* TextFieldView.swift in Sources */,
+				04A19264299D747E000792B4 /* Sign_Up_Form.swift in Sources */,
+				04A19257299A9A15000792B4 /* pTPending.swift in Sources */,
 				2545A5FF298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift in Sources */,
+				04A1924A299A9400000792B4 /* Calendar.swift in Sources */,
+				04A19262299D629D000792B4 /* EditModeView.swift in Sources */,
+				047C5F5729929EC7000A4F49 /* Sign_Up_View.swift in Sources */,
 				04BC0EFA298C1C77000EE16E /* Google-Firebase-LoginVM.swift in Sources */,
 				256E909D2993EA11005138B4 /* Double.swift in Sources */,
 				25369ACA299BDF510025628F /* UserSignUpFormViewModel.swift in Sources */,
 				04720105298AD69700B04964 /* SceneDelegate.swift in Sources */,
+				047C5FA02993EFE1000A4F49 /* PTModel.swift in Sources */,
 				2545A5FE298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift in Sources */,
 				2506A6E0299E9F9300FC5D7A /* JSONManager.swift in Sources */,
 				047200FC298ACFF300B04964 /* AppDelegate.swift in Sources */,
 				049833422954975400724C7B /* ContentView.swift in Sources */,
 				2570932D298D6E62004D9176 /* AuthViewModel.swift in Sources */,
+				047C5FA629942D82000A4F49 /* GymModel.swift in Sources */,
+				04A1924C299A9460000792B4 /* Dashboard.swift in Sources */,
 				04BC0EFC298C1EF7000EE16E /* FacebookFirebaseSignIn.swift in Sources */,
+				04A1925C299C6360000792B4 /* Encoding.swift in Sources */,
 				2545A603298D60BC00310999 /* AuthenticationState.swift in Sources */,
+				047C5FA229940D1F000A4F49 /* ModelData.swift in Sources */,
 				25E6D8F529914A220015B8B0 /* Color.swift in Sources */,
 				259813382992B32700EA9B36 /* UserProfileIconView.swift in Sources */,
 				2545A608298D60D900310999 /* FireBaseSignInWithAppleView.swift in Sources */,
+				047C5F622992F3A0000A4F49 /* EndUserModel.swift in Sources */,
+				047C5F5A2992AD47000A4F49 /* ViewModel.swift in Sources */,
 				049833402954975400724C7B /* Fitness_AppApp.swift in Sources */,
 				251A49A12995F6F20066A9CF /* Components.swift in Sources */,
 				251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */,
+				04A19248299A9077000792B4 /* ChatView.swift in Sources */,
+				04A19260299C7685000792B4 /* GymOptions.swift in Sources */,
 				259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */,
 				259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */,
 				2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */,
 				2506A6DD299E9EF800FC5D7A /* FileLocation.swift in Sources */,
 				259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */,
+				04A1925E299C74E8000792B4 /* TrainingCategory.swift in Sources */,
 				0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */,
 				0446397529841B9E00C1741B /* rootViewController.swift in Sources */,
 				251A499C2995EEC70066A9CF /* EndUser.swift in Sources */,
 				044639732983FC8500C1741B /* LoginPage.swift in Sources */,
 				25C09DAE299536A500099C8E /* Date.swift in Sources */,
+				04A19246299A8DF3000792B4 /* HomePage.swift in Sources */,
+				047C5F5E2992AD7B000A4F49 /* Model.swift in Sources */,
 				25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */,
+				04A19266299E7614000792B4 /* ImagePicker.swift in Sources */,
 				047C5F5329914E59000A4F49 /* facebookLogin.swift in Sources */,
 				256E909F2993FAF1005138B4 /* String.swift in Sources */,
 				25C09DB029953E7F00099C8E /* Array.swift in Sources */,
@@ -716,8 +912,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
-				kind = exactVersion;
-				version = 9.1.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
 			};
 		};
 		25D62163298D7DCE0084637C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {

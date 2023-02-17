@@ -19,15 +19,20 @@ struct Fitness_AppApp: App {
 //    @StateObject private var authVMEmail: FireBaseSignInWithEmailViewModel
     
     /// Declare the authentication view model instance to be used as an environment object for signin & signup views
-    @StateObject private var authenticationVM: AuthViewModel
+    @StateObject private var authenticationVM = AuthViewModel()
+    @StateObject private var modelData = ModelData()
     
-    init() {
-        self._authenticationVM = StateObject(wrappedValue: .init())
-    }
+    
+//    init() {
+//        self._authenticationVM = StateObject(wrappedValue: .init())
+//    }
     
     var body: some Scene {
         WindowGroup {
-            UserProfileIconView()
+//            Sign_Up_View()
+//                .environmentObject(modelData)
+            
+            LoginPage()
 //                .environmentObject(googleFireBaseVM)
 //                .environmentObject(facebookFirebaseSignIn)
                 .environmentObject(authenticationVM)
