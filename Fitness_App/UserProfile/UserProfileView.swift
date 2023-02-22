@@ -11,20 +11,14 @@ struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
     //State private properties for editing mode
     @State var isEditing: Bool = false
-    @State var phoneNumber: String = user.phone
-    @State var email: String = user.email
-    @State var gymLoocation: String = user.gymLocation
-    @State var typesOfWorkout: [String] = user.typesOfWorkOut
-//    @State var heightFeet: Int = user.heightFt
-//    @State var heightInch: Double = user.heightIn
-//    @State var skeletalMuscleMass: Double = user.skeletalMuscleMass
-//    @State var currentWeight: Double = user.currentWeight
-//    @State var currentBodyFat: Double = user.currentBodyFat
-//    @State var targetWeight: Double = user.targetWeight
-//    @State var targetBodyFat: Double = user.targetBodyFat
-    
+    @State var phoneNumber: String = ""
+    @State var email: String = ""
+    @State var gymLoocation: String = ""
+    @State var typesOfWorkout: [String] = []
     // Temp properties for pickers
-    @State var selectedPTGender: String = user.preferredTrainerGender
+    @State var selectedPTGender: String = ""
+    
+    var user: EndUser
     
     var body: some View {
         ScrollView {
@@ -37,6 +31,9 @@ struct UserProfileView: View {
                     } label: {
                         Text(isEditing ? "Done" : "Edit")
                             .foregroundColor(.accentColor)
+                    }
+                    .sheet(isPresented: $isEditing) {
+                        UserSignUpFormView()
                     }
                 }
                 personalInfo
@@ -56,12 +53,46 @@ struct UserProfileView: View {
             )
             Spacer()
         }
+        .onAppear {
+            self.phoneNumber = user.phone
+            self.email = user.email
+            self.gymLoocation = user.gymLocation
+            self.typesOfWorkout = user.typesOfWorkOut
+            self.selectedPTGender = user.preferredTrainerGender
+        }
     }
 }
 
 struct UserProfileView_Previews: PreviewProvider {
+    static let user: EndUser = EndUser(
+        id: userIDMichaelLogan,
+        name: "Michael Logan",
+        profileImageName: "User Profile Image",
+        age: 23,
+        phone: "437-123-1234",
+        email: "mlogan2000@icloud.com",
+        preferredTrainerGender: "Male",
+        gymLocation: "Etobicoke, ON",
+        typesOfWorkOut: [
+            "Machine-based",
+            "Weight-Lifting",
+            "Boxing"
+        ],
+        preferredPriceRange: PriceRangePrefrence(
+            currency: "CAD",
+            min: 400,
+            max: 700),
+        heightFt: 5,
+        heightIn: 10,
+        skeletalMuscleMass: 83.3,
+        currentWeight: 177,
+        targetWeight: 157,
+        currentBodyFat: 0.22,
+        targetBodyFat: 0.18
+    )
+
     static var previews: some View {
-        UserProfileView()
+        UserProfileView(user: user)
     }
 }
 
