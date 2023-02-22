@@ -38,6 +38,9 @@ struct UserProfileView: View {
                         Text(isEditing ? "Done" : "Edit")
                             .foregroundColor(.accentColor)
                     }
+                    .sheet(isPresented: $isEditing) {
+                        UserSignUpFormView()
+                    }
                 }
                 personalInfo
                     .background(
