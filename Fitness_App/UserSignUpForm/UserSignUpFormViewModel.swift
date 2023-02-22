@@ -56,58 +56,57 @@ class UserSignUpFormViewModel: ObservableObject {
     }
     
     func validateForm() {
-        if validateName() {
-            if validateAge() {
-                if validatePhoneNum() {
-                    if validateEmail() {
-                        if validateTrainerGender() {
-                            if validateWorkoutTypes() {
-                                if validatePriceRange() {
-                                    if validateHeight() {
-                                        if validMuscleMass() {
-                                            if validateWeight() {
-                                                if validateBodyFat() {
-                                                    let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
-                                                    print(usersBeforeCreating.count)
-                                                    let newUser = EndUser(
-                                                        id: UUID().uuidString,
-                                                        name: name,
-                                                        profileImageName: "",
-                                                        age: ageToStore,
-                                                        phone: phoneNumberToStore,
-                                                        email: emailToStore,
-                                                        preferredTrainerGender: trainerGenderToStore,
-                                                        gymLocation: gymLocationToStore,
-                                                        typesOfWorkOut: typeOfWorkoutToStore,
-                                                        preferredPriceRange: PriceRangePrefrence(
-                                                            currency: "CAD",
-                                                            min: priceRangeLowToStore,
-                                                            max: priceRangeHighToStore
-                                                        ),
-                                                        heightFt: heightFtToStore,
-                                                        heightIn: heightInToStore,
-                                                        skeletalMuscleMass: skeletalMuscleMassToStore,
-                                                        currentWeight: currentWeightToStore,
-                                                        targetWeight: targetWeightToStore,
-                                                        currentBodyFat: currentFatPercentageToStore,
-                                                        targetBodyFat: targetFatPercentageToStore
-                                                    )
-                                                    add(newEntry: newUser, filename: "EndUser.json", location: .document)
-                                                    let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
-                                                    print(usersAfterCreating.count)
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        // check if all validation functions returns true
+        guard validateName() else { return }
+        guard validateAge() else { return }
+        guard validatePhoneNum() else { return }
+        guard validateEmail() else { return }
+        guard validateTrainerGender() else { return }
+        guard validateWorkoutTypes() else { return }
+        guard validatePriceRange() else { return }
+        guard validateHeight() else { return }
+        guard validateMuscleMass() else { return }
+        guard validateWeight() else { return }
+        guard validateBodyFat() else { return }
+        #if DEBUG
+        let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        print(usersBeforeCreating.count)
+        #endif
+        
+        // create new user and save to JSON in .document directory
+        let newUser = EndUser(
+            id: UUID().uuidString,
+            name: name,
+            profileImageName: "",
+            age: ageToStore,
+            phone: phoneNumberToStore,
+            email: emailToStore,
+            preferredTrainerGender: trainerGenderToStore,
+            gymLocation: gymLocationToStore,
+            typesOfWorkOut: typeOfWorkoutToStore,
+            preferredPriceRange: PriceRangePrefrence(
+                currency: "CAD",
+                min: priceRangeLowToStore,
+                max: priceRangeHighToStore
+            ),
+            heightFt: heightFtToStore,
+            heightIn: heightInToStore,
+            skeletalMuscleMass: skeletalMuscleMassToStore,
+            currentWeight: currentWeightToStore,
+            targetWeight: targetWeightToStore,
+            currentBodyFat: currentFatPercentageToStore,
+            targetBodyFat: targetFatPercentageToStore
+        )
+        add(newEntry: newUser, filename: "EndUser.json", location: .document)
+        #if DEBUG
+        let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        print(usersAfterCreating.count)
+        #endif
     }
-    
+}
+
+//MARK: Validation functions
+extension UserSignUpFormViewModel {
     private func validateName() -> Bool {
         // name
         if !name.isEmpty && name.count >= 2 {
@@ -201,7 +200,7 @@ class UserSignUpFormViewModel: ObservableObject {
             return false
         }
     }
-    private func validMuscleMass() -> Bool {
+    private func validateMuscleMass() -> Bool {
         // skeletal muscle mass
         if let mass = Double(skeletalMuscleMass) {
             error = ""
@@ -235,9 +234,5 @@ class UserSignUpFormViewModel: ObservableObject {
             error = "Invalid body fat."
             return false
         }
-    }
-    
-    func writeEndUser(_ entry: EndUser) {
-        add(newEntry: entry, filename: "EndUser.json", location: .document)
     }
 }
