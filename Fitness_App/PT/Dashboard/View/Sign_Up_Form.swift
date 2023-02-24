@@ -12,18 +12,19 @@ struct Sign_Up_Form: View {
     @StateObject var EncodingJSON : encodingJSON = encodingJSON()
     @Binding var PT : PTModel
     @State private var showingImagePicker = false
-    @State private var inputImage: UIImage?
+    @State private var inputImage: [UIImage] = []
+    
     
     var body: some View {
         ScrollView{
             Text("Sign up as a Trainer")
                 .underline()
-            if inputImage != nil {
-                Image(uiImage : inputImage!)
-                    .resizable()
-                    .frame(width: 250, height: 250)
-                    .aspectRatio(contentMode: .fit)
-            }
+//            if inputImage != nil {
+//                Image(uiImage : inputImage!)// TODO: FIX This
+//                    .resizable()
+//                    .frame(width: 250, height: 250)
+//                    .aspectRatio(contentMode: .fit)
+//            }
             
             
             VStack(alignment: .center){
@@ -40,6 +41,7 @@ struct Sign_Up_Form: View {
         
         var profileSummary: some View{
             VStack{
+                //Name
                 HStack{ //No HStack. add padding.
                   
                     Text("Name:")
@@ -53,11 +55,9 @@ struct Sign_Up_Form: View {
                     TextField("Name", text: $PT.name)
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
-                        
-                        
-                    
                 }
 //                .frame(width: 200, height: 50, alignment: .center)
+                //Gender
                 HStack{
                         Text("Gender:")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -71,6 +71,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
+                //Phone
                 HStack{
                     Text("Phone #:")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -82,6 +83,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
+                //Education
                 HStack{
                     Text("Education")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -97,6 +99,7 @@ struct Sign_Up_Form: View {
     //                Picker() TODO: change to Picker or some type
                     
                 }
+               //Experience Level
                 HStack{
                     Text("Experience Level")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -108,6 +111,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
+                //Training Category
                 HStack{
                     Text("Training Category:")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -119,7 +123,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
-                
+                //Certification
                 HStack{
                     Text("Certification")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -131,7 +135,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
-                
+                //Motto
                 HStack{
                     Text("Motto")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -144,6 +148,7 @@ struct Sign_Up_Form: View {
                         .background(.yellow)
     //                If you still look cute at the end of your workout, you didn't work hard enough
                 }
+                //Location
                 HStack{
                     Text("Location")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -157,7 +162,7 @@ struct Sign_Up_Form: View {
                         .background(.yellow)
                     // TODO: change to Picker or some type //$PT.gymLocation.rawValue
                 }
-                
+                //Preferred Gyms
                 HStack{
                     Text("Preferred Gyms")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -176,6 +181,7 @@ struct Sign_Up_Form: View {
         
         var profileImage: some View{
             VStack{
+                //Description
                 HStack{
                     Text("Description")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -187,7 +193,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
-                
+                //Profile Images
                 HStack{
                     Text("Profile Images")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -207,18 +213,43 @@ struct Sign_Up_Form: View {
         var IntroductionImages: some View{
             
             HStack{
-                Text("Introduction Images:")
+                Text("Additional Images:")
                     .frame(width: UIScreen.main.bounds.width/4)
                     .background(.blue)
                 Divider()
                 Spacer()
                     .frame(width: UIScreen.main.bounds.width/15)
+                HStack{
+                    ForEach(inputImage, id: \.self){ uiImage in
+                        ImageView(uiImage: uiImage)
+                    }
+                if inputImage.count == 3 {
+                    PhotoView()
+                    ZStack{
+                        Rectangle()
+                            .fill(.secondary)
+                            .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                        
+                        Button("+"){
+                            showingImagePicker = true
+                            loadImage()
+                        }
+                        .onChange(of: inputImage) { _ in loadImage() }
+                        .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
+                        .background(.white)
+                        .cornerRadius(12)
+                        .sheet(isPresented: $showingImagePicker) {
+                            ImagePicker(image: $inputImage)
+                        }
+                    }
+                }
+            }
                 
+//                else{
+//                    PhotoView(uiImageOne: result[0], uiImageTwo: result[1], uiImageThree: result[2])
+//                }
+    
                 ZStack{
-//                    Text("Add up to 6 images to show up on trainer profile page together with your profile image")
-//                        .frame(width: UIScreen.main.bounds.width/2)
-//                        .background(.yellow)
-                    
                     Rectangle()
                         .fill(.secondary)
                         .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
@@ -227,7 +258,7 @@ struct Sign_Up_Form: View {
                             showingImagePicker = true
                             loadImage()
                     }
-                    .onChange(of: inputImage) { _ in loadImage() } //TODO: Might need this
+                    .onChange(of: inputImage) { _ in loadImage() }
                     .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
                     .background(.white)
                     .cornerRadius(12)
@@ -265,7 +296,7 @@ struct Sign_Up_Form: View {
                     Spacer()
                         .frame(width: UIScreen.main.bounds.width/15)
                     VStack{
-                        Text("Upload a photo ID and a selfie and up to 3 ")
+                        Text("Upload a photo ID and a selfie ")
                             .frame(width: UIScreen.main.bounds.width/2)
                             .background(.yellow)
                         //3-5 Image Thumbnails
