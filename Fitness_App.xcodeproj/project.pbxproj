@@ -83,6 +83,7 @@
 		253ADE0D298D647D0038AE85 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0C298D647D0038AE85 /* FacebookLogin */; };
 		253ADE0F298D647D0038AE85 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0E298D647D0038AE85 /* FacebookShare */; };
 		2540709B29A8FED600B305DB /* EndUser.json in Resources */ = {isa = PBXBuildFile; fileRef = 2540709A29A8FED600B305DB /* EndUser.json */; };
+		2540709D29A9009300B305DB /* NewEndUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540709C29A9009300B305DB /* NewEndUser.swift */; };
 		2545A5FE298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A5FC298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift */; };
 		2545A5FF298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A5FD298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift */; };
 		2545A603298D60BC00310999 /* AuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A602298D60BC00310999 /* AuthenticationState.swift */; };
@@ -152,6 +153,7 @@
 		251A49A02995F6F20066A9CF /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		25369AC9299BDF510025628F /* UserSignUpFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpFormViewModel.swift; sourceTree = "<group>"; };
 		2540709A29A8FED600B305DB /* EndUser.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EndUser.json; sourceTree = "<group>"; };
+		2540709C29A9009300B305DB /* NewEndUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEndUser.swift; sourceTree = "<group>"; };
 		2545A5FC298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithAppleViewModel.swift; sourceTree = "<group>"; };
 		2545A5FD298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithEmailViewModel.swift; sourceTree = "<group>"; };
 		2545A602298D60BC00310999 /* AuthenticationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationState.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				047C5F612992F3A0000A4F49 /* EndUserModel.swift */,
+				2540709C29A9009300B305DB /* NewEndUser.swift */,
 				047C5F9F2993EFE1000A4F49 /* PTModel.swift */,
 				047C5FA529942D82000A4F49 /* GymModel.swift */,
 				047C5FA129940D1F000A4F49 /* ModelData.swift */,
@@ -674,6 +677,7 @@
 				251A49A12995F6F20066A9CF /* Components.swift in Sources */,
 				251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */,
 				04A19248299A9077000792B4 /* ChatView.swift in Sources */,
+				2540709D29A9009300B305DB /* NewEndUser.swift in Sources */,
 				04A19260299C7685000792B4 /* GymOptions.swift in Sources */,
 				259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */,
 				259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */,

@@ -20,7 +20,7 @@ struct Fitness_AppApp: App {
     
     /// Declare the authentication view model instance to be used as an environment object for signin & signup views
     @StateObject private var authenticationVM = AuthViewModel()
-    @StateObject private var modelData = ModelData()
+//    @StateObject private var modelData = ModelData()
     
     
 //    init() {

@@ -15,9 +15,10 @@ class UserSignUpFormViewModel: ObservableObject {
     @Published var age: String = ""
     @Published var phoneNumber: String = ""
     @Published var email: String = ""
-    @Published var trainerGender: String = "Male"
+    @Published var trainerGender: TrainerGender = .m
+    @Published var preferredGym: PreferredGym = .anytime
     @Published var gymLocation: String = ""
-    @Published var typeOfWorkOut: [String] = [workoutTypes[0], workoutTypes[1], workoutTypes[2]]
+    @Published var typeOfWorkOut: [WorkOutType] = [.lifting, .boxing, .machine]
     @Published var priceRangeLow: String = ""
     @Published var priceRangeHigh: String = ""
     @Published var heightFt: String = "" // 5
@@ -32,9 +33,10 @@ class UserSignUpFormViewModel: ObservableObject {
     var phoneNumberToStore: String = ""
     var emailToStore: String = ""
     
-    var trainerGenderToStore: String = ""
+    var trainerGenderToStore: TrainerGender = .m
     var gymLocationToStore: String = ""
-    var typeOfWorkoutToStore: [String] = []
+//    var typeOfWorkoutToStore: [WorkOutType] = []
+//    var preferredGymToStore: [PreferredGym] = []
     var priceRangeLowToStore: Double = 0
     var priceRangeHighToStore: Double = 0
     
@@ -48,8 +50,9 @@ class UserSignUpFormViewModel: ObservableObject {
     var targetFatPercentageToStore: Double = 0
     
     // filter for workout type
-    func workoutTypesSelectable(_ index: Int) -> [String] {
-        [typeOfWorkOut[index]] +
+    func workoutTypesSelectable(_ index: Int) -> [WorkOutType] {
+        let workoutTypes = WorkOutType.allCases
+        return [typeOfWorkOut[index]] +
         workoutTypes.filter { type in
             !typeOfWorkOut.contains(type)
         }
@@ -61,31 +64,32 @@ class UserSignUpFormViewModel: ObservableObject {
         guard validateAge() else { return }
         guard validatePhoneNum() else { return }
         guard validateEmail() else { return }
-        guard validateTrainerGender() else { return }
-        guard validateWorkoutTypes() else { return }
+        //guard validateTrainerGender() else { return }
+        //guard validateWorkoutTypes() else { return }
         guard validatePriceRange() else { return }
         guard validateHeight() else { return }
         guard validateMuscleMass() else { return }
         guard validateWeight() else { return }
         guard validateBodyFat() else { return }
         #if DEBUG
-        let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        let usersBeforeCreating: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
         print(usersBeforeCreating.count)
         #endif
         
         // create new user and save to JSON in .document directory
-        let newUser = EndUser(
+        let newUser = NewEndUser(
             id: UUID().uuidString,
             name: name,
-            profileImageName: "",
+            profileImage: "",
             age: ageToStore,
             phone: phoneNumberToStore,
             email: emailToStore,
             preferredTrainerGender: trainerGenderToStore,
             gymLocation: gymLocationToStore,
-            typesOfWorkOut: typeOfWorkoutToStore,
-            preferredPriceRange: PriceRangePrefrence(
-                currency: "CAD",
+            preferredGym: preferredGym,
+            typesOfWorkOut: typeOfWorkOut,
+            preferredPriceRange: PriceRange(
+                currency: Currency.cad,
                 min: priceRangeLowToStore,
                 max: priceRangeHighToStore
             ),
@@ -99,7 +103,7 @@ class UserSignUpFormViewModel: ObservableObject {
         )
         add(newEntry: newUser, filename: "EndUser.json", location: .document)
         #if DEBUG
-        let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        let usersAfterCreating: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
         print(usersAfterCreating.count)
         #endif
     }
@@ -151,30 +155,30 @@ extension UserSignUpFormViewModel {
             return false
         }
     }
-    private func validateTrainerGender() -> Bool {
-        // trainergender
-        if genders.contains(trainerGender) {
-            error = ""
-            self.trainerGenderToStore = trainerGender
-            return true
-        } else {
-            error = "Invalid gender."
-            return false
-        }
-    }
+//    private func validateTrainerGender() -> Bool {
+//        // trainergender
+//        if TrainerGender.allCases.contains(trainerGender) {
+//            error = ""
+//            self.trainerGenderToStore = trainerGender
+//            return true
+//        } else {
+//            error = "Invalid gender."
+//            return false
+//        }
+//    }
     
     //TODO: Fetch/Validate gym location
     
-    private func validateWorkoutTypes() -> Bool {
-        // type of workout
-        var validCount: Int = 0
-        for i in typeOfWorkOut {
-            if workoutTypes.contains(i) {
-                validCount += 1
-            }
-        }
-        return validCount == 3
-    }
+//    private func validateWorkoutTypes() -> Bool {
+//        // type of workout
+//        var validCount: Int = 0
+//        for i in typeOfWorkOut {
+//            if workoutTypes.contains(i) {
+//                validCount += 1
+//            }
+//        }
+//        return validCount == 3
+//    }
     private func validatePriceRange() -> Bool {
         //priceRange
         if let low = Double(priceRangeLow), let high = Double(priceRangeHigh), low <= high {

@@ -47,6 +47,10 @@ struct LoginPage: View {
                     
                     VStack{
                         Text("Sign In").bold()
+                        if !authVM.errorMsg.isEmpty {
+                            Text(authVM.errorMsg)
+                                .foregroundColor(.red)
+                        }
                         
                         //Email Login
                         FireBaseSignInWithEmailView()

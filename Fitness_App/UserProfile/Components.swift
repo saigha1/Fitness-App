@@ -27,7 +27,8 @@ extension UserProfileView {
             
             //User’s Profile Image & Name
             HStack {
-                user.profileImage
+                //TODO: DECODE IMAGE
+                Image(systemName: "person")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 45, height: 45, alignment: .center)
@@ -122,12 +123,12 @@ extension UserProfileView {
                 Group {
                     if isEditing {
                         Picker("Gender", selection: $selectedPTGender) {
-                            ForEach(genders, id: \.self) {
-                                Text($0)
+                            ForEach(TrainerGender.allCases, id: \.self) {
+                                Text($0.rawValue)
                             }
                         }
                     } else {
-                        Text("\(selectedPTGender)")
+                        Text("\(selectedPTGender.rawValue)")
                     }
                 }
             }
@@ -144,7 +145,7 @@ extension UserProfileView {
                     Text("\(user.gymLocation)")
                     VStack(alignment: .trailing) {
                         ForEach(user.typesOfWorkOut, id: \.self) {type in
-                            Text(type)
+                            Text(type.rawValue)
                         }
                     }
                 }

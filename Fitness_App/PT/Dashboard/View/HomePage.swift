@@ -19,7 +19,7 @@ struct HomePage: View {
         
         if (pTApproved && !pending && !signUp){
             TabView{
-                Dashboard()
+                Dashboard(user: authVM.currentEndUser)
                     .tabItem{
                         Label("Dashboard", systemImage: "house")
                     }

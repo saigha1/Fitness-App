@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-let genders = ["Male", "Female"]
-let workoutTypes = ["Machine-based", "Boxing", "Weight-lifting", "Calisthenics"]
+//let genders = ["Male", "Female"]
+//let workoutTypes = ["Machine-based", "Boxing", "Weight-lifting", "Calisthenics"]
 
 struct UserSignUpFormView: View {    
     @StateObject private var vm = UserSignUpFormViewModel()
@@ -78,29 +78,48 @@ extension UserSignUpFormView {
             .foregroundColor(Color.assetColor.blue)
             
             Picker("Trainer Gender", selection: $vm.trainerGender) {
-                ForEach(genders, id: \.self) {
-                    Text($0)
+                ForEach(TrainerGender.allCases, id: \.self) {
+                    Text($0.rawValue)
                 }
             }
             
             TextFieldView(textInput: $vm.gymLocation, placeholder: "Gym Location", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
             
+            Picker("Preferred Gym", selection: $vm.preferredGym) {
+                ForEach(PreferredGym.allCases, id: \.self) {
+                    Text($0.rawValue)
+                }
+            }
+            
             VStack(alignment: .leading, spacing: 1) {
                 Picker("Workout Type 1", selection: $vm.typeOfWorkOut[0]) {
                     ForEach(vm.workoutTypesSelectable(0), id: \.self) {
-                        Text($0)
+                        Text($0.rawValue)
+                            .tag("wotype1")
                     }
                 }
                 Picker("Workout Type 2", selection: $vm.typeOfWorkOut[1]) {
                     ForEach(vm.workoutTypesSelectable(1), id: \.self) {
-                        Text($0)
+                        Text($0.rawValue)
+                            .tag("wotype2")
                     }
                 }
                 Picker("Workout Type 3", selection: $vm.typeOfWorkOut[2]) {
                     ForEach(vm.workoutTypesSelectable(2), id: \.self) {
-                        Text($0)
+                        Text($0.rawValue)
+                            .tag("wotype3")
                     }
                 }
+//                Picker("Workout Type 2", selection: $vm.typeOfWorkOut[1]) {
+//                    ForEach(vm.workoutTypesSelectable(1), id: \.self) {
+//                        Text($0)
+//                    }
+//                }
+//                Picker("Workout Type 3", selection: $vm.typeOfWorkOut[2]) {
+//                    ForEach(vm.workoutTypesSelectable(2), id: \.self) {
+//                        Text($0)
+//                    }
+//                }
             }
             
             HStack {
