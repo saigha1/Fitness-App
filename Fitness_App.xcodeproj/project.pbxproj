@@ -82,6 +82,7 @@
 		253ADE0B298D647D0038AE85 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0A298D647D0038AE85 /* FacebookCore */; };
 		253ADE0D298D647D0038AE85 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0C298D647D0038AE85 /* FacebookLogin */; };
 		253ADE0F298D647D0038AE85 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 253ADE0E298D647D0038AE85 /* FacebookShare */; };
+		2540709B29A8FED600B305DB /* EndUser.json in Resources */ = {isa = PBXBuildFile; fileRef = 2540709A29A8FED600B305DB /* EndUser.json */; };
 		2545A5FE298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A5FC298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift */; };
 		2545A5FF298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A5FD298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift */; };
 		2545A603298D60BC00310999 /* AuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A602298D60BC00310999 /* AuthenticationState.swift */; };
@@ -150,6 +151,7 @@
 		251A499D2995F6870066A9CF /* WorkOutAppointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutAppointment.swift; sourceTree = "<group>"; };
 		251A49A02995F6F20066A9CF /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		25369AC9299BDF510025628F /* UserSignUpFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpFormViewModel.swift; sourceTree = "<group>"; };
+		2540709A29A8FED600B305DB /* EndUser.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EndUser.json; sourceTree = "<group>"; };
 		2545A5FC298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithAppleViewModel.swift; sourceTree = "<group>"; };
 		2545A5FD298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithEmailViewModel.swift; sourceTree = "<group>"; };
 		2545A602298D60BC00310999 /* AuthenticationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationState.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 		0446396C2983FC8500C1741B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2540709A29A8FED600B305DB /* EndUser.json */,
 				0437CDC82996B3E000E789F5 /* TestGyms.json */,
 				0446396D2983FC8500C1741B /* PTs.json */,
 				047C5FA4299411B4000A4F49 /* Gyms.json */,
@@ -622,6 +625,7 @@
 				0437CDC729968BB100E789F5 /* Gyms.json in Resources */,
 				049833472954975700724C7B /* Preview Assets.xcassets in Resources */,
 				047200FA298ACA7E00B04964 /* Fitness-App-Info.plist in Resources */,
+				2540709B29A8FED600B305DB /* EndUser.json in Resources */,
 				04A1925A299C5911000792B4 /* EmptyEndUser.json in Resources */,
 				049833442954975700724C7B /* Assets.xcassets in Resources */,
 				044639712983FC8500C1741B /* PTs.json in Resources */,
