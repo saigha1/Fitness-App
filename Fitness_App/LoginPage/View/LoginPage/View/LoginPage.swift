@@ -55,7 +55,7 @@ struct LoginPage: View {
                         
                         // User type selector
                         VStack(alignment: .center) {
-                            Text(authVM.isEnderUser ? "I’m finder a trainer." : "Are you a client?")
+                            Text(authVM.isEnderUser ? "I’m finding a trainer." : "Are you a client?")
                                 .foregroundColor(authVM.isEnderUser ? .white : .accentColor)
                                 .frame(width: 210, height: 40)
                                 .background(authVM.isEnderUser ? Color.assetColor.purple : .clear)
