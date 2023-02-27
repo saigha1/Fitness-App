@@ -93,6 +93,10 @@
 		256E909D2993EA11005138B4 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E909C2993EA11005138B4 /* Double.swift */; };
 		256E909F2993FAF1005138B4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E909E2993FAF1005138B4 /* String.swift */; };
 		2570932D298D6E62004D9176 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570932C298D6E62004D9176 /* AuthViewModel.swift */; };
+		257337AB29ACFCC800357E78 /* EndUserDashBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337AA29ACFCC800357E78 /* EndUserDashBoardView.swift */; };
+		257337AD29ACFD4300357E78 /* EndUserChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337AC29ACFD4300357E78 /* EndUserChatView.swift */; };
+		257337AF29ACFDAE00357E78 /* EndUserExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */; };
+		257337B129ACFE1500357E78 /* EndUserCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337B029ACFE1500357E78 /* EndUserCalendarView.swift */; };
 		259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */; };
 		259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259813332992B2DE00EA9B36 /* UserProfileView.swift */; };
 		259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259813352992B2E900EA9B36 /* UserSignUpFormView.swift */; };
@@ -163,6 +167,10 @@
 		256E909C2993EA11005138B4 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		256E909E2993FAF1005138B4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2570932C298D6E62004D9176 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		257337AA29ACFCC800357E78 /* EndUserDashBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserDashBoardView.swift; sourceTree = "<group>"; };
+		257337AC29ACFD4300357E78 /* EndUserChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserChatView.swift; sourceTree = "<group>"; };
+		257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserExploreView.swift; sourceTree = "<group>"; };
+		257337B029ACFE1500357E78 /* EndUserCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserCalendarView.swift; sourceTree = "<group>"; };
 		2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelWithIconView.swift; sourceTree = "<group>"; };
 		259813332992B2DE00EA9B36 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		259813352992B2E900EA9B36 /* UserSignUpFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpFormView.swift; sourceTree = "<group>"; };
@@ -344,6 +352,7 @@
 				2545A600298D60A400310999 /* Utilities */,
 				259813312992B2BA00EA9B36 /* UserProfile */,
 				259813322992B2C400EA9B36 /* UserSignUpForm */,
+				257337A929ACFC8C00357E78 /* EndUser */,
 				047C5F5529929E77000A4F49 /* PT */,
 				0446396A2983FC8400C1741B /* LoginPage */,
 				0498333F2954975400724C7B /* Fitness_AppApp.swift */,
@@ -484,6 +493,17 @@
 				0480661529881600005CD151 /* AuthenticationViewModel.swift */,
 			);
 			path = "GoogleSignIn-OAuth2";
+			sourceTree = "<group>";
+		};
+		257337A929ACFC8C00357E78 /* EndUser */ = {
+			isa = PBXGroup;
+			children = (
+				257337AA29ACFCC800357E78 /* EndUserDashBoardView.swift */,
+				257337AC29ACFD4300357E78 /* EndUserChatView.swift */,
+				257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */,
+				257337B029ACFE1500357E78 /* EndUserCalendarView.swift */,
+			);
+			path = EndUser;
 			sourceTree = "<group>";
 		};
 		259813312992B2BA00EA9B36 /* UserProfile */ = {
@@ -651,6 +671,7 @@
 				2545A5FF298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift in Sources */,
 				04A1924A299A9400000792B4 /* Calendar.swift in Sources */,
 				04A19262299D629D000792B4 /* EditModeView.swift in Sources */,
+				257337B129ACFE1500357E78 /* EndUserCalendarView.swift in Sources */,
 				047C5F5729929EC7000A4F49 /* Sign_Up_View.swift in Sources */,
 				04BC0EFA298C1C77000EE16E /* Google-Firebase-LoginVM.swift in Sources */,
 				256E909D2993EA11005138B4 /* Double.swift in Sources */,
@@ -668,11 +689,13 @@
 				2545A603298D60BC00310999 /* AuthenticationState.swift in Sources */,
 				047C5FA229940D1F000A4F49 /* ModelData.swift in Sources */,
 				25E6D8F529914A220015B8B0 /* Color.swift in Sources */,
+				257337AB29ACFCC800357E78 /* EndUserDashBoardView.swift in Sources */,
 				259813382992B32700EA9B36 /* UserProfileIconView.swift in Sources */,
 				2545A608298D60D900310999 /* FireBaseSignInWithAppleView.swift in Sources */,
 				047C5F622992F3A0000A4F49 /* EndUserModel.swift in Sources */,
 				047C5F5A2992AD47000A4F49 /* ViewModel.swift in Sources */,
 				25180FD8299FC7F300498E30 /* JSONManager.swift in Sources */,
+				257337AF29ACFDAE00357E78 /* EndUserExploreView.swift in Sources */,
 				049833402954975400724C7B /* Fitness_AppApp.swift in Sources */,
 				251A49A12995F6F20066A9CF /* Components.swift in Sources */,
 				251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */,
@@ -684,6 +707,7 @@
 				2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */,
 				2506A6DD299E9EF800FC5D7A /* FileLocation.swift in Sources */,
 				259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */,
+				257337AD29ACFD4300357E78 /* EndUserChatView.swift in Sources */,
 				04A1925E299C74E8000792B4 /* TrainingCategory.swift in Sources */,
 				0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */,
 				0446397529841B9E00C1741B /* rootViewController.swift in Sources */,

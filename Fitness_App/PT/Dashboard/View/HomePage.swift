@@ -17,19 +17,27 @@ struct HomePage: View {
     
     var body: some View {
         
-        if authVM.isEnderUser {
-            homePageForEndUser
-        } else {
+        if !authVM.isEnderUser {
             homePageForPT
+        } else {
+            homePageForEndUser
         }
         
     }
 }
 
 struct HomePage_Previews: PreviewProvider {
+    static let vm = AuthViewModel()
     static var previews: some View {
+        //PT HomePage
         HomePage()
-            .environmentObject(AuthViewModel())
+            .environmentObject(vm)
+            .onAppear {
+                vm.isEnderUser.toggle()
+            }
+        HomePage()
+        //End User HomePage
+            .environmentObject(vm)
     }
 }
 
@@ -66,6 +74,24 @@ extension HomePage {
         }
     }
     private var homePageForEndUser: some View {
-        Text("EndUser")
+        TabView {
+            EndUserDashBoardView()
+                .tabItem{
+                    Label("Dashboard", systemImage: "house")
+                }
+                .environmentObject(authVM)
+            EndUserChatView()
+                .tabItem{
+                    Label("Chat", systemImage: "message")
+                }
+            EndUserExploreView()
+                .tabItem{
+                    Label("Explore", systemImage: "safari.fill")
+                }
+            EndUserCalendarView()
+                .tabItem{
+                    Label("Calendar", systemImage: "calendar.badge.clock")
+                }
+        }
     }
 }
