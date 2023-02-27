@@ -10,6 +10,7 @@ import SwiftUI
 let userProfileImage = Image("User Profile Image")
 
 struct UserProfileIconView: View {
+    @EnvironmentObject var authVM: AuthViewModel
     @State private var shouldShowProfileSheet: Bool = false
     var user: NewEndUser
     var body: some View {
@@ -61,5 +62,6 @@ struct UserProfileIconView_Previews: PreviewProvider {
     )
     static var previews: some View {
         UserProfileIconView(user: user)
+            .environmentObject(AuthViewModel())
     }
 }
