@@ -36,6 +36,8 @@ class AuthViewModel: ObservableObject {
 //    @Published var user: User?
     @Published var errorMessage: String?
     @Published var currentUser: User? // User model in Firebase
+    @Published var isEnderUser: Bool = true
+    
     var currentEndUser: NewEndUser {
         return NewEndUser(
             id: userIDMichaelLogan,
