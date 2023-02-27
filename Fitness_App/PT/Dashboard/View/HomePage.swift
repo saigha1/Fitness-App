@@ -48,5 +48,6 @@ struct HomePage: View {
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
         HomePage()
+            .environmentObject(AuthViewModel())
     }
 }
