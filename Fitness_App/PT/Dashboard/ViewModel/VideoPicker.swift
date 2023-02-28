@@ -40,16 +40,26 @@ struct VideoPicker: UIViewControllerRepresentable {
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             picker.dismiss(animated: true)
 
-            guard let provider = results.first?.itemProvider else { return }
-
-            provider.loadFileRepresentation(forTypeIdentifier: "public.movie") { url, error in
-
-            guard let url = url else {return}
-
-                self.parent.videoURLs = url.absoluteString
-            print(url)
-            print(FileManager.default.fileExists(atPath: url.path))
-
+            for result in results {
+                let provider = result.itemProvider
+                
+                provider.loadFileRepresentation(forTypeIdentifier: "public.movie") { url, error in
+                    guard error == nil else{
+                        print(error)
+                        return
+                    }
+                    // receiving the video-local-URL / filepath
+                    guard let url = url else {return}
+                    // create a new filename
+                    let fileName = "\(Int(Date().timeIntervalSince1970)).\(url.pathExtension)"
+                    // create new URL
+                    let newUrl = URL(fileURLWithPath: NSTemporaryDirectory() + fileName)
+                    // copy item to APP Storage
+                    try? FileManager.default.copyItem(at: url, to: newUrl)
+                   
+                    self.parent.videoURLs.append(newUrl.absoluteString)
+//                    print(type(of: self.parent.videoURLs))
+                }
             }
         }
     }
