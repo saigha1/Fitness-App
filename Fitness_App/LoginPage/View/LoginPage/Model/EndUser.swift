@@ -42,29 +42,29 @@ struct PriceRangePrefrence: Codable {
 
 //TODO: Replace with data from JSON
 let userIDMichaelLogan = "a7a3c754-e154-4e15-bbab-2cbc03d2fe19"
-let user = EndUser(
-    id: userIDMichaelLogan,
-    name: "Michael Logan",
-    profileImageName: "User Profile Image",
-    age: 23,
-    phone: "437-123-1234",
-    email: "mlogan2000@icloud.com",
-    preferredTrainerGender: "Male",
-    gymLocation: "Etobicoke, ON",
-    typesOfWorkOut: [
-        "Machine-based",
-        "Weight-Lifting",
-        "Boxing"
-    ],
-    preferredPriceRange: PriceRangePrefrence(
-        currency: "CAD",
-        min: 400,
-        max: 700),
-    heightFt: 5,
-    heightIn: 10,
-    skeletalMuscleMass: 83.3,
-    currentWeight: 177,
-    targetWeight: 157,
-    currentBodyFat: 0.22,
-    targetBodyFat: 0.18
-)
+//let user = EndUser(
+//    id: userIDMichaelLogan,
+//    name: "Michael Logan",
+//    profileImageName: "User Profile Image",
+//    age: 23,
+//    phone: "437-123-1234",
+//    email: "mlogan2000@icloud.com",
+//    preferredTrainerGender: "Male",
+//    gymLocation: "Etobicoke, ON",
+//    typesOfWorkOut: [
+//        "Machine-based",
+//        "Weight-Lifting",
+//        "Boxing"
+//    ],
+//    preferredPriceRange: PriceRangePrefrence(
+//        currency: "CAD",
+//        min: 400,
+//        max: 700),
+//    heightFt: 5,
+//    heightIn: 10,
+//    skeletalMuscleMass: 83.3,
+//    currentWeight: 177,
+//    targetWeight: 157,
+//    currentBodyFat: 0.22,
+//    targetBodyFat: 0.18
+//)
