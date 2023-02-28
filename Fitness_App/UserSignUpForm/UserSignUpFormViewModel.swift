@@ -58,27 +58,28 @@ class UserSignUpFormViewModel: ObservableObject {
         }
     }
     
-    func validateForm() {
+    func validateForm(_ firebaseUID: String) -> Bool {
+        var newUserCreated = false
         // check if all validation functions returns true
-        guard validateName() else { return }
-        guard validateAge() else { return }
-        guard validatePhoneNum() else { return }
-        guard validateEmail() else { return }
+        guard validateName() else { return false }
+        guard validateAge() else { return false }
+        guard validatePhoneNum() else { return false }
+        guard validateEmail() else { return false }
         //guard validateTrainerGender() else { return }
         //guard validateWorkoutTypes() else { return }
-        guard validatePriceRange() else { return }
-        guard validateHeight() else { return }
-        guard validateMuscleMass() else { return }
-        guard validateWeight() else { return }
-        guard validateBodyFat() else { return }
-        #if DEBUG
+        guard validatePriceRange() else { return false }
+        guard validateHeight() else { return false }
+        guard validateMuscleMass() else { return false }
+        guard validateWeight() else { return false }
+        guard validateBodyFat() else { return false }
+        
         let usersBeforeCreating: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
         print(usersBeforeCreating.count)
-        #endif
+        
         
         // create new user and save to JSON in .document directory
         let newUser = NewEndUser(
-            id: UUID().uuidString,
+            id: firebaseUID,
             name: name,
             profileImage: "",
             age: ageToStore,
@@ -102,10 +103,12 @@ class UserSignUpFormViewModel: ObservableObject {
             targetBodyFat: targetFatPercentageToStore
         )
         add(newEntry: newUser, filename: "EndUser.json", location: .document)
-        #if DEBUG
+        
         let usersAfterCreating: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
         print(usersAfterCreating.count)
-        #endif
+        
+        if usersAfterCreating.count > usersBeforeCreating.count { newUserCreated.toggle() }
+        return newUserCreated
     }
 }
 

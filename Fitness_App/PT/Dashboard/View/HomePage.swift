@@ -12,6 +12,8 @@ struct HomePage: View {
     @State var pending : Bool = false
     @State var signUp : Bool = false
     
+    @State var isEndUserApproved: Bool = false
+    
     @EnvironmentObject var authVM : AuthViewModel
     
     
@@ -74,8 +76,52 @@ extension HomePage {
         }
     }
     private var homePageForEndUser: some View {
+        Group {
+            
+            if isEndUserApproved {
+                //TODO: 1 - populate values from JSON
+                endUserTabView
+            } else {
+                Text("").fullScreenCover(isPresented: .init(
+                    get: {
+                        !self.isEndUserApproved
+                }, set: {
+                    self.isEndUserApproved = !$0
+                })) {
+                    endUserApprovalCheck()
+                } content: {
+                    //TODO: 2 - populate states from Firebase
+                    UserSignUpFormView()
+                }
+
+            }
+        }
+        .onAppear {
+            endUserApprovalCheck()
+        }
+    }
+    private func endUserApprovalCheck() {
+        #if DEBUG
+        print("--------Firebase User Info----------")
+        guard let user = authVM.currentUser, authVM.isEnderUser else { return }
+        print("Object:", user)
+        print("Firebase UID", user.uid)
+        print("Email", user.email ?? "")
+        print("Phone", user.phoneNumber ?? "")
+        #endif
+        let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        if allUsersApproved.count <= 0 {
+            self.isEndUserApproved = false
+        }
+        for approvedUser in allUsersApproved {
+            if user.uid == approvedUser.id {
+                self.isEndUserApproved = true
+            }
+        }
+    }
+    private var endUserTabView: some View {
         TabView {
-            EndUserDashBoardView()
+            EndUserDashBoardView(user: authVM.currentEndUser)
                 .tabItem{
                     Label("Dashboard", systemImage: "house")
                 }

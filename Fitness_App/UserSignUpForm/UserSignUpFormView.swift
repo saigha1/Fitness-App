@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-//let genders = ["Male", "Female"]
-//let workoutTypes = ["Machine-based", "Boxing", "Weight-lifting", "Calisthenics"]
-
 struct UserSignUpFormView: View {    
-    @StateObject private var vm = UserSignUpFormViewModel()
+    @StateObject private var signUpFormVM = UserSignUpFormViewModel()
+    @EnvironmentObject var authVM: AuthViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView {
@@ -22,22 +21,33 @@ struct UserSignUpFormView: View {
                         preferenceSection
                         metricsSection
                     }
-                    if !vm.error.isEmpty {
-                        Text(vm.error)
+                    if !signUpFormVM.error.isEmpty {
+                        Text(signUpFormVM.error)
                             .bold()
                             .foregroundColor(.red)
                     }
                 }
                 Button {
-                    vm.validateForm()
+                    if signUpFormVM.validateForm(authVM.currentUser?.uid ?? UUID().uuidString) {
+                        dismiss()
+                    }
                 } label: {
                     Text("Continue")
                         .bold()
                         .font(.title2)
                 }
-
+                
             }
             .navigationTitle("Profile")
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        authVM.signOut()
+                    } label: {
+                        Text("Sign Out")
+                    }
+                }
+            }
         }
     }
 }
@@ -45,6 +55,7 @@ struct UserSignUpFormView: View {
 struct UserSignUpFormView_Previews: PreviewProvider {
     static var previews: some View {
         UserSignUpFormView()
+            .environmentObject(AuthViewModel())
     }
 }
 
@@ -59,11 +70,11 @@ extension UserSignUpFormView {
                     .bold()
             }
             .foregroundColor(Color.assetColor.purple)
-            TextFieldView(textInput: $vm.name, placeholder: "Name", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
-            TextFieldView(textInput: $vm.age, placeholder: "Age", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
-            TextFieldView(textInput: $vm.phoneNumber, placeholder: "Phone Number", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
+            TextFieldView(textInput: $signUpFormVM.name, placeholder: "Name", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
+            TextFieldView(textInput: $signUpFormVM.age, placeholder: "Age", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
+            TextFieldView(textInput: $signUpFormVM.phoneNumber, placeholder: "Phone Number", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
                 .keyboardType(.namePhonePad)
-            TextFieldView(textInput: $vm.email, placeholder: "Email Adress", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 220, height: 25)
+            TextFieldView(textInput: $signUpFormVM.email, placeholder: "Email Adress", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 220, height: 25)
                 .keyboardType(.emailAddress)
         }
     }
@@ -77,56 +88,46 @@ extension UserSignUpFormView {
             }
             .foregroundColor(Color.assetColor.blue)
             
-            Picker("Trainer Gender", selection: $vm.trainerGender) {
+            Picker("Trainer Gender", selection: $signUpFormVM.trainerGender) {
                 ForEach(TrainerGender.allCases, id: \.self) {
                     Text($0.rawValue)
                 }
             }
             
-            TextFieldView(textInput: $vm.gymLocation, placeholder: "Gym Location", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
+            TextFieldView(textInput: $signUpFormVM.gymLocation, placeholder: "Gym Location", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
             
-            Picker("Preferred Gym", selection: $vm.preferredGym) {
+            Picker("Preferred Gym", selection: $signUpFormVM.preferredGym) {
                 ForEach(PreferredGym.allCases, id: \.self) {
                     Text($0.rawValue)
                 }
             }
             
             VStack(alignment: .leading, spacing: 1) {
-                Picker("Workout Type 1", selection: $vm.typeOfWorkOut[0]) {
-                    ForEach(vm.workoutTypesSelectable(0), id: \.self) {
+                Picker("Workout Type 1", selection: $signUpFormVM.typeOfWorkOut[0]) {
+                    ForEach(signUpFormVM.workoutTypesSelectable(0), id: \.self) {
                         Text($0.rawValue)
                             .tag("wotype1")
                     }
                 }
-                Picker("Workout Type 2", selection: $vm.typeOfWorkOut[1]) {
-                    ForEach(vm.workoutTypesSelectable(1), id: \.self) {
+                Picker("Workout Type 2", selection: $signUpFormVM.typeOfWorkOut[1]) {
+                    ForEach(signUpFormVM.workoutTypesSelectable(1), id: \.self) {
                         Text($0.rawValue)
                             .tag("wotype2")
                     }
                 }
-                Picker("Workout Type 3", selection: $vm.typeOfWorkOut[2]) {
-                    ForEach(vm.workoutTypesSelectable(2), id: \.self) {
+                Picker("Workout Type 3", selection: $signUpFormVM.typeOfWorkOut[2]) {
+                    ForEach(signUpFormVM.workoutTypesSelectable(2), id: \.self) {
                         Text($0.rawValue)
                             .tag("wotype3")
                     }
                 }
-//                Picker("Workout Type 2", selection: $vm.typeOfWorkOut[1]) {
-//                    ForEach(vm.workoutTypesSelectable(1), id: \.self) {
-//                        Text($0)
-//                    }
-//                }
-//                Picker("Workout Type 3", selection: $vm.typeOfWorkOut[2]) {
-//                    ForEach(vm.workoutTypesSelectable(2), id: \.self) {
-//                        Text($0)
-//                    }
-//                }
             }
             
             HStack {
                 Text("Price Range")
                 Spacer()
-                TextFieldView(textInput: $vm.priceRangeLow, placeholder: "0", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
-                TextFieldView(textInput: $vm.priceRangeHigh, placeholder: "100", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
+                TextFieldView(textInput: $signUpFormVM.priceRangeLow, placeholder: "0", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
+                TextFieldView(textInput: $signUpFormVM.priceRangeHigh, placeholder: "100", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
             }
         }
     }
@@ -144,15 +145,15 @@ extension UserSignUpFormView {
             HStack {
                 Text("Height")
                 Spacer()
-                TextFieldView(textInput: $vm.heightFt, placeholder: "ft", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
+                TextFieldView(textInput: $signUpFormVM.heightFt, placeholder: "ft", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
                 Text("'").offset(x: -15)
-                TextFieldView(textInput: $vm.heightIn, placeholder: "in", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
+                TextFieldView(textInput: $signUpFormVM.heightIn, placeholder: "in", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
                 Text("''").offset(x: -15)
             }
             HStack {
                 Text("Skeletal Muscle Mass")
                 Spacer()
-                TextFieldView(textInput: $vm.skeletalMuscleMass, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                TextFieldView(textInput: $signUpFormVM.skeletalMuscleMass, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
             }
             Group {
                 HStack {
@@ -166,14 +167,14 @@ extension UserSignUpFormView {
                 HStack {
                     Text("Weight")
                     Spacer()
-                    TextFieldView(textInput: $vm.currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
-                    TextFieldView(textInput: $vm.targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                    TextFieldView(textInput: $signUpFormVM.currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                    TextFieldView(textInput: $signUpFormVM.targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
                 }
                 HStack {
                     Text("Body Fat")
                     Spacer()
-                    TextFieldView(textInput: $vm.currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
-                    TextFieldView(textInput: $vm.targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                    TextFieldView(textInput: $signUpFormVM.currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                    TextFieldView(textInput: $signUpFormVM.targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
                 }
             }
         }
