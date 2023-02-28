@@ -243,3 +243,18 @@ extension UserSignUpFormViewModel {
         }
     }
 }
+
+
+//MARK: States
+extension UserSignUpFormViewModel {
+    // Populate states fields in end user sign up form view
+    @MainActor func populateStates(authVM: AuthViewModel) {
+        #if DEBUG
+        print(authVM.currentUser?.uid)
+        #endif
+        guard let firebaseUser = authVM.currentUser else { return }
+        name = firebaseUser.displayName ?? ""
+        phoneNumber = firebaseUser.phoneNumber ?? ""
+        email = firebaseUser.email ?? ""
+    }
+}

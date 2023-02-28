@@ -49,6 +49,9 @@ struct UserSignUpFormView: View {
                 }
             }
         }
+        .onAppear {
+            signUpFormVM.populateStates(authVM: authVM)
+        }
     }
 }
 
