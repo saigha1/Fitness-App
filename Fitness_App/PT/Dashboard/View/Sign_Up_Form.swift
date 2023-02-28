@@ -12,25 +12,35 @@ struct Sign_Up_Form: View {
     @StateObject var EncodingJSON : encodingJSON = encodingJSON()
     @Binding var PT : PTModel
     @State private var showingImagePicker = false
+    @State private var videoPickerIsPresented = false
     @State private var inputImage: [UIImage] = []
+    @State private var videoURL: [String] = []
+    @State private var  profImage : UIImage?
+    //Error Alert
+    let alertTitle: String = "Error"
+    @State private var didError = true
     
+    //For camera
+    @State private var cameraIsPresented = false
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    @State private var selectedImage: UIImage?
     
     var body: some View {
         ScrollView{
             Text("Sign up as a Trainer")
                 .underline()
-//            if inputImage != nil {
-//                Image(uiImage : inputImage!)// TODO: FIX This
-//                    .resizable()
-//                    .frame(width: 250, height: 250)
-//                    .aspectRatio(contentMode: .fit)
-//            }
-            
+            Button("Add Profile Picture"){
+                if profImage != nil {
+                    Image(uiImage : profImage!)
+                        .resizable()
+                        .frame(width: 250, height: 250)
+                        .aspectRatio(contentMode: .fit)
+                }
+            }
             
             VStack(alignment: .center){
                 profileSummary
-                
-                profileImage
+                description
                 IntroductionImages
                 IntroductionVideo
                 IDNCertifications
@@ -38,17 +48,12 @@ struct Sign_Up_Form: View {
         }
     }
         
-        
         var profileSummary: some View{
             VStack{
-                //Name
-                HStack{ //No HStack. add padding.
-                  
+                HStack{
                     Text("Name:")
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.blue)
-                        
-                        
                     Divider()
                     Spacer()
                         .frame(width: UIScreen.main.bounds.width/15)
@@ -56,7 +61,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
-//                .frame(width: 200, height: 50, alignment: .center)
+
                 //Gender
                 HStack{
                         Text("Gender:")
@@ -71,6 +76,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
+                
                 //Phone
                 HStack{
                     Text("Phone #:")
@@ -83,6 +89,7 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
+                
                 //Education
                 HStack{
                     Text("Education")
@@ -179,7 +186,7 @@ struct Sign_Up_Form: View {
            
         }
         
-        var profileImage: some View{
+        var description: some View{
             VStack{
                 //Description
                 HStack{
@@ -193,25 +200,11 @@ struct Sign_Up_Form: View {
                         .frame(width: UIScreen.main.bounds.width/4)
                         .background(.yellow)
                 }
-                //Profile Images
-                HStack{
-                    Text("Profile Images")
-                        .frame(width: UIScreen.main.bounds.width/4)
-                        .background(.blue)
-//                    Image("")
-                    Divider()
-                    Spacer()
-                        .frame(width: UIScreen.main.bounds.width/15)
-                    TextField("Description", text: $PT.Description)
-                        .frame(width: UIScreen.main.bounds.width/4)
-                        .background(.yellow)
-                    
-                }
             }
         }
-        
+    
+        //Finished
         var IntroductionImages: some View{
-            
             HStack{
                 Text("Additional Images:")
                     .frame(width: UIScreen.main.bounds.width/4)
@@ -223,8 +216,21 @@ struct Sign_Up_Form: View {
                     ForEach(inputImage, id: \.self){ uiImage in
                         ImageView(uiImage: uiImage)
                     }
-                if inputImage.count == 3 {
-                    PhotoView()
+                //Inactive button
+                    if inputImage.count == 3 {
+                    ZStack{
+                        Rectangle()
+                            .fill(.gray)
+                            .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                        
+                        Button("+"){
+                        }
+                        .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
+                        .background(.white)
+                        .cornerRadius(12)
+                    }
+                    //Active buton
+                } else if inputImage.count < 3 {
                     ZStack{
                         Rectangle()
                             .fill(.secondary)
@@ -243,51 +249,59 @@ struct Sign_Up_Form: View {
                         }
                     }
                 }
-            }
-                
-//                else{
-//                    PhotoView(uiImageOne: result[0], uiImageTwo: result[1], uiImageThree: result[2])
-//                }
-    
-                ZStack{
-                    Rectangle()
-                        .fill(.secondary)
-                        .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
-                    
-                    Button("+"){
-                            showingImagePicker = true
-                            loadImage()
-                    }
-                    .onChange(of: inputImage) { _ in loadImage() }
-                    .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
-                    .background(.white)
-                    .cornerRadius(12)
-                    .sheet(isPresented: $showingImagePicker) {
-                        ImagePicker(image: $inputImage)
-                    }
                 }
-               
             }
         }
-        
+    
+        //Finished
         var IntroductionVideo: some View{
             HStack{
-                Text("Video:")
+                Text("Introductory Video:")
                     .frame(width: UIScreen.main.bounds.width/4)
                     .background(.blue)
                 Divider()
                 Spacer()
                     .frame(width: UIScreen.main.bounds.width/15)
                 Text("Add up to 1 short video")
-                    .frame(width: UIScreen.main.bounds.width/4)
+                    .frame(width: UIScreen.main.bounds.width/6)
                     .background(.yellow)
-                //Video("")
-               
+                
+                if videoURL.count > 1 {
+                    Text("")
+                        .alert(
+                            Text(alertTitle),
+                            isPresented: $didError
+                        ) {
+                            Button("OK") {
+                                // Dismisses the Error Window
+                            }
+                        } message: {
+                           Text("No more than one video")
+                        }
+                    
+                } else {
+                    ZStack{
+                        Rectangle()
+                            .fill(.secondary)
+                            .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                        
+                        Button("+"){
+                            videoPickerIsPresented = true
+                            loadImage()
+                        }
+                        .onChange(of: videoURL) { _ in loadImage() }
+                        .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
+                        .background(.white)
+                        .cornerRadius(12)
+                        .sheet(isPresented: $videoPickerIsPresented) {
+                            VideoPicker(videoURLs: $videoURL)
+                        }
+                    }
+                }
             }
         }
-        
+        //Finished
         var IDNCertifications: some View{
-            VStack{
                 HStack{
                     Text("ID & Certifications:")
                         .frame(width: UIScreen.main.bounds.width/4)
@@ -296,13 +310,31 @@ struct Sign_Up_Form: View {
                     Spacer()
                         .frame(width: UIScreen.main.bounds.width/15)
                     VStack{
-                        Text("Upload a photo ID and a selfie ")
-                            .frame(width: UIScreen.main.bounds.width/2)
-                            .background(.yellow)
-                        //3-5 Image Thumbnails
+                        HStack{
+                            Text("Upload a selfie. Certifications ")
+                                .frame(width: UIScreen.main.bounds.width/2)
+                                .background(.yellow)
+                            //3-5 Image Thumbnails
+                            Button(action: {
+                                self.sourceType = .camera
+                                self.cameraIsPresented = true
+                            }, label: {
+                                Label("Select", systemImage: "photo")
+                            })
+                        }
+                        if let selectedImage = selectedImage{
+                            Image(uiImage: selectedImage)
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                            
+                        }
                     }
                 }
+                .sheet(isPresented: $cameraIsPresented){
+                    CameraView(selectedImage: $selectedImage, sourceType: self.sourceType)
+                }
                 
+            //submitting data to back-end
 //                Button(
 //                    "Submit",
 //                    action: {
@@ -311,8 +343,9 @@ struct Sign_Up_Form: View {
 //                )
 //                .foregroundColor(Color.purple)
 //                .cornerRadius(10)
-            }
+            
         }
+        
     
         func loadImage() {
 //            guard let inputImage = inputImage else { return }

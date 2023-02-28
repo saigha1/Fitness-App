@@ -198,10 +198,7 @@ struct Sign_Up_View: View {
                     Text("Upload a photo ID and a selfie")
                     //3-5 Image Thumbnails
                 }
-                
             }
-            
-          
         }
     }
     

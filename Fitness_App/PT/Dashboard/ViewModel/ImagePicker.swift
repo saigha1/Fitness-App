@@ -7,17 +7,18 @@
 
 import PhotosUI
 import SwiftUI
-var count : Int = 0
+import UIKit
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: [UIImage]
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
-        config.filter = .images //TODO: Change this to [.images, .videos] to also add videos
-        config.selectionLimit = 3
+        config.filter = .images
+        config.selectionLimit = 0 // ignores limit
         
         let picker = PHPickerViewController(configuration: config)
+     
         picker.delegate = context.coordinator
         return picker
     }
@@ -48,8 +49,8 @@ struct ImagePicker: UIViewControllerRepresentable {
                       print("Can't load image \(error.localizedDescription)")
                     } else if let image = image as? UIImage {
                         self.parent.image.append(image)
+                        //                    self.parent.image = image as? UIImage
                     }
-//                    self.parent.image = image as? UIImage
                 }
             }
         }
