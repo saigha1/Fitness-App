@@ -27,7 +27,7 @@ struct PTModel: Hashable, Codable{
         case FitnessPlanet = "Planet Fitness"
         case UFC = "UFC"
         case LAFitness = "LA Fitness"
-        var id: String {rawValue}
+        var id : String {rawValue}
     }
             
     enum typesOfWorkOut: String, Codable{

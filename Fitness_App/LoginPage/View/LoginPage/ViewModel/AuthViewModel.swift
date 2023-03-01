@@ -194,7 +194,7 @@ extension AuthViewModel {
             case .cancelled:
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                print("Logged in! \(grantedPermissions) \(declinedPermissions) \(accessToken)")
+                print("Logged in! \(grantedPermissions) \(declinedPermissions) \(String(describing: accessToken))")
                 GraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name"]).start(completionHandler: { (connection, result, error) -> Void in
                     if (error == nil){
                         
@@ -270,7 +270,7 @@ extension AuthViewModel {
                             print("User is signed in using FB-Firebase. --")
 //                            let credential = FacebookAuthProvider.credential(withAccessToken: id)
 //                            let result = try await Auth.auth().signIn(with: credential)
-////                            print(authState)
+//                            print(authState)
                             self.authState = .authenticated
                             self.errorMsg = ""
 //                            self.currentUser = result.user
