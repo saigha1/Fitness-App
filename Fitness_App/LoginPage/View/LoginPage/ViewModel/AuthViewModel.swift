@@ -35,7 +35,34 @@ class AuthViewModel: ObservableObject {
     @Published var displayName: String = ""
 //    @Published var user: User?
     @Published var errorMessage: String?
-    @Published var currentUser: User?
+    @Published var currentUser: User? // User model in Firebase
+    @Published var isEnderUser: Bool = true
+    
+    var currentEndUser: NewEndUser {
+        return NewEndUser(
+            id: userIDMichaelLogan,
+            name: "Michael Logan",
+            profileImage: "User Profile Image",
+            age: 23,
+            phone: "437-123-1234",
+            email: "mlogan2000@icloud.com",
+            preferredTrainerGender: .m,
+            gymLocation: "Etobicoke, ON",
+            preferredGym: .anytime,
+            typesOfWorkOut: [.boxing, .lifting],
+            preferredPriceRange: PriceRange(
+                currency: .cad,
+                min: 400,
+                max: 700),
+            heightFt: 5,
+            heightIn: 10,
+            skeletalMuscleMass: 83.3,
+            currentWeight: 177,
+            targetWeight: 157,
+            currentBodyFat: 0.22,
+            targetBodyFat: 0.18
+        )
+    }
     
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
@@ -245,6 +272,7 @@ extension AuthViewModel {
 //                            let result = try await Auth.auth().signIn(with: credential)
 //                            print(authState)
                             self.authState = .authenticated
+                            self.errorMsg = ""
 //                            self.currentUser = result.user
 //                            print(currentUser)
                             print(self.authState)
@@ -361,6 +389,7 @@ extension AuthViewModel {
                 // User is signed in
                 print("User signed in with Google using Firebase Authentication!")
                 self.authState = .authenticated
+                self.errorMsg = ""
                 //TODO: GET USER PROFILE INFO
             }
         }
@@ -415,6 +444,8 @@ extension AuthViewModel {
                         let result = try await Auth.auth().signIn(with: credential)
                         print("Signed in with Apple")
                         await updateDisplayName(for: result.user, with: appleIDCredential)
+                        self.authState = .authenticated
+                        self.errorMsg = ""
                     } catch {
                         print("Sign in with Apple failed: ", error.localizedDescription)
                     }
@@ -439,6 +470,8 @@ extension AuthViewModel {
             let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
             currentUser = authResult.user
             print("Signed in with email and password. User: ", authResult.user.uid)
+            self.authState = .authenticated
+            self.errorMsg = ""
             return true
         } catch {
             print("Could not sign in with email and password provided: ", error.localizedDescription)

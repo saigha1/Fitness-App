@@ -10,8 +10,9 @@ import SwiftUI
 let userProfileImage = Image("User Profile Image")
 
 struct UserProfileIconView: View {
+    @EnvironmentObject var authVM: AuthViewModel
     @State private var shouldShowProfileSheet: Bool = false
-    var user: EndUser
+    var user: NewEndUser
     var body: some View {
         userProfileImage
             .resizable()
@@ -36,22 +37,19 @@ struct UserProfileIconView: View {
 }
 
 struct UserProfileIconView_Previews: PreviewProvider {
-    static let user: EndUser = EndUser(
+    static let user: NewEndUser = NewEndUser(
         id: userIDMichaelLogan,
         name: "Michael Logan",
-        profileImageName: "User Profile Image",
+        profileImage: "User Profile Image",
         age: 23,
         phone: "437-123-1234",
         email: "mlogan2000@icloud.com",
-        preferredTrainerGender: "Male",
+        preferredTrainerGender: .m,
         gymLocation: "Etobicoke, ON",
-        typesOfWorkOut: [
-            "Machine-based",
-            "Weight-Lifting",
-            "Boxing"
-        ],
-        preferredPriceRange: PriceRangePrefrence(
-            currency: "CAD",
+        preferredGym: .anytime,
+        typesOfWorkOut: [.boxing, .lifting],
+        preferredPriceRange: PriceRange(
+            currency: .cad,
             min: 400,
             max: 700),
         heightFt: 5,
@@ -64,5 +62,6 @@ struct UserProfileIconView_Previews: PreviewProvider {
     )
     static var previews: some View {
         UserProfileIconView(user: user)
+            .environmentObject(AuthViewModel())
     }
 }

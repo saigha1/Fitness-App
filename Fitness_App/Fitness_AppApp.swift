@@ -22,6 +22,7 @@ struct Fitness_AppApp: App {
 //    @StateObject private var authenticationVM = AuthViewModel()
 //    @StateObject private var modelData = ModelData()
     
+    
 //    init() {
 //        self._authenticationVM = StateObject(wrappedValue: .init())
 //    }
