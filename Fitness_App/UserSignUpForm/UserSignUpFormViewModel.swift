@@ -11,6 +11,7 @@ class UserSignUpFormViewModel: ObservableObject {
     // State string for the error message
     @Published var error: String = ""
     //State properties for fields
+    @Published var profileImage: String = ""
     @Published var name: String = ""
     @Published var age: String = ""
     @Published var phoneNumber: String = ""
@@ -256,5 +257,6 @@ extension UserSignUpFormViewModel {
         name = firebaseUser.displayName ?? ""
         phoneNumber = firebaseUser.phoneNumber ?? ""
         email = firebaseUser.email ?? ""
+        profileImage = firebaseUser.photoURL?.absoluteString ?? ""
     }
 }

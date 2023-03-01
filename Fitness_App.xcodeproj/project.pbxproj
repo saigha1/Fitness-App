@@ -658,7 +658,6 @@
 				049FAB702982D297001CDC84 /* .gitignore in Resources */,
 				0437CDC729968BB100E789F5 /* Gyms.json in Resources */,
 				049833472954975700724C7B /* Preview Assets.xcassets in Resources */,
-				047200FA298ACA7E00B04964 /* Fitness-App-Info.plist in Resources */,
 				2540709B29A8FED600B305DB /* EndUser.json in Resources */,
 				04A1925A299C5911000792B4 /* EmptyEndUser.json in Resources */,
 				049833442954975700724C7B /* Assets.xcassets in Resources */,
