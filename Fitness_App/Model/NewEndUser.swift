@@ -6,12 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 //MARK: EndUser Model
 struct NewEndUser: Codable, Identifiable {
     let id: String
     var name: String
     var profileImage: String
+    var image: some View {
+        profileImage.asProfileImage()
+    }
     var age: Int
     //Personal Information
     var phone, email: String

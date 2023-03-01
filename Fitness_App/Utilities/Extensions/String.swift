@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 extension String {
     /// Convert YYYYMMDD String to a Swift Date
     /// - Parameter dateStr: a string value that represents a date in the format: yyyyMMdd
@@ -33,5 +33,37 @@ extension String {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: self)
+    }
+    
+    
+    /// Parse a string and convert it to an image view
+    /// - Parameters:
+    ///   - size: CGFloat - the width and height of the view. Its default value is 15.
+    ///   - padding: CGFloat? - the horizontal and vertical padding of the view. Its default value is 15
+    /// - Returns: return a SwiftUI of an image or a placerholder (􀉩) or a progress view (􀅈) while loading
+    func asProfileImage(_ size: CGFloat = 15, padding: CGFloat? = 15) -> some View {
+        AsyncImage(url: URL(string: self)) { image in
+            image
+                .resizable()
+                .clipShape(Circle())
+        } placeholder: {
+            Group {
+                if self.isEmpty { Image(systemName: "person")
+                        .resizable()
+                        .frame(width: size * 0.7, height: size * 0.7)
+                        .foregroundColor(.secondary)
+                    
+                } else {
+                    ProgressView()
+                }
+            }
+                .overlay(
+                    Circle().stroke(lineWidth: 1)
+                        .foregroundColor(.secondary.opacity(0.8))
+                        .frame(width: size, height: size)
+                )
+        }
+        .frame(width: size, height: size)
+        .padding(padding ?? 1)
     }
 }

@@ -66,6 +66,12 @@ extension UserSignUpFormView {
     //MARK: Personal info
     private var personalInfoSection: some View {
         VStack(alignment: .leading, spacing: 5) {
+            //MARK: Profile Image
+            HStack {
+                Spacer()
+                signUpFormVM.profileImage.asProfileImage(100)
+                Spacer()
+            }
             //MARK: Personal Info
             HStack {
                 userProfileIcon_Person
