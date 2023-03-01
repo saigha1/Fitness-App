@@ -11,6 +11,7 @@ struct TextFieldView: View{
     @State var textInput : Binding<String>
     let placeholder: String
     let isPassword: Bool
+//    var name : String = "Hello"
     var cornerRadius: CGFloat = 6
     var strokeColor: Color = .black
     var strokeWidth: CGFloat = 1
@@ -47,7 +48,7 @@ struct TextFieldView_Previews: PreviewProvider {
             TextFieldView(textInput: .constant("user"), placeholder: "", isPassword: false)
             TextFieldView(textInput: .constant("password"), placeholder: "", isPassword: true)
             TextFieldView(
-                textInput: .constant(""), placeholder: "Placerholder", isPassword: false, cornerRadius: 5, strokeColor: .red, strokeWidth: 2, offsetX: -15, offsetY: 0, width: 210, height: 30)
+                textInput: .constant(""), placeholder: "Placeholder", isPassword: false, cornerRadius: 5, strokeColor: .red, strokeWidth: 2, offsetX: -15, offsetY: 0, width: 210, height: 30)
         }
     }
 }
