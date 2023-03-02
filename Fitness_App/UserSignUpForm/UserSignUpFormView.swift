@@ -12,21 +12,23 @@ struct UserSignUpFormView: View {
     @EnvironmentObject var authVM: AuthViewModel
     @Environment(\.dismiss) var dismiss
     
+    @State private var showImagePicker: Bool = false
     var body: some View {
         NavigationView {
-            List {
-                VStack(alignment: .center) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        personalInfoSection
-                        preferenceSection
-                        metricsSection
-                    }
-                    if !signUpFormVM.error.isEmpty {
-                        Text(signUpFormVM.error)
-                            .bold()
-                            .foregroundColor(.red)
-                    }
+            ScrollView {
+                
+                profileImageSection
+                personalInfoSection
+                Divider()
+                preferenceSection
+                Divider()
+                metricsSection
+                if !signUpFormVM.error.isEmpty {
+                    Text(signUpFormVM.error)
+                        .bold()
+                        .foregroundColor(.red)
                 }
+                
                 Button {
                     if signUpFormVM.validateForm(authVM.currentUser?.uid ?? UUID().uuidString) {
                         dismiss()
@@ -63,33 +65,65 @@ struct UserSignUpFormView_Previews: PreviewProvider {
 }
 
 extension UserSignUpFormView {
+    //MARK: Profile Image
+    private var profileImageSection: some View {
+        VStack {
+            signUpFormVM.profileImage.asProfileImage(100)
+                .onTapGesture {
+                    showImagePicker.toggle()
+                }
+                .sheet(isPresented: $showImagePicker) {
+                    ImagePicker(image: $signUpFormVM.selectedImages, selectionLimit: 1)
+                        .onChange(of: signUpFormVM.selectedImages) { _ in
+                            signUpFormVM.updateProfileImage()
+                        }
+                }
+        }
+    }
     //MARK: Personal info
     private var personalInfoSection: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            //MARK: Profile Image
-            HStack {
-                Spacer()
-                signUpFormVM.profileImage.asProfileImage(100)
-                Spacer()
-            }
-            //MARK: Personal Info
+        VStack(alignment: .leading) {
             HStack {
                 userProfileIcon_Person
                 Text("Personal Info")
                     .bold()
             }
             .foregroundColor(Color.assetColor.purple)
-            TextFieldView(textInput: $signUpFormVM.name, placeholder: "Name", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
-            TextFieldView(textInput: $signUpFormVM.age, placeholder: "Age", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
-            TextFieldView(textInput: $signUpFormVM.phoneNumber, placeholder: "Phone Number", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
-                .keyboardType(.namePhonePad)
-            TextFieldView(textInput: $signUpFormVM.email, placeholder: "Email Adress", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 220, height: 25)
-                .keyboardType(.emailAddress)
+            Group {
+                HStack {
+                    Text("Name")
+                    Spacer()
+                    TextFieldView(textInput: $signUpFormVM.name, placeholder: "Name", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
+                }
+            }
+            Group {
+                HStack {
+                    Text("Age")
+                    Spacer()
+                    TextFieldView(textInput: $signUpFormVM.age, placeholder: "Age", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
+                }
+            }
+            Group {
+                HStack {
+                    Text("Phone Number")
+                    Spacer()
+                    TextFieldView(textInput: $signUpFormVM.phoneNumber, placeholder: "Phone Number", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
+                        .keyboardType(.namePhonePad)
+                }
+            }
+            Group {
+                HStack {
+                    Text("Email")
+                    Spacer()
+                    TextFieldView(textInput: $signUpFormVM.email, placeholder: "Email Adress", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 220, height: 25)
+                        .keyboardType(.emailAddress)
+                }
+            }
         }
     }
     //MARK: Preferences
     private var preferenceSection: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading) {
             HStack {
                 userProfileIcon_Preference
                 Text("Preferences")
@@ -97,53 +131,82 @@ extension UserSignUpFormView {
             }
             .foregroundColor(Color.assetColor.blue)
             
-            Picker("Trainer Gender", selection: $signUpFormVM.trainerGender) {
-                ForEach(TrainerGender.allCases, id: \.self) {
-                    Text($0.rawValue)
+            Group {
+                HStack {
+                    Text("Trainer Gender")
+                    Spacer()
+                    Picker("Trainer Gender", selection: $signUpFormVM.trainerGender) {
+                        ForEach(TrainerGender.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
+                    }
+                    .pickerStyle(.menu)
                 }
             }
             
-            TextFieldView(textInput: $signUpFormVM.gymLocation, placeholder: "Gym Location", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
-            
-            Picker("Preferred Gym", selection: $signUpFormVM.preferredGym) {
-                ForEach(PreferredGym.allCases, id: \.self) {
-                    Text($0.rawValue)
+            Group {
+                HStack {
+                    Text("Gym Location")
+                    Spacer()
+                    TextFieldView(textInput: $signUpFormVM.gymLocation, placeholder: "Gym Location", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
                 }
             }
-            
-            VStack(alignment: .leading, spacing: 1) {
-                Picker("Workout Type 1", selection: $signUpFormVM.typeOfWorkOut[0]) {
-                    ForEach(signUpFormVM.workoutTypesSelectable(0), id: \.self) {
-                        Text($0.rawValue)
-                            .tag("wotype1")
-                    }
-                }
-                Picker("Workout Type 2", selection: $signUpFormVM.typeOfWorkOut[1]) {
-                    ForEach(signUpFormVM.workoutTypesSelectable(1), id: \.self) {
-                        Text($0.rawValue)
-                            .tag("wotype2")
-                    }
-                }
-                Picker("Workout Type 3", selection: $signUpFormVM.typeOfWorkOut[2]) {
-                    ForEach(signUpFormVM.workoutTypesSelectable(2), id: \.self) {
-                        Text($0.rawValue)
-                            .tag("wotype3")
+            Group {
+                HStack {
+                    Text("Preferred Gym")
+                    Spacer()
+                    Picker("Preferred Gym", selection: $signUpFormVM.preferredGym) {
+                        ForEach(PreferredGym.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
                     }
                 }
             }
-            
-            HStack {
-                Text("Price Range")
-                Spacer()
-                TextFieldView(textInput: $signUpFormVM.priceRangeLow, placeholder: "0", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
-                TextFieldView(textInput: $signUpFormVM.priceRangeHigh, placeholder: "100", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
+            Group {
+                HStack {
+                    Text("Workout Type 1")
+                    Spacer()
+                    Picker("Workout Type 1", selection: $signUpFormVM.typeOfWorkOut[0]) {
+                        ForEach(signUpFormVM.workoutTypesSelectable(0), id: \.self) {
+                            Text($0.rawValue)
+                                .tag("wotype1")
+                        }
+                    }
+                }
+                HStack {
+                    Text("Workout Type 2")
+                    Spacer()
+                    Picker("Workout Type 2", selection: $signUpFormVM.typeOfWorkOut[1]) {
+                        ForEach(signUpFormVM.workoutTypesSelectable(1), id: \.self) {
+                            Text($0.rawValue)
+                                .tag("wotype2")
+                        }
+                    }}
+                HStack {
+                    Text("Workout Type 3")
+                    Spacer()
+                    Picker("Workout Type 3", selection: $signUpFormVM.typeOfWorkOut[2]) {
+                        ForEach(signUpFormVM.workoutTypesSelectable(2), id: \.self) {
+                            Text($0.rawValue)
+                                .tag("wotype3")
+                        }
+                    }
+                }
+            }
+            Group {
+                HStack {
+                    Text("Price Range")
+                    Spacer()
+                    TextFieldView(textInput: $signUpFormVM.priceRangeLow, placeholder: "0", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
+                    TextFieldView(textInput: $signUpFormVM.priceRangeHigh, placeholder: "100", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
+                }
             }
         }
     }
     
     //MARK: Metrics
     private var metricsSection: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading) {
             HStack {
                 userProfileIcon_Health
                 Text("Health Metrics")

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UserSignUpFormViewModel: ObservableObject {
     // State string for the error message
@@ -29,6 +30,7 @@ class UserSignUpFormViewModel: ObservableObject {
     @Published var targetWeight: String = ""
     @Published var currentFatPercentage: String = ""
     @Published var targetFatPercentage: String = ""
+    @Published var selectedImages: [UIImage] = []
     
     var ageToStore: Int = 0
     var phoneNumberToStore: String = ""
@@ -82,7 +84,7 @@ class UserSignUpFormViewModel: ObservableObject {
         let newUser = NewEndUser(
             id: firebaseUID,
             name: name,
-            profileImage: "",
+            profileImage: profileImage,
             age: ageToStore,
             phone: phoneNumberToStore,
             email: emailToStore,
@@ -258,5 +260,10 @@ extension UserSignUpFormViewModel {
         phoneNumber = firebaseUser.phoneNumber ?? ""
         email = firebaseUser.email ?? ""
         profileImage = firebaseUser.photoURL?.absoluteString ?? ""
+    }
+    func updateProfileImage() {
+        guard let image = selectedImages.first else { return }
+        guard let imageData = image.pngData() else { return }
+        profileImage = "data:image/png;base64," + imageData.base64EncodedString()
     }
 }

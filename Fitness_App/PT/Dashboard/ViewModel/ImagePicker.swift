@@ -12,10 +12,12 @@ import UIKit
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: [UIImage]
 
+    var selectionLimit: Int = 0
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
         config.filter = .images
-        config.selectionLimit = 0 // ignores limit
+        config.preferredAssetRepresentationMode = .compatible
+        config.selectionLimit = selectionLimit // ignores limit when set to 0
         
         let picker = PHPickerViewController(configuration: config)
      
@@ -48,8 +50,12 @@ struct ImagePicker: UIViewControllerRepresentable {
                     if let error = error {
                       print("Can't load image \(error.localizedDescription)")
                     } else if let image = image as? UIImage {
-                        self.parent.image.append(image)
-                        //                    self.parent.image = image as? UIImage
+                        let parent = self.parent
+                        if parent.selectionLimit == 1 && !parent.image.isEmpty {
+                            parent.image[0] = image
+                        } else {
+                            parent.image.append(image)
+                        }
                     }
                 }
             }
