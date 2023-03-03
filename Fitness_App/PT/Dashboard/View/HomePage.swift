@@ -46,32 +46,34 @@ struct HomePage_Previews: PreviewProvider {
 extension HomePage {
     private var homePageForPT: some View {
         Group {
-            if (pTApproved && !pending && !signUp){
-                TabView{
-                    Dashboard(user: authVM.currentEndUser)
-                        .tabItem{
-                            Label("Dashboard", systemImage: "house")
-                        }
-                        .environmentObject(authVM)
-                    
-                    ChatView()
-                        .tabItem{
-                            Label("Chat", systemImage: "message")
-                        }
-                    
-                    CalendarView()
-                        .tabItem{
-                            Label("Calendar", systemImage: "calendar.badge.clock")
-                        }
+            if let user = authVM.currentEndUser {
+                if (pTApproved && !pending && !signUp){
+                    TabView{
+                        Dashboard(user: user)
+                            .tabItem{
+                                Label("Dashboard", systemImage: "house")
+                            }
+                            .environmentObject(authVM)
+                        
+                        ChatView()
+                            .tabItem{
+                                Label("Chat", systemImage: "message")
+                            }
+                        
+                        CalendarView()
+                            .tabItem{
+                                Label("Calendar", systemImage: "calendar.badge.clock")
+                            }
+                    }
+                } else if (!pTApproved && pending && !signUp) {
+                    pTPending()
+                } else if (!pTApproved && !pending && signUp) {
+                    //Sign_Up_View()
+                    Text("Sign up view goes here")
+                } else{
+                    //Sign_Up_View()
+                    Text("Sign up view goes here")
                 }
-            } else if (!pTApproved && pending && !signUp) {
-                pTPending()
-            } else if (!pTApproved && !pending && signUp) {
-                //Sign_Up_View()
-                Text("Sign up view goes here")
-            } else{
-                //Sign_Up_View()
-                Text("Sign up view goes here")
             }
         }
     }
@@ -113,31 +115,34 @@ extension HomePage {
         if allUsersApproved.count <= 0 {
             self.isEndUserApproved = false
         }
-        for approvedUser in allUsersApproved {
-            if user.uid == approvedUser.id {
-                self.isEndUserApproved = true
-            }
+        if let currentEndUser = allUsersApproved.first{ $0.id == user.uid } {
+            self.isEndUserApproved = true
+            self.authVM.currentEndUser = currentEndUser
         }
     }
     private var endUserTabView: some View {
-        TabView {
-            EndUserDashBoardView(user: authVM.currentEndUser)
-                .tabItem{
-                    Label("Dashboard", systemImage: "house")
+        Group {
+            if let user = authVM.currentEndUser {
+                TabView {
+                    EndUserDashBoardView(user: authVM.currentEndUser)
+                        .tabItem{
+                            Label("Dashboard", systemImage: "house")
+                        }
+                        .environmentObject(authVM)
+                    EndUserChatView()
+                        .tabItem{
+                            Label("Chat", systemImage: "message")
+                        }
+                    EndUserExploreView()
+                        .tabItem{
+                            Label("Explore", systemImage: "safari.fill")
+                        }
+                    EndUserCalendarView()
+                        .tabItem{
+                            Label("Calendar", systemImage: "calendar.badge.clock")
+                        }
                 }
-                .environmentObject(authVM)
-            EndUserChatView()
-                .tabItem{
-                    Label("Chat", systemImage: "message")
-                }
-            EndUserExploreView()
-                .tabItem{
-                    Label("Explore", systemImage: "safari.fill")
-                }
-            EndUserCalendarView()
-                .tabItem{
-                    Label("Calendar", systemImage: "calendar.badge.clock")
-                }
+            }
         }
     }
 }

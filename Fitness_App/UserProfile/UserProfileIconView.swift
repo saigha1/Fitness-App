@@ -7,20 +7,14 @@
 
 import SwiftUI
 
-let userProfileImage = Image("User Profile Image")
+//let userProfileImage = Image("User Profile Image")
 
 struct UserProfileIconView: View {
     @EnvironmentObject var authVM: AuthViewModel
     @State private var shouldShowProfileSheet: Bool = false
     var user: NewEndUser
     var body: some View {
-        userProfileImage
-            .resizable()
-            .scaledToFit()
-            .frame(width: 45, height: 45, alignment: .center)
-            .cornerRadius(25)
-            .clipShape(Circle(), style: .init(eoFill: true, antialiased: true))
-            .shadow(color: .primary.opacity(0.5), radius: 10, x: 3, y: 3)
+        user.profileImage.asProfileImage(45)
             .onTapGesture {
                 shouldShowProfileSheet.toggle()
             }

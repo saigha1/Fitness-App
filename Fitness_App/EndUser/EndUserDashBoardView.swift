@@ -99,7 +99,7 @@ extension EndUserDashBoardView {
         .navigationTitle("Dashboard")
         .toolbar {
             ToolbarItem {
-                UserProfileIconView(user: user!)
+                UserProfileIconView(user: authVM.currentEndUser ?? user!)
             }
         }
     }
