@@ -13,6 +13,7 @@ class encodingJSON: ObservableObject{
     
     
     func encode(users: [EndUserModel]){
+        print("Encoding JSON")
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         
