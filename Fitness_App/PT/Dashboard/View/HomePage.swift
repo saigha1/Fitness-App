@@ -81,7 +81,6 @@ extension HomePage {
         Group {
             
             if isEndUserApproved {
-                //TODO: 1 - populate values from JSON
                 endUserTabView
             } else {
                 Text("").fullScreenCover(isPresented: .init(
@@ -92,7 +91,6 @@ extension HomePage {
                 })) {
                     endUserApprovalCheck()
                 } content: {
-                    //TODO: 2 - populate states from Firebase
                     UserSignUpFormView()
                 }
 
@@ -106,28 +104,24 @@ extension HomePage {
         isEndUserApproved = authVM.endUserApprovalCheck()
     }
     private var endUserTabView: some View {
-        Group {
-            if authVM.currentEndUser != nil {
-                TabView {
-                    EndUserDashBoardView(user: authVM.currentEndUser)
-                        .tabItem{
-                            Label("Dashboard", systemImage: "house")
-                        }
-                        .environmentObject(authVM)
-                    EndUserChatView()
-                        .tabItem{
-                            Label("Chat", systemImage: "message")
-                        }
-                    EndUserExploreView()
-                        .tabItem{
-                            Label("Explore", systemImage: "safari.fill")
-                        }
-                    EndUserCalendarView()
-                        .tabItem{
-                            Label("Calendar", systemImage: "calendar.badge.clock")
-                        }
+        TabView {
+            EndUserDashBoardView()
+                .tabItem{
+                    Label("Dashboard", systemImage: "house")
                 }
-            }
+                .environmentObject(authVM)
+            EndUserChatView()
+                .tabItem{
+                    Label("Chat", systemImage: "message")
+                }
+            EndUserExploreView()
+                .tabItem{
+                    Label("Explore", systemImage: "safari.fill")
+                }
+            EndUserCalendarView()
+                .tabItem{
+                    Label("Calendar", systemImage: "calendar.badge.clock")
+                }
         }
     }
 }
