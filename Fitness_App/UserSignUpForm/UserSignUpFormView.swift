@@ -16,7 +16,6 @@ struct UserSignUpFormView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                
                 profileImageSection
                 personalInfoSection
                 Divider()
@@ -38,8 +37,8 @@ struct UserSignUpFormView: View {
                         .bold()
                         .font(.title2)
                 }
-                
             }
+            .padding()
             .navigationTitle("Profile")
             .toolbar {
                 ToolbarItem {
