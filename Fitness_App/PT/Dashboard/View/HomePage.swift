@@ -103,9 +103,9 @@ extension HomePage {
         }
     }
     private func endUserApprovalCheck() {
+        guard let user = authVM.currentUser, authVM.isEnderUser else { return }
         #if DEBUG
         print("--------Firebase User Info----------")
-        guard let user = authVM.currentUser, authVM.isEnderUser else { return }
         print("Object:", user)
         print("Firebase UID", user.uid)
         print("Email", user.email ?? "")
