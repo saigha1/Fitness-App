@@ -114,15 +114,16 @@ extension HomePage {
         let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
         if allUsersApproved.count <= 0 {
             self.isEndUserApproved = false
-        }
-        if let currentEndUser = allUsersApproved.first{ $0.id == user.uid } {
-            self.isEndUserApproved = true
-            self.authVM.currentEndUser = currentEndUser
+        } else {
+            if let currentEndUser = allUsersApproved.first(where: { $0.id == user.uid }) {
+                self.isEndUserApproved = true
+                self.authVM.currentEndUser = currentEndUser
+            }
         }
     }
     private var endUserTabView: some View {
         Group {
-            if let user = authVM.currentEndUser {
+            if authVM.currentEndUser != nil {
                 TabView {
                     EndUserDashBoardView(user: authVM.currentEndUser)
                         .tabItem{
