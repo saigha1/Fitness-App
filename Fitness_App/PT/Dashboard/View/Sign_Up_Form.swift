@@ -25,6 +25,8 @@ struct Sign_Up_Form: View {
     @State private var sourceType: UIImagePickerController.SourceType = .camera
     @State private var selectedImage: UIImage?
     
+    @StateObject var vm = UserSignUpFormViewModel()
+    
     //TESTING START
     let PT_Mark = PTModel(name: "Mark Ruffalo", gender: "Male", phone: "123-456-789", email: "mark.ruffalo@gmail.com", experienceLevel: "Level 1", education: "Master's", Certification: "CanFit", gymLocation: .GoodLife, workoutTypes: .Calisthenic, Description: "Certified Trainer", Motto: "Traininig is Key!", PreferredGym: "GoodLife")
     //TESTING END
@@ -49,6 +51,16 @@ struct Sign_Up_Form: View {
                 IntroductionVideo
                 IDNCertifications
             }
+            
+            //submitting data to back-end
+            Button(
+                "Submit",
+                action: {
+                    vm.validateForm()
+                }
+            )
+            .foregroundColor(Color.purple)
+            .cornerRadius(10)
         }
     }
         
@@ -337,20 +349,7 @@ struct Sign_Up_Form: View {
                 .sheet(isPresented: $cameraIsPresented){
                     CameraView(selectedImage: $selectedImage, sourceType: self.sourceType)
                 }
-                
-//            submitting data to back-end
-                Button(
-                    "Submit",
-                    action: {
-                        encodingJSON.encode(users : user)
-                    }
-                )
-                .foregroundColor(Color.purple)
-                .cornerRadius(10)
-            
         }
-        
-    
         func loadImage() {
 //            guard let inputImage = inputImage else { return }
 //       image = Image(uiImage: inputImage) // TO DO :hu

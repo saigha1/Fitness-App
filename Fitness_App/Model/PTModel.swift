@@ -8,7 +8,7 @@
 import Foundation
 
 struct PTModel: Hashable, Codable{
-
+    var id: String
     var name : String
     var gender: String
     var phone : String
@@ -17,7 +17,7 @@ struct PTModel: Hashable, Codable{
     var education : String
     var Certification : String
     var gymLocation : preferredGym
-    var workoutTypes : typesOfWorkOut
+    var workoutTypes : [typesOfWorkOut]
     var Description : String
     var Motto : String
     var PreferredGym: String
