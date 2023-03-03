@@ -30,7 +30,9 @@ struct UserSignUpFormView: View {
                 
                 Button {
                     if signUpFormVM.validateForm(authVM.currentUser?.uid ?? UUID().uuidString) {
-                        dismiss()
+                        if authVM.endUserApprovalCheck() {
+                            dismiss()
+                        }
                     }
                 } label: {
                     Text("Continue")

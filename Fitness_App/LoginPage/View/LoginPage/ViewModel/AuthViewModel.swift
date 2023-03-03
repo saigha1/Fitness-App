@@ -529,3 +529,28 @@ extension AuthViewModel {
     }
 
 }
+
+//MARK: Approval
+extension AuthViewModel {
+    func endUserApprovalCheck() -> Bool {
+        var isApproved = false
+        guard let firebaseUser = currentUser, isEnderUser else { return false }
+        #if DEBUG
+        print("--------Firebase User Info----------")
+        print("Object:", firebaseUser)
+        print("Firebase UID", firebaseUser.uid)
+        print("Email", firebaseUser.email ?? "")
+        print("Phone", firebaseUser.phoneNumber ?? "")
+        #endif
+        let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        if allUsersApproved.count <= 0 {
+            isApproved = false
+        } else {
+            if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
+                self.currentEndUser = currentEndUser
+                isApproved = true
+            }
+        }
+        return isApproved
+    }
+}

@@ -263,7 +263,9 @@ extension UserSignUpFormViewModel {
     }
     func updateProfileImage() {
         guard let image = selectedImages.first else { return }
-        guard let imageData = image.pngData() else { return }
-        profileImage = "data:image/png;base64," + imageData.base64EncodedString()
+        //guard let imageData = image.pngData() else { return }
+        // Changed to jpeg data to compress data size
+        guard let imageData = image.jpegData(compressionQuality: 0.09) else { return }
+        profileImage = "data:image/jpeg;base64," + imageData.base64EncodedString()
     }
 }

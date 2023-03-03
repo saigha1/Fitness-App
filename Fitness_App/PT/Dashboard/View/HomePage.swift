@@ -103,23 +103,7 @@ extension HomePage {
         }
     }
     private func endUserApprovalCheck() {
-        guard let user = authVM.currentUser, authVM.isEnderUser else { return }
-        #if DEBUG
-        print("--------Firebase User Info----------")
-        print("Object:", user)
-        print("Firebase UID", user.uid)
-        print("Email", user.email ?? "")
-        print("Phone", user.phoneNumber ?? "")
-        #endif
-        let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
-        if allUsersApproved.count <= 0 {
-            self.isEndUserApproved = false
-        } else {
-            if let currentEndUser = allUsersApproved.first(where: { $0.id == user.uid }) {
-                self.isEndUserApproved = true
-                self.authVM.currentEndUser = currentEndUser
-            }
-        }
+        isEndUserApproved = authVM.endUserApprovalCheck()
     }
     private var endUserTabView: some View {
         Group {
