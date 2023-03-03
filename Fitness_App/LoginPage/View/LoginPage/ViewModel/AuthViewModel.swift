@@ -38,31 +38,7 @@ class AuthViewModel: ObservableObject {
     @Published var currentUser: User? // User model in Firebase
     @Published var isEnderUser: Bool = true
     
-    var currentEndUser: NewEndUser {
-        return NewEndUser(
-            id: userIDMichaelLogan,
-            name: "Michael Logan",
-            profileImage: "User Profile Image",
-            age: 23,
-            phone: "437-123-1234",
-            email: "mlogan2000@icloud.com",
-            preferredTrainerGender: .m,
-            gymLocation: "Etobicoke, ON",
-            preferredGym: .anytime,
-            typesOfWorkOut: [.boxing, .lifting],
-            preferredPriceRange: PriceRange(
-                currency: .cad,
-                min: 400,
-                max: 700),
-            heightFt: 5,
-            heightIn: 10,
-            skeletalMuscleMass: 83.3,
-            currentWeight: 177,
-            targetWeight: 157,
-            currentBodyFat: 0.22,
-            targetBodyFat: 0.18
-        )
-    }
+    var currentEndUser: NewEndUser?
     
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
@@ -552,4 +528,29 @@ extension AuthViewModel {
       return hashString
     }
 
+}
+
+//MARK: Approval
+extension AuthViewModel {
+    func endUserApprovalCheck() -> Bool {
+        var isApproved = false
+        guard let firebaseUser = currentUser, isEnderUser else { return false }
+        #if DEBUG
+        print("--------Firebase User Info----------")
+        print("Object:", firebaseUser)
+        print("Firebase UID", firebaseUser.uid)
+        print("Email", firebaseUser.email ?? "")
+        print("Phone", firebaseUser.phoneNumber ?? "")
+        #endif
+        let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        if allUsersApproved.count <= 0 {
+            isApproved = false
+        } else {
+            if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
+                self.currentEndUser = currentEndUser
+                isApproved = true
+            }
+        }
+        return isApproved
+    }
 }

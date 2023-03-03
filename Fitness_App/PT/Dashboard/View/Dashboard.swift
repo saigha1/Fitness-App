@@ -26,7 +26,7 @@ struct Dashboard: View {
             .navigationTitle("Dashboard")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    UserProfileIconView(user: user)
+                    UserProfileIconView()
                 }
             }
         }

@@ -7,61 +7,38 @@
 
 import SwiftUI
 
-let userProfileImage = Image("User Profile Image")
 
 struct UserProfileIconView: View {
     @EnvironmentObject var authVM: AuthViewModel
     @State private var shouldShowProfileSheet: Bool = false
-    var user: NewEndUser
+
     var body: some View {
-        userProfileImage
-            .resizable()
-            .scaledToFit()
-            .frame(width: 45, height: 45, alignment: .center)
-            .cornerRadius(25)
-            .clipShape(Circle(), style: .init(eoFill: true, antialiased: true))
-            .shadow(color: .primary.opacity(0.5), radius: 10, x: 3, y: 3)
-            .onTapGesture {
-                shouldShowProfileSheet.toggle()
+        Group {
+            if let user = authVM.currentEndUser {
+                user.profileImage.asProfileImage(45)
+                    .onTapGesture {
+                        shouldShowProfileSheet.toggle()
+                    }
+                    .sheet(isPresented: $shouldShowProfileSheet, content: {
+                        if #available(iOS 16.0, *) {
+                            UserProfileView(user: user)
+                                .presentationDetents([.large])
+                        } else {
+                            // Fallback on earlier versions
+                            UserProfileView(user: user)
+                        }
+                    })
             }
-            .sheet(isPresented: $shouldShowProfileSheet, content: {
-                if #available(iOS 16.0, *) {
-                    UserProfileView(user: user)
-                        .presentationDetents([.large])
-                } else {
-                    // Fallback on earlier versions
-                    UserProfileView(user: user)
-                }
-            })
+        }
     }
 }
 
 struct UserProfileIconView_Previews: PreviewProvider {
-    static let user: NewEndUser = NewEndUser(
-        id: userIDMichaelLogan,
-        name: "Michael Logan",
-        profileImage: "User Profile Image",
-        age: 23,
-        phone: "437-123-1234",
-        email: "mlogan2000@icloud.com",
-        preferredTrainerGender: .m,
-        gymLocation: "Etobicoke, ON",
-        preferredGym: .anytime,
-        typesOfWorkOut: [.boxing, .lifting],
-        preferredPriceRange: PriceRange(
-            currency: .cad,
-            min: 400,
-            max: 700),
-        heightFt: 5,
-        heightIn: 10,
-        skeletalMuscleMass: 83.3,
-        currentWeight: 177,
-        targetWeight: 157,
-        currentBodyFat: 0.22,
-        targetBodyFat: 0.18
-    )
+    static let authVM = AuthViewModel()
     static var previews: some View {
-        UserProfileIconView(user: user)
-            .environmentObject(AuthViewModel())
+        if authVM.currentEndUser != nil {
+            UserProfileView(user: authVM.currentEndUser!)
+                .environmentObject(authVM)
+        }
     }
 }

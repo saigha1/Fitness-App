@@ -46,32 +46,34 @@ struct HomePage_Previews: PreviewProvider {
 extension HomePage {
     private var homePageForPT: some View {
         Group {
-            if (pTApproved && !pending && !signUp){
-                TabView{
-                    Dashboard(user: authVM.currentEndUser)
-                        .tabItem{
-                            Label("Dashboard", systemImage: "house")
-                        }
-                        .environmentObject(authVM)
-                    
-                    ChatView()
-                        .tabItem{
-                            Label("Chat", systemImage: "message")
-                        }
-                    
-                    CalendarView()
-                        .tabItem{
-                            Label("Calendar", systemImage: "calendar.badge.clock")
-                        }
+            if let user = authVM.currentEndUser {
+                if (pTApproved && !pending && !signUp){
+                    TabView{
+                        Dashboard(user: user)
+                            .tabItem{
+                                Label("Dashboard", systemImage: "house")
+                            }
+                            .environmentObject(authVM)
+                        
+                        ChatView()
+                            .tabItem{
+                                Label("Chat", systemImage: "message")
+                            }
+                        
+                        CalendarView()
+                            .tabItem{
+                                Label("Calendar", systemImage: "calendar.badge.clock")
+                            }
+                    }
+                } else if (!pTApproved && pending && !signUp) {
+                    pTPending()
+                } else if (!pTApproved && !pending && signUp) {
+                    //Sign_Up_View()
+                    Text("Sign up view goes here")
+                } else{
+                    //Sign_Up_View()
+                    Text("Sign up view goes here")
                 }
-            } else if (!pTApproved && pending && !signUp) {
-                pTPending()
-            } else if (!pTApproved && !pending && signUp) {
-                //Sign_Up_View()
-                Text("Sign up view goes here")
-            } else{
-                //Sign_Up_View()
-                Text("Sign up view goes here")
             }
         }
     }
@@ -79,7 +81,6 @@ extension HomePage {
         Group {
             
             if isEndUserApproved {
-                //TODO: 1 - populate values from JSON
                 endUserTabView
             } else {
                 Text("").fullScreenCover(isPresented: .init(
@@ -90,7 +91,6 @@ extension HomePage {
                 })) {
                     endUserApprovalCheck()
                 } content: {
-                    //TODO: 2 - populate states from Firebase
                     UserSignUpFormView()
                 }
 
@@ -101,27 +101,11 @@ extension HomePage {
         }
     }
     private func endUserApprovalCheck() {
-        #if DEBUG
-        print("--------Firebase User Info----------")
-        guard let user = authVM.currentUser, authVM.isEnderUser else { return }
-        print("Object:", user)
-        print("Firebase UID", user.uid)
-        print("Email", user.email ?? "")
-        print("Phone", user.phoneNumber ?? "")
-        #endif
-        let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
-        if allUsersApproved.count <= 0 {
-            self.isEndUserApproved = false
-        }
-        for approvedUser in allUsersApproved {
-            if user.uid == approvedUser.id {
-                self.isEndUserApproved = true
-            }
-        }
+        isEndUserApproved = authVM.endUserApprovalCheck()
     }
     private var endUserTabView: some View {
         TabView {
-            EndUserDashBoardView(user: authVM.currentEndUser)
+            EndUserDashBoardView()
                 .tabItem{
                     Label("Dashboard", systemImage: "house")
                 }
