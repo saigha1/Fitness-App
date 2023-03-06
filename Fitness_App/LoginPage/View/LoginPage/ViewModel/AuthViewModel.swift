@@ -35,7 +35,10 @@ class AuthViewModel: ObservableObject {
     @Published var displayName: String = ""
 //    @Published var user: User?
     @Published var errorMessage: String?
-    @Published var currentUser: User?
+    @Published var currentUser: User? // User model in Firebase
+    @Published var isEnderUser: Bool = true
+    
+    var currentEndUser: NewEndUser?
     
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
@@ -245,6 +248,7 @@ extension AuthViewModel {
 //                            let result = try await Auth.auth().signIn(with: credential)
 //                            print(authState)
                             self.authState = .authenticated
+                            self.errorMsg = ""
 //                            self.currentUser = result.user
 //                            print(currentUser)
                             print(self.authState)
@@ -361,6 +365,7 @@ extension AuthViewModel {
                 // User is signed in
                 print("User signed in with Google using Firebase Authentication!")
                 self.authState = .authenticated
+                self.errorMsg = ""
                 //TODO: GET USER PROFILE INFO
             }
         }
@@ -415,6 +420,8 @@ extension AuthViewModel {
                         let result = try await Auth.auth().signIn(with: credential)
                         print("Signed in with Apple")
                         await updateDisplayName(for: result.user, with: appleIDCredential)
+                        self.authState = .authenticated
+                        self.errorMsg = ""
                     } catch {
                         print("Sign in with Apple failed: ", error.localizedDescription)
                     }
@@ -439,6 +446,8 @@ extension AuthViewModel {
             let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
             currentUser = authResult.user
             print("Signed in with email and password. User: ", authResult.user.uid)
+            self.authState = .authenticated
+            self.errorMsg = ""
             return true
         } catch {
             print("Could not sign in with email and password provided: ", error.localizedDescription)
@@ -519,4 +528,29 @@ extension AuthViewModel {
       return hashString
     }
 
+}
+
+//MARK: Approval
+extension AuthViewModel {
+    func endUserApprovalCheck() -> Bool {
+        var isApproved = false
+        guard let firebaseUser = currentUser, isEnderUser else { return false }
+        #if DEBUG
+        print("--------Firebase User Info----------")
+        print("Object:", firebaseUser)
+        print("Firebase UID", firebaseUser.uid)
+        print("Email", firebaseUser.email ?? "")
+        print("Phone", firebaseUser.phoneNumber ?? "")
+        #endif
+        let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
+        if allUsersApproved.count <= 0 {
+            isApproved = false
+        } else {
+            if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
+                self.currentEndUser = currentEndUser
+                isApproved = true
+            }
+        }
+        return isApproved
+    }
 }

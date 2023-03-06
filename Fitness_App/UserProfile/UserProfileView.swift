@@ -14,11 +14,11 @@ struct UserProfileView: View {
     @State var phoneNumber: String = ""
     @State var email: String = ""
     @State var gymLoocation: String = ""
-    @State var typesOfWorkout: [String] = []
+    @State var typesOfWorkout: [WorkOutType] = []
     // Temp properties for pickers
-    @State var selectedPTGender: String = ""
+    @State var selectedPTGender: TrainerGender = .m
     
-    var user: EndUser
+    var user: NewEndUser
     
     var body: some View {
         ScrollView {
@@ -64,22 +64,19 @@ struct UserProfileView: View {
 }
 
 struct UserProfileView_Previews: PreviewProvider {
-    static let user: EndUser = EndUser(
+    static let user: NewEndUser = NewEndUser(
         id: userIDMichaelLogan,
         name: "Michael Logan",
-        profileImageName: "User Profile Image",
+        profileImage: "User Profile Image",
         age: 23,
         phone: "437-123-1234",
         email: "mlogan2000@icloud.com",
-        preferredTrainerGender: "Male",
+        preferredTrainerGender: .m,
         gymLocation: "Etobicoke, ON",
-        typesOfWorkOut: [
-            "Machine-based",
-            "Weight-Lifting",
-            "Boxing"
-        ],
-        preferredPriceRange: PriceRangePrefrence(
-            currency: "CAD",
+        preferredGym: .anytime,
+        typesOfWorkOut: [.boxing, .lifting],
+        preferredPriceRange: PriceRange(
+            currency: .cad,
             min: 400,
             max: 700),
         heightFt: 5,

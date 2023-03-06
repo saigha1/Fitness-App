@@ -46,7 +46,36 @@ struct LoginPage: View {
                         }
                     
                     VStack{
-                        Text("Sign In").bold()
+                        
+                        Text("Sign In").bold().font(.largeTitle)
+                        if !authVM.errorMsg.isEmpty {
+                            Text(authVM.errorMsg)
+                                .foregroundColor(.red)
+                        }
+                        
+                        // User type selector
+                        VStack(alignment: .center) {
+                            Text(authVM.isEnderUser ? "I’m finding a trainer." : "Are you a client?")
+                                .foregroundColor(authVM.isEnderUser ? .white : .accentColor)
+                                .frame(width: 210, height: 40)
+                                .background(authVM.isEnderUser ? Color.assetColor.purple : .clear)
+                                .cornerRadius(5)
+                                .onTapGesture {
+                                    if !authVM.isEnderUser {
+                                        authVM.isEnderUser.toggle()
+                                    }
+                                }
+                            Text(authVM.isEnderUser ? "Are you a trainer?" : "I’m a personal trainer.")
+                                .foregroundColor(!authVM.isEnderUser ? .white : .accentColor)
+                                .frame(width: 210, height: 40)
+                                .background(!authVM.isEnderUser ? Color.assetColor.blue : .clear)
+                                .cornerRadius(5)
+                                .onTapGesture {
+                                    if authVM.isEnderUser {
+                                        authVM.isEnderUser.toggle()
+                                    }
+                                }
+                        }
                         
                         //Email Login
                         FireBaseSignInWithEmailView()

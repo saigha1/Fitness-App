@@ -12,15 +12,16 @@ import GoogleSignIn
 @main
 struct Fitness_AppApp: App {
     /// AppDelegateAdapter that registers the app delegate for firebase setup
-//    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate     //Firebase recommends adding var delegate instead of var appDelegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate     //Firebase recommends adding var delegate instead of var appDelegate
         
 //    @StateObject var googleFireBaseVM = GoogleSignInWithFirebase()
 //    @StateObject var facebookFirebaseSignIn = UserLoginManager()
 //    @StateObject private var authVMEmail: FireBaseSignInWithEmailViewModel
     
     /// Declare the authentication view model instance to be used as an environment object for signin & signup views
-//    @StateObject private var authenticationVM = AuthViewModel()
+    @StateObject private var authenticationVM = AuthViewModel()
 //    @StateObject private var modelData = ModelData()
+    
     
 //    init() {
 //        self._authenticationVM = StateObject(wrappedValue: .init())
@@ -31,20 +32,20 @@ struct Fitness_AppApp: App {
 //            Sign_Up_View()
 //                .environmentObject(modelData)
             
-            ContentView()
+            LoginPage()
 //                .environmentObject(googleFireBaseVM)
 //                .environmentObject(facebookFirebaseSignIn)
-//                .environmentObject(authenticationVM)
+                .environmentObject(authenticationVM)
             
-//            .onOpenURL { url in
-//                      GIDSignIn.sharedInstance.handle(url)
-//            }
+            .onOpenURL { url in
+                      GIDSignIn.sharedInstance.handle(url)
+            }
             
-//            .onAppear {
-//                GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-//                    // Check if `user` exists; otherwise, do something with `error`
-//                }
-//            }
+            .onAppear {
+                GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                    // Check if `user` exists; otherwise, do something with `error`
+                }
+            }
         }
     }
 }
