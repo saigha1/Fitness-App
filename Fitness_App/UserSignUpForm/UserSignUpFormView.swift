@@ -109,7 +109,7 @@ extension UserSignUpFormView {
                     Text("Phone Number")
                     Spacer()
                     TextFieldView(textInput: $signUpFormVM.phoneNumber, placeholder: "Phone Number", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 150, height: 25)
-                        .keyboardType(.namePhonePad)
+                        .keyboardType(.phonePad)
                 }
             }
             Group {
@@ -219,8 +219,10 @@ extension UserSignUpFormView {
                 Text("Height")
                 Spacer()
                 TextFieldView(textInput: $signUpFormVM.heightFt, placeholder: "ft", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
+                    .keyboardType(.numberPad)
                 Text("'").offset(x: -15)
                 TextFieldView(textInput: $signUpFormVM.heightIn, placeholder: "in", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
+                    .keyboardType(.decimalPad)
                 Text("''").offset(x: -15)
             }
             HStack {
@@ -241,13 +243,17 @@ extension UserSignUpFormView {
                     Text("Weight")
                     Spacer()
                     TextFieldView(textInput: $signUpFormVM.currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        .keyboardType(.decimalPad)
                     TextFieldView(textInput: $signUpFormVM.targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        .keyboardType(.decimalPad)
                 }
                 HStack {
                     Text("Body Fat")
                     Spacer()
                     TextFieldView(textInput: $signUpFormVM.currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        .keyboardType(.decimalPad)
                     TextFieldView(textInput: $signUpFormVM.targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        .keyboardType(.decimalPad)
                 }
             }
         }

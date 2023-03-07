@@ -15,8 +15,15 @@ struct UserProfileView: View {
     @State var email: String = ""
     @State var gymLoocation: String = ""
     @State var typesOfWorkout: [WorkOutType] = []
-    // Temp properties for pickers
+    @State var preferredGym: PreferredGym = .laFitness
     @State var selectedPTGender: TrainerGender = .m
+    @State var heightFt: String = ""
+    @State var heightIn: String = ""
+    @State var skeletalMuscleMass: String = ""
+    @State var currentWeight: String = ""
+    @State var targetWeight: String = ""
+    @State var currentFatPercentage: String = ""
+    @State var targetFatPercentage: String = ""
     
     var user: NewEndUser
     
@@ -31,9 +38,6 @@ struct UserProfileView: View {
                     } label: {
                         Text(isEditing ? "Done" : "Edit")
                             .foregroundColor(.accentColor)
-                    }
-                    .sheet(isPresented: $isEditing) {
-                        UserSignUpFormView()
                     }
                 }
                 personalInfo

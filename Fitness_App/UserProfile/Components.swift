@@ -27,14 +27,7 @@ extension UserProfileView {
             
             //User’s Profile Image & Name
             HStack {
-                //TODO: DECODE IMAGE
-                Image(systemName: "person")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 45, height: 45, alignment: .center)
-                    .cornerRadius(15)
-                    .padding(.leading, 70)
-                Spacer()
+                user.image.scaleEffect(2.5)
                 Text(user.name)
                     .font(.title2)
                     .bold()
@@ -72,7 +65,7 @@ extension UserProfileView {
                 Group {
                     if isEditing {
                         TextFieldView(textInput: $phoneNumber, placeholder: user.phone, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 112, height: 8)
-                            .keyboardType(.numberPad)
+                            .keyboardType(.phonePad)
                     } else {
                         Text(user.phone)
                     }
@@ -87,6 +80,7 @@ extension UserProfileView {
                 Group {
                     if isEditing {
                         TextFieldView(textInput: $email, placeholder: user.email, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
+                            .keyboardType(.emailAddress)
                     } else {
                         Text(user.email)
                     }
@@ -109,13 +103,7 @@ extension UserProfileView {
             .foregroundColor(Color.assetColor.blue)
             Divider()
             
-            HStack {
-                Text("Gym Location")
-                    .bold()
-                Spacer()
-                Text("\(user.gymLocation)")
-            }
-            
+            //Preferred trainer gender
             HStack {
                 Text("Trainer Gender")
                     .bold()
@@ -128,24 +116,91 @@ extension UserProfileView {
                             }
                         }
                     } else {
-                        Text("\(selectedPTGender.rawValue)")
+                        Text(user.preferredTrainerGender.rawValue)
                     }
                 }
             }
             
-            HStack(alignment: .top) {
-                VStack(alignment: .leading) {
-                    Text("Gym Location")
-                        .bold()
-                    Text("Types of Workout")
-                        .bold()
-                }
+            //Gym Location
+            HStack {
+                Text("Gym Location")
+                    .bold()
                 Spacer()
-                VStack(alignment: .trailing) {
-                    Text("\(user.gymLocation)")
-                    VStack(alignment: .trailing) {
-                        ForEach(user.typesOfWorkOut, id: \.self) {type in
-                            Text(type.rawValue)
+                Group {
+                    if isEditing {
+                        TextFieldView(textInput: $gymLoocation, placeholder: user.gymLocation, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
+                    } else {
+                        Text(user.gymLocation)
+                    }
+                }
+            }
+            
+            //Preferred gym
+            HStack {
+                Text("Preferred Gym")
+                    .bold()
+                Spacer()
+                Group {
+                    if isEditing {
+                        Picker("Preferred Gym", selection: $preferredGym) {
+                            ForEach(PreferredGym.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                    } else {
+                        Text(user.preferredGym.rawValue)
+                    }
+                }
+            }
+            
+            
+            //Workout Types
+            Group {
+                HStack {
+                    Text("Workout Type 1")
+                        .bold()
+                    Spacer()
+                    Group {
+                        if isEditing {
+                            Picker("Workout Type 1", selection: $typesOfWorkout[0]) {
+                                ForEach(WorkOutType.allCases, id: \.self) {
+                                    Text($0.rawValue)
+                                }
+                            }
+                        } else {
+                            Text(user.typesOfWorkOut[0].rawValue)
+                        }
+                    }
+                }
+                HStack {
+                    Text("Workout Type 2")
+                        .bold()
+                    Spacer()
+                    Group {
+                        if isEditing {
+                            Picker("Workout Type 2", selection: $typesOfWorkout[1]) {
+                                ForEach(WorkOutType.allCases, id: \.self) {
+                                    Text($0.rawValue)
+                                }
+                            }
+                        } else {
+                            Text(user.typesOfWorkOut[1].rawValue)
+                        }
+                    }
+                }
+                HStack {
+                    Text("Workout Type 3")
+                        .bold()
+                    Spacer()
+                    Group {
+                        if isEditing {
+                            Picker("Workout Type 3", selection: $typesOfWorkout[2]) {
+                                ForEach(WorkOutType.allCases, id: \.self) {
+                                    Text($0.rawValue)
+                                }
+                            }
+                        } else {
+                            Text(user.typesOfWorkOut[2].rawValue)
                         }
                     }
                 }
@@ -166,43 +221,74 @@ extension UserProfileView {
             .foregroundColor(Color.assetColor.pink)
             .foregroundColor(.green)
             Divider()
-            
-            HStack(alignment: .top) {
-                VStack(alignment: .leading) {
-                    Text("Height")
-                        .bold()
-                    Text("Skeletal Muscle Mass")
-                        .bold()
-                }
+            //Height
+            HStack {
+                Text("Height")
+                    .bold()
                 Spacer()
-                VStack(alignment: .trailing) {
-//                    Text("\(user.heightFt)'\(user.heightIn.asStringWith2Decimals())" + "\"")
-//                    Text("\(user.skeletalMuscleMass.asStringWith2Decimals()) lbs.")
+                if isEditing {
+                    Group {
+                        TextFieldView(textInput: $heightFt, placeholder: "\(user.heightFt)", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 30, height: 8)
+                            .keyboardType(.numberPad)
+                        Text("'").offset(x: -15)
+                        TextFieldView(textInput: $heightIn, placeholder: "\(user.heightIn.asStringWith2Decimals())", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 30, height: 8)
+                            .keyboardType(.decimalPad)
+                        Text("''").offset(x: -15)
+                    }
+                } else {
+                    Text("\(user.heightFt)' \(user.heightIn.asStringWith2Decimals())''")
                 }
             }
-            
-            HStack(alignment: .bottom) {
-                VStack(alignment: .leading) {
-                    Text("Weight(lbs)")
-                        .bold()
-                    Text("Body Fat Percentage")
-                        .bold()
-                }
-                
+            //Skeletal Muscle Mass
+            HStack {
+                Text("Skeletal Muscle Mass")
+                    .bold()
                 Spacer()
-                
-                VStack(alignment: .trailing) {
-                    Text("Current")
-                        .foregroundColor(.secondary)
-//                    Text(user.currentWeight.asStringWith2Decimals())
-//                    Text(user.currentBodyFat.asPercentageStringWith2Decimals())
+                if isEditing {
+                        TextFieldView(textInput: $skeletalMuscleMass, placeholder: "\(user.skeletalMuscleMass.asStringWith2Decimals())", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 50, height: 8)
+                            .keyboardType(.decimalPad)
+                } else {
+                    Text(user.skeletalMuscleMass.asStringWith2Decimals())
                 }
-                
-                VStack(alignment: .trailing) {
+            }
+            Group {
+                HStack {
+                    Spacer()
+                    Text("Current")
                     Text("Target")
-                        .foregroundColor(.secondary)
-//                    Text(user.targetWeight.asStringWith2Decimals())
-//                    Text(user.targetBodyFat.asPercentageStringWith2Decimals())
+                }
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                .padding(.trailing, 20)
+                //Weight
+                HStack {
+                    Text("Weight (lbs)")
+                        .bold()
+                    Spacer()
+                    if isEditing {
+                        TextFieldView(textInput: $currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                            .keyboardType(.decimalPad)
+                        TextFieldView(textInput: $targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                            .keyboardType(.decimalPad)
+                    } else {
+                        Text(user.currentWeight.asStringWith2Decimals())
+                        Text(user.targetWeight.asStringWith2Decimals())
+                    }
+                }
+                //Fat
+                HStack {
+                    Text("Body Fat (%)")
+                        .bold()
+                    Spacer()
+                    if isEditing {
+                        TextFieldView(textInput: $currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                            .keyboardType(.decimalPad)
+                        TextFieldView(textInput: $targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                            .keyboardType(.decimalPad)
+                    } else {
+                        Text("\(user.currentBodyFat.asStringWith2Decimals())%")
+                        Text("\(user.targetBodyFat.asStringWith2Decimals())%")
+                    }
                 }
             }
         }
