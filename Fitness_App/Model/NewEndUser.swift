@@ -9,7 +9,11 @@ import Foundation
 import SwiftUI
 
 //MARK: EndUser Model
-struct NewEndUser: Codable, Identifiable {
+struct NewEndUser: Codable, Identifiable, Equatable {
+    static func == (lhs: NewEndUser, rhs: NewEndUser) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     let id: String
     var name: String
     var profileImage: String

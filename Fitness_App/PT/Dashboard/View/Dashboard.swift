@@ -27,6 +27,7 @@ struct Dashboard: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     UserProfileIconView()
+                        .environmentObject(authVM)
                 }
             }
         }

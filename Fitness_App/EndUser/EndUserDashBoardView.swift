@@ -46,6 +46,7 @@ extension EndUserDashBoardView {
         .toolbar {
             ToolbarItem {
                 UserProfileIconView()
+                    .environmentObject(authVM)
             }
         }
     }
