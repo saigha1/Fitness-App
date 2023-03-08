@@ -27,8 +27,29 @@ extension UserProfileView {
             
             //User’s Profile Image & Name
             HStack {
-                user.image.scaleEffect(2.5)
-                Text(user.name)
+                Group {
+                    if endUserProfileVM.selectedImages.isEmpty {
+                        authVM.currentEndUser!.profileImage.asProfileImage(100)
+                    } else {
+                        Image(uiImage: endUserProfileVM.selectedImages.first!)
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 100, height: 100)
+                    }
+                }
+                .onTapGesture {
+                    if isEditing {
+                        showImagePicker.toggle()
+                    }
+                }
+                .sheet(isPresented: $showImagePicker) {
+                    ImagePicker(image: $endUserProfileVM.selectedImages, selectionLimit: 1)
+                        .onChange(of: endUserProfileVM.selectedImages) { _ in
+                            //endUserProfileVM.updateProfileImage()
+                            print("")
+                        }
+                }
+                Text(authVM.currentEndUser!.name)
                     .font(.title2)
                     .bold()
                     .padding(.trailing, 70)
@@ -54,7 +75,7 @@ extension UserProfileView {
                 Text("Age")
                     .bold()
                 Spacer()
-                Text("\(user.age)")
+                Text("\(authVM.currentEndUser!.age)")
             }
             
             //Phone Number
@@ -64,10 +85,10 @@ extension UserProfileView {
                 Spacer()
                 Group {
                     if isEditing {
-                        TextFieldView(textInput: $phoneNumber, placeholder: user.phone, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 112, height: 8)
+                        TextFieldView(textInput: $endUserProfileVM.phoneNumber, placeholder: authVM.currentEndUser!.phone, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
                             .keyboardType(.phonePad)
                     } else {
-                        Text(user.phone)
+                        Text(authVM.currentEndUser!.phone)
                     }
                 }
             }
@@ -79,10 +100,10 @@ extension UserProfileView {
                 Spacer()
                 Group {
                     if isEditing {
-                        TextFieldView(textInput: $email, placeholder: user.email, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
+                        TextFieldView(textInput: $endUserProfileVM.email, placeholder: authVM.currentEndUser!.email, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
                             .keyboardType(.emailAddress)
                     } else {
-                        Text(user.email)
+                        Text(authVM.currentEndUser!.email)
                     }
                 }
             }
@@ -110,13 +131,13 @@ extension UserProfileView {
                 Spacer()
                 Group {
                     if isEditing {
-                        Picker("Gender", selection: $selectedPTGender) {
+                        Picker("Gender", selection: $endUserProfileVM.selectedPTGender) {
                             ForEach(TrainerGender.allCases, id: \.self) {
                                 Text($0.rawValue)
                             }
                         }
                     } else {
-                        Text(user.preferredTrainerGender.rawValue)
+                        Text(authVM.currentEndUser!.preferredTrainerGender.rawValue)
                     }
                 }
             }
@@ -128,9 +149,9 @@ extension UserProfileView {
                 Spacer()
                 Group {
                     if isEditing {
-                        TextFieldView(textInput: $gymLoocation, placeholder: user.gymLocation, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
+                        TextFieldView(textInput: $endUserProfileVM.gymLoocation, placeholder: authVM.currentEndUser!.gymLocation, isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 200, height: 8)
                     } else {
-                        Text(user.gymLocation)
+                        Text(authVM.currentEndUser!.gymLocation)
                     }
                 }
             }
@@ -142,13 +163,13 @@ extension UserProfileView {
                 Spacer()
                 Group {
                     if isEditing {
-                        Picker("Preferred Gym", selection: $preferredGym) {
+                        Picker("Preferred Gym", selection: $endUserProfileVM.preferredGym) {
                             ForEach(PreferredGym.allCases, id: \.self) {
                                 Text($0.rawValue)
                             }
                         }
                     } else {
-                        Text(user.preferredGym.rawValue)
+                        Text(authVM.currentEndUser!.preferredGym.rawValue)
                     }
                 }
             }
@@ -162,13 +183,13 @@ extension UserProfileView {
                     Spacer()
                     Group {
                         if isEditing {
-                            Picker("Workout Type 1", selection: $typesOfWorkout[0]) {
+                            Picker("Workout Type 1", selection: $endUserProfileVM.typesOfWorkout[0]) {
                                 ForEach(WorkOutType.allCases, id: \.self) {
                                     Text($0.rawValue)
                                 }
                             }
                         } else {
-                            Text(user.typesOfWorkOut[0].rawValue)
+                            Text(authVM.currentEndUser!.typesOfWorkOut[0].rawValue)
                         }
                     }
                 }
@@ -178,13 +199,13 @@ extension UserProfileView {
                     Spacer()
                     Group {
                         if isEditing {
-                            Picker("Workout Type 2", selection: $typesOfWorkout[1]) {
+                            Picker("Workout Type 2", selection: $endUserProfileVM.typesOfWorkout[1]) {
                                 ForEach(WorkOutType.allCases, id: \.self) {
                                     Text($0.rawValue)
                                 }
                             }
                         } else {
-                            Text(user.typesOfWorkOut[1].rawValue)
+                            Text(authVM.currentEndUser!.typesOfWorkOut[1].rawValue)
                         }
                     }
                 }
@@ -194,14 +215,31 @@ extension UserProfileView {
                     Spacer()
                     Group {
                         if isEditing {
-                            Picker("Workout Type 3", selection: $typesOfWorkout[2]) {
+                            Picker("Workout Type 3", selection: $endUserProfileVM.typesOfWorkout[2]) {
                                 ForEach(WorkOutType.allCases, id: \.self) {
                                     Text($0.rawValue)
                                 }
                             }
                         } else {
-                            Text(user.typesOfWorkOut[2].rawValue)
+                            Text(authVM.currentEndUser!.typesOfWorkOut[2].rawValue)
                         }
+                    }
+                }
+            }
+            
+            //Price Range
+            HStack {
+                Text("Price Range")
+                    .bold()
+                Spacer()
+                Group {
+                    if isEditing {
+                        TextFieldView(textInput: $endUserProfileVM.priceRangeLow, placeholder: "low", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 120, height: 25)
+                            .keyboardType(.decimalPad)
+                        TextFieldView(textInput: $endUserProfileVM.priceRangeHigh, placeholder: "high", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 120, height: 25)
+                            .keyboardType(.decimalPad)
+                    } else {
+                        Text("\(authVM.currentEndUser!.preferredPriceRange.min.formatted(.currency(code: authVM.currentEndUser!.preferredPriceRange.currency.rawValue))) ~ \(authVM.currentEndUser!.preferredPriceRange.max.formatted(.currency(code: authVM.currentEndUser!.preferredPriceRange.currency.rawValue)))")
                     }
                 }
             }
@@ -228,15 +266,15 @@ extension UserProfileView {
                 Spacer()
                 if isEditing {
                     Group {
-                        TextFieldView(textInput: $heightFt, placeholder: "\(user.heightFt)", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 30, height: 8)
+                        TextFieldView(textInput: $endUserProfileVM.heightFt, placeholder: "\(authVM.currentEndUser!.heightFt)", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 30, height: 8)
                             .keyboardType(.numberPad)
                         Text("'").offset(x: -15)
-                        TextFieldView(textInput: $heightIn, placeholder: "\(user.heightIn.asStringWith2Decimals())", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 30, height: 8)
+                        TextFieldView(textInput: $endUserProfileVM.heightIn, placeholder: "\(authVM.currentEndUser!.heightIn.asStringWith2Decimals())", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 70, height: 8)
                             .keyboardType(.decimalPad)
                         Text("''").offset(x: -15)
                     }
                 } else {
-                    Text("\(user.heightFt)' \(user.heightIn.asStringWith2Decimals())''")
+                    Text("\(authVM.currentEndUser!.heightFt)' \(authVM.currentEndUser!.heightIn.asStringWith2Decimals())''")
                 }
             }
             //Skeletal Muscle Mass
@@ -245,10 +283,10 @@ extension UserProfileView {
                     .bold()
                 Spacer()
                 if isEditing {
-                        TextFieldView(textInput: $skeletalMuscleMass, placeholder: "\(user.skeletalMuscleMass.asStringWith2Decimals())", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 50, height: 8)
-                            .keyboardType(.decimalPad)
+                    TextFieldView(textInput: $endUserProfileVM.skeletalMuscleMass, placeholder: "\(authVM.currentEndUser!.skeletalMuscleMass.asStringWith2Decimals())", isPassword: false, cornerRadius: 0, strokeColor: .clear, strokeWidth: 0, offsetX: 0, offsetY: 0, width: 70, height: 8)
+                        .keyboardType(.decimalPad)
                 } else {
-                    Text(user.skeletalMuscleMass.asStringWith2Decimals())
+                    Text(authVM.currentEndUser!.skeletalMuscleMass.asStringWith2Decimals())
                 }
             }
             Group {
@@ -266,13 +304,13 @@ extension UserProfileView {
                         .bold()
                     Spacer()
                     if isEditing {
-                        TextFieldView(textInput: $currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        TextFieldView(textInput: $endUserProfileVM.currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
                             .keyboardType(.decimalPad)
-                        TextFieldView(textInput: $targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        TextFieldView(textInput: $endUserProfileVM.targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
                             .keyboardType(.decimalPad)
                     } else {
-                        Text(user.currentWeight.asStringWith2Decimals())
-                        Text(user.targetWeight.asStringWith2Decimals())
+                        Text(authVM.currentEndUser!.currentWeight.asStringWith2Decimals())
+                        Text(authVM.currentEndUser!.targetWeight.asStringWith2Decimals())
                     }
                 }
                 //Fat
@@ -281,13 +319,13 @@ extension UserProfileView {
                         .bold()
                     Spacer()
                     if isEditing {
-                        TextFieldView(textInput: $currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        TextFieldView(textInput: $endUserProfileVM.currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
                             .keyboardType(.decimalPad)
-                        TextFieldView(textInput: $targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                        TextFieldView(textInput: $endUserProfileVM.targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 70, height: 25)
                             .keyboardType(.decimalPad)
                     } else {
-                        Text("\(user.currentBodyFat.asStringWith2Decimals())%")
-                        Text("\(user.targetBodyFat.asStringWith2Decimals())%")
+                        Text("\(authVM.currentEndUser!.currentBodyFat.asStringWith2Decimals())%")
+                        Text("\(authVM.currentEndUser!.targetBodyFat.asStringWith2Decimals())%")
                     }
                 }
             }
@@ -319,7 +357,7 @@ extension UserProfileView {
                                 .foregroundStyle(.indigo.opacity(0.7))
                             LineMark(x: .value("Month", key.asStringYYYYMM()), y: .value("# of workout", groupedAppoints[key]?.count ?? 0))
                                 .foregroundStyle(.indigo)
-
+                            
                         }
                     }
                 } else {

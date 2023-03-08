@@ -9,23 +9,12 @@ import SwiftUI
 
 struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
-    //State private properties for editing mode
+    @EnvironmentObject var authVM: AuthViewModel
+    @StateObject var endUserProfileVM = EndUserProfileViewModel()
     @State var isEditing: Bool = false
-    @State var phoneNumber: String = ""
-    @State var email: String = ""
-    @State var gymLoocation: String = ""
-    @State var typesOfWorkout: [WorkOutType] = []
-    @State var preferredGym: PreferredGym = .laFitness
-    @State var selectedPTGender: TrainerGender = .m
-    @State var heightFt: String = ""
-    @State var heightIn: String = ""
-    @State var skeletalMuscleMass: String = ""
-    @State var currentWeight: String = ""
-    @State var targetWeight: String = ""
-    @State var currentFatPercentage: String = ""
-    @State var targetFatPercentage: String = ""
-    
-    var user: NewEndUser
+    @State var showImagePicker: Bool = false
+    @State var user: NewEndUser
+
     
     var body: some View {
         ScrollView {
@@ -35,6 +24,9 @@ struct UserProfileView: View {
                     Spacer()
                     Button {
                         isEditing = isEditing ? false : true
+                        endUserProfileVM.validateForm(user, authVM: authVM)
+                        authVM.refreshEndUserData(user.id)
+                        user = authVM.currentEndUser!
                     } label: {
                         Text(isEditing ? "Done" : "Edit")
                             .foregroundColor(.accentColor)
@@ -58,11 +50,8 @@ struct UserProfileView: View {
             Spacer()
         }
         .onAppear {
-            self.phoneNumber = user.phone
-            self.email = user.email
-            self.gymLoocation = user.gymLocation
-            self.typesOfWorkout = user.typesOfWorkOut
-            self.selectedPTGender = user.preferredTrainerGender
+                user = authVM.currentEndUser!
+                endUserProfileVM.populateStates(user)
         }
     }
 }
@@ -94,6 +83,7 @@ struct UserProfileView_Previews: PreviewProvider {
 
     static var previews: some View {
         UserProfileView(user: user)
+            .environmentObject(AuthViewModel())
     }
 }
 

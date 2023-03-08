@@ -38,7 +38,7 @@ class AuthViewModel: ObservableObject {
     @Published var currentUser: User? // User model in Firebase
     @Published var isEnderUser: Bool = true
     
-    var currentEndUser: NewEndUser?
+    @Published var currentEndUser: NewEndUser?
     
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
@@ -530,7 +530,7 @@ extension AuthViewModel {
 
 }
 
-//MARK: Approval
+//MARK: Approval & Refresh on update
 extension AuthViewModel {
     func endUserApprovalCheck() -> Bool {
         var isApproved = false
@@ -552,5 +552,11 @@ extension AuthViewModel {
             }
         }
         return isApproved
+    }
+    
+    func refreshEndUserData(_ id: String) {
+        guard let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) else { return }
+        guard let userFound: NewEndUser = allUsersApproved.first(where: { $0.id == id }) else { return }
+        currentEndUser = userFound
     }
 }
