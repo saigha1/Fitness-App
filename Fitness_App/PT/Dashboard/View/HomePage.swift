@@ -46,7 +46,7 @@ struct HomePage_Previews: PreviewProvider {
 extension HomePage {
     private var homePageForPT: some View {
         Group {
-            if let user = authVM.currentEndUser {
+            if let user = authVM.currentPTUser {
                 if (pTApproved && !pending && !signUp){
                     TabView{
                         Dashboard(user: user)

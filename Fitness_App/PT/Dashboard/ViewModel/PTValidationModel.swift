@@ -16,13 +16,18 @@ class PTValidationModel: ObservableObject {
     @Published var trainerGender: String = "Male"
     @Published var phone: String = ""
     @Published var email: String = ""
-    @Published var experienceLevel = ""
-    @Published var education: String = ""
-    @Published var Certification: String = ""
-    @Published var gymLocation: String = ""
-    @Published var typeOfWorkOut: [PTModel.typesOfWorkOut] = [workoutTypes[0], workoutTypes[1], workoutTypes[2]]
+    @Published var experienceLevel : PTexperienceLevel = .One
+    @Published var education: PTEducationLevel = .Bachelors
+    @Published var Certification: [certificates] = []
+    @Published var city : gymLocation = .Mississauga
+
+    @Published var typeOfExercise: [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weightLifting, .machineTraining]
     @Published var Description: String = ""
     @Published var Motto: String = ""
+    @Published var isFeaturedToStore: Bool = false
+    @Published var isFavoriteToStore: Bool = false
+    @Published var isProfImg: String = ""
+    @Published var gymPreferencePublished : [gymPreferrence] = [.GoodLife, .UFC, .FitnessPlanet, .LAFitness]
     
     var nameToStore: Int = 0
     
@@ -32,7 +37,16 @@ class PTValidationModel: ObservableObject {
     
     var trainersGenderToStore: String = ""
     var gymLocationToStore: String = ""
-//    var typeOfWorkoutToStore: [String] = []
+    var workoutTypesToStore: [String] = []
+    
+    
+    func workoutTypesSelectable(_ index: Int) -> [typesOfWorkOut]{
+        let workoutTypes = typesOfWorkOut.allCases
+        return [typeOfExercise[index]] +
+        workoutTypes.filter { type in
+            !typeOfExercise.contains(type)
+        }
+    }
     
     func validateForm() {
         // check if all validation functions returns true
@@ -40,7 +54,7 @@ class PTValidationModel: ObservableObject {
 //        guard validateAge() else { return }
         guard validatePhoneNum() else { return }
         guard validateEmail() else { return }
-        guard validateWorkoutTypes() else { return }
+//        guard validateWorkoutTypes() else { return }
 
         #if DEBUG
         let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
@@ -54,17 +68,21 @@ class PTValidationModel: ObservableObject {
             gender: trainersGenderToStore,
             phone: phoneNumberToStore,
             email: emailToStore,
-            experienceLevel: experienceLevel,
+            isFeatured: isFeaturedToStore,
+            isFavorite: isFavoriteToStore,
+            description: Description,
+            motto: Motto,
+            profileImg: isProfImg,
             education: education,
-            Certification: Certification,
-            gymLocation: ,
-            workoutTypes: typeOfWorkoutToStore,
-            Description: Description,
-            Motto: Motto,
-            PreferredGym: <#String#>
-            
+            certification: Certification,
+            selectedExperience: experienceLevel,
+
+            cityLocation: city,
+            workoutTypes : typeOfExercise,
+            gymPreference: gymPreferencePublished
         )
-        add(newEntry: newUser, filename: "EndUser.json", location: .document)
+            
+        add(newEntry: newPT, filename: "PTs.json", location: .document)
         
         #if DEBUG
         let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
@@ -109,14 +127,14 @@ extension PTValidationModel{
         }
     }
     
-    func validateWorkoutTypes() -> Bool{
-        
-        var validCount: Int = 0
-        for i in typeOfWorkOut {
-            if workoutTypes.contains(i) {
-                validCount += 1
-            }
-        }
-        return validCount == 3
-    }
+//    func validateWorkoutTypes() -> Bool{
+//        
+//        var validCount: Int = 0
+//        for i in typesOfWorkOut {
+//            if workoutTypes.contains(i) {
+//                validCount += 1
+//            }
+//        }
+//        return validCount == 3
+//    }
 }

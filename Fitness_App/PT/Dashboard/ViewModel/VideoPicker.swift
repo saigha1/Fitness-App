@@ -11,11 +11,12 @@ import UIKit
 
 struct VideoPicker: UIViewControllerRepresentable {
     @Binding var videoURLs : [String]
-
+    var selectionLimit : Int = 0
+    
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
         config.filter = .videos
-        config.selectionLimit = 3 // ignores limit
+        config.selectionLimit = selectionLimit// ignores limit
         
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = context.coordinator

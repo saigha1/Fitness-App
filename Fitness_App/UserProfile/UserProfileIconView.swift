@@ -11,26 +11,45 @@ import SwiftUI
 struct UserProfileIconView: View {
     @EnvironmentObject var authVM: AuthViewModel
     @State private var shouldShowProfileSheet: Bool = false
+    @State private var shouldShowPTSheet: Bool = false
 
     var body: some View {
-        Group {
-            if let user = authVM.currentEndUser {
-                user.profileImage.asProfileImage(45)
-                    .onTapGesture {
-                        shouldShowProfileSheet.toggle()
-                    }
-                    .sheet(isPresented: $shouldShowProfileSheet, content: {
-                        if #available(iOS 16.0, *) {
-                            UserProfileView(user: user)
-                                .presentationDetents([.large])
-                        } else {
-                            // Fallback on earlier versions
-                            UserProfileView(user: user)
+            if authVM.isEnderUser{
+                if let user = authVM.currentEndUser {
+                    user.profileImage.asProfileImage(45)
+                        .onTapGesture {
+                            shouldShowProfileSheet.toggle()
                         }
-                    })
+                        .sheet(isPresented: $shouldShowProfileSheet, content: {
+                            if #available(iOS 16.0, *) {
+                                UserProfileView(user: user)
+                                    .presentationDetents([.large])
+                            } else {
+                                // Fallback on earlier versions
+                                UserProfileView(user: user)
+                            }
+                        })
+                }
             }
-        }
-    }
+            else {
+                if let pTUser = authVM.currentPTUser {
+                    pTUser.profileImg.asProfileImage(45)
+                        .onTapGesture {
+                            shouldShowPTSheet.toggle()
+                        }
+                        .sheet(isPresented: $shouldShowPTSheet, content: {
+                            if #available(iOS 16.0, *) {
+                                Sign_Up_View(PT: pTUser)
+                                    .presentationDetents([.large])
+                            } else {
+                                // Fallback on earlier versions
+                                Sign_Up_View(PT: pTUser)
+                            }
+                        })
+                }
+                
+            }
+    }//view
 }
 
 struct UserProfileIconView_Previews: PreviewProvider {

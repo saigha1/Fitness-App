@@ -9,12 +9,17 @@ import SwiftUI
 
 struct Dashboard: View {
     @EnvironmentObject var authVM : AuthViewModel
+    @State var isPTProfileComplete : Bool = false
     
     var user: NewEndUser
     var body: some View {
         NavigationView {
             VStack{
-                Text("Welcome to Dashboard!")
+                if !isPTProfileComplete{
+                    Text("Please complete your profile!")
+                } else {
+                    DashboardContent
+                }
                 
                 Button {
                     authVM.signOut()
@@ -26,11 +31,18 @@ struct Dashboard: View {
             .navigationTitle("Dashboard")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    UserProfileIconView()
+                !authVM.isEnderUser ? UserProfileIconView() : UserProfileIconView()
+                    
                 }
             }
         }
         
+    }
+    
+    var DashboardContent: some View{
+        VStack{
+            Text("...Loading profile info")
+        }
     }
 }
 

@@ -1,498 +1,355 @@
 
 [
     {
+        "id": "1001",
         "name": "Bob",
-        "category": "Calisthenic",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1001,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-         "Square One-GoodLife”, “Dundas-Good Life”, “Eaton-Good Life”,
-         "LA Fitness”,
-         "Anytime Fitness”
-},
         "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Bob"
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Robert",
-        "category": "Calisthenic",
+    {
+        "id": "1002",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1002,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Planet Fitness”
-},
-        "description": "Calisthenics professional with over 10 years experience training individuals and athletes. Studied at UFT in Life Sciences and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Robert"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Mike",
-        "category": "Calisthenic",
+    {
+        "id": "1003",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1003,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at Koingston University in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Mike"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-
-
-{
-        "name": "Julie",
-        "category": "Calisthenic",
+    {
+        "id": "1004",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1004,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "LifeTime”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at Koingston University in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Mike"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Paul",
-        "category": "Calisthenic",
+    {
+        "id": "1005",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1005,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "Planet Fitness”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at Kingston University in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Mike"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-
-
-{
-        "name": "Joey",
-        "category": "Weight Training",
+    {
+        "id": "1006",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1006,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Anytime Fitness”
-},
-        "description": "Fitness professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Joey"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Barbara",
-        "category": "Weight Training",
+    {
+        "id": "1007",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1007,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Planet Fitness”
-},
-        "description": "Free weights professional with over 2 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Barbara"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Alex",
-        "category": "Weight Training",
+    {
+        "id": "1008",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1008,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Free weights professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Joey",
-        "category": "Weight Training",
+    {
+        "id": "1009",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1009,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Planet Fitness”
-},
-{
-        "name": "Joey",
-        "category": "Weight Training",
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
+    },
+    {
+        "id": "1010",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1010,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "LifeTime”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Anytime Fitness”
-},
-
-
-{
-        "name": "Peter",
-        "category": "Boxing",
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
+    },
+    {
+        "id": "1011",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1011,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Anytime Fitness”
-},
-        "description": "Boxing professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Peter"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Ray",
-        "category": "Boxing",
+    {
+        "id": "1012",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1012,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Planet Fitness”
-},
-        "description": "Boxing professional with over 2 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Ray"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Alex",
-        "category": "Boxing",
+    {
+        "id": "1013",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1013,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-
-
-{
-        "name": "Petr",
-        "category": "Boxing",
+    {
+        "id": "1014",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1014,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-{
-        "name": "Ahmed",
-        "category": "Boxing",
+    {
+        "id": "1015",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1015,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-
-
-{
-        "name": "James",
-        "category": "Boxing",
+    {
+        "id": "1016",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1016,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
     },
-
-
-{
-        "name": "John",
-        "category": "Boxing",
+    {
+        "id": "1017",
+        "name": "Bob",
+        "gender": "Male"
+        "phone": "6475694101",
+        "email" : "Bob@xyz.com",
+        "experience level": "Level II",
+        "education": "Master's",
+        "Certification": "gymLocation",
+        "gymLocation":"Square One-GoodLife",
+        "workoutTypes": "Calisthenic",
         "city": "Mississauga",
         "province": "Ontario",
-        "id": 1017,
         "isFeatured": true,
         "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-
-
-{
-        "name": "David",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1018,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "GoodLife”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-
-
-{
-        "name": "William",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1019,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Richard",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1020,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-
-
-{
-        "name": "Joseph",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1021,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Thomas",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1022,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Charles",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1023,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Christopher",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1024,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Daniel",
-        "category": "Boxing",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1025,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-
-{
-        "name": "Matthew",
-        "category": "General",
-        "city": "Etobcoke",
-        "province": "Ontario",
-        "id": 1026,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Anthony",
-        "category": "General",
-        "city": "Toronto",
-        "province": "Ontario",
-        "id": 1027,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Mark",
-        "category": "General",
-        "city": "Oakville",
-        "province": "Ontario",
-        "id": 1028,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Donald",
-        "category": "General",
-        "city": "Burlington",
-        "province": "Ontario",
-        "id": 1029,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-{
-        "name": "Steven",
-        "category": "General",
-        "city": "Mississauga",
-        "province": "Ontario",
-        "id": 1030,
-        "isFeatured": true,
-        "isFavorite": true,
-“Gym”: {
-        "Gym_1": "UFC”,
-        "Gym_2": "LA Fitness”,
-        "Gym_3": "Orange Theory”
-},
-        "description": "Boxing professional with over 3 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
-        "imageName": "Alex"
-    },
-
-
+        "description": "Calisthenics professional with over 5 years experience training individuals and athletes. Educated at UFT in Kinesology and Fitness Certification from GoodLife. Hold a Nutrition Certificate. Currently Offering monthly sessions, workout plans and diet plans. Get in touch with me to learn more!",
+        "motto" : "If you still cute after working out then you didn't work hard enough",
+        "profileImg": "documents"
+        
+    }
 ]
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
