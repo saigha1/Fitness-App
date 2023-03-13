@@ -76,3 +76,67 @@ func add<T: Codable>(newEntry: T, filename: String, location: FileLocation) {
         print("Couldn’t save new entry to \(filename), \(error.localizedDescription)")
     }
 }
+
+// Delete data from JSON
+
+func remove<T: Codable & Equatable>(entry: T, filename: String, location: FileLocation) {
+    var entities: [T] = load(filename: filename, location: location) ?? []
+    //entities.append(entry)
+    entities.removeAll { $0 == entry }
+    var file: URL
+    switch location {
+    case .bundle:
+        guard let fileURL = Bundle.main.url(forResource: filename, withExtension: nil)
+            else {
+                fatalError("Couldn't find \(filename) in main bundle.")
+        }
+        file = fileURL
+    default:
+        do {
+            file = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appendingPathComponent(filename)
+        } catch {
+            fatalError("Coudn't read or create \(filename): \(error.localizedDescription)")
+        }
+    }
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+    do {
+        print("Saving...  📖: \(file.description)")
+        try encoder.encode(entities).write(to: file)
+    } catch {
+        print("Couldn’t save new entry to \(filename), \(error.localizedDescription)")
+    }
+}
+
+// Update data in JSON
+func update<T: Codable & Equatable>(old: T, new: T, filename: String, location: FileLocation) {
+    var entities: [T] = load(filename: filename, location: location) ?? []
+    entities.removeAll { $0 == old }
+    entities.append(new)
+    var file: URL
+    switch location {
+    case .bundle:
+        guard let fileURL = Bundle.main.url(forResource: filename, withExtension: nil)
+            else {
+                fatalError("Couldn't find \(filename) in main bundle.")
+        }
+        file = fileURL
+    default:
+        do {
+            file = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appendingPathComponent(filename)
+        } catch {
+            fatalError("Coudn't read or create \(filename): \(error.localizedDescription)")
+        }
+    }
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+    do {
+        print("Saving...  📖: \(file.description)")
+        try encoder.encode(entities).write(to: file)
+    } catch {
+        print("Couldn’t save new entry to \(filename), \(error.localizedDescription)")
+    }
+}
+

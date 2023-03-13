@@ -9,16 +9,12 @@ import SwiftUI
 
 struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
-    //State private properties for editing mode
+    @EnvironmentObject var authVM: AuthViewModel
+    @StateObject var endUserProfileVM = EndUserProfileViewModel()
     @State var isEditing: Bool = false
-    @State var phoneNumber: String = ""
-    @State var email: String = ""
-    @State var gymLoocation: String = ""
-    @State var typesOfWorkout: [WorkOutType] = []
-    // Temp properties for pickers
-    @State var selectedPTGender: TrainerGender = .m
-    
-    var user: NewEndUser
+    @State var showImagePicker: Bool = false
+    @State var user: NewEndUser
+
     
     var body: some View {
         ScrollView {
@@ -28,12 +24,12 @@ struct UserProfileView: View {
                     Spacer()
                     Button {
                         isEditing = isEditing ? false : true
+                        endUserProfileVM.validateForm(user, authVM: authVM)
+                        authVM.refreshEndUserData(user.id)
+                        user = authVM.currentEndUser!
                     } label: {
                         Text(isEditing ? "Done" : "Edit")
                             .foregroundColor(.accentColor)
-                    }
-                    .sheet(isPresented: $isEditing) {
-                        UserSignUpFormView()
                     }
                 }
                 personalInfo
@@ -54,11 +50,8 @@ struct UserProfileView: View {
             Spacer()
         }
         .onAppear {
-            self.phoneNumber = user.phone
-            self.email = user.email
-            self.gymLoocation = user.gymLocation
-            self.typesOfWorkout = user.typesOfWorkOut
-            self.selectedPTGender = user.preferredTrainerGender
+                user = authVM.currentEndUser!
+                endUserProfileVM.populateStates(user)
         }
     }
 }
@@ -90,6 +83,7 @@ struct UserProfileView_Previews: PreviewProvider {
 
     static var previews: some View {
         UserProfileView(user: user)
+            .environmentObject(AuthViewModel())
     }
 }
 

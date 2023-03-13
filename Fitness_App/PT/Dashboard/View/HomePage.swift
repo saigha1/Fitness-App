@@ -106,10 +106,10 @@ extension HomePage {
     private var endUserTabView: some View {
         TabView {
             EndUserDashBoardView()
+                .environmentObject(authVM)
                 .tabItem{
                     Label("Dashboard", systemImage: "house")
                 }
-                .environmentObject(authVM)
             EndUserChatView()
                 .tabItem{
                     Label("Chat", systemImage: "message")
