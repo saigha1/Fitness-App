@@ -24,9 +24,11 @@ struct UserProfileView: View {
                     Spacer()
                     Button {
                         isEditing = isEditing ? false : true
-                        endUserProfileVM.validateForm(user, authVM: authVM)
-                        authVM.refreshEndUserData(user.id)
-                        user = authVM.currentEndUser!
+                        if !isEditing {
+                            endUserProfileVM.validateForm(user, authVM: authVM)
+                            authVM.refreshEndUserData(user.id)
+                            user = authVM.currentEndUser!
+                        }
                     } label: {
                         Text(isEditing ? "Done" : "Edit")
                             .foregroundColor(.accentColor)

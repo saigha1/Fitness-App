@@ -11,7 +11,7 @@ struct Dashboard: View {
     @EnvironmentObject var authVM : AuthViewModel
     @State var isPTProfileComplete : Bool = false
     
-//    var user: NewEndUser
+    //    var user: NewEndUser
     var body: some View {
         NavigationView {
             VStack{
@@ -26,13 +26,12 @@ struct Dashboard: View {
                 } label: {
                     Text("Sign Out")
                 }
-
+                
             }
             .navigationTitle("Dashboard")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                !authVM.isEnderUser ? UserProfileIconView() : UserProfileIconView()
-                    
+                    UserProfileIconView().environmentObject(authVM)
                 }
             }
         }

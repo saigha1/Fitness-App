@@ -23,10 +23,12 @@ struct UserProfileIconView: View {
                         .sheet(isPresented: $shouldShowProfileSheet, content: {
                             if #available(iOS 16.0, *) {
                                 UserProfileView(user: user)
+                                    .environmentObject(authVM)
                                     .presentationDetents([.large])
                             } else {
                                 // Fallback on earlier versions
                                 UserProfileView(user: user)
+                                    .environmentObject(authVM)
                             }
                         })
                 }
@@ -40,10 +42,12 @@ struct UserProfileIconView: View {
                         .sheet(isPresented: $shouldShowPTSheet, content: {
                             if #available(iOS 16.0, *) {
                                 Sign_Up_View(PT: pTUser)
+                                    .environmentObject(authVM)
                                     .presentationDetents([.large])
                             } else {
                                 // Fallback on earlier versions
                                 Sign_Up_View(PT: pTUser)
+                                    .environmentObject(authVM)
                             }
                         })
                 }
