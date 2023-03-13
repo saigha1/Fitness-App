@@ -39,6 +39,9 @@ class AuthViewModel: ObservableObject {
     @Published var isEnderUser: Bool = true
     
     @Published var currentEndUser: NewEndUser?
+    @Published var currentPTUser: PTModel?
+    
+    @EnvironmentObject var authVM: AuthViewModel
     
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
@@ -542,15 +545,40 @@ extension AuthViewModel {
         print("Email", firebaseUser.email ?? "")
         print("Phone", firebaseUser.phoneNumber ?? "")
         #endif
-        let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
-        if allUsersApproved.count <= 0 {
-            isApproved = false
+        
+        if authVM.isEnderUser{
+            let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
+            
+            if allUsersApproved.count <= 0 {
+                isApproved = false
+            } else {
+                if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
+                    self.currentEndUser = currentEndUser
+                    isApproved = true
+                }
+            }
+            
         } else {
-            if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
-                self.currentEndUser = currentEndUser
-                isApproved = true
+            let allUsersApproved: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
+            
+            if allUsersApproved.count <= 0 {
+                isApproved = false
+            } else {
+                if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
+                    self.currentPTUser = currentEndUser
+                    isApproved = true
+                }
             }
         }
+        
+//        if allUsersApproved.count <= 0 {
+//            isApproved = false
+//        } else {
+//            if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
+//                self.currentEndUser = currentEndUser
+//                isApproved = true
+//            }
+//        }
         return isApproved
     }
     

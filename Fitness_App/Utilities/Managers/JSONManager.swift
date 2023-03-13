@@ -65,8 +65,10 @@ func add<T: Codable>(newEntry: T, filename: String, location: FileLocation) {
             fatalError("Coudn't read or create \(filename): \(error.localizedDescription)")
         }
     }
+    
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
+    
     do {
         print("Saving...  📖: \(file.description)")
         try encoder.encode(entities).write(to: file)

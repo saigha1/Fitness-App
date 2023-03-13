@@ -10,7 +10,7 @@ import Combine
 
 class ModelData: ObservableObject{
     
-      @Published var users: [EndUserModel] = load("EndUser.json")
+      @Published var users: [NewEndUser] = load("EndUser.json")
 //    @Published var PTs: [PTModel] = load("PTs.json")
       @Published var gym: [GymModel] = load("Gyms.json")
       @Published var modelData : ModelData = ModelData()
@@ -21,8 +21,8 @@ class ModelData: ObservableObject{
         
         do{
             let data = try encoder.encode(users)
-  //TODO: Uncomment
-//            modelData.users.append(contentsOf: data)
+  
+        
         } catch{
             print(error.localizedDescription)
         }

@@ -29,7 +29,14 @@ struct UserSignUpFormView: View {
                 }
                 
                 Button {
-                    if signUpFormVM.validateForm(authVM.currentUser?.uid ?? UUID().uuidString) {
+                    var userID: String
+                    if authVM.currentUser == nil {
+                        userID = UUID().uuidString
+                    } else {
+                        userID = authVM.currentUser!.uid
+                    }
+                    if signUpFormVM.validateForm(userID) {
+//                    if signUpFormVM.validateForm((authVM.currentUser?.uid) ?? (UUID().uuidString)) {
                         if authVM.endUserApprovalCheck() {
                             dismiss()
                         }

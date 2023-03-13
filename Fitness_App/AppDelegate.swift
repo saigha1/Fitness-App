@@ -11,10 +11,9 @@ import UIKit
 import FacebookCore
 import FacebookLogin
 import SwiftUI
-import FirebaseCore
-import FirebaseFirestore
 import FirebaseAuth
-
+import FirebaseCore
+import Firebase
 import GoogleSignIn
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
