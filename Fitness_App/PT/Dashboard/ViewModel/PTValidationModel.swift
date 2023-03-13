@@ -52,7 +52,7 @@ class PTValidationModel: ObservableObject {
     func validateForm() {
         // check if all validation functions returns true
         guard validateName() else { return }
-        guard validateGender() else { return}
+//        guard validateGender() else { return}
 //        guard validateAge() else { return }
         guard validatePhoneNum() else { return }
 //        guard validateEmail() else { return } => Not necessary
