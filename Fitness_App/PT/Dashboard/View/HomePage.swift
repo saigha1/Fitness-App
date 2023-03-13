@@ -8,23 +8,21 @@
 import SwiftUI
 
 struct HomePage: View {
-    @State var pTApproved : Bool = true
+    @State var pTApproved : Bool = false
     @State var pending : Bool = false
-    @State var signUp : Bool = false
+    @State var rejected : Bool = false
+    @State var submitted : Bool = false
     
     @State var isEndUserApproved: Bool = false
     
     @EnvironmentObject var authVM : AuthViewModel
     
-    
     var body: some View {
-        
         if !authVM.isEnderUser {
             homePageForPT
         } else {
             homePageForEndUser
         }
-        
     }
 }
 
@@ -44,12 +42,13 @@ struct HomePage_Previews: PreviewProvider {
 }
 
 extension HomePage {
+    //PT
     private var homePageForPT: some View {
         Group {
-            if let user = authVM.currentEndUser {
-                if (pTApproved && !pending && !signUp){
+            if let user = authVM.currentPTUser {
+                if (pTApproved){
                     TabView{
-                        Dashboard(user: user)
+                        Dashboard()
                             .tabItem{
                                 Label("Dashboard", systemImage: "house")
                             }
@@ -65,18 +64,19 @@ extension HomePage {
                                 Label("Calendar", systemImage: "calendar.badge.clock")
                             }
                     }
-                } else if (!pTApproved && pending && !signUp) {
-                    pTPending()
-                } else if (!pTApproved && !pending && signUp) {
+                } else if (pending) {
+                    Text("Your profile approval in process. Please await the decision.")
+                } else if (rejected) {
+                    Text("Your profile is rejected. Please call support at 1213-456-7890")
+                } else if !submitted{
                     //Sign_Up_View()
-                    Text("Sign up view goes here")
-                } else{
-                    //Sign_Up_View()
-                    Text("Sign up view goes here")
+                    Text("Please complete your profile.")
                 }
             }
         }
     }
+    
+    //END-USER
     private var homePageForEndUser: some View {
         Group {
             

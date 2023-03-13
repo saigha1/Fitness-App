@@ -6,36 +6,73 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct PTModel: Hashable, Codable{
+    
+    var id, name, gender, phone: String
+    var email: String
+    var isFeatured, isFavorite: Bool
+     // Needs to change to UIImage
+//    var image: some View{
+//        profileImg.asProfileImage()
+//    }
+//
+    var education : PTEducationLevel
+    var certification : [certificates]
+    var selectedExperience : PTexperienceLevel
+    var cityLocation : gymLocation
+    var workoutTypes : [typesOfWorkOut]
+    var gymPreference : [gymPreferrence]
+    var description, motto, profileImg: String
+}
 
-    var name : String
-    var gender: String
-    var phone : String
-    var email : String
-    var experienceLevel : String
-    var education : String
-    var Certification : String
-    var gymLocation : preferredGym
-    var workoutTypes : typesOfWorkOut
-    var Description : String
-    var Motto : String
-    var PreferredGym: String
-    
-    enum preferredGym : String, Identifiable, CaseIterable, Codable{
-        case GoodLife = "GoodLife"
-        case FitnessPlanet = "Planet Fitness"
-        case UFC = "UFC"
-        case LAFitness = "LA Fitness"
-        var id : String {rawValue}
-    }
-            
-    enum typesOfWorkOut: String, Codable{
-        case Calisthenic = "Calisthenic"
-        case WeightTraining = "Weight Training"
-        case Boxing = "Boxing"
-        case General = "General"
-    }
-    
+enum gymLocation : String, CaseIterable, Codable{
+    case Mississauga
+    case Toronto = "Toronto"
+    case NorthYork = "North York"
+    case Ottawa
+    case Other
+}
+
+enum certificates : String, CaseIterable, Codable{
+    case CanFitProI = "CanFitPro I"
+    case CanFitProII = "CanFitPro II"
+    case CFES = "CFES"
+    case CPTN = "CPTN"
+    case CSEP = "CSEP"
+    case FCA = "FCA"
+    case Other
+}
+
+enum PTEducationLevel : String, CaseIterable, Codable{
+    case Diploma = "Diploma"
+    case Bachelors = "Bachelor's"
+    case Masters = "Master's"
+    case Doctorate = "PhD"
+    case Other
     
 }
+
+enum PTexperienceLevel : String, CaseIterable, Codable{
+    case One = "Level 1"
+    case Two = "Level 2"
+    case Three = "Level 3"
+}
+
+enum gymPreferrence : String, CaseIterable, Codable{
+    case GoodLife = "GoodLife"
+    case FitnessPlanet = "Planet Fitness"
+    case UFC = "UFC"
+    case LAFitness = "LA Fitness"
+}
+
+enum typesOfWorkOut: String, CaseIterable, Codable{
+    case calisthenic = "Calisthenic"
+    case americanBoxing = "Boxing"
+    case weights = "Weights"
+    case machine = "Machine"
+}
+
+
+typealias PTModels = [PTModel]

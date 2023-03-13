@@ -63,8 +63,8 @@ enum Currency: String, Codable {
 }
 
 enum TrainerGender: String, Codable, CaseIterable {
-    case f = "F"
-    case m = "M"
+    case f = "Female"
+    case m = "Male"
 }
 
 typealias NewEndUsers = [NewEndUser]
