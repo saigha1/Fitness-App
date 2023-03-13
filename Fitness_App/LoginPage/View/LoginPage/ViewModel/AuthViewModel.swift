@@ -40,9 +40,7 @@ class AuthViewModel: ObservableObject {
     
     @Published var currentEndUser: NewEndUser?
     @Published var currentPTUser: PTModel?
-    
-    @EnvironmentObject var authVM: AuthViewModel
-    
+
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
     private var currentNonce: String?
@@ -546,7 +544,7 @@ extension AuthViewModel {
         print("Phone", firebaseUser.phoneNumber ?? "")
         #endif
         
-        if authVM.isEnderUser{
+        if isEnderUser{
             let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
             
             if allUsersApproved.count <= 0 {

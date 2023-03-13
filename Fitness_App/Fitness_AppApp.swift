@@ -29,10 +29,10 @@ struct Fitness_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            Sign_Up_View()
+            LoginPage()
 //                .environmentObject(modelData)
             
-            Sign_Up_View(PT: PTModelPreview)
+//            Sign_Up_View(PT: PTModelPreview)
 //                .environmentObject(googleFireBaseVM)
 //                .environmentObject(facebookFirebaseSignIn)
                 .environmentObject(authenticationVM)
