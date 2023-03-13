@@ -21,7 +21,7 @@ class PTValidationModel: ObservableObject {
     @Published var Certification: [certificates] = []
     @Published var city : gymLocation = .Mississauga
 
-    @Published var typeOfExercise: [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weightLifting, .machineTraining]
+    @Published var typeOfExercise: [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weights, .machine]
     @Published var Description: String = ""
     @Published var Motto: String = ""
     @Published var isFeaturedToStore: Bool = false
@@ -35,6 +35,7 @@ class PTValidationModel: ObservableObject {
     var phoneNumberToStore: String = ""
     var emailToStore: String = ""
     
+//    var selectedGender
     var trainersGenderToStore: String = ""
     var gymLocationToStore: String = ""
     var workoutTypesToStore: [String] = []
@@ -51,43 +52,44 @@ class PTValidationModel: ObservableObject {
     func validateForm() {
         // check if all validation functions returns true
         guard validateName() else { return }
+        guard validateGender() else { return}
 //        guard validateAge() else { return }
         guard validatePhoneNum() else { return }
-        guard validateEmail() else { return }
+//        guard validateEmail() else { return } => Not necessary
 //        guard validateWorkoutTypes() else { return }
 
         #if DEBUG
-        let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
-        print(usersBeforeCreating.count)
+//        let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+//        print(usersBeforeCreating.count)
         #endif
         
         // create new user and save to JSON in .document directory
-        let newPT = PTModel(
-            id: UUID().uuidString,
-            name: name,
-            gender: trainersGenderToStore,
-            phone: phoneNumberToStore,
-            email: emailToStore,
-            isFeatured: isFeaturedToStore,
-            isFavorite: isFavoriteToStore,
-            description: Description,
-            motto: Motto,
-            profileImg: isProfImg,
-            education: education,
-            certification: Certification,
-            selectedExperience: experienceLevel,
-
-            cityLocation: city,
-            workoutTypes : typeOfExercise,
-            gymPreference: gymPreferencePublished
-        )
-            
-        add(newEntry: newPT, filename: "PTs.json", location: .document)
+//        let newPT = PTModel(
+//            id: UUID().uuidString,
+//            name: name,
+//            gender: trainersGenderToStore,
+//            phone: phoneNumberToStore,
+//            email: emailToStore,
+//            isFeatured: isFeaturedToStore,
+//            isFavorite: isFavoriteToStore,
+//            description: Description,
+//            motto: Motto,
+//            profileImg: isProfImg,
+//            education: education,
+//            certification: Certification,
+//            selectedExperience: experienceLevel,
+//
+//            cityLocation: city,
+//            workoutTypes : typeOfExercise,
+//            gymPreference: gymPreferencePublished
+//        )
+//
+//        add(newEntry: newPT, filename: "PTs.json", location: .document)
         
-        #if DEBUG
-        let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
-        print(usersAfterCreating.count)
-        #endif
+//        #if DEBUG
+//        let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
+//        print(usersAfterCreating.count)
+//        #endif
     }
 }
 
@@ -126,6 +128,14 @@ extension PTValidationModel{
             return false
         }
     }
+    
+//    func validateGender() -> Bool{
+//        if (selectedGender == "Male" || selectedGender == "Female") {
+//            return true
+//        } else {
+//            
+//        }
+//    }
     
 //    func validateWorkoutTypes() -> Bool{
 //        

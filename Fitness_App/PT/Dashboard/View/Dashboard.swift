@@ -11,7 +11,7 @@ struct Dashboard: View {
     @EnvironmentObject var authVM : AuthViewModel
     @State var isPTProfileComplete : Bool = false
     
-    var user: NewEndUser
+//    var user: NewEndUser
     var body: some View {
         NavigationView {
             VStack{
@@ -71,7 +71,7 @@ struct Dashboard_Previews: PreviewProvider {
         targetBodyFat: 0.18
     )
     static var previews: some View {
-        Dashboard(user: user)
+        Dashboard()
             .environmentObject(AuthViewModel())
     }
 }

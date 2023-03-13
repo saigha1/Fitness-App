@@ -13,7 +13,7 @@ struct PTModel: Hashable, Codable{
     var id, name, gender, phone: String
     var email: String
     var isFeatured, isFavorite: Bool
-    var description, motto, profileImg: String // Needs to change to UIImage
+     // Needs to change to UIImage
 //    var image: some View{
 //        profileImg.asProfileImage()
 //    }
@@ -24,29 +24,29 @@ struct PTModel: Hashable, Codable{
     var cityLocation : gymLocation
     var workoutTypes : [typesOfWorkOut]
     var gymPreference : [gymPreferrence]
-    
+    var description, motto, profileImg: String
 }
 
 enum gymLocation : String, CaseIterable, Codable{
     case Mississauga
-    case DowntownToronto = "Downtown Toronto"
+    case Toronto = "Toronto"
     case NorthYork = "North York"
     case Ottawa
     case Other
 }
 
 enum certificates : String, CaseIterable, Codable{
-    case CanFitProI = "Canadian Fitness Professionals I"
-    case CanFitProII = "Canadian Fitness Professionals II"
-    case CFES = "Canadian Fitness Education Services "
-    case CPTN = "Certified Professional Trainers Network"
-    case CSEP = "Canadian Society for Exercise Physiology "
-    case FCA = "Fit Chicks Academy"
+    case CanFitProI = "CanFitPro I"
+    case CanFitProII = "CanFitPro II"
+    case CFES = "CFES"
+    case CPTN = "CPTN"
+    case CSEP = "CSEP"
+    case FCA = "FCA"
     case Other
 }
 
 enum PTEducationLevel : String, CaseIterable, Codable{
-    case Diploma = "High School Diploma"
+    case Diploma = "Diploma"
     case Bachelors = "Bachelor's"
     case Masters = "Master's"
     case Doctorate = "PhD"
@@ -70,8 +70,8 @@ enum gymPreferrence : String, CaseIterable, Codable{
 enum typesOfWorkOut: String, CaseIterable, Codable{
     case calisthenic = "Calisthenic"
     case americanBoxing = "Boxing"
-    case weightLifting = "weightLifting"
-    case machineTraining = "Machine-Training"
+    case weights = "Weights"
+    case machine = "Machine"
 }
 
 

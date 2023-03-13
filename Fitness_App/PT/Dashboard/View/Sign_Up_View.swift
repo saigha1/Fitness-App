@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-var gender = ["Male", "Female"]
+//var gender = ["Male", "Female"]
 var trainingCategory = ["Calisthenics", "General", "Weight Lifting", "Machine"]
 var experienceLevel = ["Level 1", "Level 2", "Level 3"]
 var educationLevel = ["Diploma", "Bachelor's", "Master's"]
@@ -16,17 +16,17 @@ var location = ["Mississauga", "Toronto"]
 var gymOption = ["Square One GoodLife", " Eaton Center GoodLife", "Toronto GoodLife"]
 
 struct Sign_Up_View: View {
-  
-    @StateObject var modelData : ModelData = ModelData()
+    
+    //    @StateObject var modelData : ModelData = ModelData()
     @State var isEditing : Bool = false
     
-    @State var selectedGender : TrainerGender = .m
-    @State var selectedWorkOutCategory : typesOfWorkOut = .calisthenic
+    @State var selectedGender : String = "Male"
+    @State var selectedWorkOutCategory : [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weights]
     @State var selectedExperience : PTexperienceLevel = .One
     @State var selectedEducation  : PTEducationLevel = .Diploma
-    @State var selectedCertificate  : certificates = .CanFitProI
+    @State var selectedCertificate  : [certificates] = [.CanFitProI, .CanFitProII]
     @State var selectedLocation  : gymLocation = .Mississauga
-    @State var selectedGym  : [gymPreferrence] = []
+    @State var selectedGym  : [gymPreferrence] = [.GoodLife, .FitnessPlanet, .UFC]
     @State var PT : PTModel
     @EnvironmentObject var authVM : AuthViewModel
     
@@ -43,373 +43,479 @@ struct Sign_Up_View: View {
     @State private var sourceType: UIImagePickerController.SourceType = .camera
     @State private var selectedImage: UIImage?
     
+    @State private var phase = 0.0
+    @StateObject var ptVM = PTValidationModel()
+    
     //Error
     let alertTitle: String = "Error"
     @State private var didError = true
-        
+    
     var body: some View {
-        VStack{
-            HStack{
-                Spacer()
-                Button{
-                    isEditing = isEditing ? false : true
-                    if !isEditing{
-                        //TODO: fetch from JSON
-                        //TODO: Fix Figma.
-                        //TODO: Add the stage for PT approval pending/rejected/approved=> Homepage() view for PT.
-                    
-            
+        ScrollView{
+            VStack{
+                HStack{
+                    Spacer()
+                    Button{
+                        isEditing = isEditing ? false : true
+                        if !isEditing{
+                            //TODO: fetch from JSON.
+                            //TODO: Add the stage for PT approval pending/rejected/approved=> Homepage() view for PT.
+                            //TODO: encodinig and decoding data and images
+                        }
+                    } label: {
+                        Text(isEditing ? "Done" : "Edit")
+                            .foregroundColor(.accentColor)
                     }
-                } label: {
-                    Text(isEditing ? "Done" : "Edit")
-                        .foregroundColor(.accentColor)
                 }
-            }
+                Text("Your Profile")
+                    .underline()
                 
-            
-            Text("Your Profile")
-                .underline()
-            
-            profileSummary
-            profileImage
-            IntroductionImages
-            IntroductionVideo
-            selfie
-        }
+                profileSummary
+                IntroductionImages
+                IntroductionVideo
+                selfie
+                
+                
+            }
+            if isEditing{
+                Button{
+                    ptVM.validateForm()
+                } label:{
+                    Text("Submit")
+                }
+                .foregroundColor(Color.purple)
+                .cornerRadius(10)
+                
+            }
+        }.frame(width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/10))
     }
-        
+    
     var profileSummary: some View{
-        VStack{
+        VStack(spacing: 10){
+            GroupBox{
+                //Name
                 HStack{
                     Text("Name:")
-                        .frame(width: UIScreen.main.bounds.width/4)
-                        .background(.blue)
-                    Divider()
+                    
                     Spacer()
-                        .frame(width: UIScreen.main.bounds.width/15)
                     
                     if isEditing{
                         TextField("Name", text: $PT.name) //PTModel
-                            .frame(width: UIScreen.main.bounds.width/4)
-                            .background(.yellow)
+                            .frame(width: UIScreen.main.bounds.width/5)
+                            .border(.purple, width: 2)
                     } else{
                         Text(PT.name)
                     }
-                    
                 }
+                
                 //Gender
                 HStack{
+                    
+                    Text("Gender:")
+                    Spacer()
+                    
                     if isEditing{
-                        Picker("Gender", selection: $selectedGender){
-                            ForEach(gender, id: \.self) {
-                                Text($0)
+                        TextField("Gender", text: $selectedGender) //PTModel
+                            .frame(width: UIScreen.main.bounds.width/4)
+                            .border(.purple, width: 2)
+                    } else{
+                        Text(selectedGender)
+                    }
+                }
+                
+                //Current Location
+                HStack{
+                    Text("City:")
+                    Spacer()
+                    
+                    if isEditing{
+                        Picker("Gym Location", selection: $selectedLocation){
+                            ForEach(gymLocation.allCases, id: \.self){
+                                Text($0.rawValue)
+                            }
+                        }
+                    }else{
+                        Text(selectedLocation.rawValue)
+                    }
+                }
+            }
+            
+            //Gym Preferrence : 3 categories
+            GroupBox{
+                HStack(alignment: .top){
+                    Text("Gym(s):")
+                        .padding(.trailing, 10)
+                    Spacer()
+                    VStack(alignment: .trailing){
+                        //Gym 1
+                        HStack{
+                            if isEditing{
+                                Picker("Preferred Gym", selection: $selectedGym[0]){
+                                    ForEach(gymPreferrence.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                    }
+                                }
+                            }else{
+                                Text(selectedGym[0].rawValue)
+                            }
+                        }
+                        Divider()
+                        //                            .frame(width: UIScreen.main.bounds.width/4)
+                        //Gym2
+                        HStack{
+                            if isEditing{
+                                Picker("Preferred Gym", selection: $selectedGym[1]){
+                                    ForEach(gymPreferrence.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                    }
+                                }
+                            }else{
+                                Text(selectedGym[1].rawValue)
+                            }
+                        }
+                        Divider()
+                        //                            .frame(width: UIScreen.main.bounds.width/4)
+                        //Gym3
+                        HStack{
+                            
+                            
+                            if isEditing{
+                                Picker("Preferred Gym", selection: $selectedGym[2]){
+                                    ForEach(gymPreferrence.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                    }
+                                }
+                            }else{
+                                Text(selectedGym[2].rawValue)
+                            }
+                        }
+                    }
+                    .frame(width: UIScreen.main.bounds.width/3.5)
+                }
+            }
+            
+            //Training Category : 3 categories
+            GroupBox{
+                HStack(alignment: .top){
+                    Text("Category(ies):")
+                    Spacer()
+                    
+                    VStack(alignment: .trailing){
+                        //Category 1
+                        HStack{
+                            if isEditing{
+                                Picker("Training Category", selection: $selectedWorkOutCategory[0]){
+                                    ForEach(typesOfWorkOut.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                    }
+                                }
+                            }else{
+                                Text(selectedWorkOutCategory[0].rawValue)
+                            }
+                        }
+                        Divider()
+                        //Category 2
+                        HStack{
+                            
+                            if isEditing{
+                                Picker("Training Category", selection: $selectedWorkOutCategory[1]){
+                                    ForEach(typesOfWorkOut.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                            .font(.system(size: 15))
+                                        
+                                    }
+                                }
+                            }else{
+                                Text(selectedWorkOutCategory[1].rawValue)
+                            }
+                        }
+                        Divider()
+                        //Category 3
+                        HStack{
+                            
+                            if isEditing{
+                                Picker("Training Category", selection: $selectedWorkOutCategory[2]){
+                                    ForEach(typesOfWorkOut.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                    }
+                                }
+                            }else{
+                                Text(selectedWorkOutCategory[2].rawValue)
+                            }
+                        }
+                        
+                    }
+                    .frame(width: UIScreen.main.bounds.width/3.5)
+                }
+            }
+            GroupBox{
+                
+                //Education
+                HStack{
+                    Text("Education:")
+                    Spacer()
+                    
+                    if isEditing{
+                        Picker("Education", selection: $selectedEducation){
+                            ForEach(PTEducationLevel.allCases, id: \.self){
+                                Text($0.rawValue)
                             }
                         }
                     } else{
-                        Text(selectedGender.rawValue)
+                        Text(selectedEducation.rawValue)
                     }
                 }
-                //Training Category
-            Group{
-                //Category 1
+                //Certificates
                 HStack{
+                    Text("Certificates:")
+                    Spacer()
+                    
                     if isEditing{
-                        Picker("Training Category", selection: $selectedWorkOutCategory){
-                            ForEach(typesOfWorkOut.allCases, id: \.self){
+                        Picker("Certification", selection: $selectedCertificate){
+                            ForEach(certificates.allCases, id: \.self){
                                 Text($0.rawValue)
                             }
                         }
                     }else{
-                        Text(selectedWorkOutCategory.rawValue)
+                        Text(selectedCertificate[0].rawValue)
                     }
                 }
-                //Category 2
+                //Experience Level
                 HStack{
+                    Text("Experience Level:")
+                    Spacer()
+                    
                     if isEditing{
-                        Picker("Training Category", selection: $selectedWorkOutCategory){
-                            ForEach(typesOfWorkOut.allCases, id: \.self){
+                        Picker("Experience Level", selection: $selectedExperience){
+                            ForEach(PTexperienceLevel.allCases, id: \.self){
                                 Text($0.rawValue)
                             }
                         }
                     }else{
-                        Text(selectedWorkOutCategory.rawValue)
-                    }
-                }
-                //Category 3
-                HStack{
-                    if isEditing{
-                        Picker("Training Category", selection: $selectedWorkOutCategory){
-                            ForEach(typesOfWorkOut.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(selectedWorkOutCategory.rawValue)
+                        Text(selectedExperience.rawValue)
                     }
                 }
             }
-            
-            //Experience Level
-            HStack{
-                if isEditing{
-                    Picker("Experience Level", selection: $selectedExperience){
-                        ForEach(PTexperienceLevel.allCases, id: \.self){
-                            Text($0.rawValue)
-                        }
-                    }
-                }else{
-                    Text(selectedExperience.rawValue)
-                }
-            }
-            
-            //Education
-            HStack{
-                if isEditing{
-                    Picker("Education", selection: $selectedEducation){
-                        ForEach(PTEducationLevel.allCases, id: \.self){
-                            Text($0.rawValue)
-                        }
-                    }
-                }else{
-                    Text(selectedEducation.rawValue)
-                }
-            }
-            //Certificates
-            HStack{
-                if isEditing{
-                    Picker("Certification", selection: $selectedCertificate){
-                        ForEach(certificates.allCases, id: \.self){
-                            Text($0.rawValue)
-                        }
-                    }
-                }else{
-                    Text(selectedCertificate.rawValue)
-                }
-            }
-            
-            //Motto
+
+            //Motto,Description
             //If you still look cute at the end of your workout, you didn't work hard enough
-            VStack{
-                Text("Motto:")
-                    .frame(width: UIScreen.main.bounds.width/4)
-                    .background(.blue)
-               
+            GroupBox{
+                HStack{
+                    Text("Motto:")
+                    Spacer()
+                }
                 if isEditing{
-                        TextFieldView(textInput: $PT.motto, placeholder: "Enter your unique motto here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 200, height: 150)
+                    TextFieldView(textInput: $PT.motto, placeholder: "Enter your unique motto here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
                 }else {
                     Text(PT.motto)
                 }
-            }
-            
-            //Current Location
-            HStack{
-                if isEditing{
-                    Picker("Gym Location", selection: $selectedLocation){
-                        ForEach(gymLocation.allCases, id: \.self){
-                            Text($0.rawValue)
-                        }
-                    }
-                }else{
-                    Text(selectedLocation.rawValue)
-                }
-            }
-            
-            //Gym Preferrence
-            //Gym1
-            Group{
-                HStack{
-                    if isEditing{
-                        Picker("Preferred Gym", selection: $selectedGym[0]){
-                            ForEach(gymPreferrence.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(selectedGym[0].rawValue)
-                    }
-                }
-                //Gym2
-                HStack{
-                    if isEditing{
-                        Picker("Preferred Gym", selection: $selectedGym[1]){
-                            ForEach(gymPreferrence.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(selectedGym[1].rawValue)
-                    }
-                }
-                //Gym3
-                HStack{
-                    if isEditing{
-                        Picker("Preferred Gym", selection: $selectedGym[2]){
-                            ForEach(gymPreferrence.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(selectedGym[2].rawValue)
-                    }
-                }
-            }
-            //Description
+                
+                //Description
                 VStack{
-                    Text("Description:")
-                        .frame(width: UIScreen.main.bounds.width/4)
-                        .background(.blue)
-                   
+                    HStack{
+                        Text("Description:")
+                        Spacer()
+                    }
+                    
                     if isEditing{
-                        TextFieldView(textInput: $PT.description, placeholder: "Enter your  descriptiojn here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 200, height: 150)
+                        TextFieldView(textInput: $PT.description, placeholder: "Enter your  description here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
+                            .frame(alignment: .leading)
+                        
                     }else {
                         Text(PT.description)
+                            .frame(alignment: .leading)
                     }
+                } //VStack
             }
-        }//VStack
-    }
-    
-    var profileImage: some View{
-        HStack{
-            Text("Profile Image:")
-//            Image("")
         }
     }
     
-    //Finished TODO: line 290 and 288
+    //Images TODO: line 290 and 288
     var IntroductionImages: some View{
-        HStack{
-            Text("Additional Images:")
-                .frame(width: UIScreen.main.bounds.width/4)
-                .background(.blue)
-            Divider()
-            Spacer()
-                .frame(width: UIScreen.main.bounds.width/15)
+        GroupBox{
             HStack{
-                ForEach(inputImage, id: \.self){ uiImage in
-                    ZStack{
-                        ImageView(uiImage: uiImage)
-                        VStack(alignment: .leading, spacing: 15){
-                            HStack{
-                                Spacer()
-                                if isEditing{
-                                    Button{
-                                        inputImage.remove(atOffsets: <#T##IndexSet#>)
-                                    } label: {
-                                        Image(systemName: "delete.left.fill")
+                Text("Images:")
+                Divider()
+                Spacer()
+                VStack{
+                    if inputImage.count < 4 {
+                        Text("Add up to 3  image(s)")
+                            .font(.system(size: 10))
+                            .foregroundColor(.red)
+                    }
+                    HStack{
+                        ForEach(inputImage, id: \.self){ uiImage in
+                            ZStack{
+                                ImageView(uiImage: uiImage)
+                                VStack(alignment: .leading, spacing: 15){
+                                    HStack{
+                                        Spacer()
+                                        if isEditing{
+                                            Button{
+                                                guard let index = inputImage.firstIndex(of: uiImage) else { return }
+                                                inputImage.remove(at: index)
+                                            } label: {
+                                                Image(systemName: "delete.left.fill")
+                                            }
+                                        }
                                     }
                                 }
                             }
+                            .border(.purple)
                         }
-                    }
-                    .border(.purple)
-                }
-                //Active button
-                if (isEditing) && (inputImage.count < 4) {
-                    ZStack{
-                        Rectangle()
-                            .fill(.secondary)
-                            .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                        //Active button
+                        if (isEditing) && (inputImage.count < 4) {
+                            ZStack{
+                                Rectangle()
+                                    .fill(.secondary)
+                                    .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                                    .cornerRadius(12)
+                                
+                                Button("+"){
+                                    showingImagePicker = true
+                                    loadImage()
+                                }
+                                .onChange(of: inputImage) { _ in loadImage() }
+                                .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
+                                .background(.white)
+                                .cornerRadius(12)
+                                .sheet(isPresented: $showingImagePicker) {
+                                    ImagePicker(image: $inputImage, selectionLimit: 3)
+                                }
+                            }
+                        } else if  !isEditing && (inputImage.count == 0){
+                            HStack{
+                                Rectangle()
+                                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                    .foregroundColor(.purple)
+                                    .frame(width: 40, height: 40)
+                                Rectangle()
+                                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                    .foregroundColor(.purple)
+                                    .frame(width: 40, height: 40)
+                                Rectangle()
+                                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                    .foregroundColor(.purple)
+                                    .frame(width: 40, height: 40)
+                            }
+                        } else if !isEditing  && ( 1 <= inputImage.count) && (inputImage.count < 3){
+                            var imagesLeft = 3 - inputImage.count
+                            Text("You need \(imagesLeft) more images.")
+                        }
                         
-                        Button("+"){
-                            showingImagePicker = true
-                            loadImage()
-                        }
-                        .onChange(of: inputImage) { _ in loadImage() }
-                        .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
-                        .background(.white)
-                        .cornerRadius(12)
-                        .sheet(isPresented: $showingImagePicker) {
-                            ImagePicker(image: $inputImage, selectionLimit: 3)
-                        }
-                    }   //zstack
-                } //if
+                    }
+                }
             }
         }
     }
     
-    //Finished
+    //Video
     var IntroductionVideo: some View{
-        HStack{
-            Text("Introductory Video:")
-                .frame(width: UIScreen.main.bounds.width/4)
-                .background(.blue)
-            Divider()
-            Spacer()
-                .frame(width: UIScreen.main.bounds.width/15)
-            Text("Add up to 3 short video(s)")
-                .frame(width: UIScreen.main.bounds.width/6)
-                .background(.yellow)
-            
-            if videoURL.count > 4 {
-                Text("")
-                    .alert(
-                        Text(alertTitle),
-                        isPresented: $didError
-                    ) {
-                        Button("OK") {
-                            // Dismisses the Error Window
-                        }
-                    } message: {
-                       Text("No more than three video")
-                    }
-                
-            } else {
-                ZStack{
-                    Rectangle()
-                        .fill(.secondary)
-                        .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+        GroupBox{
+            HStack{
+                Text("Video:")
+                Divider()
+                Spacer()
+                VStack{
+                    Text("Add up to 3 short video(s)")
+                        .font(.system(size: 10))
+                        .foregroundColor(.red)
                     
-                    Button("+"){
-                        videoPickerIsPresented = true
-                        loadImage()
+                    if videoURL.count > 4 {
+                        Text("")
+                            .alert(
+                                Text(alertTitle),
+                                isPresented: $didError
+                            ) {
+                                Button("OK") {
+                                    // Dismisses the Error Window
+                                }
+                            } message: {
+                                Text("No more than three video")
+                            }
                     }
-                    .onChange(of: videoURL) { _ in loadImage() }
-                    .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
-                    .background(.white)
-                    .cornerRadius(12)
-                    .sheet(isPresented: $videoPickerIsPresented) {
-                        VideoPicker(videoURLs: $videoURL, selectionLimit: 3)
+                    
+                    if isEditing{
+                        
+                        ZStack{
+                            Rectangle()
+                                .fill(.secondary)
+                                .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                                .cornerRadius(12)
+                            
+                            
+                            Button("+"){
+                                videoPickerIsPresented = true
+                                loadImage()
+                            }
+                            .onChange(of: videoURL) { _ in loadImage() }
+                            .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
+                            .background(.white)
+                            .cornerRadius(12)
+                            .sheet(isPresented: $videoPickerIsPresented) {
+                                VideoPicker(videoURLs: $videoURL, selectionLimit: 3)
+                            }
+                        }
+                }
+                    else{
+                        HStack{
+                            Rectangle()
+                                .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                .foregroundColor(.purple)
+                                .frame(width: 40, height: 40)
+                            Rectangle()
+                                .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                .foregroundColor(.purple)
+                                .frame(width: 40, height: 40)
+                            Rectangle()
+                                .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                .foregroundColor(.purple)
+                                .frame(width: 40, height: 40)
+                        }
+                        
+                    }
+                }//VStack
+            }
+        }//GroupBox
+    }
+    
+    //Portrait Photo
+    var selfie: some View{
+        GroupBox{
+            HStack{
+                Text("Portrait Photo:")
+                Divider()
+                Spacer()
+                VStack{
+                    Text("Upload 1 selfie")
+                        .font(.system(size: 10))
+                    if isEditing{
+                        Button(action: {
+                            self.sourceType = .camera
+                            self.cameraIsPresented = true
+                        }, label: {
+                            Label("Select", systemImage: "photo")
+                        })
+                        
+                        if let selectedImage = selectedImage{
+                            Image(uiImage: selectedImage)
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                        }
+                    } else{
+                        Rectangle()
+                            .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                            .foregroundColor(.purple)
+                            .frame(width: 50, height: 25)
+                        
                     }
                 }
+            }
+                .sheet(isPresented: $cameraIsPresented){
+                    CameraView(selectedImage: $selectedImage, sourceType: self.sourceType)
             }
         }
     }
-    
-    //Finished
-    var selfie: some View{
-        HStack{
-            Text("Portrait Photo:")
-                .frame(width: UIScreen.main.bounds.width/4)
-                .background(.blue)
-            Divider()
-            Spacer()
-                .frame(width: UIScreen.main.bounds.width/15)
-            VStack{
-                HStack{
-                    Text("Upload one selfie")
-                        .frame(width: UIScreen.main.bounds.width/2)
-                        .background(.yellow)
-                    
-                    Button(action: {
-                        self.sourceType = .camera
-                        self.cameraIsPresented = true
-                    }, label: {
-                        Label("Select", systemImage: "photo")
-                    })
-                }
-                
-                if let selectedImage = selectedImage{
-                    Image(uiImage: selectedImage)
-                        .resizable()
-                        .frame(width: 150, height: 150)
-                    
-                }
-            }
-        }
-        .sheet(isPresented: $cameraIsPresented){
-            CameraView(selectedImage: $selectedImage, sourceType: self.sourceType)
-        }
-}
     
     func loadImage() {
 //            guard let inputImage = inputImage else { return }
