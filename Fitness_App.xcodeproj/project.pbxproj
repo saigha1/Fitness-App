@@ -84,6 +84,7 @@
 		25A8E77C298D8130008FA6FD /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 25A8E77B298D8130008FA6FD /* GoogleSignInSwift */; };
 		25C09DAE299536A500099C8E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C09DAD299536A500099C8E /* Date.swift */; };
 		25C09DB029953E7F00099C8E /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C09DAF29953E7F00099C8E /* Array.swift */; };
+		25C8CF1529BF8D6F00B64190 /* StyledPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */; };
 		25E6D8F529914A220015B8B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F429914A220015B8B0 /* Color.swift */; };
 		25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F929915FC00015B8B0 /* Icons.swift */; };
 /* End PBXBuildFile section */
@@ -162,6 +163,7 @@
 		259813372992B32700EA9B36 /* UserProfileIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileIconView.swift; sourceTree = "<group>"; };
 		25C09DAD299536A500099C8E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		25C09DAF29953E7F00099C8E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledPicker.swift; sourceTree = "<group>"; };
 		25E6D8F429914A220015B8B0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		25E6D8F929915FC00015B8B0 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,7 +220,6 @@
 		0446396E2983FC8500C1741B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0446396F2983FC8500C1741B /* TextFieldView.swift */,
 				2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */,
 				044639702983FC8500C1741B /* LoginPage.swift */,
 				0446397429841B9E00C1741B /* rootViewController.swift */,
@@ -320,6 +321,7 @@
 				0446396C2983FC8500C1741B /* Resources */,
 				2570932A298D6E16004D9176 /* Archive */,
 				04972DC1298AB8C400BF96E7 /* Fitness_App.entitlements */,
+				25C8CF1329BF8D4900B64190 /* ViewBuilders */,
 				2545A600298D60A400310999 /* Utilities */,
 				259813312992B2BA00EA9B36 /* UserProfile */,
 				259813322992B2C400EA9B36 /* UserSignUpForm */,
@@ -498,6 +500,15 @@
 			path = UserSignUpForm;
 			sourceTree = "<group>";
 		};
+		25C8CF1329BF8D4900B64190 /* ViewBuilders */ = {
+			isa = PBXGroup;
+			children = (
+				0446396F2983FC8500C1741B /* TextFieldView.swift */,
+				25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */,
+			);
+			path = ViewBuilders;
+			sourceTree = "<group>";
+		};
 		25E6D8F229913B8C0015B8B0 /* AuthenticationViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +635,7 @@
 				25369ACA299BDF510025628F /* UserSignUpFormViewModel.swift in Sources */,
 				04720105298AD69700B04964 /* SceneDelegate.swift in Sources */,
 				047C5FA02993EFE1000A4F49 /* PTModel.swift in Sources */,
+				25C8CF1529BF8D6F00B64190 /* StyledPicker.swift in Sources */,
 				2545A5FE298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift in Sources */,
 				047200FC298ACFF300B04964 /* AppDelegate.swift in Sources */,
 				049991B429A84CB7005B1DD2 /* ImageView.swift in Sources */,
