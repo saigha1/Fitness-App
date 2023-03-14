@@ -67,7 +67,7 @@ struct UserProfileIconView_Previews: PreviewProvider {
         email: "mlogan2000@icloud.com",
         preferredTrainerGender: .m,
         gymLocation: "Etobicoke, ON",
-        preferredGym: .anytime,
+        preferredGym: [.anytime, .fitForLess, .goodLife],
         typesOfWorkOut: [.boxing, .lifting],
         preferredPriceRange: PriceRange(
             currency: .cad,
