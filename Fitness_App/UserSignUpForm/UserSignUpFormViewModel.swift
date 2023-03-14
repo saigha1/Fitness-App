@@ -18,9 +18,9 @@ class UserSignUpFormViewModel: ObservableObject {
     @Published var phoneNumber: String = ""
     @Published var email: String = ""
     @Published var trainerGender: TrainerGender = .m
-    @Published var preferredGym: PreferredGym = .anytime
+    @Published var preferredGyms: [PreferredGym] = [.none, .none, .none]
     @Published var gymLocation: String = ""
-    @Published var typeOfWorkOut: [WorkOutType] = [.lifting, .boxing, .machine]
+    @Published var typesOfWorkOut: [WorkOutType] = [.none, .none, .none]
     @Published var priceRangeLow: String = ""
     @Published var priceRangeHigh: String = ""
     @Published var heightFt: String = "" // 5
@@ -36,10 +36,6 @@ class UserSignUpFormViewModel: ObservableObject {
     var phoneNumberToStore: String = ""
     var emailToStore: String = ""
     
-    var trainerGenderToStore: TrainerGender = .m
-    var gymLocationToStore: String = ""
-//    var typeOfWorkoutToStore: [WorkOutType] = []
-//    var preferredGymToStore: [PreferredGym] = []
     var priceRangeLowToStore: Double = 0
     var priceRangeHighToStore: Double = 0
     
@@ -55,9 +51,9 @@ class UserSignUpFormViewModel: ObservableObject {
     // filter for workout type
     func workoutTypesSelectable(_ index: Int) -> [WorkOutType] {
         let workoutTypes = WorkOutType.allCases
-        return [typeOfWorkOut[index]] +
+        return [typesOfWorkOut[index]] +
         workoutTypes.filter { type in
-            !typeOfWorkOut.contains(type)
+            !typesOfWorkOut.contains(type)
         }
     }
     
@@ -68,8 +64,9 @@ class UserSignUpFormViewModel: ObservableObject {
         guard validateAge() else { return false }
         guard validatePhoneNum() else { return false }
         guard validateEmail() else { return false }
-        //guard validateTrainerGender() else { return }
-        //guard validateWorkoutTypes() else { return }
+        guard validateGymLocation() else { return false }
+        guard validatePreferredGym() else { return false }
+        guard validateWorkoutTypes() else { return false }
         guard validatePriceRange() else { return false }
         guard validateHeight() else { return false }
         guard validateMuscleMass() else { return false }
@@ -88,10 +85,10 @@ class UserSignUpFormViewModel: ObservableObject {
             age: ageToStore,
             phone: phoneNumberToStore,
             email: emailToStore,
-            preferredTrainerGender: trainerGenderToStore,
-            gymLocation: gymLocationToStore,
-            preferredGym: preferredGym,
-            typesOfWorkOut: typeOfWorkOut,
+            preferredTrainerGender: trainerGender,
+            gymLocation: gymLocation,
+            preferredGym: preferredGyms,
+            typesOfWorkOut: typesOfWorkOut,
             preferredPriceRange: PriceRange(
                 currency: Currency.cad,
                 min: priceRangeLowToStore,
@@ -161,30 +158,42 @@ extension UserSignUpFormViewModel {
             return false
         }
     }
-//    private func validateTrainerGender() -> Bool {
-//        // trainergender
-//        if TrainerGender.allCases.contains(trainerGender) {
-//            error = ""
-//            self.trainerGenderToStore = trainerGender
-//            return true
-//        } else {
-//            error = "Invalid gender."
-//            return false
-//        }
-//    }
     
-    //TODO: Fetch/Validate gym location
+    private func validateGymLocation() -> Bool {
+        if gymLocation.isEmpty {
+            error = "Invalid Gym Location"
+            return false
+        } else {
+            return true
+        }
+    }
     
-//    private func validateWorkoutTypes() -> Bool {
-//        // type of workout
-//        var validCount: Int = 0
-//        for i in typeOfWorkOut {
-//            if workoutTypes.contains(i) {
-//                validCount += 1
-//            }
-//        }
-//        return validCount == 3
-//    }
+    private func validateWorkoutTypes() -> Bool {
+        var isValid = true
+        for type in typesOfWorkOut {
+            if type == .none {
+                isValid = false
+            }
+        }
+        if !isValid {
+            error = "Please select a workout type."
+        }
+        return isValid
+    }
+    
+    private func validatePreferredGym() -> Bool {
+        var isValid = true
+        for type in typesOfWorkOut {
+            if type == .none {
+                isValid = false
+            }
+        }
+        if !isValid {
+            error = "Please select a preferred gym."
+        }
+        return isValid
+    }
+    
     private func validatePriceRange() -> Bool {
         //priceRange
         if let low = Double(priceRangeLow), let high = Double(priceRangeHigh), low <= high {

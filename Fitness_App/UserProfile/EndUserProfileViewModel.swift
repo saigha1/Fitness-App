@@ -10,11 +10,12 @@ import UIKit
 
 @MainActor
 class EndUserProfileViewModel: ObservableObject {
+    //MARK: - Published Properties for form inputs and error message
     @Published var phoneNumber: String = ""
     @Published var email: String = ""
     @Published var gymLoocation: String = ""
     @Published var typesOfWorkout: [WorkOutType] = []
-    @Published var preferredGym: PreferredGym = .laFitness
+    @Published var preferredGyms: [PreferredGym] = []
     @Published var selectedPTGender: TrainerGender = .m
     @Published var priceRangeLow: String = ""
     @Published var priceRangeHigh: String = ""
@@ -26,28 +27,30 @@ class EndUserProfileViewModel: ObservableObject {
     @Published var currentFatPercentage: String = ""
     @Published var targetFatPercentage: String = ""
     @Published var selectedImages: [UIImage] = []
-    
     @Published var showError: Bool = false
     @Published var error: String = ""
     
-    var phoneNumberToStore: String = ""
-    var emailToStore: String = ""
-    var priceRangeLowToStore: Double = 0
-    var priceRangeHighToStore: Double = 0
-    var heightFtToStore: Int = 0
-    var heightInToStore: Double = 0
-    var skeletalMuscleMassToStore: Double = 0
-    var currentWeightToStore: Double = 0
-    var targetWeightToStore: Double = 0
-    var currentFatPercentageToStore: Double = 0
-    var targetFatPercentageToStore: Double = 0
-    var profileImageToStore: String = ""
+    //MARK: - Private properties to hold the values for user creation
+    private var phoneNumberToStore: String = ""
+    private var emailToStore: String = ""
+    private var priceRangeLowToStore: Double = 0
+    private var priceRangeHighToStore: Double = 0
+    private var heightFtToStore: Int = 0
+    private var heightInToStore: Double = 0
+    private var skeletalMuscleMassToStore: Double = 0
+    private var currentWeightToStore: Double = 0
+    private var targetWeightToStore: Double = 0
+    private var currentFatPercentageToStore: Double = 0
+    private var targetFatPercentageToStore: Double = 0
+    private var profileImageToStore: String = ""
+    
+    //MARK: - User Creation
     func populateStates(_ user: NewEndUser) {
         phoneNumber = user.phone
         email = user.email
         gymLoocation = user.gymLocation
         typesOfWorkout = user.typesOfWorkOut
-        preferredGym = user.preferredGym
+        preferredGyms = user.preferredGym
         selectedPTGender = user.preferredTrainerGender
         priceRangeLow = user.preferredPriceRange.min.asStringWith2Decimals()
         priceRangeHigh = user.preferredPriceRange.max.asStringWith2Decimals()
@@ -62,7 +65,7 @@ class EndUserProfileViewModel: ObservableObject {
         error = ""
     }
     
-    
+    //MARK: - Form Validation
     func validateForm(_ user: NewEndUser, authVM: AuthViewModel) {
         var hasChange = false
         // check if changes are made
@@ -71,7 +74,7 @@ class EndUserProfileViewModel: ObservableObject {
         if email != user.email { hasChange = true }
         if gymLoocation != user.gymLocation { hasChange = true }
         if typesOfWorkout != user.typesOfWorkOut { hasChange = true }
-        if preferredGym != user.preferredGym { hasChange = true }
+        if preferredGyms != user.preferredGym { hasChange = true }
         if selectedPTGender != user.preferredTrainerGender { hasChange = true }
         if priceRangeLow != user.preferredPriceRange.min.asStringWith2Decimals() { hasChange = true }
         if priceRangeHigh != user.preferredPriceRange.max.asStringWith2Decimals() { hasChange = true }
@@ -87,12 +90,15 @@ class EndUserProfileViewModel: ObservableObject {
         // check if all validation functions returns true
         guard validatePhoneNum() else { return }
         guard validateEmail() else { return }
+        guard validateGymLocation() else { return }
         guard validatePriceRange() else { return }
         guard validateHeight() else { return }
         guard validateMuscleMass() else { return }
         guard validateWeight() else { return }
         guard validateBodyFat() else { return }
         guard validateImage(user) else { return }
+        guard validatePreferredGym() else { return }
+        guard validateWorkoutType() else { return }
         // get the current user from JSON
         guard let users: [NewEndUser] = load(filename: "EndUser.json", location: .document) else { return }
         guard let userfound = users.first(where: { $0.id == user.id }) else { return }
@@ -107,7 +113,7 @@ class EndUserProfileViewModel: ObservableObject {
             email: emailToStore,
             preferredTrainerGender: selectedPTGender,
             gymLocation: gymLoocation,
-            preferredGym: preferredGym,
+            preferredGym: preferredGyms,
             typesOfWorkOut: typesOfWorkout,
             preferredPriceRange: PriceRange(
                 currency: Currency.cad,
@@ -138,7 +144,6 @@ class EndUserProfileViewModel: ObservableObject {
             return false
         }
     }
-    
     private func validateEmail() -> Bool {
         // email
         if !email.isEmpty && email.isEmail {
@@ -150,7 +155,14 @@ class EndUserProfileViewModel: ObservableObject {
             return false
         }
     }
-    
+    private func validateGymLocation() -> Bool {
+        if gymLoocation.isEmpty {
+            error = "Invalid Gym Location"
+            return false
+        } else {
+            return true
+        }
+    }
     private func validatePriceRange() -> Bool {
         //priceRange
         if let low = Double(priceRangeLow), let high = Double(priceRangeHigh), low <= high {
@@ -163,7 +175,6 @@ class EndUserProfileViewModel: ObservableObject {
             return false
         }
     }
-
     private func validateHeight() -> Bool {
         //height
         if let ft = Int(heightFt), let inch = Double(heightIn), ft > 0 {
@@ -223,5 +234,29 @@ class EndUserProfileViewModel: ObservableObject {
             profileImageToStore = "data:image/jpeg;base64," + imageData.base64EncodedString()
         }
         return true
+    }
+    private func validatePreferredGym() -> Bool {
+        var isValid = true
+        for gym in preferredGyms {
+            if gym == .none {
+                isValid = false
+            }
+        }
+        if !isValid {
+            error = "Please select a preferred gym."
+        }
+        return isValid
+    }
+    private func validateWorkoutType() -> Bool {
+        var isValid = true
+        for type in typesOfWorkout {
+            if type == .none {
+                isValid = false
+            }
+        }
+        if !isValid {
+            error = "Please select a workout type."
+        }
+        return isValid
     }
 }

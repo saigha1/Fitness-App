@@ -22,30 +22,8 @@ struct UserSignUpFormView: View {
                 preferenceSection
                 Divider()
                 metricsSection
-                if !signUpFormVM.error.isEmpty {
-                    Text(signUpFormVM.error)
-                        .bold()
-                        .foregroundColor(.red)
-                }
-                
-                Button {
-                    var userID: String
-                    if authVM.currentUser == nil {
-                        userID = UUID().uuidString
-                    } else {
-                        userID = authVM.currentUser!.uid
-                    }
-                    if signUpFormVM.validateForm(userID) {
-                        //                    if signUpFormVM.validateForm((authVM.currentUser?.uid) ?? (UUID().uuidString)) {
-                        if authVM.endUserApprovalCheck() {
-                            dismiss()
-                        }
-                    }
-                } label: {
-                    Text("Continue")
-                        .bold()
-                        .font(.title2)
-                }
+                errorMessage
+                continueButton
             }
             .padding()
             .navigationTitle("Profile")
@@ -65,6 +43,7 @@ struct UserSignUpFormView: View {
     }
 }
 
+//MARK: - Preview
 struct UserSignUpFormView_Previews: PreviewProvider {
     static var previews: some View {
         UserSignUpFormView()
@@ -72,8 +51,41 @@ struct UserSignUpFormView_Previews: PreviewProvider {
     }
 }
 
+//MARK: - Form Components
 extension UserSignUpFormView {
-    //MARK: Profile Image
+    private var continueButton: some View {
+        Button {
+            var userID: String
+            if authVM.currentUser == nil {
+                userID = UUID().uuidString
+            } else {
+                userID = authVM.currentUser!.uid
+            }
+            if signUpFormVM.validateForm(userID) {
+                if authVM.endUserApprovalCheck() {
+                    dismiss()
+                }
+            }
+        } label: {
+            Text("Continue")
+                .bold()
+                .font(.title2)
+        }
+    }
+    private var errorMessage: some View {
+        Group {
+            if !signUpFormVM.error.isEmpty {
+                Text(signUpFormVM.error)
+                    .bold()
+                    .foregroundColor(.red)
+            }
+        }
+    }
+}
+
+
+//MARK: - Personal Information Components
+extension UserSignUpFormView {
     private var profileImageSection: some View {
         VStack {
             signUpFormVM.profileImage.asProfileImage(100)
@@ -86,72 +98,6 @@ extension UserSignUpFormView {
                             signUpFormVM.updateProfileImage()
                         }
                 }
-        }
-    }
-    //MARK: Metrics
-    private var metricsSection: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                userProfileIcon_Health
-                Text("Health Metrics")
-                    .bold()
-            }
-            .foregroundColor(Color.assetColor.pink)
-            .foregroundColor(.green)
-            HStack {
-                Text("Height")
-                Spacer()
-                TextFieldView(textInput: $signUpFormVM.heightFt, placeholder: "ft", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
-                    .keyboardType(.numberPad)
-                Text("'").offset(x: -15)
-                TextFieldView(textInput: $signUpFormVM.heightIn, placeholder: "in", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
-                    .keyboardType(.decimalPad)
-                Text("''").offset(x: -15)
-            }
-            HStack {
-                Text("Skeletal Muscle Mass")
-                Spacer()
-                TextFieldView(textInput: $signUpFormVM.skeletalMuscleMass, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
-            }
-            Group {
-                HStack {
-                    Spacer()
-                    Text("Current")
-                    Text("Target")
-                }
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .padding(.trailing, 20)
-                HStack {
-                    Text("Weight")
-                    Spacer()
-                    TextFieldView(textInput: $signUpFormVM.currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
-                        .keyboardType(.decimalPad)
-                    TextFieldView(textInput: $signUpFormVM.targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
-                        .keyboardType(.decimalPad)
-                }
-                HStack {
-                    Text("Body Fat")
-                    Spacer()
-                    TextFieldView(textInput: $signUpFormVM.currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
-                        .keyboardType(.decimalPad)
-                    TextFieldView(textInput: $signUpFormVM.targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
-                        .keyboardType(.decimalPad)
-                }
-            }
-        }
-    }
-}
-
-//MARK: - Personal Information Components
-extension UserSignUpFormView {
-    private var personalInfoSection: some View {
-        VStack(alignment: .leading) {
-            titlePersonalInfo
-            name
-            age
-            phoneNumber
-            email
         }
     }
     private var titlePersonalInfo: some View {
@@ -200,6 +146,15 @@ extension UserSignUpFormView {
             }
         }
     }
+    private var personalInfoSection: some View {
+        VStack(alignment: .leading) {
+            titlePersonalInfo
+            name
+            age
+            phoneNumber
+            email
+        }
+    }
 }
 
 //MARK: - Preferences Components
@@ -244,7 +199,7 @@ extension UserSignUpFormView {
         }
     }
     private var workoutType1Picker: some View {
-        Picker("Workout Type 1", selection: $signUpFormVM.typeOfWorkOut[0]) {
+        Picker("Workout Type 1", selection: $signUpFormVM.typesOfWorkOut[0]) {
             ForEach(signUpFormVM.workoutTypesSelectable(0), id: \.self) {
                 Text($0.rawValue)
                     .tag("wotype1")
@@ -252,7 +207,7 @@ extension UserSignUpFormView {
         }
     }
     private var workoutType2Picker: some View {
-        Picker("Workout Type 2", selection: $signUpFormVM.typeOfWorkOut[1]) {
+        Picker("Workout Type 2", selection: $signUpFormVM.typesOfWorkOut[1]) {
             ForEach(signUpFormVM.workoutTypesSelectable(1), id: \.self) {
                 Text($0.rawValue)
                     .tag("wotype2")
@@ -260,7 +215,7 @@ extension UserSignUpFormView {
         }
     }
     private var workoutType3Picker: some View {
-        Picker("Workout Type 3", selection: $signUpFormVM.typeOfWorkOut[2]) {
+        Picker("Workout Type 3", selection: $signUpFormVM.typesOfWorkOut[2]) {
             ForEach(signUpFormVM.workoutTypesSelectable(2), id: \.self) {
                 Text($0.rawValue)
                     .tag("wotype3")
@@ -268,7 +223,21 @@ extension UserSignUpFormView {
         }
     }
     private var preferredGym1Picker: some View {
-        Picker("Preferred Gym 1", selection: $signUpFormVM.preferredGym) {
+        Picker("Preferred Gym 1", selection: $signUpFormVM.preferredGyms[0]) {
+            ForEach(PreferredGym.allCases, id: \.self) {
+                Text($0.rawValue)
+            }
+        }
+    }
+    private var preferredGym2Picker: some View {
+        Picker("Preferred Gym 2", selection: $signUpFormVM.preferredGyms[1]) {
+            ForEach(PreferredGym.allCases, id: \.self) {
+                Text($0.rawValue)
+            }
+        }
+    }
+    private var preferredGym3Picker: some View {
+        Picker("Preferred Gym 3", selection: $signUpFormVM.preferredGyms[2]) {
             ForEach(PreferredGym.allCases, id: \.self) {
                 Text($0.rawValue)
             }
@@ -289,8 +258,12 @@ extension UserSignUpFormView {
             titlePreferences
             trainerGender
             gymLocation
-            StyledPicker(title: "Preferred Gym 1") { preferredGym1Picker }
-            Group {
+            GroupBox {
+                StyledPicker(title: "Preferred Gym 1") { preferredGym1Picker }
+                StyledPicker(title: "Preferred Gym 2") { preferredGym2Picker }
+                StyledPicker(title: "Preferred Gym 3") { preferredGym3Picker }
+            }
+            GroupBox {
                 StyledPicker(title: "Workout Type 1") { workoutType1Picker }
                 StyledPicker(title: "Workout Type 2") { workoutType2Picker }
                 StyledPicker(title: "Workout Type 3") { workoutType3Picker }
@@ -299,4 +272,76 @@ extension UserSignUpFormView {
         }
     }
 }
+
+//MARK: - Metrics Components
+extension UserSignUpFormView {
+    private var titleMetrics: some View {
+        HStack {
+            userProfileIcon_Health
+            Text("Health Metrics")
+                .bold()
+        }
+        .foregroundColor(Color.assetColor.pink)
+        .foregroundColor(.green)
+    }
+    private var height: some View {
+        HStack {
+            Text("Height")
+            Spacer()
+            TextFieldView(textInput: $signUpFormVM.heightFt, placeholder: "ft", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
+                .keyboardType(.numberPad)
+            Text("'").offset(x: -15)
+            TextFieldView(textInput: $signUpFormVM.heightIn, placeholder: "in", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 40, height: 25)
+                .keyboardType(.decimalPad)
+            Text("''").offset(x: -15)
+        }
+    }
+    private var skeletalMuscleMass: some View {
+        HStack {
+            Text("Skeletal Muscle Mass")
+            Spacer()
+            TextFieldView(textInput: $signUpFormVM.skeletalMuscleMass, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+        }
+    }
+    private var weight: some View {
+        HStack {
+            Text("Weight")
+            Spacer()
+            TextFieldView(textInput: $signUpFormVM.currentWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                .keyboardType(.decimalPad)
+            TextFieldView(textInput: $signUpFormVM.targetWeight, placeholder: "lbs", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                .keyboardType(.decimalPad)
+        }
+    }
+    private var bodyFat: some View {
+        HStack {
+            Text("Body Fat")
+            Spacer()
+            TextFieldView(textInput: $signUpFormVM.currentFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                .keyboardType(.decimalPad)
+            TextFieldView(textInput: $signUpFormVM.targetFatPercentage, placeholder: "%", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: 50, height: 25)
+                .keyboardType(.decimalPad)
+        }
+    }
+    private var metricsSection: some View {
+        VStack(alignment: .leading) {
+            titleMetrics
+            height
+            skeletalMuscleMass
+            Group {
+                HStack {
+                    Spacer()
+                    Text("Current")
+                    Text("Target")
+                }
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                .padding(.trailing, 20)
+                weight
+                bodyFat
+            }
+        }
+    }
+}
+
 

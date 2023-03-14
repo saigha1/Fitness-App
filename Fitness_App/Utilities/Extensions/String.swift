@@ -45,11 +45,13 @@ extension String {
         AsyncImage(url: URL(string: self)) { image in
             image
                 .resizable()
+                .scaledToFill()
                 .clipShape(Circle())
         } placeholder: {
             Group {
                 if self.isEmpty { Image(systemName: "person")
                         .resizable()
+                        .scaledToFill()
                         .frame(width: size * 0.7, height: size * 0.7)
                         .foregroundColor(.secondary)
                     
