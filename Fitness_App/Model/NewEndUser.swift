@@ -40,6 +40,7 @@ struct NewEndUser: Codable, Identifiable, Equatable {
 }
 
 enum PreferredGym: String, Codable, CaseIterable {
+    case select = "--select--"
     case anytime = "Anytime Fitness"
     case fitForLess = "FitForLess"
     case goodLife = "GoodLife"
@@ -47,6 +48,7 @@ enum PreferredGym: String, Codable, CaseIterable {
 }
 
 enum WorkOutType: String, Codable, CaseIterable {
+    case select = "--select--"
     case machine = "Machine-based"
     case boxing = "Boxing"
     case lifting = "Weight-lifting"
@@ -63,6 +65,7 @@ enum Currency: String, Codable {
 }
 
 enum TrainerGender: String, Codable, CaseIterable {
+    case select = "--select--"
     case f = "Female"
     case m = "Male"
 }

@@ -32,7 +32,7 @@ struct Fitness_AppApp: App {
 //            Sign_Up_View()
 //                .environmentObject(modelData)
             
-            Sign_Up_View(PT: PTModelPreview)
+            Sign_Up_View(PT: PTModelPreview, ptVM: PTValidationModel)
 //                .environmentObject(googleFireBaseVM)
 //                .environmentObject(facebookFirebaseSignIn)
                 .environmentObject(authenticationVM)
@@ -50,4 +50,4 @@ struct Fitness_AppApp: App {
     }
 }
 
-let PTModelPreview = PTModel(id: "hello", name: "hello", gender: "hello", phone: "hello", email: "hello", isFeatured: true, isFavorite: true, education: .Other, certification: [.Other], selectedExperience: .One, cityLocation: .Mississauga, workoutTypes: [.calisthenic], gymPreference: [.GoodLife], description: "hello", motto: "hello", profileImg: "hello")
+let PTModelPreview = PTModel(id: "hello", name: "hello", phone: "hello", email: "hello", isFeatured: true, isFavorite: true, gender: .select, education: .Other, certification: [.Other], selectedExperience: .One, cityLocation: .Mississauga, workoutTypes: [.calisthenic], gymPreference: [.GoodLife], description: "hello", motto: "hello", profileImg: "hello")

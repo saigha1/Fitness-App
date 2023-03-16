@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class PTValidationModel: ObservableObject {
     
@@ -13,29 +14,33 @@ class PTValidationModel: ObservableObject {
     @Published var error: String = ""
     //State properties for fields
     @Published var name: String = ""
-    @Published var trainerGender: String = "Male"
-    @Published var phone: String = ""
-    @Published var email: String = ""
-    @Published var experienceLevel : PTexperienceLevel = .One
-    @Published var education: PTEducationLevel = .Bachelors
-    @Published var Certification: [certificates] = []
-    @Published var city : gymLocation = .Mississauga
+  
+//    @Published var phone: String = ""
+//    @Published var email: String = ""
+    @Published var experienceLevel : PTexperienceLevel = .select
+    @Published var education: PTEducationLevel = .select
+    @Published var certification: [certificates] = [.select,.select]
+    @Published var city : gymLocation = .select
 
-    @Published var typeOfExercise: [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weights, .machine]
-    @Published var Description: String = ""
-    @Published var Motto: String = ""
+    @Published var typeOfExercise: [typesOfWorkOut] = [.select, .select, .select]
+    @Published var description: String = ""
+    @Published var motto: String = ""
     @Published var isFeaturedToStore: Bool = false
     @Published var isFavoriteToStore: Bool = false
     @Published var isProfImg: String = ""
-    @Published var gymPreferencePublished : [gymPreferrence] = [.GoodLife, .UFC, .FitnessPlanet, .LAFitness]
-    
+    @Published var gymPreferencePublished : [gymPreferrence] = [.select, .select, .select]
+    @Published var inputImage: [UIImage] = []
+    @Published var videoURL: [String] = []
+    @Published var selectedImage: UIImage?
+    @Published var gender : TrainerGender = .select
+    @Published var selectedImageBool : Bool = false
     var nameToStore: Int = 0
     
     var ageToStore: Int = 0
     var phoneNumberToStore: String = ""
     var emailToStore: String = ""
     
-//    var selectedGender
+   
     var trainersGenderToStore: String = ""
     var gymLocationToStore: String = ""
     var workoutTypesToStore: [String] = []
@@ -52,11 +57,20 @@ class PTValidationModel: ObservableObject {
     func validateForm() {
         // check if all validation functions returns true
         guard validateName() else { return }
-//        guard validateGender() else { return}
-//        guard validateAge() else { return }
-        guard validatePhoneNum() else { return }
-//        guard validateEmail() else { return } => Not necessary
-//        guard validateWorkoutTypes() else { return }
+        guard validateGender() else { return }
+        guard validateCity() else { return }
+        guard validateGymPreferrence() else { return }
+        guard validateExerciseType() else { return }
+        guard validateEducation() else { return }
+        guard validateCertificate() else { return }
+        guard validateExperienceLevel() else { return }
+        guard validateMotto() else { return }
+        guard validateDescription() else { return }
+        guard validateImage() else { return }
+        guard validateVideo() else { return }
+        guard validateSelfie() else { return }
+
+       
 
         #if DEBUG
 //        let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
@@ -103,39 +117,175 @@ extension PTValidationModel{
             error = "Invalid name"
             return false
         }
-        
     }
     
-    func validatePhoneNum()-> Bool{
-        
-        if phone.isNumeric && phone.count == 10 {
-            error = ""
-            self.phoneNumberToStore = phone
-            return true
-        } else {
-            error = "Invalid phone number."
-            return false
-        }
-    }
-    
-    func validateEmail() -> Bool{
-        if !email.isEmpty && email.isEmail {
-            error = ""
-            self.emailToStore = email
-            return true
-        } else {
-            error = "Invalid email."
-            return false
-        }
-    }
-    
-//    func validateGender() -> Bool{
-//        if (selectedGender == "Male" || selectedGender == "Female") {
+//    func validatePhoneNum()-> Bool{
+//
+//        if phone.isNumeric && phone.count == 10 {
+//            error = ""
+//            self.phoneNumberToStore = phone
 //            return true
 //        } else {
-//            
+//            error = "Invalid phone number."
+//            return false
 //        }
 //    }
+//
+//    func validateEmail() -> Bool{
+//        if !email.isEmpty && email.isEmail {
+//            error = ""
+//            self.emailToStore = email
+//            return true
+//        } else {
+//            error = "Invalid email."
+//            return false
+//        }
+//    }
+    
+    func validateGender() -> Bool{
+        if (gender.rawValue == "Male" || gender.rawValue == "Female") {
+            return true
+        } else {
+            return false
+        }
+    }
+        
+    func validateCity() -> Bool{
+        if (city != .select) {
+            error = ""
+            return true
+        } else {
+            error = "Please enter your city location"
+            return false
+        }
+    }
+    
+    func validateGymPreferrence() -> Bool{
+        if (gymPreferencePublished[0] != .select) {
+            if (gymPreferencePublished[1] != .select) {
+                if (gymPreferencePublished[2] != .select) {
+                    error = ""
+                    return true
+                } else {
+                    error = "Please make a gym #3 selection"
+                    return false
+                }
+            } else {
+                error = "Please make a gym #2 selection"
+                return false
+            }
+        } else {
+            error = "Please make a gym #1 selection"
+            return false
+        }
+    }
+    
+    func validateExerciseType() -> Bool{
+        if (typeOfExercise[0] != .select) {
+            if (typeOfExercise[1] != .select) {
+                if (typeOfExercise[2] != .select) {
+                    error = ""
+                    return true
+                } else {
+                    error = "Please make a gym #3 selection"
+                    return false
+                }
+            } else {
+                error = "Please make a gym #2 selection"
+                return false
+            }
+        } else {
+            error = "Please make a gym #1 selection"
+            return false
+        }
+    }
+    
+    func validateEducation() -> Bool{
+        if (education != .select) {
+            error = ""
+            return true
+        } else {
+            error = "Please enter your highest level education completed"
+            return false
+        }
+    }
+    
+    func validateCertificate() -> Bool{
+        if (certification[0] != .select) {
+            if (certification[1] != .select) {
+                    error = ""
+                    return true
+                } else {
+                    error = "Please make a certification selection"
+                    return false
+                }
+            } else {
+                error = "Please make a second certification selection. Or delete the entry."
+                return false
+            }
+    }
+    
+    func validateExperienceLevel() -> Bool{
+        if (experienceLevel != .select) {
+            error = ""
+            return true
+        } else {
+            error = "Please select an experience level."
+            return false
+        }
+    }
+    
+    func validateMotto()-> Bool{
+        if !motto.isEmpty{
+            error = ""
+            return true
+        } else {
+            error = "Please enter a Motto."
+            return false
+        }
+    }
+    
+    func validateDescription()-> Bool{
+        if !description.isEmpty{
+            error = ""
+            return true
+        } else {
+            error = "Please enter a desription about you."
+            return false
+        }
+    }
+    
+    func validateImage()-> Bool{
+        if inputImage.count != 3{
+            error = ""
+            return true
+        } else {
+            error = "Please select 3 photos."
+            return false
+        }
+    }
+    
+    func validateVideo()-> Bool{
+        if videoURL.count != 3{
+            error = ""
+            return true
+        } else {
+            error = "Please select 3 videos."
+            return false
+        }
+    }
+    
+    func validateSelfie()-> Bool{
+        if selectedImage != nil{
+            error = ""
+            return true
+        } else {
+            error = "Please upload a selfie"
+            return false
+        }
+    }
+    
+    
     
 //    func validateWorkoutTypes() -> Bool{
 //        

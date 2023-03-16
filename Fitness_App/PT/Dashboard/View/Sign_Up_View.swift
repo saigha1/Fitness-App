@@ -20,37 +20,39 @@ struct Sign_Up_View: View {
     //    @StateObject var modelData : ModelData = ModelData()
     @State var isEditing : Bool = false
     
-    @State var selectedGender : String = "Male"
-    @State var selectedWorkOutCategory : [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weights]
-    @State var selectedExperience : PTexperienceLevel = .One
-    @State var selectedEducation  : PTEducationLevel = .Diploma
-    @State var selectedCertificate  : [certificates] = [.CanFitProI, .CanFitProII]
-    @State var selectedLocation  : gymLocation = .Mississauga
-    @State var selectedGym  : [gymPreferrence] = [.GoodLife, .FitnessPlanet, .UFC]
+    //Pickers
+//    @State var selectedGender : String = "Male"
+//    @State var selectedWorkOutCategory : [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weights]
+//    @State var selectedExperience : PTexperienceLevel = .One
+//    @State var selectedEducation  : PTEducationLevel = .Diploma
+//    @State var selectedCertificate  : [certificates] = [.CanFitProI, .CanFitProII]
+//    @State var selectedLocation  : gymLocation = .Mississauga
+//    @State var selectedGym  : [gymPreferrence] = [.GoodLife, .FitnessPlanet, .UFC]
+    
     @State var PT : PTModel
+    @State var ptVM : PTValidationModel
     @EnvironmentObject var authVM : AuthViewModel
     
     //For Image/Video
     @State private var showingImagePicker = false
     @State private var videoPickerIsPresented = false
-    @State private var inputImage: [UIImage] = []
-    @State private var videoURL: [String] = []
+   
     @State private var  profImage : UIImage?
     
     
     //For Camera/Selfie
     @State private var cameraIsPresented = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
-    @State private var selectedImage: UIImage?
+    
     
     @State private var phase = 0.0
-    @StateObject var ptVM = PTValidationModel()
     
     //Error
     let alertTitle: String = "Error"
     @State private var didError = true
     
     var body: some View {
+        NavigationView{
         ScrollView{
             VStack{
                 HStack{
@@ -88,10 +90,12 @@ struct Sign_Up_View: View {
                 
             }
         }.frame(width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/10))
+        }
     }
     
     var profileSummary: some View{
         VStack(spacing: 10){
+            
             GroupBox{
                 //Name
                 HStack{
@@ -113,13 +117,15 @@ struct Sign_Up_View: View {
                     
                     Text("Gender:")
                     Spacer()
-                    
+                    //Change to a Picker
                     if isEditing{
-                        TextField("Gender", text: $selectedGender) //PTModel
-                            .frame(width: UIScreen.main.bounds.width/4)
-                            .border(.purple, width: 2)
+                        Picker("Gender", selection: $ptVM.gender) {
+                            ForEach(TrainerGender.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
                     } else{
-                        Text(selectedGender)
+                        Text(ptVM.gender.rawValue)
                     }
                 }
                 
@@ -129,13 +135,13 @@ struct Sign_Up_View: View {
                     Spacer()
                     
                     if isEditing{
-                        Picker("Gym Location", selection: $selectedLocation){
+                        Picker("Gym Location", selection: $ptVM.city){
                             ForEach(gymLocation.allCases, id: \.self){
                                 Text($0.rawValue)
                             }
                         }
                     }else{
-                        Text(selectedLocation.rawValue)
+                        Text(ptVM.city.rawValue)
                     }
                 }
             }
@@ -150,43 +156,43 @@ struct Sign_Up_View: View {
                         //Gym 1
                         HStack{
                             if isEditing{
-                                Picker("Preferred Gym", selection: $selectedGym[0]){
+                                Picker("Preferred Gym", selection: $ptVM.gymPreferencePublished[0]){
                                     ForEach(gymPreferrence.allCases, id: \.self){
                                         Text($0.rawValue)
                                     }
                                 }
                             }else{
-                                Text(selectedGym[0].rawValue)
+                                Text(ptVM.gymPreferencePublished[0].rawValue)
                             }
                         }
                         Divider()
-                        //                            .frame(width: UIScreen.main.bounds.width/4)
+                        
                         //Gym2
                         HStack{
                             if isEditing{
-                                Picker("Preferred Gym", selection: $selectedGym[1]){
+                                Picker("Preferred Gym", selection: $ptVM.gymPreferencePublished[1]){
                                     ForEach(gymPreferrence.allCases, id: \.self){
                                         Text($0.rawValue)
                                     }
                                 }
                             }else{
-                                Text(selectedGym[1].rawValue)
+                                Text(ptVM.gymPreferencePublished[1].rawValue)
                             }
                         }
                         Divider()
-                        //                            .frame(width: UIScreen.main.bounds.width/4)
+                   
                         //Gym3
                         HStack{
                             
                             
                             if isEditing{
-                                Picker("Preferred Gym", selection: $selectedGym[2]){
+                                Picker("Preferred Gym", selection: $ptVM.gymPreferencePublished[2]){
                                     ForEach(gymPreferrence.allCases, id: \.self){
                                         Text($0.rawValue)
                                     }
                                 }
                             }else{
-                                Text(selectedGym[2].rawValue)
+                                Text(ptVM.gymPreferencePublished[2].rawValue)
                             }
                         }
                     }
@@ -204,13 +210,13 @@ struct Sign_Up_View: View {
                         //Category 1
                         HStack{
                             if isEditing{
-                                Picker("Training Category", selection: $selectedWorkOutCategory[0]){
+                                Picker("Training Category", selection: $ptVM.typeOfExercise[0]){
                                     ForEach(typesOfWorkOut.allCases, id: \.self){
                                         Text($0.rawValue)
                                     }
                                 }
                             }else{
-                                Text(selectedWorkOutCategory[0].rawValue)
+                                Text(ptVM.typeOfExercise[0].rawValue)
                             }
                         }
                         Divider()
@@ -218,7 +224,7 @@ struct Sign_Up_View: View {
                         HStack{
                             
                             if isEditing{
-                                Picker("Training Category", selection: $selectedWorkOutCategory[1]){
+                                Picker("Training Category", selection: $ptVM.typeOfExercise[1]){
                                     ForEach(typesOfWorkOut.allCases, id: \.self){
                                         Text($0.rawValue)
                                             .font(.system(size: 15))
@@ -226,7 +232,7 @@ struct Sign_Up_View: View {
                                     }
                                 }
                             }else{
-                                Text(selectedWorkOutCategory[1].rawValue)
+                                Text(ptVM.typeOfExercise[1].rawValue)
                             }
                         }
                         Divider()
@@ -234,13 +240,13 @@ struct Sign_Up_View: View {
                         HStack{
                             
                             if isEditing{
-                                Picker("Training Category", selection: $selectedWorkOutCategory[2]){
+                                Picker("Training Category", selection: $ptVM.typeOfExercise[2]){
                                     ForEach(typesOfWorkOut.allCases, id: \.self){
                                         Text($0.rawValue)
                                     }
                                 }
                             }else{
-                                Text(selectedWorkOutCategory[2].rawValue)
+                                Text(ptVM.typeOfExercise[2].rawValue)
                             }
                         }
                         
@@ -256,7 +262,7 @@ struct Sign_Up_View: View {
                     Spacer()
                     
                     if isEditing{
-                        Picker("Education", selection: $selectedEducation){
+                        Picker("Education", selection: $ptVM.education){
                             ForEach(PTEducationLevel.allCases, id: \.self){
                                 Text($0.rawValue)
                             }
@@ -267,17 +273,32 @@ struct Sign_Up_View: View {
                 }
                 //Certificates
                 HStack{
-                    Text("Certificates:")
+                    Text("Certificates #1:")
                     Spacer()
                     
                     if isEditing{
-                        Picker("Certification", selection: $selectedCertificate){
+                        Picker("Certification #1", selection: $ptVM.certification){
                             ForEach(certificates.allCases, id: \.self){
                                 Text($0.rawValue)
                             }
                         }
                     }else{
-                        Text(selectedCertificate[0].rawValue)
+                        Text(ptVM.certification[0].rawValue)
+                    }
+                }
+                
+                HStack{
+                    Text("Certificates #2:")
+                    Spacer()
+                    
+                    if isEditing{
+                        Picker("Certification", selection: $ptVM.certification){
+                            ForEach(certificates.allCases, id: \.self){
+                                Text($0.rawValue)
+                            }
+                        }
+                    }else{
+                        Text(ptVM.certification[1].rawValue)
                     }
                 }
                 //Experience Level
@@ -286,13 +307,13 @@ struct Sign_Up_View: View {
                     Spacer()
                     
                     if isEditing{
-                        Picker("Experience Level", selection: $selectedExperience){
+                        Picker("Experience Level", selection: $ptVM.experienceLevel){
                             ForEach(PTexperienceLevel.allCases, id: \.self){
                                 Text($0.rawValue)
                             }
                         }
                     }else{
-                        Text(selectedExperience.rawValue)
+                        Text(ptVM.experienceLevel.rawValue)
                     }
                 }
             }
@@ -305,9 +326,9 @@ struct Sign_Up_View: View {
                     Spacer()
                 }
                 if isEditing{
-                    TextFieldView(textInput: $PT.motto, placeholder: "Enter your unique motto here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
+                    TextFieldView(textInput: $ptVM.motto, placeholder: "Enter your unique motto here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
                 }else {
-                    Text(PT.motto)
+                    Text(ptVM.motto)
                 }
                 
                 //Description
@@ -318,11 +339,11 @@ struct Sign_Up_View: View {
                     }
                     
                     if isEditing{
-                        TextFieldView(textInput: $PT.description, placeholder: "Enter your  description here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
+                        TextFieldView(textInput: $ptVM.description, placeholder: "Enter your  description here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
                             .frame(alignment: .leading)
                         
                     }else {
-                        Text(PT.description)
+                        Text(ptVM.description)
                             .frame(alignment: .leading)
                     }
                 } //VStack
@@ -338,13 +359,13 @@ struct Sign_Up_View: View {
                 Divider()
                 Spacer()
                 VStack{
-                    if inputImage.count < 4 {
+                    if ptVM.inputImage.count < 4 {
                         Text("Add up to 3  image(s)")
                             .font(.system(size: 10))
                             .foregroundColor(.red)
                     }
                     HStack{
-                        ForEach(inputImage, id: \.self){ uiImage in
+                        ForEach(ptVM.inputImage, id: \.self){ uiImage in
                             ZStack{
                                 ImageView(uiImage: uiImage)
                                 VStack(alignment: .leading, spacing: 15){
@@ -352,8 +373,8 @@ struct Sign_Up_View: View {
                                         Spacer()
                                         if isEditing{
                                             Button{
-                                                guard let index = inputImage.firstIndex(of: uiImage) else { return }
-                                                inputImage.remove(at: index)
+                                                guard let index = ptVM.inputImage.firstIndex(of: uiImage) else { return }
+                                                ptVM.inputImage.remove(at: index)
                                             } label: {
                                                 Image(systemName: "delete.left.fill")
                                             }
@@ -364,7 +385,7 @@ struct Sign_Up_View: View {
                             .border(.purple)
                         }
                         //Active button
-                        if (isEditing) && (inputImage.count < 4) {
+                        if (isEditing) && (ptVM.inputImage.count < 4) {
                             ZStack{
                                 Rectangle()
                                     .fill(.secondary)
@@ -375,15 +396,15 @@ struct Sign_Up_View: View {
                                     showingImagePicker = true
                                     loadImage()
                                 }
-                                .onChange(of: inputImage) { _ in loadImage() }
+                                .onChange(of: ptVM.inputImage) { _ in loadImage() }
                                 .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
                                 .background(.white)
                                 .cornerRadius(12)
                                 .sheet(isPresented: $showingImagePicker) {
-                                    ImagePicker(image: $inputImage, selectionLimit: 3)
+                                    ImagePicker(image: $ptVM.inputImage, selectionLimit: 3)
                                 }
                             }
-                        } else if  !isEditing && (inputImage.count == 0){
+                        } else if  !isEditing && (ptVM.inputImage.count == 0){
                             HStack{
                                 Rectangle()
                                     .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
@@ -398,8 +419,8 @@ struct Sign_Up_View: View {
                                     .foregroundColor(.purple)
                                     .frame(width: 40, height: 40)
                             }
-                        } else if !isEditing  && ( 1 <= inputImage.count) && (inputImage.count < 3){
-                            var imagesLeft = 3 - inputImage.count
+                        } else if !isEditing  && ( 1 <= ptVM.inputImage.count) && (ptVM.inputImage.count < 3){
+                            var imagesLeft = 3 - ptVM.inputImage.count
                             Text("You need \(imagesLeft) more images.")
                         }
                         
@@ -421,7 +442,7 @@ struct Sign_Up_View: View {
                         .font(.system(size: 10))
                         .foregroundColor(.red)
                     
-                    if videoURL.count > 4 {
+                    if ptVM.videoURL.count > 4 {
                         Text("")
                             .alert(
                                 Text(alertTitle),
@@ -448,12 +469,12 @@ struct Sign_Up_View: View {
                                 videoPickerIsPresented = true
                                 loadImage()
                             }
-                            .onChange(of: videoURL) { _ in loadImage() }
+                            .onChange(of: ptVM.videoURL) { _ in loadImage() }
                             .frame(width: UIScreen.main.bounds.width/15, height: UIScreen.main.bounds.width/15)
                             .background(.white)
                             .cornerRadius(12)
                             .sheet(isPresented: $videoPickerIsPresented) {
-                                VideoPicker(videoURLs: $videoURL, selectionLimit: 3)
+                                VideoPicker(videoURLs: $ptVM.videoURL, selectionLimit: 3)
                             }
                         }
                 }
@@ -497,11 +518,13 @@ struct Sign_Up_View: View {
                             Label("Select", systemImage: "photo")
                         })
                         
-                        if let selectedImage = selectedImage{
+                        if let selectedImage = ptVM.selectedImage{
                             Image(uiImage: selectedImage)
                                 .resizable()
                                 .frame(width: 150, height: 150)
+                           
                         }
+                      
                     } else{
                         Rectangle()
                             .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
@@ -512,7 +535,7 @@ struct Sign_Up_View: View {
                 }
             }
                 .sheet(isPresented: $cameraIsPresented){
-                    CameraView(selectedImage: $selectedImage, sourceType: self.sourceType)
+                    CameraView(selectedImage: $ptVM.selectedImage, sourceType: self.sourceType)
             }
         }
     }
