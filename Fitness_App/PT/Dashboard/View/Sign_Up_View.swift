@@ -268,7 +268,7 @@ struct Sign_Up_View: View {
                             }
                         }
                     } else{
-                        Text(selectedEducation.rawValue)
+                        Text(ptVM.education.rawValue)
                     }
                 }
                 //Certificates
