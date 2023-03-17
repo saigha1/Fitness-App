@@ -29,6 +29,8 @@ class EndUserProfileViewModel: ObservableObject {
     @Published var selectedImages: [UIImage] = []
     @Published var showError: Bool = false
     @Published var error: String = ""
+    @Published var numberOfPickersShownGym: Int = 1
+    @Published var numberOfPickersShownWorkoutType: Int = 1
     
     //MARK: - Private properties to hold the values for user creation
     private var phoneNumberToStore: String = ""
@@ -63,6 +65,8 @@ class EndUserProfileViewModel: ObservableObject {
         targetFatPercentage = "\(user.targetBodyFat.asStringWith2Decimals())"
         showError = false
         error = ""
+        numberOfPickersShownGym = preferredGyms.filter({ $0 != .none }).count
+        numberOfPickersShownWorkoutType = typesOfWorkout.filter({ $0 != .none }).count
     }
     
     //MARK: - Form Validation
