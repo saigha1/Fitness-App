@@ -265,122 +265,174 @@ extension UserProfileView {
             }
         }
     }
-    private var preferredGym1: some View {
+    private var preferredGymPickersGroup: some View {
         Group {
-            if isEditing {
-                StyledPicker(title: "Preferred Gym 1") {
-                    Picker("Preferred Gym 1", selection: $endUserProfileVM.preferredGyms[0]) {
-                        ForEach(PreferredGym.allCases, id: \.self) {
-                            Text($0.rawValue)
+            if !isEditing {
+                HStack(alignment: .top) {
+                    Text("Preferred Gym(s)")
+                        .bold()
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        ForEach(endUserProfileVM.preferredGyms, id: \.self) {
+                            if $0 == .none {
+                                EmptyView()
+                            } else {
+                                Text($0.rawValue)
+                            }
                         }
                     }
                 }
             } else {
-                HStack {
-                    Text("Preferred Gym 1")
-                        .bold()
-                    Spacer()
-                    Text(authVM.currentEndUser!.preferredGym[0].rawValue)
+                Group {
+                    StyledPicker(title: "Preferred Gym 1", picker: {
+                        Picker("Preferred Gym 1", selection: $endUserProfileVM.preferredGyms[0]) {
+                            ForEach(PreferredGym.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                    })
+                    StyledPicker(title: "Preferred Gym 2", picker: {
+                        Picker("Preferred Gym 2", selection: $endUserProfileVM.preferredGyms[1]) {
+                            ForEach(PreferredGym.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                    })
+                    .if(endUserProfileVM.numberOfPickersShownGym < 2) { _ in
+                        EmptyView()
+                    }
+                    StyledPicker(title: "Preferred Gym 3", picker: {
+                        Picker("Preferred Gym 3", selection: $endUserProfileVM.preferredGyms[2]) {
+                            ForEach(PreferredGym.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                    })
+                    .if(endUserProfileVM.numberOfPickersShownGym < 3) { _ in
+                        EmptyView()
+                    }
+                    Group {
+                        HStack {
+                            // remove
+                            Button {
+                                if endUserProfileVM.numberOfPickersShownGym > 1 {
+                                    endUserProfileVM.numberOfPickersShownGym -= 1
+                                    endUserProfileVM.preferredGyms[endUserProfileVM.numberOfPickersShownGym] = .none
+                                }
+                            } label: {
+                                Label("Remove", systemImage: "minus.circle.fill")
+                                    .foregroundColor(.red)
+                            }
+                            .foregroundColor(.gray)
+                            .if(endUserProfileVM.numberOfPickersShownGym == 1) { _ in
+                                EmptyView()
+                            }
+                            Spacer()
+                                .frame(width: 50)
+                            // add
+                            Button {
+                                if endUserProfileVM.numberOfPickersShownGym < 3 {
+                                    endUserProfileVM.numberOfPickersShownGym += 1
+                                }
+                            } label: {
+                                Label("Add", systemImage: "plus.circle.fill")
+                                    .foregroundColor(.accentColor)
+                            }
+                            .if(endUserProfileVM.numberOfPickersShownGym == 3 || (endUserProfileVM.numberOfPickersShownGym == 2 && endUserProfileVM.preferredGyms[1] == .none)) { _ in
+                                EmptyView()
+                            }
+                        }
+                    }
+                    .if(endUserProfileVM.preferredGyms[0] == .none) { _ in
+                        EmptyView()
+                    }
+                    
                 }
             }
         }
     }
-    private var preferredGym2: some View {
+    private var preferredWorkoutTypePickerGroup: some View {
         Group {
-            if isEditing {
-                StyledPicker(title: "Preferred Gym 2") {
-                    Picker("Preferred Gym 2", selection: $endUserProfileVM.preferredGyms[1]) {
-                        ForEach(PreferredGym.allCases, id: \.self) {
-                            Text($0.rawValue)
+            if !isEditing {
+                HStack(alignment: .top) {
+                    Text("Workout Type(s)")
+                        .bold()
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        ForEach(endUserProfileVM.typesOfWorkout, id: \.self) {
+                            if $0 == .none {
+                                EmptyView()
+                            } else {
+                                Text($0.rawValue)
+                            }
                         }
                     }
                 }
             } else {
-                HStack {
-                    Text("Preferred Gym 2")
-                        .bold()
-                    Spacer()
-                    Text(authVM.currentEndUser!.preferredGym[1].rawValue)
-                }
-            }
-        }
-    }
-    private var preferredGym3: some View {
-        Group {
-            if isEditing {
-                StyledPicker(title: "Preferred Gym 3") {
-                    Picker("Preferred Gym 3", selection: $endUserProfileVM.preferredGyms[2]) {
-                        ForEach(PreferredGym.allCases, id: \.self) {
-                            Text($0.rawValue)
+                Group {
+                    StyledPicker(title: "Workout Type 1", picker: {
+                        Picker("Workout Type 1", selection: $endUserProfileVM.typesOfWorkout[0]) {
+                            ForEach(WorkOutType.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                    })
+                    StyledPicker(title: "Workout Type 2", picker: {
+                        Picker("Workout Type 2", selection: $endUserProfileVM.typesOfWorkout[1]) {
+                            ForEach(WorkOutType.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                    })
+                    .if(endUserProfileVM.numberOfPickersShownWorkoutType < 2) { _ in
+                        EmptyView()
+                    }
+                    StyledPicker(title: "Workout Type 3", picker: {
+                        Picker("Workout Type 3", selection: $endUserProfileVM.typesOfWorkout[2]) {
+                            ForEach(WorkOutType.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                    })
+                    .if(endUserProfileVM.numberOfPickersShownWorkoutType < 3) { _ in
+                        EmptyView()
+                    }
+                    Group {
+                        HStack {
+                            // remove
+                            Button {
+                                if endUserProfileVM.numberOfPickersShownWorkoutType > 1 {
+                                    endUserProfileVM.numberOfPickersShownWorkoutType -= 1
+                                    endUserProfileVM.typesOfWorkout[endUserProfileVM.numberOfPickersShownWorkoutType] = .none
+                                }
+                            } label: {
+                                Label("Remove", systemImage: "minus.circle.fill")
+                                    .foregroundColor(.red)
+                            }
+                            .foregroundColor(.gray)
+                            .if(endUserProfileVM.numberOfPickersShownWorkoutType == 1) { _ in
+                                EmptyView()
+                            }
+                            Spacer()
+                                .frame(width: 50)
+                            // add
+                            Button {
+                                if endUserProfileVM.numberOfPickersShownWorkoutType < 3 {
+                                    endUserProfileVM.numberOfPickersShownWorkoutType += 1
+                                }
+                            } label: {
+                                Label("Add", systemImage: "plus.circle.fill")
+                                    .foregroundColor(.accentColor)
+                            }
+                            .if(endUserProfileVM.numberOfPickersShownWorkoutType == 3 || (endUserProfileVM.numberOfPickersShownWorkoutType == 2 && endUserProfileVM.typesOfWorkout[1] == .none)) { _ in
+                                EmptyView()
+                            }
                         }
                     }
-                }
-            } else {
-                HStack {
-                    Text("Preferred Gym 3")
-                        .bold()
-                    Spacer()
-                    Text(authVM.currentEndUser!.preferredGym[2].rawValue)
-                }
-            }
-        }
-    }
-    private var workoutType1: some View {
-        Group {
-            if isEditing {
-                StyledPicker(title: "Workout Type 1") {
-                    Picker("Workout Type 1", selection: $endUserProfileVM.typesOfWorkout[0]) {
-                        ForEach(WorkOutType.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
+                    .if(endUserProfileVM.typesOfWorkout[0] == .none) { _ in
+                        EmptyView()
                     }
-                }
-            } else {
-                HStack {
-                    Text("Workout Type 1")
-                        .bold()
-                    Spacer()
-                    Text(authVM.currentEndUser!.typesOfWorkOut[0].rawValue)
-                }
-            }
-        }
-    }
-    private var workoutType2: some View {
-        Group {
-            if isEditing {
-                StyledPicker(title: "Workout Type 2") {
-                    Picker("Workout Type 2", selection: $endUserProfileVM.typesOfWorkout[1]) {
-                        ForEach(WorkOutType.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
-                    }
-                }
-            } else {
-                HStack {
-                    Text("Workout Type 2")
-                        .bold()
-                    Spacer()
-                    Text(authVM.currentEndUser!.typesOfWorkOut[0].rawValue)
-                }
-            }
-        }
-    }
-    private var workoutType3: some View {
-        Group {
-            if isEditing {
-                StyledPicker(title: "Workout Type 3") {
-                    Picker("Workout Type 3", selection: $endUserProfileVM.typesOfWorkout[2]) {
-                        ForEach(WorkOutType.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
-                    }
-                }
-            } else {
-                HStack {
-                    Text("Workout Type 3")
-                        .bold()
-                    Spacer()
-                    Text(authVM.currentEndUser!.typesOfWorkOut[2].rawValue)
+                    
                 }
             }
         }
@@ -409,14 +461,10 @@ extension UserProfileView {
             trainerGender
             gymLocation
             GroupBox {
-                preferredGym1
-                preferredGym2
-                preferredGym3
+                preferredGymPickersGroup
             }
             GroupBox {
-                workoutType1
-                workoutType2
-                workoutType3
+                preferredWorkoutTypePickerGroup
             }
             priceRange
         }

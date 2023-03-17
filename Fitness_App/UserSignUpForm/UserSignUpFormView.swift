@@ -13,6 +13,8 @@ struct UserSignUpFormView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var showImagePicker: Bool = false
+    @State private var numberOfPickersShownGym: Int = 1
+    @State private var numberOfPickersShownWorkoutType: Int = 1
     var body: some View {
         NavigationView {
             ScrollView {
@@ -243,6 +245,114 @@ extension UserSignUpFormView {
             }
         }
     }
+    private var preferredGymPickersGroup: some View {
+        GroupBox {
+            StyledPicker(title: "Preferred Gym 1", picker: { preferredGym1Picker })
+            StyledPicker(title: "Preferred Gym 2", picker: { preferredGym2Picker })
+            .if(numberOfPickersShownGym < 2) { _ in
+                EmptyView()
+            }
+            StyledPicker(title: "Preferred Gym 3", picker: { preferredGym3Picker })
+            .if(numberOfPickersShownGym < 3) { _ in
+                EmptyView()
+            }
+            Group {
+                HStack {
+                    Spacer()
+                    // remove
+                    Button {
+                        if numberOfPickersShownGym > 1 {
+                            numberOfPickersShownGym -= 1
+                            signUpFormVM.preferredGyms[numberOfPickersShownGym] = .none
+                        }
+                    } label: {
+                        Label("Remove", systemImage: "minus.circle.fill")
+                        
+                            .padding(.horizontal, UIScreen.main.bounds.width / 10)
+                            .padding(.vertical, 5)
+                            .foregroundColor(.red)
+                    }
+                    .foregroundColor(.gray)
+                    .if(numberOfPickersShownGym == 1) { _ in
+                        EmptyView()
+                    }
+                    // add
+                    Button {
+                        if numberOfPickersShownGym < 3 {
+                            numberOfPickersShownGym += 1
+                        }
+                    } label: {
+                        Label("Add", systemImage: "plus.circle.fill")
+                            .padding(.horizontal, UIScreen.main.bounds.width / 10)
+                            .padding(.vertical, 5)
+                            .foregroundColor(.accentColor)
+                    }
+                    .if(numberOfPickersShownGym == 3 || (numberOfPickersShownGym == 2 && signUpFormVM.preferredGyms[1] == .none)) { _ in
+                        EmptyView()
+                    }
+                    Spacer()
+                }
+            }
+            .if(signUpFormVM.preferredGyms[0] == .none) { _ in
+                EmptyView()
+            }
+            
+        }
+    }
+    private var workoutTypePickersGroup: some View {
+        GroupBox {
+            StyledPicker(title: "Workout Type 1", picker: { workoutType1Picker })
+            StyledPicker(title: "Workout Type 2", picker: { workoutType2Picker })
+            .if(numberOfPickersShownWorkoutType < 2) { _ in
+                EmptyView()
+            }
+            StyledPicker(title: "Workout Type 3", picker: { workoutType3Picker })
+            .if(numberOfPickersShownWorkoutType < 3) { _ in
+                EmptyView()
+            }
+            Group {
+                HStack {
+                    Spacer()
+                    // remove
+                    Button {
+                        if numberOfPickersShownWorkoutType > 1 {
+                            numberOfPickersShownWorkoutType -= 1
+                            signUpFormVM.typesOfWorkOut[numberOfPickersShownWorkoutType] = .none
+                        }
+                    } label: {
+                        Label("Remove", systemImage: "minus.circle.fill")
+                        
+                            .padding(.horizontal, UIScreen.main.bounds.width / 10)
+                            .padding(.vertical, 5)
+                            .foregroundColor(.red)
+                    }
+                    .foregroundColor(.gray)
+                    .if(numberOfPickersShownWorkoutType == 1) { _ in
+                        EmptyView()
+                    }
+                    // add
+                    Button {
+                        if numberOfPickersShownWorkoutType < 3 {
+                            numberOfPickersShownWorkoutType += 1
+                        }
+                    } label: {
+                        Label("Add", systemImage: "plus.circle.fill")
+                            .padding(.horizontal, UIScreen.main.bounds.width / 10)
+                            .padding(.vertical, 5)
+                            .foregroundColor(.accentColor)
+                    }
+                    .if(numberOfPickersShownWorkoutType == 3 || (numberOfPickersShownWorkoutType == 2 && signUpFormVM.typesOfWorkOut[1] == .none)) { _ in
+                        EmptyView()
+                    }
+                    Spacer()
+                }
+            }
+            .if(signUpFormVM.typesOfWorkOut[0] == .none) { _ in
+                EmptyView()
+            }
+            
+        }
+    }
     private var priceRange: some View {
         Group {
             HStack {
@@ -258,16 +368,8 @@ extension UserSignUpFormView {
             titlePreferences
             trainerGender
             gymLocation
-            GroupBox {
-                StyledPicker(title: "Preferred Gym 1") { preferredGym1Picker }
-                StyledPicker(title: "Preferred Gym 2") { preferredGym2Picker }
-                StyledPicker(title: "Preferred Gym 3") { preferredGym3Picker }
-            }
-            GroupBox {
-                StyledPicker(title: "Workout Type 1") { workoutType1Picker }
-                StyledPicker(title: "Workout Type 2") { workoutType2Picker }
-                StyledPicker(title: "Workout Type 3") { workoutType3Picker }
-            }
+            preferredGymPickersGroup
+            workoutTypePickersGroup
             priceRange
         }
     }
