@@ -18,10 +18,11 @@ struct UserSignUpFormView: View {
             ScrollView {
                 profileImageSection
                 personalInfoSection
-                Divider()
+                    Divider()
                 preferenceSection
-                Divider()
+                    Divider()
                 metricsSection
+               
                 if !signUpFormVM.error.isEmpty {
                     Text(signUpFormVM.error)
                         .bold()

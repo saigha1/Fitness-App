@@ -14,36 +14,30 @@ class PTValidationModel: ObservableObject {
     @Published var error: String = ""
     //State properties for fields
     @Published var name: String = ""
-  
-//    @Published var phone: String = ""
-//    @Published var email: String = ""
-    @Published var experienceLevel : PTexperienceLevel = .select
+    @Published var email: String = ""
+    @Published var phone: String = ""
+    @Published var gender : TrainerGender = .select
     @Published var education: PTEducationLevel = .select
-    @Published var certification: [certificates] = [.select,.select]
+    @Published var certificate: [certificates] = [.select,.select]
+    @Published var experienceLevel : PTexperienceLevel = .select
     @Published var city : gymLocation = .select
-
-    @Published var typeOfExercise: [typesOfWorkOut] = [.select, .select, .select]
-    @Published var description: String = ""
-    @Published var motto: String = ""
-    @Published var isFeaturedToStore: Bool = false
-    @Published var isFavoriteToStore: Bool = false
-    @Published var isProfImg: String = ""
     @Published var gymPreferencePublished : [gymPreferrence] = [.select, .select, .select]
+    @Published var typeOfExercise: [typesOfWorkOut] = [.select, .select, .select]
+    @Published var motto: String = ""
+    @Published var description: String = ""
+    
     @Published var inputImage: [UIImage] = []
     @Published var videoURL: [String] = []
     @Published var selectedImage: UIImage?
-    @Published var gender : TrainerGender = .select
+    
     @Published var selectedImageBool : Bool = false
     var nameToStore: Int = 0
     
-    var ageToStore: Int = 0
-    var phoneNumberToStore: String = ""
-    var emailToStore: String = ""
-    
-   
-    var trainersGenderToStore: String = ""
-    var gymLocationToStore: String = ""
-    var workoutTypesToStore: [String] = []
+    //What is this for?
+    @Published var isFeaturedToStore: Bool = false
+    @Published var isFavoriteToStore: Bool = false
+    @Published var ptApproved: Bool = false
+
     
     
     func workoutTypesSelectable(_ index: Int) -> [typesOfWorkOut]{
@@ -71,39 +65,42 @@ class PTValidationModel: ObservableObject {
         guard validateSelfie() else { return }
 
        
-
+        
         #if DEBUG
-//        let usersBeforeCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
-//        print(usersBeforeCreating.count)
+        let usersBeforeCreating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
+        print(usersBeforeCreating.count)
         #endif
         
         // create new user and save to JSON in .document directory
-//        let newPT = PTModel(
-//            id: UUID().uuidString,
-//            name: name,
-//            gender: trainersGenderToStore,
-//            phone: phoneNumberToStore,
-//            email: emailToStore,
-//            isFeatured: isFeaturedToStore,
-//            isFavorite: isFavoriteToStore,
-//            description: Description,
-//            motto: Motto,
-//            profileImg: isProfImg,
-//            education: education,
-//            certification: Certification,
-//            selectedExperience: experienceLevel,
-//
-//            cityLocation: city,
-//            workoutTypes : typeOfExercise,
-//            gymPreference: gymPreferencePublished
-//        )
-//
-//        add(newEntry: newPT, filename: "PTs.json", location: .document)
+        let newPT = PTModel(
+            id: UUID().uuidString,
+            name: name,
+            email: email,
+            phone: phone,
+            gender: gender,
+            isFeatured: isFeaturedToStore,
+            isFavorite: isFavoriteToStore,
+            isApproved: ptApproved,
+            
+            education: education,
+            certification: certificate,
+            selectedExperience: experienceLevel,
+            cityLocation: city,
+            gymPreference: gymPreferencePublished,
+            workoutTypes : typeOfExercise,
+            motto: motto,
+            description: description,
+            inputImage:inputImage,
+            videoUrl: videoURL,
+            selectedImage: selectedImage
+        )
+
+        add(newEntry: newPT, filename: "PTs.json", location: .document)
         
-//        #if DEBUG
-//        let usersAfterCreating: [EndUser] = load(filename: "EndUser.json", location: .document) ?? []
-//        print(usersAfterCreating.count)
-//        #endif
+        #if DEBUG
+        let usersAfterCreating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
+        print(usersAfterCreating.count)
+        #endif
     }
 }
 
@@ -119,17 +116,17 @@ extension PTValidationModel{
         }
     }
     
-//    func validatePhoneNum()-> Bool{
-//
-//        if phone.isNumeric && phone.count == 10 {
-//            error = ""
-//            self.phoneNumberToStore = phone
-//            return true
-//        } else {
-//            error = "Invalid phone number."
-//            return false
-//        }
-//    }
+    func validatePhoneNum()-> Bool{
+
+        if phone.isNumeric && phone.count == 10 {
+            error = ""
+//            self.phone = phone
+            return true
+        } else {
+            error = "Invalid phone number."
+            return false
+        }
+    }
 //
 //    func validateEmail() -> Bool{
 //        if !email.isEmpty && email.isEmail {
@@ -211,16 +208,16 @@ extension PTValidationModel{
     }
     
     func validateCertificate() -> Bool{
-        if (certification[0] != .select) {
-            if (certification[1] != .select) {
+        if (certificate[0] != .select) {
+            if (certificate[1] != .select) {
                     error = ""
                     return true
                 } else {
-                    error = "Please make a certification selection"
+                    error = "Please make a certficate selection"
                     return false
                 }
             } else {
-                error = "Please make a second certification selection. Or delete the entry."
+                error = "Please make a second certficate selection. Or delete the entry."
                 return false
             }
     }
@@ -284,17 +281,5 @@ extension PTValidationModel{
             return false
         }
     }
-    
-    
-    
-//    func validateWorkoutTypes() -> Bool{
-//        
-//        var validCount: Int = 0
-//        for i in typesOfWorkOut {
-//            if workoutTypes.contains(i) {
-//                validCount += 1
-//            }
-//        }
-//        return validCount == 3
-//    }
+
 }

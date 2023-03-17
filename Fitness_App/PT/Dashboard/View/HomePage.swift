@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct HomePage: View {
-    @State var pTApproved : Bool = false
+//    @State var pTApproved : Bool = false
     @State var pending : Bool = false
     @State var rejected : Bool = false
     @State var submitted : Bool = false
     
     @State var isEndUserApproved: Bool = false
+    @EnvironmentObject var ptVM : PTValidationModel
     
     @EnvironmentObject var authVM : AuthViewModel
     
@@ -43,10 +44,10 @@ struct HomePage_Previews: PreviewProvider {
 
 extension HomePage {
     //PT
-    private var homePageForPT: some View {
+     var homePageForPT: some View {
         Group {
             if let user = authVM.currentPTUser {
-                if (pTApproved){
+                if (ptVM.ptApproved){
                     TabView{
                         Dashboard()
                             .tabItem{

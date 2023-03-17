@@ -11,7 +11,6 @@ struct Dashboard: View {
     @EnvironmentObject var authVM : AuthViewModel
     @State var isPTProfileComplete : Bool = false
     
-//    var user: NewEndUser
     var body: some View {
         NavigationView {
             VStack{

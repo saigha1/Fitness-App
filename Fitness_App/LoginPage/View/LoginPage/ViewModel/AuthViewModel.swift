@@ -40,8 +40,8 @@ class AuthViewModel: ObservableObject {
     
     @Published var currentEndUser: NewEndUser?
     @Published var currentPTUser: PTModel?
-    
-    @EnvironmentObject var authVM: AuthViewModel
+    //TODO: GETTING ERROR FROM THIS
+//    @EnvironmentObject var authVM: AuthViewModel
     
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
@@ -545,8 +545,8 @@ extension AuthViewModel {
         print("Email", firebaseUser.email ?? "")
         print("Phone", firebaseUser.phoneNumber ?? "")
         #endif
-        
-        if authVM.isEnderUser{
+        //TODO: Explain. //Changed this
+        if isEnderUser{
             let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
             
             if allUsersApproved.count <= 0 {
@@ -557,15 +557,15 @@ extension AuthViewModel {
                     isApproved = true
                 }
             }
-            
-        } else {
+            //Changed this
+        } else if !isEnderUser{
             let allUsersApproved: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
             
             if allUsersApproved.count <= 0 {
                 isApproved = false
             } else {
-                if let currentEndUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
-                    self.currentPTUser = currentEndUser
+                if let currentPTUser = allUsersApproved.first(where: { $0.id == firebaseUser.uid }) {
+                    self.currentPTUser = currentPTUser
                     isApproved = true
                 }
             }

@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-//var gender = ["Male", "Female"]
-var trainingCategory = ["Calisthenics", "General", "Weight Lifting", "Machine"]
-var experienceLevel = ["Level 1", "Level 2", "Level 3"]
-var educationLevel = ["Diploma", "Bachelor's", "Master's"]
-var certification = ["CanFit", "Conditioning", "Competition"]
-var location = ["Mississauga", "Toronto"]
-var gymOption = ["Square One GoodLife", " Eaton Center GoodLife", "Toronto GoodLife"]
+////var gender = ["Male", "Female"]
+//var trainingCategory = ["Calisthenics", "General", "Weight Lifting", "Machine"]
+//var experienceLevel = ["Level 1", "Level 2", "Level 3"]
+//var educationLevel = ["Diploma", "Bachelor's", "Master's"]
+//var certficate = ["CanFit", "Conditioning", "Competition"]
+//var location = ["Mississauga", "Toronto"]
+//var gymOption = ["Square One GoodLife", " Eaton Center GoodLife", "Toronto GoodLife"]
 
 struct Sign_Up_View: View {
     
@@ -30,14 +30,14 @@ struct Sign_Up_View: View {
 //    @State var selectedGym  : [gymPreferrence] = [.GoodLife, .FitnessPlanet, .UFC]
     
     @State var PT : PTModel
-    @State var ptVM : PTValidationModel
+    @EnvironmentObject var ptVM : PTValidationModel
     @EnvironmentObject var authVM : AuthViewModel
     
     //For Image/Video
     @State private var showingImagePicker = false
     @State private var videoPickerIsPresented = false
    
-    @State private var  profImage : UIImage?
+    
     
     
     //For Camera/Selfie
@@ -100,15 +100,44 @@ struct Sign_Up_View: View {
                 //Name
                 HStack{
                     Text("Name:")
-                    
+    
                     Spacer()
                     
                     if isEditing{
-                        TextField("Name", text: $PT.name) //PTModel
+                        TextField("Name", text: $ptVM.name) //PTModel
                             .frame(width: UIScreen.main.bounds.width/5)
                             .border(.purple, width: 2)
                     } else{
                         Text(PT.name)
+                    }
+                }
+                //email
+                HStack{
+                    Text("Email:")
+                    
+                    Spacer()
+                    Group{
+                        if isEditing{
+                            TextField("Email", text: $ptVM.email) //PTModel
+                                .frame(width: UIScreen.main.bounds.width/5)
+                                .border(.purple, width: 2)
+                        } else{
+                            Text(PT.email)
+                        }
+                    }
+                }
+                //phone
+                HStack{
+                    Text("Phone:")
+                    
+                    Spacer()
+                    
+                    if isEditing{
+                        TextField("Phone", text: $ptVM.phone) //PTModel
+                            .frame(width: UIScreen.main.bounds.width/5)
+                            .border(.purple, width: 2)
+                    } else{
+                        Text(PT.phone)
                     }
                 }
                 
@@ -122,13 +151,89 @@ struct Sign_Up_View: View {
                         Picker("Gender", selection: $ptVM.gender) {
                             ForEach(TrainerGender.allCases, id: \.self) {
                                 Text($0.rawValue)
+//                                    .tag($0.rawValue)
                             }
                         }
+                        .pickerStyle(.menu)
                     } else{
                         Text(ptVM.gender.rawValue)
                     }
                 }
                 
+               
+            }
+            
+            //Education
+            GroupBox{
+                
+                //Education
+                HStack{
+                    Text("Education:")
+                    Spacer()
+                    
+                    if isEditing{
+                        Picker("Education", selection: $ptVM.education){
+                            ForEach(PTEducationLevel.allCases, id: \.self){
+                                Text($0.rawValue)
+                                    .tag($0.rawValue)
+                            }
+                        }
+                    } else{
+                        Text(ptVM.education.rawValue)
+                    }
+                }
+                //Certificates
+                HStack{
+                    Text("Certificates #1:")
+                    Spacer()
+                    
+                    if isEditing{
+                        Picker("certficate #1", selection: $ptVM.certificate){
+                            ForEach(certificates.allCases, id: \.self){
+                                Text($0.rawValue)
+                                    .tag($0.rawValue)
+                            }
+                        }
+                    }else{
+                        Text(ptVM.certificate[0].rawValue)
+                    }
+                }
+                
+                HStack{
+                    Text("Certificates #2:")
+                    Spacer()
+                    
+                    if isEditing{
+                        Picker("certficate", selection: $ptVM.certificate){
+                            ForEach(certificates.allCases, id: \.self){
+                                Text($0.rawValue)
+                                    .tag($0.rawValue)
+                            }
+                        }
+                    }else{
+                        Text(ptVM.certificate[1].rawValue)
+                    }
+                }
+                //Experience Level
+                HStack{
+                    Text("Experience Level:")
+                    Spacer()
+                    
+                    if isEditing{
+                        Picker("Experience Level", selection: $ptVM.experienceLevel){
+                            ForEach(PTexperienceLevel.allCases, id: \.self){
+                                Text($0.rawValue)
+                                    .tag($0.rawValue)
+                            }
+                        }
+                    }else{
+                        Text(ptVM.experienceLevel.rawValue)
+                    }
+                }
+            }
+            
+            //Gym Preferrence : 3 categories
+            GroupBox{
                 //Current Location
                 HStack{
                     Text("City:")
@@ -144,10 +249,7 @@ struct Sign_Up_View: View {
                         Text(ptVM.city.rawValue)
                     }
                 }
-            }
-            
-            //Gym Preferrence : 3 categories
-            GroupBox{
+                //Gym1
                 HStack(alignment: .top){
                     Text("Gym(s):")
                         .padding(.trailing, 10)
@@ -254,69 +356,7 @@ struct Sign_Up_View: View {
                     .frame(width: UIScreen.main.bounds.width/3.5)
                 }
             }
-            GroupBox{
-                
-                //Education
-                HStack{
-                    Text("Education:")
-                    Spacer()
-                    
-                    if isEditing{
-                        Picker("Education", selection: $ptVM.education){
-                            ForEach(PTEducationLevel.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    } else{
-                        Text(ptVM.education.rawValue)
-                    }
-                }
-                //Certificates
-                HStack{
-                    Text("Certificates #1:")
-                    Spacer()
-                    
-                    if isEditing{
-                        Picker("Certification #1", selection: $ptVM.certification){
-                            ForEach(certificates.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(ptVM.certification[0].rawValue)
-                    }
-                }
-                
-                HStack{
-                    Text("Certificates #2:")
-                    Spacer()
-                    
-                    if isEditing{
-                        Picker("Certification", selection: $ptVM.certification){
-                            ForEach(certificates.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(ptVM.certification[1].rawValue)
-                    }
-                }
-                //Experience Level
-                HStack{
-                    Text("Experience Level:")
-                    Spacer()
-                    
-                    if isEditing{
-                        Picker("Experience Level", selection: $ptVM.experienceLevel){
-                            ForEach(PTexperienceLevel.allCases, id: \.self){
-                                Text($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(ptVM.experienceLevel.rawValue)
-                    }
-                }
-            }
+          
 
             //Motto,Description
             //If you still look cute at the end of your workout, you didn't work hard enough
@@ -549,6 +589,6 @@ struct Sign_Up_View: View {
 //TODO: Neeeds work
 //struct Sign_Up_View_Previews: PreviewProvider {
 //    static var previews: some View {
-//        Sign_Up_View(PT: PTModel(id: "1001", name: "Hello", gender: "Hello", phone: "Hello", email: "Hello", experienceLevel: "Hello", education: "Hello", certification: "Hello", city: "Mississauga", isFeatured: true, isFavorite: false, description: "Hello", motto: "Gym", profileImg: "Hello", gymLocation: "Mississauga", workoutTypes: typesOfWorkOut.calisthenic ?? typesOfWorkOut , gymPreference: gymPreferrence(rawValue: "GoodLife") ?? gymPreferrence.GoodLife ))
+//        Sign_Up_View(PT: PTModel(id: "1001", name: "Hello", gender: "Hello", phone: "Hello", email: "Hello", experienceLevel: "Hello", education: "Hello", certficate: "Hello", city: "Mississauga", isFeatured: true, isFavorite: false, description: "Hello", motto: "Gym", profileImg: "Hello", gymLocation: "Mississauga", workoutTypes: typesOfWorkOut.calisthenic ?? typesOfWorkOut , gymPreference: gymPreferrence(rawValue: "GoodLife") ?? gymPreferrence.GoodLife ))
 //    }
 //}

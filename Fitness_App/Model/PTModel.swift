@@ -10,21 +10,28 @@ import SwiftUI
 
 struct PTModel: Hashable, Codable{
     
-    var id, name, phone: String
-    var email: String
-    var isFeatured, isFavorite: Bool
-     // Needs to change to UIImage
-//    var image: some View{
-//        profileImg.asProfileImage()
-//    }
-    var gender : TrainerGender
+    var id : String
+    var ptProfileImage : String
+    var ptImage: some View{
+        ptProfileImage.asProfileImage()
+    }
+    var name, email, phone: String
+    var gender : [TrainerGender]
+    var isFeatured, isFavorite, isApproved: Bool
+
+    
     var education : PTEducationLevel
     var certification : [certificates]
     var selectedExperience : PTexperienceLevel
     var cityLocation : gymLocation
-    var workoutTypes : [typesOfWorkOut]
     var gymPreference : [gymPreferrence]
-    var description, motto, profileImg: String
+    var workoutTypes : [typesOfWorkOut]
+    var motto, description: String
+    
+//    var inputImage: [UIImage]
+    var videoUrl: [String]
+//    var selectedImage : UIImage?
+    
 }
 
 enum gymLocation : String, CaseIterable, Codable{
@@ -62,6 +69,7 @@ enum PTexperienceLevel : String, CaseIterable, Codable{
     case One = "Level 1"
     case Two = "Level 2"
     case Three = "Level 3"
+    case Other
 }
 
 enum gymPreferrence : String, CaseIterable, Codable{
@@ -70,6 +78,7 @@ enum gymPreferrence : String, CaseIterable, Codable{
     case FitnessPlanet = "Planet Fitness"
     case UFC = "UFC"
     case LAFitness = "LA Fitness"
+    case Other
 }
 
 enum typesOfWorkOut: String, CaseIterable, Codable{
@@ -78,6 +87,7 @@ enum typesOfWorkOut: String, CaseIterable, Codable{
     case americanBoxing = "Boxing"
     case weights = "Weights"
     case machine = "Machine"
+    case Other
 }
 
 
