@@ -26,7 +26,7 @@ struct NewEndUser: Codable, Identifiable, Equatable {
     //Preferences
     var preferredTrainerGender: TrainerGender
     var gymLocation: String
-    var preferredGym: PreferredGym
+    var preferredGym: [PreferredGym]
     var typesOfWorkOut: [WorkOutType]
     var preferredPriceRange: PriceRange
     //Health Metrics
@@ -40,7 +40,7 @@ struct NewEndUser: Codable, Identifiable, Equatable {
 }
 
 enum PreferredGym: String, Codable, CaseIterable {
-    case select = "--select--"
+    case none = "Select"
     case anytime = "Anytime Fitness"
     case fitForLess = "FitForLess"
     case goodLife = "GoodLife"
@@ -48,7 +48,7 @@ enum PreferredGym: String, Codable, CaseIterable {
 }
 
 enum WorkOutType: String, Codable, CaseIterable {
-    case select = "--select--"
+    case none = "Select"
     case machine = "Machine-based"
     case boxing = "Boxing"
     case lifting = "Weight-lifting"

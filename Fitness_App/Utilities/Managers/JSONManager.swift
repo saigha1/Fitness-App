@@ -81,6 +81,7 @@ func add<T: Codable>(newEntry: T, filename: String, location: FileLocation) {
 
 func remove<T: Codable & Equatable>(entry: T, filename: String, location: FileLocation) {
     var entities: [T] = load(filename: filename, location: location) ?? []
+    guard entities.count > 0 else { return }
     //entities.append(entry)
     entities.removeAll { $0 == entry }
     var file: URL
@@ -112,6 +113,7 @@ func remove<T: Codable & Equatable>(entry: T, filename: String, location: FileLo
 // Update data in JSON
 func update<T: Codable & Equatable>(old: T, new: T, filename: String, location: FileLocation) {
     var entities: [T] = load(filename: filename, location: location) ?? []
+    guard entities.count > 0 else { return }
     entities.removeAll { $0 == old }
     entities.append(new)
     var file: URL

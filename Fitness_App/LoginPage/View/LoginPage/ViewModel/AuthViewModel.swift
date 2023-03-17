@@ -40,9 +40,7 @@ class AuthViewModel: ObservableObject {
     
     @Published var currentEndUser: NewEndUser?
     @Published var currentPTUser: PTModel?
-    //TODO: GETTING ERROR FROM THIS
-//    @EnvironmentObject var authVM: AuthViewModel
-    
+
     //MARK: Private Properties
     private let fbLoginManager = LoginManager()
     private var currentNonce: String?

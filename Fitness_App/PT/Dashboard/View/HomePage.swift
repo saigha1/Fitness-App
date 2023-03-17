@@ -93,6 +93,7 @@ extension HomePage {
                     endUserApprovalCheck()
                 } content: {
                     UserSignUpFormView()
+                        .environmentObject(authVM)
                 }
 
             }

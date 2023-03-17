@@ -29,7 +29,7 @@ struct Fitness_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            Sign_Up_View()
+            LoginPage()
 //                .environmentObject(modelData)
             
             LoginPage()

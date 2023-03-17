@@ -11,6 +11,7 @@ struct Dashboard: View {
     @EnvironmentObject var authVM : AuthViewModel
     @State var isPTProfileComplete : Bool = false
     
+    //    var user: NewEndUser
     var body: some View {
         NavigationView {
             VStack{
@@ -25,13 +26,12 @@ struct Dashboard: View {
                 } label: {
                     Text("Sign Out")
                 }
-
+                
             }
             .navigationTitle("Dashboard")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                !authVM.isEnderUser ? UserProfileIconView() : UserProfileIconView()
-                    
+                    UserProfileIconView().environmentObject(authVM)
                 }
             }
         }
@@ -55,7 +55,7 @@ struct Dashboard_Previews: PreviewProvider {
         email: "mlogan2000@icloud.com",
         preferredTrainerGender: .m,
         gymLocation: "Etobicoke, ON",
-        preferredGym: .fitForLess,
+        preferredGym: [.anytime, .fitForLess, .goodLife],
         typesOfWorkOut: [.boxing, .lifting],
         preferredPriceRange: PriceRange(
             currency: .cad,
