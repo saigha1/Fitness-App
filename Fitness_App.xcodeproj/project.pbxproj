@@ -68,6 +68,7 @@
 		2545A605298D60C500310999 /* AuthenticationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A604298D60C500310999 /* AuthenticationFlow.swift */; };
 		2545A608298D60D900310999 /* FireBaseSignInWithAppleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A606298D60D800310999 /* FireBaseSignInWithAppleView.swift */; };
 		2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2545A607298D60D900310999 /* FireBaseSignInWithEmailView.swift */; };
+		254A6F2C29C4B82300B22A93 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254A6F2B29C4B82300B22A93 /* View.swift */; };
 		2558E65629B7B6660099BC0A /* EndUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558E65529B7B6660099BC0A /* EndUserProfileViewModel.swift */; };
 		256E909D2993EA11005138B4 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E909C2993EA11005138B4 /* Double.swift */; };
 		256E909F2993FAF1005138B4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E909E2993FAF1005138B4 /* String.swift */; };
@@ -149,6 +150,7 @@
 		2545A604298D60C500310999 /* AuthenticationFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationFlow.swift; sourceTree = "<group>"; };
 		2545A606298D60D800310999 /* FireBaseSignInWithAppleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithAppleView.swift; sourceTree = "<group>"; };
 		2545A607298D60D900310999 /* FireBaseSignInWithEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseSignInWithEmailView.swift; sourceTree = "<group>"; };
+		254A6F2B29C4B82300B22A93 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		2558E65529B7B6660099BC0A /* EndUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserProfileViewModel.swift; sourceTree = "<group>"; };
 		256E909C2993EA11005138B4 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		256E909E2993FAF1005138B4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 				256E909E2993FAF1005138B4 /* String.swift */,
 				25C09DAD299536A500099C8E /* Date.swift */,
 				25C09DAF29953E7F00099C8E /* Array.swift */,
+				254A6F2B29C4B82300B22A93 /* View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				049991B429A84CB7005B1DD2 /* ImageView.swift in Sources */,
 				049833422954975400724C7B /* ContentView.swift in Sources */,
 				2570932D298D6E62004D9176 /* AuthViewModel.swift in Sources */,
+				254A6F2C29C4B82300B22A93 /* View.swift in Sources */,
 				047C5FA629942D82000A4F49 /* GymModel.swift in Sources */,
 				04A1924C299A9460000792B4 /* Dashboard.swift in Sources */,
 				04BC0EFC298C1EF7000EE16E /* FacebookFirebaseSignIn.swift in Sources */,

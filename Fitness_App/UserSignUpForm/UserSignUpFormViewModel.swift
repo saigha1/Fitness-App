@@ -169,12 +169,7 @@ extension UserSignUpFormViewModel {
     }
     
     private func validateWorkoutTypes() -> Bool {
-        var isValid = true
-        for type in typesOfWorkOut {
-            if type == .none {
-                isValid = false
-            }
-        }
+        let isValid = typesOfWorkOut[0] != .none
         if !isValid {
             error = "Please select a workout type."
         }
@@ -182,12 +177,7 @@ extension UserSignUpFormViewModel {
     }
     
     private func validatePreferredGym() -> Bool {
-        var isValid = true
-        for type in typesOfWorkOut {
-            if type == .none {
-                isValid = false
-            }
-        }
+        let isValid = preferredGyms[0] != .none
         if !isValid {
             error = "Please select a preferred gym."
         }
