@@ -35,18 +35,18 @@ struct UserProfileIconView: View {
             }
             else if !authVM.isEnderUser{
                 if let pTUser = authVM.currentPTUser {
-                    pTUser.profileImg.asProfileImage(45)
+                    pTUser.ptProfileImage.asProfileImage(45)
                         .onTapGesture {
                             shouldShowPTSheet.toggle()
                         }
                         .sheet(isPresented: $shouldShowPTSheet, content: {
                             if #available(iOS 16.0, *) {
-                                Sign_Up_View(PT: pTUser, ptVM: PTValidationModel())
+                                Sign_Up_View(PT: pTUser)
                                     .environmentObject(authVM)
                                     .presentationDetents([.large])
                             } else {
                                 // Fallback on earlier versions
-                                Sign_Up_View(PT: pTUser, ptVM: PTValidationModel())
+                                Sign_Up_View(PT: pTUser)
                                     .environmentObject(authVM)
                             }
                         })

@@ -16,19 +16,11 @@ import SwiftUI
 //var gymOption = ["Square One GoodLife", " Eaton Center GoodLife", "Toronto GoodLife"]
 
 struct Sign_Up_View: View {
-    
-    //    @StateObject var modelData : ModelData = ModelData()
+    @State private var showImagePicker: Bool = false
     @State var isEditing : Bool = false
-    
-    //Pickers
-//    @State var selectedGender : String = "Male"
-//    @State var selectedWorkOutCategory : [typesOfWorkOut] = [.calisthenic, .americanBoxing, .weights]
-//    @State var selectedExperience : PTexperienceLevel = .One
-//    @State var selectedEducation  : PTEducationLevel = .Diploma
-//    @State var selectedCertificate  : [certificates] = [.CanFitProI, .CanFitProII]
-//    @State var selectedLocation  : gymLocation = .Mississauga
-//    @State var selectedGym  : [gymPreferrence] = [.GoodLife, .FitnessPlanet, .UFC]
-    
+    @State var imageArray: [UIImage] = []
+
+
     @State var PT : PTModel
     @EnvironmentObject var ptVM : PTValidationModel
     @EnvironmentObject var authVM : AuthViewModel
@@ -97,6 +89,31 @@ struct Sign_Up_View: View {
         VStack(spacing: 10){
             
             GroupBox{
+                
+                //Profile Image
+                HStack{
+                    ptVM.profIMG[0].asProfileImage(100)
+                        .onTapGesture {
+                            showImagePicker.toggle()
+                        }
+                        .sheet(isPresented: $showImagePicker) {
+                            ImagePicker(image: $imageArray, selectionLimit: 1)
+                                .onChange(of: imageArray[0]) { newValue in
+                                    var profIMGString : String = ""
+                                        // Changed to jpeg data to compress data size
+                                        guard let imageData = newValue.jpegData(compressionQuality: 0.09) else { return }
+                                        profIMGString = "data:image/jpeg;base64," + imageData.base64EncodedString()
+                                }
+                            
+                        }
+                        .onAppear{
+                            guard let firebaseUser = authVM.currentUser else { return }
+                            ptVM.name = firebaseUser.displayName ?? ""
+                            ptVM.email = firebaseUser.email ?? ""
+                            ptVM.profIMG[0] = firebaseUser.photoURL?.absoluteString ?? ""
+                        }
+                }
+                
                 //Name
                 HStack{
                     Text("Name:")
@@ -108,7 +125,7 @@ struct Sign_Up_View: View {
                             .frame(width: UIScreen.main.bounds.width/5)
                             .border(.purple, width: 2)
                     } else{
-                        Text(PT.name)
+                        Text(ptVM.name)
                     }
                 }
                 //email
@@ -122,7 +139,7 @@ struct Sign_Up_View: View {
                                 .frame(width: UIScreen.main.bounds.width/5)
                                 .border(.purple, width: 2)
                         } else{
-                            Text(PT.email)
+                            Text(ptVM.email)
                         }
                     }
                 }
@@ -137,7 +154,7 @@ struct Sign_Up_View: View {
                             .frame(width: UIScreen.main.bounds.width/5)
                             .border(.purple, width: 2)
                     } else{
-                        Text(PT.phone)
+                        Text(ptVM.phone)
                     }
                 }
                 

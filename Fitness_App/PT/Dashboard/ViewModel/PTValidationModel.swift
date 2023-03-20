@@ -13,6 +13,7 @@ class PTValidationModel: ObservableObject {
     // State string for the error message
     @Published var error: String = ""
     //State properties for fields
+    @Published var profIMG : [String] = []
     @Published var name: String = ""
     @Published var email: String = ""
     @Published var phone: String = ""
@@ -72,8 +73,25 @@ class PTValidationModel: ObservableObject {
         #endif
         
         // create new user and save to JSON in .document directory
+        var imageString : [String] = []
+        
+        for image in inputImage{
+            // Changed to jpeg data to compress data size
+            guard let imageData = image.jpegData(compressionQuality: 0.09) else { return }
+            imageString.append("data:image/jpeg;base64," + imageData.base64EncodedString())
+        }
+        
+        //picture from camera
+        var selfieString : String = ""
+            guard let image = selectedImage else { return }
+        
+            // Changed to jpeg data to compress data size
+            guard let imageData = image.jpegData(compressionQuality: 0.09) else { return }
+            selfieString = "data:image/jpeg;base64," + imageData.base64EncodedString()
+        
         let newPT = PTModel(
             id: UUID().uuidString,
+            ptProfileImage: profIMG[0],
             name: name,
             email: email,
             phone: phone,
@@ -90,9 +108,9 @@ class PTValidationModel: ObservableObject {
             workoutTypes : typeOfExercise,
             motto: motto,
             description: description,
-            inputImage:inputImage,
+            imageString: imageString,
             videoUrl: videoURL,
-            selectedImage: selectedImage
+            selectedImage: selfieString
         )
 
         add(newEntry: newPT, filename: "PTs.json", location: .document)

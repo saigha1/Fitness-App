@@ -14,9 +14,10 @@ struct PTModel: Hashable, Codable{
     var ptProfileImage : String
     var ptImage: some View{
         ptProfileImage.asProfileImage()
+        
     }
     var name, email, phone: String
-    var gender : [TrainerGender]
+    var gender : TrainerGender
     var isFeatured, isFavorite, isApproved: Bool
 
     
@@ -28,9 +29,26 @@ struct PTModel: Hashable, Codable{
     var workoutTypes : [typesOfWorkOut]
     var motto, description: String
     
-//    var inputImage: [UIImage]
+   var imageString: [String]
+    var computedImage : [some View]{
+     var imageTemp : [AnyView] = []
+        for string in imageString{
+            imageTemp.append(AnyView(string.asProfileImage()))
+        }
+        return imageTemp
+    }
     var videoUrl: [String]
-//    var selectedImage : UIImage?
+    var selectedImage : String?
+    var ptselfie: some View {
+        Group{
+            if selectedImage != nil {
+                selectedImage!.asProfileImage()
+            } else{
+                EmptyView()
+            }
+        }
+    }
+    
     
 }
 
