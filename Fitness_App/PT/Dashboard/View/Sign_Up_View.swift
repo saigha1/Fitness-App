@@ -541,7 +541,9 @@ struct Sign_Up_View: View {
                         ForEach(ptVM.inputImage, id: \.self){ uiImage in
                             ZStack{
                                 ImageView(uiImage: uiImage)
+                                    .border(.purple)
                                 VStack(alignment: .leading, spacing: 15){
+                                   
                                     HStack{
                                         Spacer()
                                         if isEditing{
@@ -549,14 +551,17 @@ struct Sign_Up_View: View {
                                                 guard let index = ptVM.inputImage.firstIndex(of: uiImage) else { return }
                                                 ptVM.inputImage.remove(at: index)
                                             } label: {
-                                                Image(systemName: "delete.left.fill")
+                                                Image(systemName: "xmark.circle.fill")
+                                                    .foregroundColor(.assetColor.red)
                                             }
                                         }
                                     }
+                                    Spacer()
                                 }
-                            }
+                                
+                            }.frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/4)
                             
-                            .border(.purple)
+                           
                         }
                         //Button
                         if (isEditing) && (ptVM.inputImage.count < 3) {
@@ -578,6 +583,7 @@ struct Sign_Up_View: View {
                                     ImagePicker(image: $ptVM.inputImage, selectionLimit: 3)
                                 }
                             }
+                            
                         }
                         else if (isEditing) && (ptVM.inputImage.count == 3){
                             EmptyView()
@@ -726,7 +732,7 @@ struct Sign_Up_View: View {
         }//GroupBox
     }
     
-    //Portrait Photo
+    //Portrait Photo=> TODO: Need isApproved Bool to show this field
     var selfie: some View{
         GroupBox{
             HStack{
