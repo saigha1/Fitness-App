@@ -16,7 +16,7 @@ struct VideoPicker: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
         config.filter = .videos
-        config.selectionLimit = selectionLimit// ignores limit
+        config.selectionLimit = selectionLimit  // ignores limit
         
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = context.coordinator
@@ -64,7 +64,24 @@ struct VideoPicker: UIViewControllerRepresentable {
             }
         }
     }
-    
+}
 
-            
+
+func imageFromVideo(url: URL, at time: TimeInterval) -> UIImage? {
+    let asset = AVURLAsset(url: url)
+
+    let assetIG = AVAssetImageGenerator(asset: asset)
+    assetIG.appliesPreferredTrackTransform = true
+    assetIG.apertureMode = AVAssetImageGenerator.ApertureMode.encodedPixels
+
+    let cmTime = CMTime(seconds: time, preferredTimescale: 60)
+    let thumbnailImageRef: CGImage
+    do {
+        thumbnailImageRef = try assetIG.copyCGImage(at: cmTime, actualTime: nil)
+    } catch let error {
+        print("Error: \(error)")
+        return nil
+    }
+
+    return UIImage(cgImage: thumbnailImageRef)
 }

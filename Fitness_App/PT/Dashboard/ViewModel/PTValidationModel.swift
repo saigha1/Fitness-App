@@ -13,7 +13,7 @@ class PTValidationModel: ObservableObject {
     // State string for the error message
     @Published var error: String = ""
     //State properties for fields
-    @Published var profIMG : [String] = []
+    @Published var profIMG : [String] = [""]
     @Published var name: String = ""
     @Published var email: String = ""
     @Published var phone: String = ""
@@ -34,7 +34,7 @@ class PTValidationModel: ObservableObject {
     @Published var selectedImageBool : Bool = false
     var nameToStore: Int = 0
     
-    //What is this for?
+    //For features
     @Published var isFeaturedToStore: Bool = false
     @Published var isFavoriteToStore: Bool = false
     @Published var ptApproved: Bool = false
@@ -49,21 +49,47 @@ class PTValidationModel: ObservableObject {
         }
     }
     
-    func validateForm() {
+    func populateStates(_ user: PTModel) {
+        name = user.name
+        email = user.email
+        phone = user.phone
+        gender = user.gender
+        education = user.education
+        certificate = user.certification
+        experienceLevel = user.selectedExperience
+        city = user.cityLocation
+        gymPreferencePublished = user.gymPreference
+        typeOfExercise = user.workoutTypes
+        motto = user.motto
+        description = user.description
+        inputImage = {
+            var tempArray: [UIImage] = []
+            for IMG in user.imageString {
+                tempArray.append(IMG.asUIImage())
+            }
+            return tempArray
+        }()
+        videoURL = user.videoUrl
+        selectedImage = (user.selectedImage ?? "").asUIImage()
+    }
+    
+    func validateForm(_ firebaseUID: String) {
         // check if all validation functions returns true
         guard validateName() else { return }
+        guard validatePhoneNum() else { return }
+        guard validateEmail() else { return }
         guard validateGender() else { return }
-        guard validateCity() else { return }
-        guard validateGymPreferrence() else { return }
-        guard validateExerciseType() else { return }
         guard validateEducation() else { return }
         guard validateCertificate() else { return }
         guard validateExperienceLevel() else { return }
+        guard validateCity() else { return }
+        guard validateGymPreferrence() else { return }
+        guard validateExerciseType() else { return }
         guard validateMotto() else { return }
         guard validateDescription() else { return }
         guard validateImage() else { return }
         guard validateVideo() else { return }
-        guard validateSelfie() else { return }
+//        guard validateSelfie() else { return } TODO: Uncomment later.
 
        
         
@@ -78,19 +104,21 @@ class PTValidationModel: ObservableObject {
         for image in inputImage{
             // Changed to jpeg data to compress data size
             guard let imageData = image.jpegData(compressionQuality: 0.09) else { return }
-            imageString.append("data:image/jpeg;base64," + imageData.base64EncodedString())
+            imageString.append("" + imageData.base64EncodedString())
         }
         
         //picture from camera
         var selfieString : String = ""
-            guard let image = selectedImage else { return }
+//            guard let image = selectedImage else { return }
+//
+//            // Changed to jpeg data to compress data size
+//            guard let imageData = image.jpegData(compressionQuality: 0.09) else { return }
+//            selfieString = "data:image/jpeg;base64," + imageData.base64EncodedString()
         
-            // Changed to jpeg data to compress data size
-            guard let imageData = image.jpegData(compressionQuality: 0.09) else { return }
-            selfieString = "data:image/jpeg;base64," + imageData.base64EncodedString()
+        print("Creating a new PT")
         
         let newPT = PTModel(
-            id: UUID().uuidString,
+            id: firebaseUID,
             ptProfileImage: profIMG[0],
             name: name,
             email: email,
@@ -138,29 +166,29 @@ extension PTValidationModel{
 
         if phone.isNumeric && phone.count == 10 {
             error = ""
-//            self.phone = phone
             return true
         } else {
             error = "Invalid phone number."
             return false
         }
     }
-//
-//    func validateEmail() -> Bool{
-//        if !email.isEmpty && email.isEmail {
-//            error = ""
-//            self.emailToStore = email
-//            return true
-//        } else {
-//            error = "Invalid email."
-//            return false
-//        }
-//    }
-    
-    func validateGender() -> Bool{
-        if (gender.rawValue == "Male" || gender.rawValue == "Female") {
+
+    func validateEmail() -> Bool{
+        if !email.isEmpty && email.isEmail {
+            error = ""
             return true
         } else {
+            error = "Invalid email."
+            return false
+        }
+    }
+    
+    func validateGender() -> Bool{
+        if (gender != .select) {
+            error = ""
+            return true
+        } else {
+            error = "Please select a gender"
             return false
         }
     }
@@ -177,18 +205,8 @@ extension PTValidationModel{
     
     func validateGymPreferrence() -> Bool{
         if (gymPreferencePublished[0] != .select) {
-            if (gymPreferencePublished[1] != .select) {
-                if (gymPreferencePublished[2] != .select) {
-                    error = ""
-                    return true
-                } else {
-                    error = "Please make a gym #3 selection"
-                    return false
-                }
-            } else {
-                error = "Please make a gym #2 selection"
-                return false
-            }
+            error = ""
+            return true
         } else {
             error = "Please make a gym #1 selection"
             return false
@@ -197,18 +215,8 @@ extension PTValidationModel{
     
     func validateExerciseType() -> Bool{
         if (typeOfExercise[0] != .select) {
-            if (typeOfExercise[1] != .select) {
-                if (typeOfExercise[2] != .select) {
-                    error = ""
-                    return true
-                } else {
-                    error = "Please make a gym #3 selection"
-                    return false
-                }
-            } else {
-                error = "Please make a gym #2 selection"
-                return false
-            }
+            error = ""
+            return true
         } else {
             error = "Please make a gym #1 selection"
             return false
@@ -227,17 +235,12 @@ extension PTValidationModel{
     
     func validateCertificate() -> Bool{
         if (certificate[0] != .select) {
-            if (certificate[1] != .select) {
-                    error = ""
-                    return true
-                } else {
-                    error = "Please make a certficate selection"
-                    return false
-                }
-            } else {
-                error = "Please make a second certficate selection. Or delete the entry."
-                return false
-            }
+            error = ""
+            return true
+        } else {
+            error = "Please make a certficate selection."
+            return false
+        }
     }
     
     func validateExperienceLevel() -> Bool{
@@ -271,7 +274,7 @@ extension PTValidationModel{
     }
     
     func validateImage()-> Bool{
-        if inputImage.count != 3{
+        if inputImage.count != 0 &&  inputImage.count < 4{
             error = ""
             return true
         } else {
@@ -281,11 +284,11 @@ extension PTValidationModel{
     }
     
     func validateVideo()-> Bool{
-        if videoURL.count != 3{
+        if videoURL.count != 0 {
             error = ""
             return true
         } else {
-            error = "Please select 3 videos."
+            error = "Please select 1 videos."
             return false
         }
     }

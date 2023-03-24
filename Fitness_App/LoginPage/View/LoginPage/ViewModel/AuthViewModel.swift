@@ -36,7 +36,7 @@ class AuthViewModel: ObservableObject {
 //    @Published var user: User?
     @Published var errorMessage: String?
     @Published var currentUser: User? // User model in Firebase
-    @Published var isEnderUser: Bool = true
+    @Published var isEnderUser: Bool = false
     
     @Published var currentEndUser: NewEndUser?
     @Published var currentPTUser: PTModel?
@@ -535,7 +535,7 @@ extension AuthViewModel {
 extension AuthViewModel {
     func endUserApprovalCheck() -> Bool {
         var isApproved = false
-        guard let firebaseUser = currentUser, isEnderUser else { return false }
+        guard let firebaseUser = currentUser else { return false }
         #if DEBUG
         print("--------Firebase User Info----------")
         print("Object:", firebaseUser)
@@ -584,5 +584,12 @@ extension AuthViewModel {
         guard let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) else { return }
         guard let userFound: NewEndUser = allUsersApproved.first(where: { $0.id == id }) else { return }
         currentEndUser = userFound
+    }
+    
+    func refreshPTData() {
+        let id = currentUser?.uid ?? UUID().uuidString
+        guard let allUsersApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return }
+        guard let userFound: PTModel = allUsersApproved.first(where: { $0.id == id }) else { return }
+        currentPTUser = userFound
     }
 }

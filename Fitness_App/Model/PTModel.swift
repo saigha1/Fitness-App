@@ -53,7 +53,7 @@ struct PTModel: Hashable, Codable{
 }
 
 enum gymLocation : String, CaseIterable, Codable{
-    case select = "--select--"
+    case select = "-Select-"
     case Mississauga
     case Toronto = "Toronto"
     case NorthYork = "North York"
@@ -62,7 +62,7 @@ enum gymLocation : String, CaseIterable, Codable{
 }
 
 enum certificates : String, CaseIterable, Codable{
-    case select = "--select--"
+    case select = "-Select-"
     case CanFitProI = "CanFitPro I"
     case CanFitProII = "CanFitPro II"
     case CFES = "CFES"
@@ -73,7 +73,7 @@ enum certificates : String, CaseIterable, Codable{
 }
 
 enum PTEducationLevel : String, CaseIterable, Codable{
-    case select = "--select--"
+    case select = "-Select-"
     case Diploma = "Diploma"
     case Bachelors = "Bachelor's"
     case Masters = "Master's"
@@ -83,7 +83,7 @@ enum PTEducationLevel : String, CaseIterable, Codable{
 }
 
 enum PTexperienceLevel : String, CaseIterable, Codable{
-    case select = "--select--"
+    case select = "-Select-"
     case One = "Level 1"
     case Two = "Level 2"
     case Three = "Level 3"
@@ -91,7 +91,7 @@ enum PTexperienceLevel : String, CaseIterable, Codable{
 }
 
 enum gymPreferrence : String, CaseIterable, Codable{
-    case select = "--select--"
+    case select = "-Select-"
     case GoodLife = "GoodLife"
     case FitnessPlanet = "Planet Fitness"
     case UFC = "UFC"
@@ -100,7 +100,7 @@ enum gymPreferrence : String, CaseIterable, Codable{
 }
 
 enum typesOfWorkOut: String, CaseIterable, Codable{
-    case select = "--select--"
+    case select = "-Select-"
     case calisthenic = "Calisthenic"
     case americanBoxing = "Boxing"
     case weights = "Weights"

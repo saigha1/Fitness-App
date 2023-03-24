@@ -18,19 +18,16 @@ import SwiftUI
 struct Sign_Up_View: View {
     @State private var showImagePicker: Bool = false
     @State var isEditing : Bool = false
-    @State var imageArray: [UIImage] = []
+    @State var imageArray: [UIImage] = [UIImage(systemName: "person.fill")!]
+    @State var user: PTModel
 
-
-    @State var PT : PTModel
-    @EnvironmentObject var ptVM : PTValidationModel
+    @StateObject var ptVM = PTValidationModel()
     @EnvironmentObject var authVM : AuthViewModel
     
     //For Image/Video
     @State private var showingImagePicker = false
     @State private var videoPickerIsPresented = false
    
-    
-    
     
     //For Camera/Selfie
     @State private var cameraIsPresented = false
@@ -52,9 +49,7 @@ struct Sign_Up_View: View {
                     Button{
                         isEditing = isEditing ? false : true
                         if !isEditing{
-                            //TODO: fetch from JSON.
-                            //TODO: Add the stage for PT approval pending/rejected/approved=> Homepage() view for PT.
-                            //TODO: encodinig and decoding data and images
+                            authVM.refreshPTData()
                         }
                     } label: {
                         Text(isEditing ? "Done" : "Edit")
@@ -71,44 +66,84 @@ struct Sign_Up_View: View {
                 
                 
             }
+            Text(ptVM.error)
+                .foregroundColor(ptVM.error.isEmpty ? .clear : .red)
+            
             if isEditing{
+                
                 Button{
-                    ptVM.validateForm()
+                    var ptID: String
+                    if authVM.currentUser == nil {
+                        ptID = UUID().uuidString
+                    } else {
+                        ptID = authVM.currentUser!.uid
+                    }
+                    
+                    ptVM.validateForm(ptID)
                 } label:{
                     Text("Submit")
+                        .bold()
                 }
-                .foregroundColor(Color.purple)
+                
+                .frame(width: UIScreen.main.bounds.width/2, height:  UIScreen.main.bounds.width/7)
+                .background(Color.assetColor.pink)
+                .foregroundColor(Color.assetColor.white)
                 .cornerRadius(10)
                 
             }
-        }.frame(width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/10))
+        }.onAppear{
+            if let user = authVM.currentPTUser{
+                self.user = user
+                ptVM.populateStates(user)
+            }
+            
         }
+        .navigationTitle("Fill Profile")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    authVM.signOut()
+                } label: {
+                    Text("Sign Out")
+                }
+            }
+        }
+        .frame(width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/10))
+            
+        }
+       
     }
     
     var profileSummary: some View{
         VStack(spacing: 10){
-            
             GroupBox{
-                
+
                 //Profile Image
                 HStack{
                     ptVM.profIMG[0].asProfileImage(100)
+                        
                         .onTapGesture {
                             showImagePicker.toggle()
                         }
                         .sheet(isPresented: $showImagePicker) {
                             ImagePicker(image: $imageArray, selectionLimit: 1)
-                                .onChange(of: imageArray[0]) { newValue in
-                                    var profIMGString : String = ""
-                                        // Changed to jpeg data to compress data size
-                                        guard let imageData = newValue.jpegData(compressionQuality: 0.09) else { return }
-                                        profIMGString = "data:image/jpeg;base64," + imageData.base64EncodedString()
-                                }
-                            
+                        }
+                        .onChange(of: imageArray[0]) { newValue in
+                            var profIMGString : String = ""
+                                // Changed to jpeg data to compress data size
+                                guard let imageData = newValue.jpegData(compressionQuality: 0.09) else { return }
+                                profIMGString = "data:image/jpeg;base64," + imageData.base64EncodedString()
+                            ptVM.profIMG[0] = profIMGString
+                          
                         }
                         .onAppear{
+                            guard !user.isApproved  else { return }
                             guard let firebaseUser = authVM.currentUser else { return }
-                            ptVM.name = firebaseUser.displayName ?? ""
+                            if ptVM.name.isEmpty {
+                                ptVM.name = firebaseUser.displayName ?? ""
+                            }
+                            ptVM.phone = firebaseUser.phoneNumber ?? ""
                             ptVM.email = firebaseUser.email ?? ""
                             ptVM.profIMG[0] = firebaseUser.photoURL?.absoluteString ?? ""
                         }
@@ -121,13 +156,14 @@ struct Sign_Up_View: View {
                     Spacer()
                     
                     if isEditing{
-                        TextField("Name", text: $ptVM.name) //PTModel
-                            .frame(width: UIScreen.main.bounds.width/5)
-                            .border(.purple, width: 2)
+                        TextFieldView(textInput: $ptVM.name, placeholder: "Name", isPassword: false, width: UIScreen.main.bounds.width/3)
                     } else{
                         Text(ptVM.name)
+                        Spacer()
+                            .frame(width: UIScreen.main.bounds.width/9)
                     }
                 }
+                
                 //email
                 HStack{
                     Text("Email:")
@@ -135,11 +171,11 @@ struct Sign_Up_View: View {
                     Spacer()
                     Group{
                         if isEditing{
-                            TextField("Email", text: $ptVM.email) //PTModel
-                                .frame(width: UIScreen.main.bounds.width/5)
-                                .border(.purple, width: 2)
+                            TextFieldView(textInput: $ptVM.email, placeholder: "Email", isPassword: false, width: UIScreen.main.bounds.width/3)
                         } else{
                             Text(ptVM.email)
+                            Spacer()
+                                .frame(width: UIScreen.main.bounds.width/9)
                         }
                     }
                 }
@@ -150,11 +186,11 @@ struct Sign_Up_View: View {
                     Spacer()
                     
                     if isEditing{
-                        TextField("Phone", text: $ptVM.phone) //PTModel
-                            .frame(width: UIScreen.main.bounds.width/5)
-                            .border(.purple, width: 2)
+                        TextFieldView(textInput: $ptVM.phone, placeholder: "Phone", isPassword: false, width: UIScreen.main.bounds.width/3)
                     } else{
                         Text(ptVM.phone)
+                        Spacer()
+                            .frame(width: UIScreen.main.bounds.width/9)
                     }
                 }
                 
@@ -174,6 +210,9 @@ struct Sign_Up_View: View {
                         .pickerStyle(.menu)
                     } else{
                         Text(ptVM.gender.rawValue)
+                        Spacer()
+                            .frame(width: UIScreen.main.bounds.width/9)
+                        
                     }
                 }
                 
@@ -182,69 +221,106 @@ struct Sign_Up_View: View {
             
             //Education
             GroupBox{
-                
                 //Education
-                HStack{
-                    Text("Education:")
-                    Spacer()
-                    
-                    if isEditing{
+                
+                if isEditing{
+                    StyledPicker(title: "Education") {
                         Picker("Education", selection: $ptVM.education){
                             ForEach(PTEducationLevel.allCases, id: \.self){
                                 Text($0.rawValue)
-                                    .tag($0.rawValue)
+//                                    .tag($0.rawValue)
                             }
                         }
-                    } else{
+                    }
+                } else{
+                    HStack{
+                        Text("Education:")
+                        Spacer()
                         Text(ptVM.education.rawValue)
+                        Spacer()
+                            .frame(width: UIScreen.main.bounds.width/9)
                     }
                 }
+                Divider()
                 //Certificates
-                HStack{
-                    Text("Certificates #1:")
-                    Spacer()
-                    
-                    if isEditing{
-                        Picker("certficate #1", selection: $ptVM.certificate){
-                            ForEach(certificates.allCases, id: \.self){
-                                Text($0.rawValue)
-                                    .tag($0.rawValue)
-                            }
-                        }
-                    }else{
-                        Text(ptVM.certificate[0].rawValue)
-                    }
-                }
                 
-                HStack{
-                    Text("Certificates #2:")
-                    Spacer()
+                //                    Text("Certificates #1:")
+                //                    Spacer()
+//                HStack(alignment: .top){
+//                    if !isEditing{
+//                        Text("Certificate(s):")
+//                            .padding(.trailing, 10)
+//                        Spacer()
+//                    }
+//
+//                VStack(alignment: .trailing){
                     
                     if isEditing{
-                        Picker("certficate", selection: $ptVM.certificate){
-                            ForEach(certificates.allCases, id: \.self){
-                                Text($0.rawValue)
-                                    .tag($0.rawValue)
+
+                            StyledPicker(title: "certficate") {
+                                Picker("Certficate(s)", selection: $ptVM.certificate[0]){
+                                    ForEach(certificates.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                            .tag($0.rawValue)
+                                    }
+                                }
+                            }
+//                            .navigationTitle("Certificate #1")
+                    }else{
+                        
+                        HStack{
+                            Text("Certificate(s):")
+                                .padding(.trailing, 10)
+                            Spacer()
+                            Text(ptVM.certificate[0].rawValue)
+                            Spacer()
+                                .frame(width: UIScreen.main.bounds.width/9)
+                        }
+                    }
+                
+                HStack(alignment: .top){
+                    Spacer()
+                    VStack(alignment: .trailing){
+                        
+                    Divider()
+                    .frame(width: UIScreen.main.bounds.width/3.5)
+                        if isEditing{
+                            StyledPicker(title: "certficate #2") {
+                                Picker("", selection: $ptVM.certificate[1]){
+                                    ForEach(certificates.allCases, id: \.self){
+                                        Text($0.rawValue)
+                                            .tag($0.rawValue)
+                                    }
+                                }
+                            }
+                        } else {
+                            HStack{
+                                Text(ptVM.certificate[1].rawValue)
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width/9)
                             }
                         }
-                    }else{
-                        Text(ptVM.certificate[1].rawValue)
-                    }
                 }
+                .frame(width: UIScreen.main.bounds.width/3.5)
+            }
+            Divider()
                 //Experience Level
                 HStack{
-                    Text("Experience Level:")
-                    Spacer()
-                    
                     if isEditing{
-                        Picker("Experience Level", selection: $ptVM.experienceLevel){
-                            ForEach(PTexperienceLevel.allCases, id: \.self){
-                                Text($0.rawValue)
-                                    .tag($0.rawValue)
+                        StyledPicker(title: "Experience Level") {
+                            Picker("Experience Level", selection: $ptVM.experienceLevel){
+                                ForEach(PTexperienceLevel.allCases, id: \.self){
+                                    Text($0.rawValue)
+                                        .tag($0.rawValue)
+                                }
                             }
                         }
                     }else{
+                        Text("Experience Level:")
+                        Spacer()
                         Text(ptVM.experienceLevel.rawValue)
+                        Spacer()
+                            .frame(width: UIScreen.main.bounds.width/9)
                     }
                 }
             }
@@ -252,68 +328,85 @@ struct Sign_Up_View: View {
             //Gym Preferrence : 3 categories
             GroupBox{
                 //Current Location
-                HStack{
-                    Text("City:")
-                    Spacer()
-                    
                     if isEditing{
-                        Picker("Gym Location", selection: $ptVM.city){
-                            ForEach(gymLocation.allCases, id: \.self){
-                                Text($0.rawValue)
+                        StyledPicker(title: "City") {
+                            Picker("Gym Location", selection: $ptVM.city){
+                                ForEach(gymLocation.allCases, id: \.self){
+                                    Text($0.rawValue)
+                                }
                             }
                         }
                     }else{
-                        Text(ptVM.city.rawValue)
+                        HStack{
+                            Text("City:")
+                            Spacer()
+                            Text(ptVM.city.rawValue)
+                            Spacer()
+                                .frame(width: UIScreen.main.bounds.width/9)
+                        }
                     }
-                }
+                
+                Divider()
                 //Gym1
                 HStack(alignment: .top){
                     Text("Gym(s):")
+                        .foregroundColor(isEditing ? .blue : .black)
                         .padding(.trailing, 10)
                     Spacer()
                     VStack(alignment: .trailing){
                         //Gym 1
-                        HStack{
-                            if isEditing{
-                                Picker("Preferred Gym", selection: $ptVM.gymPreferencePublished[0]){
+                        if isEditing{
+                            StyledPicker(title: "Gym #1:") {
+                                Picker("", selection: $ptVM.gymPreferencePublished[0]){
                                     ForEach(gymPreferrence.allCases, id: \.self){
                                         Text($0.rawValue)
                                     }
                                 }
-                            }else{
+                            }
+                        }else{
+                            HStack{
                                 Text(ptVM.gymPreferencePublished[0].rawValue)
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width/9)
                             }
                         }
-                        Divider()
                         
+                        Divider()
                         //Gym2
-                        HStack{
-                            if isEditing{
-                                Picker("Preferred Gym", selection: $ptVM.gymPreferencePublished[1]){
+                        if isEditing{
+                            StyledPicker(title: "Gym #2") {
+                                Picker("", selection: $ptVM.gymPreferencePublished[1]){
                                     ForEach(gymPreferrence.allCases, id: \.self){
                                         Text($0.rawValue)
                                     }
                                 }
-                            }else{
+                            }
+                        }else{
+                            HStack{
                                 Text(ptVM.gymPreferencePublished[1].rawValue)
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width/9)
                             }
                         }
+                        
                         Divider()
                    
                         //Gym3
-                        HStack{
-                            
-                            
                             if isEditing{
-                                Picker("Preferred Gym", selection: $ptVM.gymPreferencePublished[2]){
-                                    ForEach(gymPreferrence.allCases, id: \.self){
-                                        Text($0.rawValue)
+                                StyledPicker(title: "Gym #2") {
+                                    Picker("", selection: $ptVM.gymPreferencePublished[2]){
+                                        ForEach(gymPreferrence.allCases, id: \.self){
+                                            Text($0.rawValue)
+                                        }
                                     }
                                 }
                             }else{
-                                Text(ptVM.gymPreferencePublished[2].rawValue)
+                                HStack{
+                                    Text(ptVM.gymPreferencePublished[2].rawValue)
+                                    Spacer()
+                                        .frame(width: UIScreen.main.bounds.width/9)
+                                }
                             }
-                        }
                     }
                     .frame(width: UIScreen.main.bounds.width/3.5)
                 }
@@ -322,54 +415,77 @@ struct Sign_Up_View: View {
             //Training Category : 3 categories
             GroupBox{
                 HStack(alignment: .top){
-                    Text("Category(ies):")
+                   
+                    Text("Training Category(ies):")
+                        .foregroundColor(isEditing ? .blue : .black)
+                        .padding(.trailing, 10)
+                        .frame(width: UIScreen.main.bounds.width/3)
+                        .lineLimit(2)
                     Spacer()
-                    
                     VStack(alignment: .trailing){
                         //Category 1
                         HStack{
                             if isEditing{
-                                Picker("Training Category", selection: $ptVM.typeOfExercise[0]){
-                                    ForEach(typesOfWorkOut.allCases, id: \.self){
-                                        Text($0.rawValue)
+                                StyledPicker(title: "Category #1") {
+                                    Picker("", selection: $ptVM.typeOfExercise[0]){
+                                        ForEach(typesOfWorkOut.allCases, id: \.self){
+                                            Text($0.rawValue)
+                                        }
                                     }
                                 }
-                            }else{
-                                Text(ptVM.typeOfExercise[0].rawValue)
+                            } else {
+                                HStack{
+//                                    Text("Category #1:")
+//                                    Spacer()
+                                    Text(ptVM.typeOfExercise[0].rawValue)
+                                    Spacer()
+                                        .frame(width: UIScreen.main.bounds.width/9)
+                                }
                             }
                         }
                         Divider()
                         //Category 2
                         HStack{
-                            
                             if isEditing{
-                                Picker("Training Category", selection: $ptVM.typeOfExercise[1]){
-                                    ForEach(typesOfWorkOut.allCases, id: \.self){
-                                        Text($0.rawValue)
-                                            .font(.system(size: 15))
-                                        
+                                StyledPicker(title: "Category #2") {
+                                    Picker("", selection: $ptVM.typeOfExercise[1]){
+                                        ForEach(typesOfWorkOut.allCases, id: \.self){
+                                            Text($0.rawValue)
+                                               
+                                            
+                                        }
                                     }
                                 }
                             }else{
-                                Text(ptVM.typeOfExercise[1].rawValue)
+                                HStack{
+//                                    Text("Category #2:")
+//                                    Spacer()
+                                    Text(ptVM.typeOfExercise[1].rawValue)
+                                    Spacer()
+                                        .frame(width: UIScreen.main.bounds.width/9)
+                                }
                             }
                         }
                         Divider()
+                        
                         //Category 3
-                        HStack{
-                            
                             if isEditing{
-                                Picker("Training Category", selection: $ptVM.typeOfExercise[2]){
-                                    ForEach(typesOfWorkOut.allCases, id: \.self){
-                                        Text($0.rawValue)
+                                StyledPicker(title: "Category #3") {
+                                    Picker("", selection: $ptVM.typeOfExercise[2]){
+                                        ForEach(typesOfWorkOut.allCases, id: \.self){
+                                            Text($0.rawValue)
+                                        }
                                     }
                                 }
                             }else{
-                                Text(ptVM.typeOfExercise[2].rawValue)
+                                HStack{
+                                    Text(ptVM.typeOfExercise[2].rawValue)
+                                    Spacer()
+                                        .frame(width: UIScreen.main.bounds.width/9)
+                                }
                             }
-                        }
                         
-                    }
+                        }
                     .frame(width: UIScreen.main.bounds.width/3.5)
                 }
             }
@@ -383,8 +499,9 @@ struct Sign_Up_View: View {
                     Spacer()
                 }
                 if isEditing{
-                    TextFieldView(textInput: $ptVM.motto, placeholder: "Enter your unique motto here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
-                }else {
+                    TextFieldView(textInput: $ptVM.motto, placeholder: "Enter your unique motto here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, offsetX:0, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150, isLong: true)
+                    
+                } else {
                     Text(ptVM.motto)
                 }
                 
@@ -396,8 +513,7 @@ struct Sign_Up_View: View {
                     }
                     
                     if isEditing{
-                        TextFieldView(textInput: $ptVM.description, placeholder: "Enter your  description here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150)
-                            .frame(alignment: .leading)
+                        TextFieldView(textInput: $ptVM.description, placeholder: "Enter your  description here", isPassword: false, cornerRadius: 5, strokeColor: .secondary, strokeWidth: 1, offsetX:0, width: (UIScreen.main.bounds.width - UIScreen.main.bounds.width/5), height: 150, isLong: true)
                         
                     }else {
                         Text(ptVM.description)
@@ -439,14 +555,15 @@ struct Sign_Up_View: View {
                                     }
                                 }
                             }
+                            
                             .border(.purple)
                         }
-                        //Active button
-                        if (isEditing) && (ptVM.inputImage.count < 4) {
+                        //Button
+                        if (isEditing) && (ptVM.inputImage.count < 3) {
                             ZStack{
                                 Rectangle()
                                     .fill(.secondary)
-                                    .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                                    .frame(width: UIScreen.main.bounds.width/5, height: UIScreen.main.bounds.width/6)
                                     .cornerRadius(12)
                                 
                                 Button("+"){
@@ -461,23 +578,32 @@ struct Sign_Up_View: View {
                                     ImagePicker(image: $ptVM.inputImage, selectionLimit: 3)
                                 }
                             }
+                        }
+                        else if (isEditing) && (ptVM.inputImage.count == 3){
+                            EmptyView()
                         } else if  !isEditing && (ptVM.inputImage.count == 0){
                             HStack{
                                 Rectangle()
                                     .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
                                     .foregroundColor(.purple)
                                     .frame(width: 40, height: 40)
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width/15)
                                 Rectangle()
                                     .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
                                     .foregroundColor(.purple)
                                     .frame(width: 40, height: 40)
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width/15)
                                 Rectangle()
                                     .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
                                     .foregroundColor(.purple)
                                     .frame(width: 40, height: 40)
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width/15)
                             }
                         } else if !isEditing  && ( 1 <= ptVM.inputImage.count) && (ptVM.inputImage.count < 3){
-                            var imagesLeft = 3 - ptVM.inputImage.count
+                            let imagesLeft = 3 - ptVM.inputImage.count
                             Text("You need \(imagesLeft) more images.")
                         }
                         
@@ -495,11 +621,11 @@ struct Sign_Up_View: View {
                 Divider()
                 Spacer()
                 VStack{
-                    Text("Add up to 3 short video(s)")
+                    Text("Add up to 1 short video(s)")
                         .font(.system(size: 10))
                         .foregroundColor(.red)
                     
-                    if ptVM.videoURL.count > 4 {
+                    if ptVM.videoURL.count > 3 {
                         Text("")
                             .alert(
                                 Text(alertTitle),
@@ -509,16 +635,53 @@ struct Sign_Up_View: View {
                                     // Dismisses the Error Window
                                 }
                             } message: {
-                                Text("No more than three video")
+                                Text("No more than one video")
                             }
                     }
-                    
+                    //Video-View
+                    ForEach(ptVM.videoURL, id: \.self){video in
+                        ZStack{
+                            Image(uiImage:  imageFromVideo(url: URL(string: video) ?? URL(string: "https://www.google.com")! , at: 1) ?? UIImage(systemName: "play.circle")!)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width/6.5, height: UIScreen.main.bounds.width/6.5)
+                            
+//                            HStack{
+//                                Spacer()
+//                                VStack{
+//                                    Image(systemName: "circle")
+//                                        .foregroundColor(Color.assetColor.red)
+//                                    Spacer()
+//                                }
+//
+//                            }.frame(width: UIScreen.main.bounds.width/6, height: UIScreen.main.bounds.width/6)
+                            
+                            VStack(alignment: .leading, spacing: 15){
+                                HStack(alignment: .top){
+                                    Spacer()
+                                    if isEditing{
+                                        Button{
+                                            guard let index = ptVM.videoURL.firstIndex(of: video) else { return }
+                                            ptVM.videoURL.remove(at: index)
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .foregroundColor(Color.assetColor.red)
+                                                
+                                            
+                                        }
+                                    }
+                                }
+                                Spacer()
+                            }
+                        }.frame(width: UIScreen.main.bounds.width/4.5, height: UIScreen.main.bounds.width/4.5)
+//                            .border(.purple)
+                        
+                    }
                     if isEditing{
                         
                         ZStack{
                             Rectangle()
                                 .fill(.secondary)
-                                .frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/6)
+                                .frame(width: UIScreen.main.bounds.width/5, height: UIScreen.main.bounds.width/6)
                                 .cornerRadius(12)
                             
                             
@@ -531,7 +694,7 @@ struct Sign_Up_View: View {
                             .background(.white)
                             .cornerRadius(12)
                             .sheet(isPresented: $videoPickerIsPresented) {
-                                VideoPicker(videoURLs: $ptVM.videoURL, selectionLimit: 3)
+                                VideoPicker(videoURLs: $ptVM.videoURL, selectionLimit: 1)
                             }
                         }
                 }
@@ -541,14 +704,20 @@ struct Sign_Up_View: View {
                                 .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
                                 .foregroundColor(.purple)
                                 .frame(width: 40, height: 40)
+                            Spacer()
+                                .frame(width: UIScreen.main.bounds.width/15)
                             Rectangle()
                                 .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
                                 .foregroundColor(.purple)
                                 .frame(width: 40, height: 40)
+                            Spacer()
+                                .frame(width: UIScreen.main.bounds.width/15)
                             Rectangle()
                                 .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
                                 .foregroundColor(.purple)
                                 .frame(width: 40, height: 40)
+                            Spacer()
+                                .frame(width: UIScreen.main.bounds.width/15)
                         }
                         
                     }

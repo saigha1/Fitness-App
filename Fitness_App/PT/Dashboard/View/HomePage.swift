@@ -44,10 +44,12 @@ struct HomePage_Previews: PreviewProvider {
 
 extension HomePage {
     //PT
+    private func ptApprovalCheck(){
+        pending = authVM.endUserApprovalCheck()
+    }
      var homePageForPT: some View {
         Group {
             if let user = authVM.currentPTUser {
-                if (ptVM.ptApproved){
                     TabView{
                         Dashboard()
                             .tabItem{
@@ -65,15 +67,19 @@ extension HomePage {
                                 Label("Calendar", systemImage: "calendar.badge.clock")
                             }
                     }
-                } else if (pending) {
-                    Text("Your profile approval in process. Please await the decision.")
-                } else if (rejected) {
-                    Text("Your profile is rejected. Please call support at 1213-456-7890")
-                } else if !submitted{
-                    //Sign_Up_View()
-                    Text("Please complete your profile.")
+//                } else if (pending) {
+//                    Text("Your profile approval in process. Please await the decision.")
+//                } else if (rejected) {
+//                    Text("Your profile is rejected. Please call support at 1213-456-7890")
+                } else {
+                    Sign_Up_View(user: emptyPTModel)
+                        .environmentObject(authVM)
+                   
                 }
-            }
+            
+        }
+        .onAppear{
+            ptApprovalCheck()
         }
     }
     
@@ -104,6 +110,7 @@ extension HomePage {
     }
     private func endUserApprovalCheck() {
         isEndUserApproved = authVM.endUserApprovalCheck()
+        
     }
     private var endUserTabView: some View {
         TabView {

@@ -41,12 +41,12 @@ struct UserProfileIconView: View {
                         }
                         .sheet(isPresented: $shouldShowPTSheet, content: {
                             if #available(iOS 16.0, *) {
-                                Sign_Up_View(PT: pTUser)
+                                Sign_Up_View(user:emptyPTModel )
                                     .environmentObject(authVM)
                                     .presentationDetents([.large])
                             } else {
                                 // Fallback on earlier versions
-                                Sign_Up_View(PT: pTUser)
+                                Sign_Up_View(user:emptyPTModel)
                                     .environmentObject(authVM)
                             }
                         })
@@ -55,6 +55,8 @@ struct UserProfileIconView: View {
             }
     }//view
 }
+
+var emptyPTModel = PTModel(id: "", ptProfileImage: "", name: "", email: "", phone: "", gender: .select, isFeatured: false, isFavorite: false, isApproved: false, education: .select, certification: [.select, .select], selectedExperience: .select, cityLocation: .select, gymPreference: [.select, .select, .select], workoutTypes: [.select, .select, .select], motto: "", description: "", imageString: ["","",""], videoUrl: [""])
 
 struct UserProfileIconView_Previews: PreviewProvider {
     static let authVM = AuthViewModel()
