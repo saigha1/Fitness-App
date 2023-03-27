@@ -16,6 +16,7 @@ import SwiftUI
 //var gymOption = ["Square One GoodLife", " Eaton Center GoodLife", "Toronto GoodLife"]
 
 struct Sign_Up_View: View {
+    @Environment(\.dismiss) var dismiss
     @State private var showImagePicker: Bool = false
     @State var isEditing : Bool = false
     @State var imageArray: [UIImage] = [UIImage(systemName: "person.fill")!]
@@ -78,8 +79,9 @@ struct Sign_Up_View: View {
                     } else {
                         ptID = authVM.currentUser!.uid
                     }
+                    guard ptVM.validateForm(ptID)  else { return }
+                    dismiss()
                     
-                    ptVM.validateForm(ptID)
                 } label:{
                     Text("Submit")
                         .bold()
@@ -537,7 +539,7 @@ struct Sign_Up_View: View {
                             .font(.system(size: 10))
                             .foregroundColor(.red)
                     }
-                    HStack{
+                    VStack{
                         ForEach(ptVM.inputImage, id: \.self){ uiImage in
                             ZStack{
                                 ImageView(uiImage: uiImage)
@@ -561,7 +563,6 @@ struct Sign_Up_View: View {
                                 
                             }.frame(width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.width/4)
                             
-                           
                         }
                         //Button
                         if (isEditing) && (ptVM.inputImage.count < 3) {
@@ -650,6 +651,9 @@ struct Sign_Up_View: View {
                             Image(uiImage:  imageFromVideo(url: URL(string: video) ?? URL(string: "https://www.google.com")! , at: 1) ?? UIImage(systemName: "play.circle")!)
                                 .resizable()
                                 .frame(width: UIScreen.main.bounds.width/6.5, height: UIScreen.main.bounds.width/6.5)
+                                .onAppear{
+                                    print("URL:", URL(string: video))
+                                }
                             
 //                            HStack{
 //                                Spacer()
@@ -754,7 +758,6 @@ struct Sign_Up_View: View {
                             Image(uiImage: selectedImage)
                                 .resizable()
                                 .frame(width: 150, height: 150)
-                           
                         }
                       
                     } else{

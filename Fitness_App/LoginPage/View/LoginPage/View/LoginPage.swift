@@ -28,12 +28,30 @@ struct LoginPage: View {
 //        print(authVM.authState)
 //    }
     
+    @State var isTesting : Bool = false
+    
     @MainActor
     var body: some View {
         
-        
         if authVM.authState == .authenticated{  //TO use refresh tokens later
-            HomePage().environmentObject(authVM)
+            
+            Group{
+                //Existing: returning approved users from JSON
+            if authVM.currentPTUser != nil || authVM.currentEndUser != nil{
+                HomePage().environmentObject(authVM)
+            } else{
+                //New: unapproved but authenticated
+                if authVM.isEndUser{
+                    UserSignUpFormView()
+                } else{
+                    Sign_Up_View(user: emptyPTModel)
+                        .environmentObject(authVM)
+                }
+            }
+        }
+            .onAppear{
+                authVM.endUserApprovalCheck() //Existing or NEW user
+            }
         } else {
                 ZStack{
                     Image("Sign in bgimage")
@@ -46,8 +64,8 @@ struct LoginPage: View {
                         }
                     
                     VStack{
-                        
                         Text("Sign In").bold().font(.largeTitle)
+                        
                         if !authVM.errorMsg.isEmpty {
                             Text(authVM.errorMsg)
                                 .foregroundColor(.red)
@@ -55,30 +73,31 @@ struct LoginPage: View {
                         
                         // User type selector
                         VStack(alignment: .center) {
-                            Text(authVM.isEnderUser ? "I’m finding a trainer." : "Are you a client?")
-                                .foregroundColor(authVM.isEnderUser ? .white : .accentColor)
+                            Text(authVM.isEndUser ? "I’m finding a trainer." : "Are you a client?")
+                                .foregroundColor(authVM.isEndUser ? .white : .accentColor)
                                 .frame(width: 210, height: 40)
-                                .background(authVM.isEnderUser ? Color.assetColor.purple : .clear)
+                                .background(authVM.isEndUser ? Color.assetColor.purple : .clear)
                                 .cornerRadius(5)
                                 .onTapGesture {
-                                    if !authVM.isEnderUser {
-                                        authVM.isEnderUser.toggle()
+                                    if !authVM.isEndUser {
+                                        authVM.isEndUser.toggle()
                                     }
                                 }
-                            Text(authVM.isEnderUser ? "Are you a trainer?" : "I’m a personal trainer.")
-                                .foregroundColor(!authVM.isEnderUser ? .white : .accentColor)
+                            Text(authVM.isEndUser ? "Are you a trainer?" : "I’m a personal trainer.")
+                                .foregroundColor(!authVM.isEndUser ? .white : .accentColor)
                                 .frame(width: 210, height: 40)
-                                .background(!authVM.isEnderUser ? Color.assetColor.blue : .clear)
+                                .background(!authVM.isEndUser ? Color.assetColor.blue : .clear)
                                 .cornerRadius(5)
                                 .onTapGesture {
-                                    if authVM.isEnderUser {
-                                        authVM.isEnderUser.toggle()
+                                    if authVM.isEndUser {
+                                        authVM.isEndUser.toggle()
                                     }
                                 }
                         }
                         
                         //Email Login
                         FireBaseSignInWithEmailView()
+                            
                         
                         Divider()
                             .frame(minHeight: 0.8)
@@ -115,9 +134,6 @@ struct LoginPage: View {
                 }
         }
     }
-    
-    
-    
 }
 
 struct LoginPage_Previews: PreviewProvider {

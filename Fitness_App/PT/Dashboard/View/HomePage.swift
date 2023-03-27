@@ -19,7 +19,7 @@ struct HomePage: View {
     @EnvironmentObject var authVM : AuthViewModel
     
     var body: some View {
-        if !authVM.isEnderUser {
+        if !authVM.isEndUser {
             homePageForPT
         } else {
             homePageForEndUser
@@ -34,7 +34,7 @@ struct HomePage_Previews: PreviewProvider {
         HomePage()
             .environmentObject(vm)
             .onAppear {
-                vm.isEnderUser.toggle()
+                vm.isEndUser.toggle()
             }
         HomePage()
         //End User HomePage

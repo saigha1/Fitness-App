@@ -36,7 +36,7 @@ class AuthViewModel: ObservableObject {
 //    @Published var user: User?
     @Published var errorMessage: String?
     @Published var currentUser: User? // User model in Firebase
-    @Published var isEnderUser: Bool = false
+    @Published var isEndUser: Bool = false
     
     @Published var currentEndUser: NewEndUser?
     @Published var currentPTUser: PTModel?
@@ -544,7 +544,7 @@ extension AuthViewModel {
         print("Phone", firebaseUser.phoneNumber ?? "")
         #endif
         //TODO: Explain. //Changed this
-        if isEnderUser{
+        if isEndUser{
             let allUsersApproved: [NewEndUser] = load(filename: "EndUser.json", location: .document) ?? []
             
             if allUsersApproved.count <= 0 {
@@ -556,7 +556,7 @@ extension AuthViewModel {
                 }
             }
             //Changed this
-        } else if !isEnderUser{
+        } else if !isEndUser{
             let allUsersApproved: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
             
             if allUsersApproved.count <= 0 {

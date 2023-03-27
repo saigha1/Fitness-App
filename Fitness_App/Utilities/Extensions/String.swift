@@ -72,9 +72,6 @@ extension String {
     func asUIImage() -> UIImage{
         var imgUI : UIImage = UIImage(systemName: "person.circle")!
         
-        print("self,    \(self)")
-        print("data,    \(Data(base64Encoded: self))")
-        
         guard let stringData = Data(base64Encoded: self, options: .ignoreUnknownCharacters)
         else {
             print("Error: couldn't create UIImage=> stringData")

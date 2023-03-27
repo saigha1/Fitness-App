@@ -14,7 +14,7 @@ struct UserProfileIconView: View {
     @State private var shouldShowPTSheet: Bool = false
 
     var body: some View {
-            if authVM.isEnderUser{
+            if authVM.isEndUser{
                 if let user = authVM.currentEndUser {
                     user.profileImage.asProfileImage(45)
                         .onTapGesture {
@@ -33,7 +33,7 @@ struct UserProfileIconView: View {
                         })
                 }
             }
-            else if !authVM.isEnderUser{
+            else if !authVM.isEndUser{
                 if let pTUser = authVM.currentPTUser {
                     pTUser.ptProfileImage.asProfileImage(45)
                         .onTapGesture {

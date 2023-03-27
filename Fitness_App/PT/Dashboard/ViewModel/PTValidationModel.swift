@@ -73,22 +73,22 @@ class PTValidationModel: ObservableObject {
         selectedImage = (user.selectedImage ?? "").asUIImage()
     }
     
-    func validateForm(_ firebaseUID: String) {
+    func validateForm(_ firebaseUID: String) -> Bool{
         // check if all validation functions returns true
-        guard validateName() else { return }
-        guard validatePhoneNum() else { return }
-        guard validateEmail() else { return }
-        guard validateGender() else { return }
-        guard validateEducation() else { return }
-        guard validateCertificate() else { return }
-        guard validateExperienceLevel() else { return }
-        guard validateCity() else { return }
-        guard validateGymPreferrence() else { return }
-        guard validateExerciseType() else { return }
-        guard validateMotto() else { return }
-        guard validateDescription() else { return }
-        guard validateImage() else { return }
-        guard validateVideo() else { return }
+        guard validateName() else { return false}
+        guard validatePhoneNum() else { return false }
+        guard validateEmail() else { return false }
+        guard validateGender() else { return false}
+        guard validateEducation() else { return false}
+        guard validateCertificate() else { return false }
+        guard validateExperienceLevel() else { return false }
+        guard validateCity() else { return false}
+        guard validateGymPreferrence() else { return false }
+        guard validateExerciseType() else { return false}
+        guard validateMotto() else { return false}
+        guard validateDescription() else { return false}
+        guard validateImage() else { return false}
+        guard validateVideo() else { return false}
 //        guard validateSelfie() else { return } TODO: Uncomment later.
 
        
@@ -103,8 +103,10 @@ class PTValidationModel: ObservableObject {
         
         for image in inputImage{
             // Changed to jpeg data to compress data size
-            guard let imageData = image.jpegData(compressionQuality: 0.09) else { return }
-            imageString.append("" + imageData.base64EncodedString())
+            if let imageData = image.jpegData(compressionQuality: 0.09) {imageString.append("data:image/jpeg;base64,"  + imageData.base64EncodedString())}
+            else{
+                imageString.append(image.jpegData(compressionQuality: 1.0)?.base64EncodedString() ?? "")
+            }
         }
         
         //picture from camera
@@ -147,6 +149,9 @@ class PTValidationModel: ObservableObject {
         let usersAfterCreating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
         print(usersAfterCreating.count)
         #endif
+        
+        return true
+        
     }
 }
 
