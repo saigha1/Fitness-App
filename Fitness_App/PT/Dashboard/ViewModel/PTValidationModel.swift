@@ -149,7 +149,8 @@ class PTValidationModel: ObservableObject {
         let usersAfterCreating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
         print(usersAfterCreating.count)
         #endif
-        
+        //TODO: Not working... or currentPTUser
+        ptApproved = true
         return true
         
     }

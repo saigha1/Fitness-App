@@ -613,7 +613,6 @@ struct Sign_Up_View: View {
                             let imagesLeft = 3 - ptVM.inputImage.count
                             Text("You need \(imagesLeft) more images.")
                         }
-                        
                     }
                 }
             }
@@ -675,16 +674,12 @@ struct Sign_Up_View: View {
                                         } label: {
                                             Image(systemName: "xmark.circle.fill")
                                                 .foregroundColor(Color.assetColor.red)
-                                                
-                                            
                                         }
                                     }
                                 }
                                 Spacer()
                             }
                         }.frame(width: UIScreen.main.bounds.width/4.5, height: UIScreen.main.bounds.width/4.5)
-//                            .border(.purple)
-                        
                     }
                     if isEditing{
                         
@@ -738,41 +733,43 @@ struct Sign_Up_View: View {
     
     //Portrait Photo=> TODO: Need isApproved Bool to show this field
     var selfie: some View{
+       
         GroupBox{
-            HStack{
-                Text("Portrait Photo:")
-                Divider()
-                Spacer()
-                VStack{
-                    Text("Upload 1 selfie")
-                        .font(.system(size: 10))
-                    if isEditing{
-                        Button(action: {
-                            self.sourceType = .camera
-                            self.cameraIsPresented = true
-                        }, label: {
-                            Label("Select", systemImage: "photo")
-                        })
-                        
-                        if let selectedImage = ptVM.selectedImage{
-                            Image(uiImage: selectedImage)
-                                .resizable()
-                                .frame(width: 150, height: 150)
+            if authVM.currentPTUser == nil{
+                HStack{
+                    Text("Portrait Photo:")
+                    Divider()
+                    Spacer()
+                    VStack{
+                        Text("Upload 1 selfie")
+                            .font(.system(size: 10))
+                        if isEditing{
+                            Button(action: {
+                                self.sourceType = .camera
+                                self.cameraIsPresented = true
+                            }, label: {
+                                Label("Select", systemImage: "photo")
+                            })
+                            
+                            if let selectedImage = ptVM.selectedImage{
+                                Image(uiImage: selectedImage)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                            }
+                        } else{
+                            Rectangle()
+                                .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                .foregroundColor(.purple)
+                                .frame(width: 50, height: 25)
+                            
                         }
-                      
-                    } else{
-                        Rectangle()
-                            .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
-                            .foregroundColor(.purple)
-                            .frame(width: 50, height: 25)
-                        
                     }
                 }
-            }
                 .sheet(isPresented: $cameraIsPresented){
                     CameraView(selectedImage: $ptVM.selectedImage, sourceType: self.sourceType)
+                }
             }
-        }
+       }
     }
     
     func loadImage() {
