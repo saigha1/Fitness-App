@@ -55,7 +55,8 @@ struct VideoPicker: UIViewControllerRepresentable {
                     let fileName = "\(Int(Date().timeIntervalSince1970)).\(url.pathExtension)"
                     // create new URL
 //                    let newUrl: URL = .cachesDirectory.appending(path: fileName)
-                    let newUrl = URL(fileURLWithPath: NSHomeDirectory() + "/" + fileName)
+//                    let newUrl = URL(fileURLWithPath: NSHomeDirectory() + "/" + fileName)
+                    let newUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent(fileName, conformingTo: .video)
                     // copy item to APP Storage
                     try? FileManager.default.copyItem(at: url, to: newUrl)
                    

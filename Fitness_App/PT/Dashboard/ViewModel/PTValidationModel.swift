@@ -52,6 +52,7 @@ class PTValidationModel: ObservableObject {
     func populateStates(_ user: PTModel) {
         name = user.name
         email = user.email
+        profIMG[0] = user.ptProfileImage
         phone = user.phone
         gender = user.gender
         education = user.education
@@ -103,7 +104,7 @@ class PTValidationModel: ObservableObject {
         
         for image in inputImage{
             // Changed to jpeg data to compress data size
-            if let imageData = image.jpegData(compressionQuality: 0.09) {imageString.append("data:image/jpeg;base64,"  + imageData.base64EncodedString())}
+            if let imageData = image.jpegData(compressionQuality: 0.09) {imageString.append(imageData.base64EncodedString())}
             else{
                 imageString.append(image.jpegData(compressionQuality: 1.0)?.base64EncodedString() ?? "")
             }

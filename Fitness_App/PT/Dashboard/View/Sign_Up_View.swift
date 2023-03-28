@@ -98,6 +98,21 @@ struct Sign_Up_View: View {
                 self.user = user
                 ptVM.populateStates(user)
             }
+               
+            guard !user.isApproved  else { return }
+            guard let firebaseUser = authVM.currentUser else { return }
+            if ptVM.name.isEmpty {
+                ptVM.name = firebaseUser.displayName ?? ""
+            }
+            if ptVM.phone.isEmpty {
+                ptVM.phone = firebaseUser.phoneNumber ?? ""
+            }
+            if ptVM.email.isEmpty {
+                ptVM.email = firebaseUser.email ?? ""
+            }
+            if ptVM.profIMG[0].isEmpty{
+                ptVM.profIMG[0] = firebaseUser.photoURL?.absoluteString ?? ""
+            }
             
         }
         .navigationTitle("Fill Profile")
@@ -124,7 +139,7 @@ struct Sign_Up_View: View {
                 //Profile Image
                 HStack{
                     ptVM.profIMG[0].asProfileImage(100)
-                        
+                    
                         .onTapGesture {
                             showImagePicker.toggle()
                         }
@@ -133,23 +148,15 @@ struct Sign_Up_View: View {
                         }
                         .onChange(of: imageArray[0]) { newValue in
                             var profIMGString : String = ""
-                                // Changed to jpeg data to compress data size
-                                guard let imageData = newValue.jpegData(compressionQuality: 0.09) else { return }
-                                profIMGString = "data:image/jpeg;base64," + imageData.base64EncodedString()
+                            // Changed to jpeg data to compress data size
+                            guard let imageData = newValue.jpegData(compressionQuality: 0.09) else { return }
+                            profIMGString = "data:image/jpeg;base64," + imageData.base64EncodedString()
                             ptVM.profIMG[0] = profIMGString
-                          
+                            
                         }
-                        .onAppear{
-                            guard !user.isApproved  else { return }
-                            guard let firebaseUser = authVM.currentUser else { return }
-                            if ptVM.name.isEmpty {
-                                ptVM.name = firebaseUser.displayName ?? ""
-                            }
-                            ptVM.phone = firebaseUser.phoneNumber ?? ""
-                            ptVM.email = firebaseUser.email ?? ""
-                            ptVM.profIMG[0] = firebaseUser.photoURL?.absoluteString ?? ""
+                        
                         }
-                }
+                
                 
                 //Name
                 HStack{
@@ -734,39 +741,41 @@ struct Sign_Up_View: View {
     //Portrait Photo=> TODO: Need isApproved Bool to show this field
     var selfie: some View{
        
-        GroupBox{
+        Group{
             if authVM.currentPTUser == nil{
-                HStack{
-                    Text("Portrait Photo:")
-                    Divider()
-                    Spacer()
-                    VStack{
-                        Text("Upload 1 selfie")
-                            .font(.system(size: 10))
-                        if isEditing{
-                            Button(action: {
-                                self.sourceType = .camera
-                                self.cameraIsPresented = true
-                            }, label: {
-                                Label("Select", systemImage: "photo")
-                            })
-                            
-                            if let selectedImage = ptVM.selectedImage{
-                                Image(uiImage: selectedImage)
-                                    .resizable()
-                                    .frame(width: 150, height: 150)
+                GroupBox{
+                    HStack{
+                        Text("Portrait Photo:")
+                        Divider()
+                        Spacer()
+                        VStack{
+                            Text("Upload 1 selfie")
+                                .font(.system(size: 10))
+                            if isEditing{
+                                Button(action: {
+                                    self.sourceType = .camera
+                                    self.cameraIsPresented = true
+                                }, label: {
+                                    Label("Select", systemImage: "photo")
+                                })
+                                
+                                if let selectedImage = ptVM.selectedImage{
+                                    Image(uiImage: selectedImage)
+                                        .resizable()
+                                        .frame(width: 150, height: 150)
+                                }
+                            } else{
+                                Rectangle()
+                                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
+                                    .foregroundColor(.purple)
+                                    .frame(width: 50, height: 25)
+                                
                             }
-                        } else{
-                            Rectangle()
-                                .stroke(style: StrokeStyle(lineWidth: 2, dash: [10], dashPhase: phase))
-                                .foregroundColor(.purple)
-                                .frame(width: 50, height: 25)
-                            
                         }
                     }
-                }
-                .sheet(isPresented: $cameraIsPresented){
-                    CameraView(selectedImage: $ptVM.selectedImage, sourceType: self.sourceType)
+                    .sheet(isPresented: $cameraIsPresented){
+                        CameraView(selectedImage: $ptVM.selectedImage, sourceType: self.sourceType)
+                    }
                 }
             }
        }
