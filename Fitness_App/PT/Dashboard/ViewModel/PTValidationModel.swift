@@ -94,10 +94,10 @@ class PTValidationModel: ObservableObject {
 
        
         
-        #if DEBUG
-        let usersBeforeCreating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
-        print(usersBeforeCreating.count)
-        #endif
+        
+        let ptBeforeUpdating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
+        
+        
         
         // create new user and save to JSON in .document directory
         var imageString : [String] = []
@@ -143,8 +143,15 @@ class PTValidationModel: ObservableObject {
             videoUrl: videoURL,
             selectedImage: selfieString
         )
-
-        add(newEntry: newPT, filename: "PTs.json", location: .document)
+        if  let ptFound = ptBeforeUpdating.first(where: { PT in
+            PT.id == firebaseUID
+            
+        }){
+            update(old: ptFound, new: newPT, filename: "PTs.json", location: .document)
+        }
+        else {
+            add(newEntry: newPT, filename: "PTs.json", location: .document)
+        }
         
         #if DEBUG
         let usersAfterCreating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
