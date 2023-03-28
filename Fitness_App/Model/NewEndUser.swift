@@ -65,6 +65,7 @@ enum Currency: String, Codable {
 }
 
 enum TrainerGender: String, Codable, CaseIterable {
+    case select = "-select-"
     case f = "Female"
     case m = "Male"
 }

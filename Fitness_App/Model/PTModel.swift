@@ -10,24 +10,50 @@ import SwiftUI
 
 struct PTModel: Hashable, Codable{
     
-    var id, name, gender, phone: String
-    var email: String
-    var isFeatured, isFavorite: Bool
-     // Needs to change to UIImage
-//    var image: some View{
-//        profileImg.asProfileImage()
-//    }
-//
+    var id : String
+    var ptProfileImage : String
+    var ptImage: some View{
+        ptProfileImage.asProfileImage()
+        
+    }
+    var name, email, phone: String
+    var gender : TrainerGender
+    var isFeatured, isFavorite, isApproved: Bool
+
+    
     var education : PTEducationLevel
     var certification : [certificates]
     var selectedExperience : PTexperienceLevel
     var cityLocation : gymLocation
-    var workoutTypes : [typesOfWorkOut]
     var gymPreference : [gymPreferrence]
-    var description, motto, profileImg: String
+    var workoutTypes : [typesOfWorkOut]
+    var motto, description: String
+    
+   var imageString: [String]
+    var computedImage : [some View]{
+     var imageTemp : [AnyView] = []
+        for string in imageString{
+            imageTemp.append(AnyView(string.asProfileImage()))
+        }
+        return imageTemp
+    }
+    var videoUrl: [String]
+    var selectedImage : String?
+    var ptselfie: some View {
+        Group{
+            if selectedImage != nil {
+                selectedImage!.asProfileImage()
+            } else{
+                EmptyView()
+            }
+        }
+    }
+    
+    
 }
 
 enum gymLocation : String, CaseIterable, Codable{
+    case select = "-Select-"
     case Mississauga
     case Toronto = "Toronto"
     case NorthYork = "North York"
@@ -36,6 +62,7 @@ enum gymLocation : String, CaseIterable, Codable{
 }
 
 enum certificates : String, CaseIterable, Codable{
+    case select = "-Select-"
     case CanFitProI = "CanFitPro I"
     case CanFitProII = "CanFitPro II"
     case CFES = "CFES"
@@ -46,6 +73,7 @@ enum certificates : String, CaseIterable, Codable{
 }
 
 enum PTEducationLevel : String, CaseIterable, Codable{
+    case select = "-Select-"
     case Diploma = "Diploma"
     case Bachelors = "Bachelor's"
     case Masters = "Master's"
@@ -55,23 +83,29 @@ enum PTEducationLevel : String, CaseIterable, Codable{
 }
 
 enum PTexperienceLevel : String, CaseIterable, Codable{
+    case select = "-Select-"
     case One = "Level 1"
     case Two = "Level 2"
     case Three = "Level 3"
+    case Other
 }
 
 enum gymPreferrence : String, CaseIterable, Codable{
+    case select = "-Select-"
     case GoodLife = "GoodLife"
     case FitnessPlanet = "Planet Fitness"
     case UFC = "UFC"
     case LAFitness = "LA Fitness"
+    case Other
 }
 
 enum typesOfWorkOut: String, CaseIterable, Codable{
+    case select = "-Select-"
     case calisthenic = "Calisthenic"
     case americanBoxing = "Boxing"
     case weights = "Weights"
     case machine = "Machine"
+    case Other
 }
 
 

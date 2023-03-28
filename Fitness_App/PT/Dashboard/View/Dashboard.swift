@@ -9,16 +9,14 @@ import SwiftUI
 
 struct Dashboard: View {
     @EnvironmentObject var authVM : AuthViewModel
-    @State var isPTProfileComplete : Bool = false
+    @State var isPTProfileComplete : Bool = true
     
     //    var user: NewEndUser
     var body: some View {
         NavigationView {
             VStack{
-                if !isPTProfileComplete{
-                    Text("Please complete your profile!")
-                } else {
-                    DashboardContent
+                if isPTProfileComplete{
+                    Text("Welcome")
                 }
                 
                 Button {
@@ -37,12 +35,7 @@ struct Dashboard: View {
         }
         
     }
-    
-    var DashboardContent: some View{
-        VStack{
-            Text("...Loading profile info")
-        }
-    }
+
 }
 
 struct Dashboard_Previews: PreviewProvider {

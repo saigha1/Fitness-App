@@ -68,4 +68,24 @@ extension String {
         .frame(width: size, height: size)
         .padding(padding ?? 1)
     }
+    
+    func asUIImage() -> UIImage{
+        var imgUI : UIImage = UIImage(systemName: "person.circle")!
+        
+        guard let stringData = Data(base64Encoded: self, options: .ignoreUnknownCharacters)
+        else {
+            print("Error: couldn't create UIImage=> stringData")
+            return imgUI
+            
+        }
+        guard let uiImage = UIImage(data: stringData)
+        else {
+            print("Error: couldn't create UIImage=>uiImage")
+            return imgUI
+            
+        }
+        
+        imgUI = uiImage
+        return imgUI
+    }
 }

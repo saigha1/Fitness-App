@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct HomePage: View {
-    @State var pTApproved : Bool = false
+//    @State var pTApproved : Bool = false
     @State var pending : Bool = false
     @State var rejected : Bool = false
     @State var submitted : Bool = false
     
     @State var isEndUserApproved: Bool = false
+    @EnvironmentObject var ptVM : PTValidationModel
     
     @EnvironmentObject var authVM : AuthViewModel
     
     var body: some View {
-        if !authVM.isEnderUser {
+        if !authVM.isEndUser {
             homePageForPT
         } else {
             homePageForEndUser
@@ -33,7 +34,7 @@ struct HomePage_Previews: PreviewProvider {
         HomePage()
             .environmentObject(vm)
             .onAppear {
-                vm.isEnderUser.toggle()
+                vm.isEndUser.toggle()
             }
         HomePage()
         //End User HomePage
@@ -43,10 +44,12 @@ struct HomePage_Previews: PreviewProvider {
 
 extension HomePage {
     //PT
-    private var homePageForPT: some View {
+    private func ptApprovalCheck(){
+        pending = authVM.endUserApprovalCheck()
+    }
+     var homePageForPT: some View {
         Group {
             if let user = authVM.currentPTUser {
-                if (pTApproved){
                     TabView{
                         Dashboard()
                             .tabItem{
@@ -64,15 +67,19 @@ extension HomePage {
                                 Label("Calendar", systemImage: "calendar.badge.clock")
                             }
                     }
-                } else if (pending) {
-                    Text("Your profile approval in process. Please await the decision.")
-                } else if (rejected) {
-                    Text("Your profile is rejected. Please call support at 1213-456-7890")
-                } else if !submitted{
-                    //Sign_Up_View()
-                    Text("Please complete your profile.")
+//                } else if (pending) {
+//                    Text("Your profile approval in process. Please await the decision.")
+//                } else if (rejected) {
+//                    Text("Your profile is rejected. Please call support at 1213-456-7890")
+                } else {
+                    Sign_Up_View(user: emptyPTModel)
+                        .environmentObject(authVM)
+                   
                 }
-            }
+            
+        }
+        .onAppear{
+            ptApprovalCheck()
         }
     }
     
@@ -103,6 +110,7 @@ extension HomePage {
     }
     private func endUserApprovalCheck() {
         isEndUserApproved = authVM.endUserApprovalCheck()
+        
     }
     private var endUserTabView: some View {
         TabView {
