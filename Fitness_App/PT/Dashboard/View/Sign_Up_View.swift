@@ -80,6 +80,7 @@ struct Sign_Up_View: View {
                         ptID = authVM.currentUser!.uid
                     }
                     guard ptVM.validateForm(ptID)  else { return }
+                    authVM.refreshPTData()
                     dismiss()
                     
                 } label:{
