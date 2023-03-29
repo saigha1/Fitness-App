@@ -226,21 +226,21 @@ extension UserSignUpFormView {
     }
     private var preferredGym1Picker: some View {
         Picker("Preferred Gym 1", selection: $signUpFormVM.preferredGyms[0]) {
-            ForEach(PreferredGym.allCases, id: \.self) {
+            ForEach(signUpFormVM.preferredGymSelectedable(0), id: \.self) {
                 Text($0.rawValue)
             }
         }
     }
     private var preferredGym2Picker: some View {
         Picker("Preferred Gym 2", selection: $signUpFormVM.preferredGyms[1]) {
-            ForEach(PreferredGym.allCases, id: \.self) {
+            ForEach(signUpFormVM.preferredGymSelectedable(1), id: \.self) {
                 Text($0.rawValue)
             }
         }
     }
     private var preferredGym3Picker: some View {
         Picker("Preferred Gym 3", selection: $signUpFormVM.preferredGyms[2]) {
-            ForEach(PreferredGym.allCases, id: \.self) {
+            ForEach(signUpFormVM.preferredGymSelectedable(2), id: \.self) {
                 Text($0.rawValue)
             }
         }
