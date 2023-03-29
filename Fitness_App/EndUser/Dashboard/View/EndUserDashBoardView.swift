@@ -10,15 +10,8 @@ import SwiftUI
 struct EndUserDashBoardView: View {
     @EnvironmentObject var authVM : AuthViewModel
     var body: some View {
-        if #available(iOS 16.0, *) {
-            NavigationStack {
-                content
-            }
-        } else {
-            // Fallback on earlier versions
-            NavigationView {
-                content
-            }
+        NavigationView {
+            content
         }
     }
 }
