@@ -92,13 +92,9 @@ class PTValidationModel: ObservableObject {
         guard validateVideo() else { return false}
 //        guard validateSelfie() else { return } TODO: Uncomment later.
 
-       
-        
-        
         let ptBeforeUpdating: [PTModel] = load(filename: "PTs.json", location: .document) ?? []
         
-        
-        
+
         // create new user and save to JSON in .document directory
         var imageString : [String] = []
         
