@@ -9,14 +9,13 @@ import SwiftUI
 
 struct PTCardView: View {
     let size = UIScreen.main.bounds.width/2.85
-    var image: UIImage
-    var isFav: Bool = false
     var showCategory: Bool = false
+    var pt: PTModel
     var body: some View {
         VStack {
             ZStack {
                 //MARK: - PT Profile Image
-                ImageView(uiImage: image, size: size, cornerRadius: 13, padding: 0)
+                ImageView(uiImage: pt.ptProfileImage.asUIImage(), size: size, cornerRadius: 13, padding: 0)
                     .overlay {
                         LinearGradient(colors: [.clear, .clear, .clear, .assetColor.blue], startPoint: .top, endPoint: .bottom)
                             .if(!showCategory) { _ in
@@ -30,12 +29,12 @@ struct PTCardView: View {
                         Spacer()
                         Image(systemName: "star.fill")
                             .resizable()
-                            .foregroundColor(isFav ? .yellow : .clear)
+                            .foregroundColor(pt.isFavorite ? .yellow : .clear)
                             .background {
                                 Image(systemName: "star.fill")
                                     .resizable()
                                     .frame(width: 25, height: 25)
-                                    .foregroundColor(isFav ? .secondary : .clear)
+                                    .foregroundColor(pt.isFavorite ? .secondary : .clear)
                                     .offset(x: 1, y: 1)
                             }
                             .frame(width: 25, height: 25)
@@ -56,12 +55,13 @@ struct PTCardView: View {
             .frame(width: size, height: size)
             //MARK: - PT Name & Rating
             HStack {
-                Text("Bob")
+                Text(pt.name)
                     .bold()
                 Spacer()
-                Text("4.7/5")
+                Text("\(Double.random(in: 3...5), specifier: "%.1f")/5")
                     .foregroundColor(.secondary)
             }
+            .frame(width: size)
             .padding(.horizontal, 5)
         }
         .padding(5)
@@ -70,21 +70,12 @@ struct PTCardView: View {
 
 //MARK: - Preview
 struct PTCardView_Previews: PreviewProvider {
-    static let images: [UIImage] = [
-        .init(named: "PT1")!,
-        .init(named: "PT2")!,
-        .init(named: "PT3")!,
-        .init(named: "PT4")!,
-        .init(named: "PT5")!,
-        .init(named: "PT6")!
-    ]
+    static var pt1 = PTModel(id: "", ptProfileImage: (UIImage(named: "PT1")!.jpegData(compressionQuality: 0.09)?.base64EncodedString())!, name: "Michael", email: "Michael@icloud.com", phone: "41641641466", gender: .m, isFeatured: .random(), isFavorite: true, isApproved: true, education: .Diploma, certification: [.CFES], selectedExperience: .One, cityLocation: .Mississauga, gymPreference: [.GoodLife], workoutTypes: [.calisthenic], motto: "Try harder.", description: "", imageString: [""], videoUrl: [""], selectedImage: nil)
+    static var pt2 = PTModel(id: "", ptProfileImage: (UIImage(named: "PT6")!.jpegData(compressionQuality: 0.09)?.base64EncodedString())!, name: "Michael", email: "Michael@icloud.com", phone: "41641641466", gender: .m, isFeatured: .random(), isFavorite: false, isApproved: true, education: .Diploma, certification: [.CFES], selectedExperience: .One, cityLocation: .Mississauga, gymPreference: [.GoodLife], workoutTypes: [.calisthenic], motto: "Try harder.", description: "", imageString: [""], videoUrl: [""], selectedImage: nil)
     static var previews: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(images, id: \.self) { image in
-                    PTCardView(image: image)
-                }
-            }
+        VStack {
+            PTCardView(pt: pt1)
+            PTCardView(showCategory: true, pt: pt2)
         }
     }
 }
