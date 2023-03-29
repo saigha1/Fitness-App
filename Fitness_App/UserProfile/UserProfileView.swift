@@ -288,14 +288,14 @@ extension UserProfileView {
                 Group {
                     StyledPicker(title: "Preferred Gym 1", picker: {
                         Picker("Preferred Gym 1", selection: $endUserProfileVM.preferredGyms[0]) {
-                            ForEach(PreferredGym.allCases, id: \.self) {
+                            ForEach(endUserProfileVM.preferredGymsSeletable(0), id: \.self) {
                                 Text($0.rawValue)
                             }
                         }
                     })
                     StyledPicker(title: "Preferred Gym 2", picker: {
                         Picker("Preferred Gym 2", selection: $endUserProfileVM.preferredGyms[1]) {
-                            ForEach(PreferredGym.allCases, id: \.self) {
+                            ForEach(endUserProfileVM.preferredGymsSeletable(1), id: \.self) {
                                 Text($0.rawValue)
                             }
                         }
@@ -305,7 +305,7 @@ extension UserProfileView {
                     }
                     StyledPicker(title: "Preferred Gym 3", picker: {
                         Picker("Preferred Gym 3", selection: $endUserProfileVM.preferredGyms[2]) {
-                            ForEach(PreferredGym.allCases, id: \.self) {
+                            ForEach(endUserProfileVM.preferredGymsSeletable(2), id: \.self) {
                                 Text($0.rawValue)
                             }
                         }
@@ -374,14 +374,14 @@ extension UserProfileView {
                 Group {
                     StyledPicker(title: "Workout Type 1", picker: {
                         Picker("Workout Type 1", selection: $endUserProfileVM.typesOfWorkout[0]) {
-                            ForEach(WorkOutType.allCases, id: \.self) {
+                            ForEach(endUserProfileVM.typesOfWorkoutSelectable(0), id: \.self) {
                                 Text($0.rawValue)
                             }
                         }
                     })
                     StyledPicker(title: "Workout Type 2", picker: {
                         Picker("Workout Type 2", selection: $endUserProfileVM.typesOfWorkout[1]) {
-                            ForEach(WorkOutType.allCases, id: \.self) {
+                            ForEach(endUserProfileVM.typesOfWorkoutSelectable(1), id: \.self) {
                                 Text($0.rawValue)
                             }
                         }
@@ -391,7 +391,7 @@ extension UserProfileView {
                     }
                     StyledPicker(title: "Workout Type 3", picker: {
                         Picker("Workout Type 3", selection: $endUserProfileVM.typesOfWorkout[2]) {
-                            ForEach(WorkOutType.allCases, id: \.self) {
+                            ForEach(endUserProfileVM.typesOfWorkoutSelectable(2), id: \.self) {
                                 Text($0.rawValue)
                             }
                         }

@@ -50,11 +50,10 @@ class UserSignUpFormViewModel: ObservableObject {
     
     // filter for workout type
     func workoutTypesSelectable(_ index: Int) -> [WorkOutType] {
-        let workoutTypes = WorkOutType.allCases
-        return [typesOfWorkOut[index]] +
-        workoutTypes.filter { type in
-            !typesOfWorkOut.contains(type)
-        }
+        WorkOutType.allCases.filter { !typesOfWorkOut.contains($0) } + [typesOfWorkOut[index]]
+    }
+    func preferredGymSelectedable(_ index: Int) -> [PreferredGym] {
+        PreferredGym.allCases.filter{ !preferredGyms.contains($0) } + [preferredGyms[index]]
     }
     
     func validateForm(_ firebaseUID: String) -> Bool {
