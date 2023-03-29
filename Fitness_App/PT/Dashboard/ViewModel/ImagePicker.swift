@@ -51,7 +51,7 @@ struct ImagePicker: UIViewControllerRepresentable {
                       print("Can't load image \(error.localizedDescription)")
                     } else if let image = image as? UIImage {
                         let parent = self.parent
-                        if parent.selectionLimit == 1 && !parent.image.isEmpty {
+                        if parent.selectionLimit == 1 { //!parent.image.isEmpty
                             parent.image[0] = image
                         } else {
                             parent.image.append(image)
