@@ -85,6 +85,9 @@
 		25A8E77C298D8130008FA6FD /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 25A8E77B298D8130008FA6FD /* GoogleSignInSwift */; };
 		25C09DAE299536A500099C8E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C09DAD299536A500099C8E /* Date.swift */; };
 		25C09DB029953E7F00099C8E /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C09DAF29953E7F00099C8E /* Array.swift */; };
+		25C2E4EE29D48B0800772C89 /* PTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C2E4ED29D48B0800772C89 /* PTCardView.swift */; };
+		25C2E4F029D48B2400772C89 /* EndUserDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C2E4EF29D48B2400772C89 /* EndUserDashboardViewModel.swift */; };
+		25C2E4F629D4AA5100772C89 /* Test-PTs.json in Resources */ = {isa = PBXBuildFile; fileRef = 25C2E4F529D4AA5100772C89 /* Test-PTs.json */; };
 		25C8CF1529BF8D6F00B64190 /* StyledPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */; };
 		25E6D8F529914A220015B8B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F429914A220015B8B0 /* Color.swift */; };
 		25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F929915FC00015B8B0 /* Icons.swift */; };
@@ -165,6 +168,9 @@
 		259813372992B32700EA9B36 /* UserProfileIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileIconView.swift; sourceTree = "<group>"; };
 		25C09DAD299536A500099C8E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		25C09DAF29953E7F00099C8E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		25C2E4ED29D48B0800772C89 /* PTCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCardView.swift; sourceTree = "<group>"; };
+		25C2E4EF29D48B2400772C89 /* EndUserDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserDashboardViewModel.swift; sourceTree = "<group>"; };
+		25C2E4F529D4AA5100772C89 /* Test-PTs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Test-PTs.json"; sourceTree = "<group>"; };
 		25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledPicker.swift; sourceTree = "<group>"; };
 		25E6D8F429914A220015B8B0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		25E6D8F929915FC00015B8B0 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 		0446396C2983FC8500C1741B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				25C2E4F429D4AA2100772C89 /* Test Data */,
 				2540709A29A8FED600B305DB /* EndUser.json */,
 				0437CDC82996B3E000E789F5 /* TestGyms.json */,
 				0446396D2983FC8500C1741B /* PTs.json */,
@@ -474,7 +481,7 @@
 		257337A929ACFC8C00357E78 /* EndUser */ = {
 			isa = PBXGroup;
 			children = (
-				257337AA29ACFCC800357E78 /* EndUserDashBoardView.swift */,
+				25C2E4EC29D48AD100772C89 /* Dashboard */,
 				257337AC29ACFD4300357E78 /* EndUserChatView.swift */,
 				257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */,
 				257337B029ACFE1500357E78 /* EndUserCalendarView.swift */,
@@ -500,6 +507,40 @@
 				25369AC9299BDF510025628F /* UserSignUpFormViewModel.swift */,
 			);
 			path = UserSignUpForm;
+			sourceTree = "<group>";
+		};
+		25C2E4EC29D48AD100772C89 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				25C2E4F229D48B7300772C89 /* ViewModel */,
+				25C2E4F129D48B6E00772C89 /* View */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		25C2E4F129D48B6E00772C89 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				25C2E4ED29D48B0800772C89 /* PTCardView.swift */,
+				257337AA29ACFCC800357E78 /* EndUserDashBoardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		25C2E4F229D48B7300772C89 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				25C2E4EF29D48B2400772C89 /* EndUserDashboardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		25C2E4F429D4AA2100772C89 /* Test Data */ = {
+			isa = PBXGroup;
+			children = (
+				25C2E4F529D4AA5100772C89 /* Test-PTs.json */,
+			);
+			path = "Test Data";
 			sourceTree = "<group>";
 		};
 		25C8CF1329BF8D4900B64190 /* ViewBuilders */ = {
@@ -612,6 +653,7 @@
 				04A1925A299C5911000792B4 /* EmptyEndUser.json in Resources */,
 				049833442954975700724C7B /* Assets.xcassets in Resources */,
 				044639712983FC8500C1741B /* PTs.json in Resources */,
+				25C2E4F629D4AA5100772C89 /* Test-PTs.json in Resources */,
 				04BC0EC1298C041E000EE16E /* GoogleService-Info.plist in Resources */,
 				0437CDC92996B3E000E789F5 /* TestGyms.json in Resources */,
 			);
@@ -636,6 +678,7 @@
 				04BC0EFA298C1C77000EE16E /* Google-Firebase-LoginVM.swift in Sources */,
 				256E909D2993EA11005138B4 /* Double.swift in Sources */,
 				25369ACA299BDF510025628F /* UserSignUpFormViewModel.swift in Sources */,
+				25C2E4F029D48B2400772C89 /* EndUserDashboardViewModel.swift in Sources */,
 				04720105298AD69700B04964 /* SceneDelegate.swift in Sources */,
 				047C5FA02993EFE1000A4F49 /* PTModel.swift in Sources */,
 				25C8CF1529BF8D6F00B64190 /* StyledPicker.swift in Sources */,
@@ -671,6 +714,7 @@
 				04A19260299C7685000792B4 /* GymOptions.swift in Sources */,
 				259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */,
 				259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */,
+				25C2E4EE29D48B0800772C89 /* PTCardView.swift in Sources */,
 				2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */,
 				2506A6DD299E9EF800FC5D7A /* FileLocation.swift in Sources */,
 				259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */,
