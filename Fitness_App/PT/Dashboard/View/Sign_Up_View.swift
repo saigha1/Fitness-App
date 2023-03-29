@@ -50,7 +50,13 @@ struct Sign_Up_View: View {
                     Button{
                         isEditing = isEditing ? false : true
                         if !isEditing{
+                            guard ptVM.validateForm(user.id) else { return }
                             authVM.refreshPTData()
+                            if let user = authVM.currentPTUser{
+//                                self.user = user
+                                ptVM.populateStates(user)
+                            }
+                            
                         }
                     } label: {
                         Text(isEditing ? "Done" : "Edit")

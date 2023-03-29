@@ -149,7 +149,9 @@ extension UserProfileView {
             if !isEditing {
                 endUserProfileVM.validateForm(user, authVM: authVM)
                 authVM.refreshEndUserData(user.id)
+        
                 user = authVM.currentEndUser!
+                endUserProfileVM.populateStates(user)
             }
         } label: {
             ZStack {
