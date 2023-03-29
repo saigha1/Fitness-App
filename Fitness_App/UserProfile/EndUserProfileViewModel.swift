@@ -46,6 +46,14 @@ class EndUserProfileViewModel: ObservableObject {
     private var targetFatPercentageToStore: Double = 0
     private var profileImageToStore: String = ""
     
+    
+    //MARK: - Picker Selection Config
+    func typesOfWorkoutSelectable(_ index: Int) -> [WorkOutType] {
+        WorkOutType.allCases.filter { !typesOfWorkout.contains($0) } + [typesOfWorkout[index]]
+    }
+    func preferredGymsSeletable(_ index: Int) -> [PreferredGym] {
+        PreferredGym.allCases.filter { !preferredGyms.contains($0) } + [preferredGyms[index]]
+    }
     //MARK: - User Creation
     func populateStates(_ user: NewEndUser) {
         phoneNumber = user.phone
