@@ -23,12 +23,12 @@ struct DashboardView: View {
             }
             
                 
-                
             //Featured Trainers
             ScrollView(.horizontal){
+                HStack{
                     ForEach(pTS.filter({ pt in
                         pt.isFeatured
-                            
+                        
                         
                     }), id: \.id
                             
@@ -36,6 +36,7 @@ struct DashboardView: View {
                         PTCardView(showCategory: true, pt: pt, category: pt.workoutTypes.first!)
                             .padding(7)
                     }
+                }
             }
             
             HStack{
