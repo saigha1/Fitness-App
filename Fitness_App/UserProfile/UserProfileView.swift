@@ -42,6 +42,12 @@ struct UserProfileView: View {
                     GroupBox {
                         workoutJouneySection
                     }
+                    
+                    Button {
+                        authVM.signOut()
+                    } label: {
+                        Text("Sign Out")
+                    }
                 }
                 .padding()
             }

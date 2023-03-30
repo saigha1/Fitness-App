@@ -14,12 +14,34 @@ struct DashboardView: View {
     
     var body: some View {
         ScrollView{
-            Text("Featured Trainers").bold()
-            ScrollView(.horizontal){
-                //Featured Trainers
+            HStack{
+                Text("Featured Trainers")
+                    .bold()
+                    .padding(.leading, 7)
+                    .font(.title3)
+                Spacer()
             }
+            
+                
+                
+            //Featured Trainers
+            ScrollView(.horizontal){
+                    ForEach(pTS.filter({ pt in
+                        pt.isFeatured
+                            
+                        
+                    }), id: \.id
+                            
+                    ) { pt in
+                        PTCardView(showCategory: true, pt: pt, category: pt.workoutTypes.first!)
+                            .padding(7)
+                    }
+            }
+            
             HStack{
                 Text("Trainers by Category")
+                    .font(.title3)
+                    .bold()
                 Spacer()
                 Button(action: { isFav.toggle()}, label: {Label("Favourite Only", systemImage: "star")
                         .labelStyle(.titleAndIcon)
@@ -29,38 +51,34 @@ struct DashboardView: View {
             .padding(5)
             
             //Dynamic Training Categories
-//            ForEach(typesOfWorkOut.allCases) { workoutType in
-//                ScrollView(.horizontal){
-//                    //Training Category x
-//                    HStack{
-//                        ForEach(pTS.filter{ type1 in
-//                            type1.workoutTypes.contains(where: { type2 in
-//                                type1.rawValue == type2.rawValue
-//                            })
-//                        }) { <#Identifiable#> in
-//
-//                        }
-//                    }
-//
-//
-//
-//                }
-//            }
-            Text("osometxt \(pTS.count)" )
-            ScrollView(.horizontal){
-                HStack{
-                    ForEach(pTS.filter({ pt in
-                        pt.workoutTypes.contains(.calisthenic)
-                            
-                        
-                    }), id: \.id
-                            
-                    ) { pt in
-                        PTCardView(pt: pt)
-                            .padding(7)
+            
+//            Text("someText \(pTS.count)" )
+            ForEach(typesOfWorkOut.allCases, id: \.rawValue) { workoutCategory in
+                if  workoutCategory != .select{
+                    HStack{
+                        Text(workoutCategory.rawValue)
+//                            .bold()
+                            .padding(.top, 3)
+                            .padding(.leading, 7)
+                        Spacer()
+                    }
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(pTS.filter({ pt in
+                                pt.workoutTypes.contains(workoutCategory)
+                                    
+                                
+                            }), id: \.id
+                                    
+                            ) { pt in
+                                PTCardView(showCategory: false, pt: pt, category: workoutCategory)
+                                    .padding(7)
+                            }
+                        }
                     }
                 }
             }
+           
            
         }
         .onAppear{
