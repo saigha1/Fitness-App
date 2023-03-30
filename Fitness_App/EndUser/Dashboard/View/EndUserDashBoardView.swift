@@ -33,7 +33,7 @@ extension EndUserDashBoardView {
             } label: {
                 Text("Sign Out")
             }
-            Text("Dashboard contents goes here")
+            DashboardView()
         }
         .navigationTitle("Dashboard")
         .toolbar {
