@@ -27,14 +27,7 @@ struct EndUserDashBoardView_Previews: PreviewProvider {
 
 extension EndUserDashBoardView {
     private var content: some View {
-        VStack {
-            Button {
-                authVM.signOut()
-            } label: {
-                Text("Sign Out")
-            }
-            Text("Dashboard contents goes here")
-        }
+            DashboardView()
         .navigationTitle("Dashboard")
         .toolbar {
             ToolbarItem {

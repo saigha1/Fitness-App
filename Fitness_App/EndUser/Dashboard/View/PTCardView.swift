@@ -11,6 +11,8 @@ struct PTCardView: View {
     let size = UIScreen.main.bounds.width/2.85
     var showCategory: Bool = false
     var pt: PTModel
+    var category : typesOfWorkOut
+    
     var body: some View {
         VStack {
             ZStack {
@@ -42,7 +44,7 @@ struct PTCardView: View {
                     }
                     Spacer()
                     //MARK: - Training Category
-                    Text("Weight-Lifting")
+                    Text("\(category.rawValue)")
                         .foregroundColor(.white)
                         .fontWeight(.heavy)
                         .shadow(color: .black, radius: 1, x: 1, y: 1)
@@ -74,8 +76,8 @@ struct PTCardView_Previews: PreviewProvider {
     static var pt2 = PTModel(id: "", ptProfileImage: (UIImage(named: "PT6")!.jpegData(compressionQuality: 0.09)?.base64EncodedString())!, name: "Michael", email: "Michael@icloud.com", phone: "41641641466", gender: .m, isFeatured: .random(), isFavorite: false, isApproved: true, education: .Diploma, certification: [.CFES], selectedExperience: .One, cityLocation: .Mississauga, gymPreference: [.GoodLife], workoutTypes: [.calisthenic], motto: "Try harder.", description: "", imageString: [""], videoUrl: [""], selectedImage: nil)
     static var previews: some View {
         VStack {
-            PTCardView(pt: pt1)
-            PTCardView(showCategory: true, pt: pt2)
+            PTCardView(pt: pt1, category: .calisthenic)
+            PTCardView(showCategory: true, pt: pt2, category: .machine)
         }
     }
 }
