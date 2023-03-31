@@ -46,7 +46,9 @@ struct PTCardView: View {
                     //MARK: - Training Category
                     Text("\(category.rawValue)")
                         .foregroundColor(.white)
-                        .fontWeight(.heavy)
+                        .font(.subheadline)
+                        .bold()
+//                        .fontWeight(.heavy)
                         .shadow(color: .black, radius: 1, x: 1, y: 1)
                         .padding(.bottom, 3)
                         .if(!showCategory) { _ in
@@ -64,9 +66,7 @@ struct PTCardView: View {
                     .foregroundColor(.secondary)
             }
             .frame(width: size)
-            .padding(.horizontal, 5)
         }
-        .padding(5)
     }
 }
 

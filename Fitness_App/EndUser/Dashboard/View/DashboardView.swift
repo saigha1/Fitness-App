@@ -16,9 +16,10 @@ struct DashboardView: View {
         ScrollView{
             HStack{
                 Text("Featured Trainers")
-                    .bold()
-                    .padding(.leading, 7)
-                    .font(.title3)
+                    .fontWeight(.heavy)
+                    .padding(.top, 5)
+                    .padding(.leading, 10)
+                    .font(.headline)
                 Spacer()
             }
             
@@ -34,33 +35,72 @@ struct DashboardView: View {
                             
                     ) { pt in
                         PTCardView(showCategory: true, pt: pt, category: pt.workoutTypes.first!)
-                            .padding(7)
+                            .padding(.leading, 5)
+                            .padding(.vertical, 5)
+                            .padding(.trailing, 2)
                     }
                 }
             }
             
-            HStack{
+            HStack(alignment: .center){
                 Text("Trainers by Category")
-                    .font(.title3)
-                    .bold()
+                    .fontWeight(.heavy)
+                    .font(.headline)
                 Spacer()
-                Button(action: { isFav.toggle()}, label: {Label("Favourite Only", systemImage: "star")
-                        .labelStyle(.titleAndIcon)
-                    
+                //Favourite button
+                Button(action: { isFav.toggle()}, label: {
+                    VStack {
+                        Image(systemName: "star")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 20, height: 12)
+                        Text("Favourites")
+                            .font(.footnote)
+                    }
+                    .foregroundColor(.accentColor)
+                    .frame(height: 50)
                 })
+                //Sorting option button
+                Menu {
+                    Button {
+                        print("sort by price tapped")
+                    } label: {
+                        Text("Sort by price")
+                    }
+                    Button {
+                        print("sort by experience level tapped")
+                    } label: {
+                        Text("Sort by experience level")
+                    }
+                    Button {
+                        print("sort by rating tapped")
+                    } label: {
+                        Text("Sort by rating")
+                    }
+                } label: {
+                    VStack {
+                        Image(systemName: "line.3.horizontal.decrease")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 20, height: 12)
+                        Text("Sort")
+                            .font(.footnote)
+                    }
+                    .foregroundColor(.accentColor)
+                }
+
             }
-            .padding(5)
+            .padding(.top, 5)
+            .padding(.horizontal, 10)
             
             //Dynamic Training Categories
             
-//            Text("someText \(pTS.count)" )
             ForEach(typesOfWorkOut.allCases, id: \.rawValue) { workoutCategory in
                 if  workoutCategory != .select{
                     HStack{
                         Text(workoutCategory.rawValue)
-//                            .bold()
-                            .padding(.top, 3)
-                            .padding(.leading, 7)
+                            .font(.subheadline)
+                            .padding(.leading, 10)
                         Spacer()
                     }
                     ScrollView(.horizontal){
@@ -73,7 +113,9 @@ struct DashboardView: View {
                                     
                             ) { pt in
                                 PTCardView(showCategory: false, pt: pt, category: workoutCategory)
-                                    .padding(7)
+                                    .padding(.leading, 5)
+                                    .padding(.vertical, 5)
+                                    .padding(.trailing, 2)
                             }
                         }
                     }
