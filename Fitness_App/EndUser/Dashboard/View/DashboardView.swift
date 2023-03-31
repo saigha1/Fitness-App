@@ -10,9 +10,21 @@ import SwiftUI
 struct DashboardView: View {
     @State var isFav : Bool = false
     @State var pTS : [PTModel] = []
-    
-    
+    @EnvironmentObject var authVM: AuthViewModel
     var body: some View {
+        NavigationView {
+            content
+                .navigationTitle("Dashboard")
+                .toolbar {
+                    ToolbarItem {
+                        UserProfileIconView()
+                            .environmentObject(authVM)
+                    }
+                }
+        }
+    }
+    
+    var content: some View {
         ScrollView{
             HStack{
                 Text("Featured Trainers")
@@ -23,7 +35,7 @@ struct DashboardView: View {
                 Spacer()
             }
             
-                
+            
             //Featured Trainers
             ScrollView(.horizontal){
                 HStack{
@@ -34,10 +46,15 @@ struct DashboardView: View {
                     }), id: \.id
                             
                     ) { pt in
-                        PTCardView(showCategory: true, pt: pt, category: pt.workoutTypes.first!)
-                            .padding(.leading, 5)
-                            .padding(.vertical, 5)
-                            .padding(.trailing, 2)
+                        NavigationLink {
+                            PTPageProfileView(pt: pt)
+                        } label: {
+                            PTCardView(showCategory: true, pt: pt, category: pt.workoutTypes.first!)
+                                .foregroundColor(.primary)
+                                .padding(.leading, 5)
+                                .padding(.vertical, 5)
+                                .padding(.trailing, 2)
+                        }
                     }
                 }
             }
@@ -88,7 +105,7 @@ struct DashboardView: View {
                     }
                     .foregroundColor(.accentColor)
                 }
-
+                
             }
             .padding(.top, 5)
             .padding(.horizontal, 10)
@@ -107,22 +124,26 @@ struct DashboardView: View {
                         HStack{
                             ForEach(pTS.filter({ pt in
                                 pt.workoutTypes.contains(workoutCategory)
-                                    
+                                
                                 
                             }), id: \.id
                                     
                             ) { pt in
-                                PTCardView(showCategory: false, pt: pt, category: workoutCategory)
-                                    .padding(.leading, 5)
-                                    .padding(.vertical, 5)
-                                    .padding(.trailing, 2)
+                                NavigationLink {
+                                    PTPageProfileView(pt: pt)
+                                } label: {
+                                    PTCardView(showCategory: false, pt: pt, category: workoutCategory)
+                                        .foregroundColor(.primary)
+                                        .padding(.leading, 5)
+                                        .padding(.vertical, 5)
+                                        .padding(.trailing, 2)
+                                }
+                                
                             }
                         }
                     }
                 }
             }
-           
-           
         }
         .onAppear{
             guard let pTS : [PTModel] = load(filename: "PTs.json", location: .document) else { return }
