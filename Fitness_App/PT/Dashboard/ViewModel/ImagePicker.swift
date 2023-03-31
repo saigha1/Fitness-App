@@ -52,7 +52,8 @@ struct ImagePicker: UIViewControllerRepresentable {
                     } else if let image = image as? UIImage {
                         let parent = self.parent
                         if parent.selectionLimit == 1 { //!parent.image.isEmpty
-                            parent.image[0] = image
+                            //parent.image[0] = image
+                            parent.image.insert(image, at: 0)
                         } else {
                             parent.image.append(image)
                         }
