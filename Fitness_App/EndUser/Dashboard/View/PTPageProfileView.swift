@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PTPageProfileView: View {
     var pt: PTModel
+    @State var mediaFiles: [String] = [""]
+    @State var counter: Int = 0
     var body: some View {
         ScrollView {
             VStack {
@@ -27,11 +29,69 @@ struct PTPageProfileView: View {
                 }
                 //MARK: - Image & Video Preview
                 HStack {
-                    Image(uiImage: pt.ptProfileImage.asUIImage())
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                        .cornerRadius(15)
+                    // Previous Button (Left)
+                    Button {
+                        if counter > 1 {
+                            counter -= 1
+                        }
+                        if mediaFiles.count > 0 {
+                            mediaFiles.insert(mediaFiles.removeLast(), at: 0)
+                        }
+                    } label: {
+                        Image(systemName: "chevron.forward.circle.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .rotationEffect(Angle(degrees: 180))
+                            .foregroundColor(.secondary)
+                    }
+                    Spacer()
+                    // Images/Video thumbnails
+                    ZStack {
+                        ForEach(0...mediaFiles.count-1, id: \.self) { index in
+                            let string = mediaFiles.reversed()[index]
+                            Group {
+                                if string.hasSuffix(".mp4") {
+                                    Image(uiImage: imageFromVideo(url: URL(string: string) ?? URL(string: "https://www.google.com/")!, at: 0) ?? UIImage(systemName: "video.circle")!)
+                                        .resizable()
+                                } else {
+                                    string.toView { $0 }
+                                }
+                            }
+                            .frame(width: 200, height: 200, alignment: .center)
+                            .scaledToFill()
+                            .cornerRadius(15)
+                            .offset(x: CGFloat(index) * -4, y: CGFloat(index) * 2)
+                            .blur(radius: index == (mediaFiles.count-1) ? 0 : 2)
+                            .background(
+                                Color.white
+                                    
+                                    .frame(width: 200, height: 200, alignment: .center)
+                                    .cornerRadius(15)
+                                    .offset(x: CGFloat(index) * -4, y: CGFloat(index) * 2)
+                            )
+                        }
+                        .shadow(color: .secondary, radius: 2)
+                        .offset(x: 8, y: -4)
+                    }
+                    .frame(width: 220, height: 200, alignment: .center)
+                    Spacer()
+                    
+                    // Next Button (Right)
+                    Button {
+                        if counter < mediaFiles.count-1 {
+                            counter += 1
+                        }
+                        if mediaFiles.count > 0 {
+                            mediaFiles.append(mediaFiles.removeFirst())
+                        }
+                    } label: {
+                        Image(systemName: "chevron.forward.circle.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.secondary)
+                    }
                 }
+                .padding(.horizontal, 15)
                 //MARK: - Title with favicon, name, rating & chat button
                 HStack {
                     //Fav icon
@@ -136,6 +196,9 @@ struct PTPageProfileView: View {
             .padding(.bottom, 50)
         }
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            mediaFiles = [pt.ptProfileImage] + pt.imageString + pt.videoUrl
+        }
     }
 }
 
