@@ -40,52 +40,50 @@ extension String {
     /// - Parameters:
     ///   - size: CGFloat - the width and height of the view. Its default value is 15.
     ///   - padding: CGFloat? - the horizontal and vertical padding of the view. Its default value is 15
-    /// - Returns: return a SwiftUI of an image or a placerholder (􀉩) or a progress view (􀅈) while loading
+    /// - Returns: return a SwiftUI of an image or a placerholder or a progress view while loading
     func asProfileImage(_ size: CGFloat = 15, padding: CGFloat? = 15) -> some View {
-        AsyncImage(url: URL(string: self)) { image in
+        self.toView { image in
             image
-                .resizable()
+                .frame(width: size, height: size)
                 .scaledToFill()
                 .clipShape(Circle())
-        } placeholder: {
-            Group {
-                if self.isEmpty { Image(systemName: "person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: size * 0.7, height: size * 0.7)
-                        .foregroundColor(.secondary)
-                    
-                } else {
-                    ProgressView()
-                }
-            }
                 .overlay(
                     Circle().stroke(lineWidth: 1)
                         .foregroundColor(.secondary.opacity(0.8))
                         .frame(width: size, height: size)
                 )
+                .padding(padding ?? 0)
         }
-        .frame(width: size, height: size)
-        .padding(padding ?? 1)
     }
-    
+    /// Converts a string to UIImage
+    /// - Returns: a UIImage that the string represents or a placeholder of the person.circle icon
     func asUIImage() -> UIImage{
-        var imgUI : UIImage = UIImage(systemName: "person.circle")!
-        
-        guard let stringData = Data(base64Encoded: self, options: .ignoreUnknownCharacters)
-        else {
-            print("Error: couldn't create UIImage=> stringData")
-            return imgUI
-            
+//        let str = self.replacingOccurrences(of: "data:image/jpeg;base64,", with: "")
+        let placeholder = UIImage(systemName: "person.circle")!
+        guard let imageData = Data(base64Encoded: self, options: .ignoreUnknownCharacters) else {
+            return placeholder
         }
-        guard let uiImage = UIImage(data: stringData)
-        else {
-            print("Error: couldn't create UIImage=>uiImage")
-            return imgUI
-            
-        }
-        
-        imgUI = uiImage
-        return imgUI
+        return UIImage(data: imageData) ?? placeholder
+    }
+}
+
+extension String {
+    func toView(@ViewBuilder config: @escaping (_ image: AnyView) -> some View) -> some View {
+        let fromDataString = AsyncImage(
+            url: URL(string: "data:image/jpeg;base64," + self),
+            content: { image in
+                config(AnyView(image.resizable()))
+            },
+            placeholder: {
+                config(AnyView(ProgressView()))
+            }
+        )
+        return AsyncImage(
+            url: URL(string: self),
+            content: { image in
+                config(AnyView(image.resizable()))
+            },
+            placeholder: { fromDataString }
+        )
     }
 }
