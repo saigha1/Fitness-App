@@ -58,9 +58,10 @@ extension String {
     /// Converts a string to UIImage
     /// - Returns: a UIImage that the string represents or a placeholder of the person.circle icon
     func asUIImage() -> UIImage{
-//        let str = self.replacingOccurrences(of: "data:image/jpeg;base64,", with: "")
+        let str = self.replacingOccurrences(of: "data:image/jpeg;base64,", with: "")
         let placeholder = UIImage(systemName: "person.circle")!
-        guard let imageData = Data(base64Encoded: self, options: .ignoreUnknownCharacters) else {
+        guard let imageData = Data(base64Encoded: str, options: .ignoreUnknownCharacters) else {
+            print("🔥")
             return placeholder
         }
         return UIImage(data: imageData) ?? placeholder
