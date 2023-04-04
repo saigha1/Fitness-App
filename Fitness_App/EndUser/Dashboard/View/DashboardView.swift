@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @State var isFav : Bool = false
+    @State var favOnly : Bool = false
     @State var pTS : [PTModel] = []
     @EnvironmentObject var authVM: AuthViewModel
+    @State var sortState : sortingType = .rating
+    
     var body: some View {
         NavigationView {
             content
@@ -51,13 +53,14 @@ struct DashboardView: View {
                         } label: {
                             PTCardView(showCategory: true, pt: pt, category: pt.workoutTypes.first!)
                                 .foregroundColor(.primary)
-                                .padding(.leading, 5)
+                                .padding(.leading, -1)
                                 .padding(.vertical, 5)
-                                .padding(.trailing, 2)
                         }
                     }
                 }
             }
+            .padding(.leading, 10)
+            .padding(.trailing, 10)
             
             HStack(alignment: .center){
                 Text("Trainers by Category")
@@ -65,35 +68,40 @@ struct DashboardView: View {
                     .font(.headline)
                 Spacer()
                 //Favourite button
-                Button(action: { isFav.toggle()}, label: {
+                Button(action: { favOnly.toggle()}, label: {
                     VStack {
-                        Image(systemName: "star")
+                        Image(systemName: favOnly ? "star.fill" : "star")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 20, height: 12)
                         Text("Favourites")
                             .font(.footnote)
                     }
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(favOnly ? .orange : .accentColor)
                     .frame(height: 50)
                 })
+                
                 //Sorting option button
                 Menu {
-                    Button {
-                        print("sort by price tapped")
-                    } label: {
-                        Text("Sort by price")
+                    ForEach(sortingType.allCases, id : \.rawValue){option in
+                        Button {
+                            switch option{
+                            case .price : sortState = .price
+                            case .experience : sortState = .experience
+                            default : sortState = .rating
+                            }
+                        } label: {
+                            HStack{
+                                Text("Sort by \(option.rawValue)")
+                                Spacer()
+                                if option == sortState {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                        }
                     }
-                    Button {
-                        print("sort by experience level tapped")
-                    } label: {
-                        Text("Sort by experience level")
-                    }
-                    Button {
-                        print("sort by rating tapped")
-                    } label: {
-                        Text("Sort by rating")
-                    }
+                    
+                    
                 } label: {
                     VStack {
                         Image(systemName: "line.3.horizontal.decrease")
@@ -111,7 +119,6 @@ struct DashboardView: View {
             .padding(.horizontal, 10)
             
             //Dynamic Training Categories
-            
             ForEach(typesOfWorkOut.allCases, id: \.rawValue) { workoutCategory in
                 if  workoutCategory != .select{
                     HStack{
@@ -123,10 +130,24 @@ struct DashboardView: View {
                     ScrollView(.horizontal){
                         HStack{
                             ForEach(pTS.filter({ pt in
+                                favOnly ? pt.isFavorite : true
+                                &&
                                 pt.workoutTypes.contains(workoutCategory)
                                 
                                 
-                            }), id: \.id
+                            }).sorted{pt1, pt2 in
+                                switch sortState{
+                                    case .price : return true
+                                    case .experience : return {
+                                        let dictionary: [PTexperienceLevel : Int] = [.select : -1, .One : 1, .Two : 2, .Three : 3, .Other : 0 ]
+                                        let pt1Level = dictionary[pt1.selectedExperience]!
+                                        let pt2Level = dictionary[pt2.selectedExperience]!
+                                    return pt1Level > pt2Level
+                                    }()
+                                    default : return true
+                                }
+                                
+                            }, id: \.id
                                     
                             ) { pt in
                                 NavigationLink {
@@ -134,14 +155,19 @@ struct DashboardView: View {
                                 } label: {
                                     PTCardView(showCategory: false, pt: pt, category: workoutCategory)
                                         .foregroundColor(.primary)
-                                        .padding(.leading, 5)
-                                        .padding(.vertical, 5)
-                                        .padding(.trailing, 2)
+                                        .padding(.leading, -1)
+                                        
+                                       
                                 }
                                 
                             }
+                            .padding(0)
                         }
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
+                        
                     }
+                    
                 }
             }
         }
@@ -150,7 +176,16 @@ struct DashboardView: View {
             self.pTS = pTS
         }
     }
+    
+    enum sortingType: String, CaseIterable{
+        case price = "Price"
+        case experience = "Experience Level"
+        case rating = "Rating"
+        
+    }
 }
+
+
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
