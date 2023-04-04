@@ -48,22 +48,30 @@ extension String {
                 .scaledToFill()
                 .clipShape(Circle())
         } placeholder: {
-            Group {
-                if self.isEmpty { Image(systemName: "person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: size * 0.7, height: size * 0.7)
-                        .foregroundColor(.secondary)
-                    
-                } else {
-                    ProgressView()
+            AsyncImage(url: URL(string:  self.replacingOccurrences(of: "data:image/jpeg;base64,", with: ""))) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+            } placeholder: {
+                Group {
+                    if self.isEmpty { Image(systemName: "person")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: size * 0.7, height: size * 0.7)
+                            .foregroundColor(.secondary)
+                        
+                    } else {
+                        ProgressView()
+                    }
                 }
+                    .overlay(
+                        Circle().stroke(lineWidth: 1)
+                            .foregroundColor(.secondary.opacity(0.8))
+                            .frame(width: size, height: size)
+                    )
             }
-                .overlay(
-                    Circle().stroke(lineWidth: 1)
-                        .foregroundColor(.secondary.opacity(0.8))
-                        .frame(width: size, height: size)
-                )
+
         }
         .frame(width: size, height: size)
         .padding(padding ?? 1)
@@ -71,14 +79,22 @@ extension String {
     
     func asUIImage() -> UIImage{
         var imgUI : UIImage = UIImage(systemName: "person.circle")!
-        
+        var str : Data = Data()
         guard let stringData = Data(base64Encoded: self, options: .ignoreUnknownCharacters)
         else {
             print("Error: couldn't create UIImage=> stringData")
+            guard let stringData = Data(base64Encoded: self.replacingOccurrences(of: "data:image/jpeg;base64,", with: ""), options: .ignoreUnknownCharacters)
+            else {
+                print("Error: couldn't create UIImage=> stringData")
+                return imgUI
+            }
+            str = stringData
             return imgUI
-            
         }
-        guard let uiImage = UIImage(data: stringData)
+        
+        str = stringData
+        
+        guard let uiImage = UIImage(data: str)
         else {
             print("Error: couldn't create UIImage=>uiImage")
             return imgUI
