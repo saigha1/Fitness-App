@@ -202,7 +202,7 @@ struct PTPageProfileView: View {
                 }
             if showLarge{
                 imageTapped(mediaFiles[0])
-                    .onTapGesture {
+                    .onTapGesture(count: 2) {
                         withAnimation{
                             showLarge.toggle()
                         }
@@ -286,13 +286,28 @@ extension PTPageProfileView {
         } else {
             // Portrait
             // Use 600 if image height > 600
-            height = imageHeight > (UIScreen.main.bounds.height*0.8) ? (UIScreen.main.bounds.height*0.8) : height
+            height = imageHeight > (UIScreen.main.bounds.height*0.6) ? (UIScreen.main.bounds.height*0.6) : height
             // Scale width
             width = height/imageHeight * imageHeight
         }
         return Group {
             if string.hasSuffix(".mp4") {
-                VideoPlayer(player: .init(url: URL(string: string)!)).frame(width: width, height: height)
+                let player : AVPlayer = .init(url: URL(string: string)!)
+                
+                VideoPlayer(player: player){
+                    Color.primary.opacity(0.00001)
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                        .onTapGesture(count: 2){
+                            withAnimation{
+                                showLarge.toggle()
+                            }
+                        }
+                }
+                .onAppear{
+                    player.play()
+                }
+                    
+                
             } else {
                 Image(uiImage: image).resizable().frame(width: width, height: height)
             }
