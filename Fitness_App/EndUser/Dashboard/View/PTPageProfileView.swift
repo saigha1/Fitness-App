@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct PTPageProfileView: View {
     var pt: PTModel
@@ -49,8 +50,7 @@ struct PTPageProfileView: View {
                                 let string = mediaFiles.reversed()[index]
                                 Group {
                                     if string.hasSuffix(".mp4") {
-                                        Image(uiImage: imageFromVideo(url: URL(string: string) ?? URL(string: "https://www.google.com/")!, at: 0) ?? UIImage(systemName: "video.circle")!)
-                                            .resizable()
+                                        VideoPlayer(player: .init(url: URL(string: string)!))
                                     } else {
                                         string.toView { $0 }
                                     }
@@ -62,7 +62,6 @@ struct PTPageProfileView: View {
                                 .blur(radius: index == (mediaFiles.count-1) ? 0 : 2)
                                 .background(
                                     Color.white
-                                    
                                         .frame(width: 200, height: 200, alignment: .center)
                                         .cornerRadius(15)
                                 )
@@ -291,8 +290,13 @@ extension PTPageProfileView {
             // Scale width
             width = height/imageHeight * imageHeight
         }
-        
-        return Image(uiImage: image).resizable().frame(width: width, height: height)
+        return Group {
+            if string.hasSuffix(".mp4") {
+                VideoPlayer(player: .init(url: URL(string: string)!)).frame(width: width, height: height)
+            } else {
+                Image(uiImage: image).resizable().frame(width: width, height: height)
+            }
+        }
     }
     
     //MARK: - Swipe / Button logic to change current index of images
