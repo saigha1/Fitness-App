@@ -12,7 +12,6 @@ struct PTPageProfileView: View {
     @State var mediaFiles: [String] = [""]
     @State var counter: Int = 0
     @State var showLarge : Bool = false
-    @State var largeImage : String = ""
     
     var body: some View {
         ZStack{
@@ -35,12 +34,7 @@ struct PTPageProfileView: View {
                     HStack {
                         // Previous Button (Left)
                         Button {
-                            if counter > 1 {
-                                counter -= 1
-                            }
-                            if mediaFiles.count > 0 {
-                                mediaFiles.insert(mediaFiles.removeLast(), at: 0)
-                            }
+                            previousImage()
                         } label: {
                             Image(systemName: "chevron.forward.circle.fill")
                                 .resizable()
@@ -74,7 +68,7 @@ struct PTPageProfileView: View {
                                 )
                                 .offset(x: CGFloat(index) * -4, y: CGFloat(index) * 2)
                                 .onTapGesture(perform: {
-                                    largeImage = string
+                                    counter = index
                                     withAnimation{
                                         showLarge.toggle()
                                     }
@@ -89,12 +83,7 @@ struct PTPageProfileView: View {
                         
                         // Next Button (Right)
                         Button {
-                            if counter < mediaFiles.count-1 {
-                                counter += 1
-                            }
-                            if mediaFiles.count > 0 {
-                                mediaFiles.append(mediaFiles.removeFirst())
-                            }
+                            nextImage()
                         } label: {
                             Image(systemName: "chevron.forward.circle.fill")
                                 .resizable()
@@ -207,19 +196,43 @@ struct PTPageProfileView: View {
                 .padding(.bottom, 50)
             }
             Color.primary.opacity(showLarge ? 0.7 : 0).ignoresSafeArea()
-            
+                .onTapGesture {
+                    withAnimation{
+                        showLarge.toggle()
+                    }
+                }
             if showLarge{
-                imageTapped(largeImage)
+                imageTapped(mediaFiles[0])
                     .onTapGesture {
                         withAnimation{
                             showLarge.toggle()
                         }
                     }
+                    .gesture(
+                        DragGesture()
+                            .onEnded({ gesture in
+                                let endLocation = gesture.location
+                                let startLocation = gesture.startLocation
+                                let changeInX = endLocation.x - startLocation.x
+                                let changeInY = endLocation.y - startLocation.y
+                                withAnimation {
+                                    if abs(changeInY) > 200 { // dismiss if change in y is greater than 200
+                                        showLarge.toggle()
+                                    } else if abs(changeInX) > 100 { // update current index if change in x is greater than 100
+                                        if changeInX > 0 {
+                                            previousImage()
+                                        } else {
+                                            nextImage()
+                                        }
+                                    }
+                                }
+                            })
+                    )
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            mediaFiles = [pt.ptProfileImage] + pt.imageString + pt.videoUrl
+            mediaFiles = ([pt.ptProfileImage] + pt.imageString + pt.videoUrl)
         }
     }
 }
@@ -280,5 +293,27 @@ extension PTPageProfileView {
         }
         
         return Image(uiImage: image).resizable().frame(width: width, height: height)
+    }
+    
+    //MARK: - Swipe / Button logic to change current index of images
+    func previousImage() {
+        if counter > 0 {
+            counter -= 1
+        } else if counter == 0 {
+            counter = mediaFiles.count - 1
+        }
+        if mediaFiles.count > 0 {
+            mediaFiles.insert(mediaFiles.removeLast(), at: 0)
+        }
+    }
+    func nextImage() {
+        if counter < mediaFiles.count-1 {
+            counter += 1
+        } else if counter == mediaFiles.count - 1 {
+            counter = 0
+        }
+        if mediaFiles.count > 0 {
+            mediaFiles.append(mediaFiles.removeFirst())
+        }
     }
 }
