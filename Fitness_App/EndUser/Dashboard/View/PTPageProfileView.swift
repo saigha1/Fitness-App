@@ -276,7 +276,6 @@ extension PTPageProfileView {
         let imageWidth = image.size.width
         let imageHeight = image.size.height
         
-        
         if imageWidth > imageHeight {
             // Landscape image
             // Use screen width if < than image width
