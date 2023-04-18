@@ -88,6 +88,7 @@ struct DashboardView: View {
                             switch option{
                             case .price : sortState = .price
                             case .experience : sortState = .experience
+                            case .isFeatured: sortState = .isFeatured
                             default : sortState = .rating
                             }
                         } label: {
@@ -129,6 +130,7 @@ struct DashboardView: View {
                     }
                     ScrollView(.horizontal){
                         HStack{
+                            //TODO: - Implement a second .sorted to sort PTs by internal score (ranking)
                             ForEach(pTS.filter({ pt in
                                 favOnly ? pt.isFavorite : true
                                 &&
@@ -144,6 +146,7 @@ struct DashboardView: View {
                                         let pt2Level = dictionary[pt2.selectedExperience]!
                                     return pt1Level > pt2Level
                                     }()
+                                case .isFeatured: return pt1.isFeatured
                                     default : return true
                                 }
                                 
@@ -181,7 +184,7 @@ struct DashboardView: View {
         case price = "Price"
         case experience = "Experience Level"
         case rating = "Rating"
-        
+        case isFeatured = "Featured"
     }
 }
 

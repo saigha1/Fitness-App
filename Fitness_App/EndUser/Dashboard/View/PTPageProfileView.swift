@@ -233,6 +233,13 @@ struct PTPageProfileView: View {
         .onAppear {
             mediaFiles = ([pt.ptProfileImage] + pt.imageString + pt.videoUrl)
         }
+        .fullScreenCoverWithDismissButton(isPresented: .init(get: {
+            showLarge && mediaFiles[0].hasSuffix(".mp4")
+        }, set: { _ in
+            showLarge = false
+        })) {
+            imageTapped(mediaFiles[0])
+        }
     }
 }
 
@@ -276,7 +283,6 @@ extension PTPageProfileView {
         let imageWidth = image.size.width
         let imageHeight = image.size.height
         
-        
         if imageWidth > imageHeight {
             // Landscape image
             // Use screen width if < than image width
@@ -306,7 +312,9 @@ extension PTPageProfileView {
                 .onAppear{
                     player.play()
                 }
-                    
+                .onDisappear {
+                    player.pause()
+                }
                 
             } else {
                 Image(uiImage: image).resizable().frame(width: width, height: height)
