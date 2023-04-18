@@ -233,6 +233,13 @@ struct PTPageProfileView: View {
         .onAppear {
             mediaFiles = ([pt.ptProfileImage] + pt.imageString + pt.videoUrl)
         }
+        .fullScreenCoverWithDismissButton(isPresented: .init(get: {
+            showLarge && mediaFiles[0].hasSuffix(".mp4")
+        }, set: { _ in
+            showLarge = false
+        })) {
+            imageTapped(mediaFiles[0])
+        }
     }
 }
 
@@ -305,7 +312,9 @@ extension PTPageProfileView {
                 .onAppear{
                     player.play()
                 }
-                    
+                .onDisappear {
+                    player.pause()
+                }
                 
             } else {
                 Image(uiImage: image).resizable().frame(width: width, height: height)

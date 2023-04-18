@@ -93,6 +93,7 @@
 		25C8CF1529BF8D6F00B64190 /* StyledPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */; };
 		25E6D8F529914A220015B8B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F429914A220015B8B0 /* Color.swift */; };
 		25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F929915FC00015B8B0 /* Icons.swift */; };
+		A7A2A17E29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A2A17D29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,6 +179,7 @@
 		25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledPicker.swift; sourceTree = "<group>"; };
 		25E6D8F429914A220015B8B0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		25E6D8F929915FC00015B8B0 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
+		A7A2A17D29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenCoverWithDismissButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +564,7 @@
 			children = (
 				0446396F2983FC8500C1741B /* TextFieldView.swift */,
 				25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */,
+				A7A2A17D29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift */,
 			);
 			path = ViewBuilders;
 			sourceTree = "<group>";
@@ -688,6 +691,7 @@
 				04A1924A299A9400000792B4 /* Calendar.swift in Sources */,
 				04A19262299D629D000792B4 /* EditModeView.swift in Sources */,
 				257337B129ACFE1500357E78 /* EndUserCalendarView.swift in Sources */,
+				A7A2A17E29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift in Sources */,
 				047C5F5729929EC7000A4F49 /* Sign_Up_View.swift in Sources */,
 				04BC0EFA298C1C77000EE16E /* Google-Firebase-LoginVM.swift in Sources */,
 				256E909D2993EA11005138B4 /* Double.swift in Sources */,
