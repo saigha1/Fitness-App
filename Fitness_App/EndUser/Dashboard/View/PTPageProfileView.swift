@@ -13,6 +13,7 @@ struct PTPageProfileView: View {
     @State var mediaFiles: [String] = [""]
     @State var counter: Int = 0
     @State var showLarge : Bool = false
+    @State var showBookSessions: Bool = false
     
     var body: some View {
         ZStack{
@@ -164,6 +165,7 @@ struct PTPageProfileView: View {
                     HStack {
                         Button {
                             print("Book sessions tapped.")
+                            showBookSessions.toggle()
                         } label: {
                             Text("Book Sessions")
                                 .bold()
@@ -175,6 +177,9 @@ struct PTPageProfileView: View {
                                         .stroke(lineWidth: 1)
                                         .foregroundColor(Color.assetColor.purple)
                                 }
+                        }
+                        .sheet(isPresented: $showBookSessions) {
+                            BookSessionsView()
                         }
                         Button {
                             print("Purchase Plans tapped.")
