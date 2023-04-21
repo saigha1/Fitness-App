@@ -93,6 +93,9 @@
 		25C8CF1529BF8D6F00B64190 /* StyledPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */; };
 		25E6D8F529914A220015B8B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F429914A220015B8B0 /* Color.swift */; };
 		25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F929915FC00015B8B0 /* Icons.swift */; };
+		A74B7D5829F1B0AC00375F55 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B7D5729F1B0AC00375F55 /* DayOfWeek.swift */; };
+		A74B7D5A29F1B1A100375F55 /* DayOfTheWeekPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B7D5929F1B1A100375F55 /* DayOfTheWeekPicker.swift */; };
+		A74B7D5C29F1B35C00375F55 /* BookSessionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B7D5B29F1B35C00375F55 /* BookSessionsViewModel.swift */; };
 		A765FF0429EF1CDB0018DEE3 /* BookSessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A765FF0329EF1CDB0018DEE3 /* BookSessionsView.swift */; };
 		A765FF0629EF20B80018DEE3 /* RoundedRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A765FF0529EF20B80018DEE3 /* RoundedRect.swift */; };
 		A7A2A17E29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A2A17D29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift */; };
@@ -181,6 +184,9 @@
 		25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledPicker.swift; sourceTree = "<group>"; };
 		25E6D8F429914A220015B8B0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		25E6D8F929915FC00015B8B0 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
+		A74B7D5729F1B0AC00375F55 /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
+		A74B7D5929F1B1A100375F55 /* DayOfTheWeekPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekPicker.swift; sourceTree = "<group>"; };
+		A74B7D5B29F1B35C00375F55 /* BookSessionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSessionsViewModel.swift; sourceTree = "<group>"; };
 		A765FF0329EF1CDB0018DEE3 /* BookSessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSessionsView.swift; sourceTree = "<group>"; };
 		A765FF0529EF20B80018DEE3 /* RoundedRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRect.swift; sourceTree = "<group>"; };
 		A7A2A17D29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenCoverWithDismissButton.swift; sourceTree = "<group>"; };
@@ -465,6 +471,7 @@
 				2506A6DC299E9EF800FC5D7A /* FileLocation.swift */,
 				04A1925D299C74E8000792B4 /* TrainingCategory.swift */,
 				04A1925F299C7685000792B4 /* GymOptions.swift */,
+				A74B7D5729F1B0AC00375F55 /* DayOfWeek.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -552,6 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				25C2E4EF29D48B2400772C89 /* EndUserDashboardViewModel.swift */,
+				A74B7D5B29F1B35C00375F55 /* BookSessionsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -571,6 +579,7 @@
 				25C8CF1429BF8D6F00B64190 /* StyledPicker.swift */,
 				A7A2A17D29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift */,
 				A765FF0529EF20B80018DEE3 /* RoundedRect.swift */,
+				A74B7D5929F1B1A100375F55 /* DayOfTheWeekPicker.swift */,
 			);
 			path = ViewBuilders;
 			sourceTree = "<group>";
@@ -733,6 +742,7 @@
 				25180FD8299FC7F300498E30 /* JSONManager.swift in Sources */,
 				257337AF29ACFDAE00357E78 /* EndUserExploreView.swift in Sources */,
 				049833402954975400724C7B /* Fitness_AppApp.swift in Sources */,
+				A74B7D5C29F1B35C00375F55 /* BookSessionsViewModel.swift in Sources */,
 				251A49A12995F6F20066A9CF /* Components.swift in Sources */,
 				2558E65629B7B6660099BC0A /* EndUserProfileViewModel.swift in Sources */,
 				251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */,
@@ -748,11 +758,13 @@
 				257337AD29ACFD4300357E78 /* EndUserChatView.swift in Sources */,
 				04A1925E299C74E8000792B4 /* TrainingCategory.swift in Sources */,
 				0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */,
+				A74B7D5829F1B0AC00375F55 /* DayOfWeek.swift in Sources */,
 				0446397529841B9E00C1741B /* rootViewController.swift in Sources */,
 				251A499C2995EEC70066A9CF /* EndUser.swift in Sources */,
 				044639732983FC8500C1741B /* LoginPage.swift in Sources */,
 				25C09DAE299536A500099C8E /* Date.swift in Sources */,
 				04A19246299A8DF3000792B4 /* HomePage.swift in Sources */,
+				A74B7D5A29F1B1A100375F55 /* DayOfTheWeekPicker.swift in Sources */,
 				257B5EED29D7264A005A78AD /* PTPageProfileView.swift in Sources */,
 				047C5F5E2992AD7B000A4F49 /* Model.swift in Sources */,
 				25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */,

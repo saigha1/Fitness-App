@@ -9,11 +9,25 @@ import SwiftUI
 
 struct BookSessionsView: View {
     @Environment(\.dismiss) var dismiss
+    @StateObject var vm = BookSessionsViewModel()
     var body: some View {
         NavigationView {
-            VStack {
-                DatePickerCell()
+            ScrollView {
+                Group { // Form / Input
+                    dayOfTheWeekPicker
+                    freeTrial
+                    startDatePicker
+                    timeSlotPickers
+                    lengthPicker
+                    location
+                    gym
+                }
+                Divider()
+                Group { // Transaction Summary
+                    
+                }
             }
+            .padding()
             .navigationTitle("Book Sessions")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -34,13 +48,83 @@ struct BookSessionsView_Previews: PreviewProvider {
     }
 }
 
-struct DatePickerCell: View {
-    var body: some View {
-        Path() { p in
-            p.move(to: CGPoint(x: 50, y: 50))
-            p.addLine(to: CGPoint(x: 150, y: 150))
-            p.addLine(to: CGPoint(x: 190, y: 150))
+//MARK: - View Components (Form)
+extension BookSessionsView {
+    // Day of the week picker row
+    private var dayOfTheWeekPicker: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Date")
+                    .bold()
+                Text("Select 2 - 5 days/week")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            Spacer()
+            DayOfTheWeekPicker(selectedDays: vm.selectedDays)
         }
-        .foregroundColor(.black)
+    }
+    // Free trial text
+    private var freeTrial: some View {
+        HStack {
+            Text("Free Trial")
+                .bold()
+            Spacer()
+            Text("Your first session is free of charge.")
+        }
+    }
+    // Start Date
+    private var startDatePicker: some View {
+        HStack {
+            Text("Start Date")
+                .bold()
+            Spacer()
+            DatePicker("Start Date", selection: $vm.selectedStartDate, displayedComponents: .date)
+                .datePickerStyle(.compact)
+                .labelsHidden()
+        }
+    }
+    // Time Slot
+    private var timeSlotPickers: some View {
+        HStack {
+            Text("Time Slot")
+                .bold()
+            Spacer()
+            DatePicker("Start Time", selection: $vm.selectedStartDate, displayedComponents: .hourAndMinute)
+                .labelsHidden()
+            Text("~")
+            DatePicker("End Time", selection: $vm.selectedEndTime, displayedComponents: .hourAndMinute)
+                .labelsHidden()
+        }
+    }
+    private var lengthPicker: some View {
+        HStack {
+            Text("Length")
+                .bold()
+            Spacer()
+            Picker("Length", selection: $vm.selectedLength, content: {
+                let lengthOptions = [1, 3, 6, 9, 12, 24]
+                ForEach(lengthOptions, id: \.self) { len in
+                    Text("\(len) month" + (len == 1 ? "" : "s"))
+                }
+            })
+                .labelsHidden()
+        }
+    }
+    private var location: some View {
+        HStack(alignment: .top) {
+            Text("Location")
+                .bold()
+            Spacer()
+            Text("TODO: Fetch Preferred Location of the Current User")
+        }
+    }
+    private var gym: some View {
+        HStack(alignment: .top) {
+            Text("Gym")
+                .bold()
+            Spacer()
+            Text("TODO: Fetch Gyms of the Current User and show a picker")
+        }
     }
 }
