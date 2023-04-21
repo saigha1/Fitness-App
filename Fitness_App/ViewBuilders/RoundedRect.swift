@@ -7,44 +7,41 @@
 
 import SwiftUI
 
+//MARK: - A Rectangle with two or no corner radius as Day of the Week Picker Cell
 struct RoundedRect: View {
     @Binding var isSelected : Bool
-    var width : CGFloat = 50
-    var height : CGFloat = 50
-    var cornerRadius : CGFloat = 15
+    var day: DayOfTheWeek
+    var size : CGFloat = 20
+    var cornerRadius : CGFloat = 5
     var corners : [UIRectCorner] = []
-    
     
     func makeRect(_ inner : Bool = false) -> some View {
         Rectangle()
             .fill(inner ? (isSelected ? Color.assetColor.cyan : Color.assetColor.white) : Color.black)
-            .frame(width: inner ? width*0.96 : width, height: inner ? height * 0.96 : height)
+            .frame(width: inner ? size * 0.96 : size, height: inner ? size * 0.96 : size)
     }
     
     var sunday: some View {
         ZStack{
             makeRect()
-                .cornerRadius(15, corners: .topLeft)
-                .cornerRadius(15, corners: .bottomLeft)
+                .cornerRadius(cornerRadius, corners: .topLeft)
+                .cornerRadius(cornerRadius, corners: .bottomLeft)
             
             makeRect(true)
-                .cornerRadius(15, corners: .topLeft)
-                .cornerRadius(15, corners: .bottomLeft)
-        }
-        .onTapGesture {
-            isSelected.toggle()
+                .cornerRadius(cornerRadius, corners: .topLeft)
+                .cornerRadius(cornerRadius, corners: .bottomLeft)
         }
     }
     
     var saturday: some View {
         ZStack{
             makeRect()
-                .cornerRadius(15, corners: .topRight)
-                .cornerRadius(15, corners: .bottomRight)
+                .cornerRadius(cornerRadius, corners: .topRight)
+                .cornerRadius(cornerRadius, corners: .bottomRight)
             
             makeRect(true)
-                .cornerRadius(15, corners: .topRight)
-                .cornerRadius(15, corners: .bottomRight)
+                .cornerRadius(cornerRadius, corners: .topRight)
+                .cornerRadius(cornerRadius, corners: .bottomRight)
         }
     }
     
@@ -55,54 +52,32 @@ struct RoundedRect: View {
             makeRect(true)
         }
     }
-    var body: some View{
-        sunday
+    var body: some View {
+        Group {
+            switch day {
+            case .sunday: sunday
+            case .saturday: saturday
+            default: weekDay
+            }
+        }
+        .onTapGesture {
+            isSelected.toggle()
+        }
     }
-    
-    
 }
 
 struct RoundedRect_Previews: PreviewProvider {
-//    static var isSelected : Bool = false
     static var previews: some View {
-//        RoundedRect(isSelected: .init(get: {
-//            isSelected
-//        }, set: { newValue in
-//            isSelected = newValue
-//        }))
-        TestRoundedRect()
-    }
-}
-
-struct TestRoundedRect :  View{
-    @State var isSelected : Bool = false
-    var body: some View{
-        HStack{
-            ForEach(dayOfTheWeek.allCases, id: \.rawValue){day in
-                ZStack{
-//                    switch day{
-//                    case .sunday : RoundedRect()
-//                    case .saturday : RoundedRect()
-//                    default : RoundedRect()
-//                    }
-                    
-                    Text(String(day.rawValue.first!))
-                }
-                
-            }
+        VStack {
+            DatePickerCell()
+            RoundedRect(isSelected: .constant(true), day: .sunday)
+            RoundedRect(isSelected: .constant(false), day: .friday)
+            RoundedRect(isSelected: .constant(true), day: .saturday)
         }
     }
-    enum dayOfTheWeek :  String, CaseIterable{
-        case sunday = "S"
-        case monday = "M"
-        case tuesday = "T"
-        case wednesday = "W"
-        case thursday = "Thur"
-        case friday = "F"
-        case saturday = "Sat"
-    }
 }
 
+//MARK: - A View modifer that applies corner radius to a specific corner of a frame
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
@@ -116,5 +91,65 @@ struct RoundedCorner: Shape {
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         return Path(path.cgPath)
+    }
+}
+struct DatePickerCell: View {
+    private var cell: some View {
+        Path() { p in
+            p.move(to: CGPoint(x: 60, y: 60))
+            p.addQuadCurve(to: .init(x: 120, y: 120), control: .init(x: 60, y: 120))
+            p.addLine(to: .init(x: 120 + 120, y: 120))
+            p.addQuadCurve(to: .init(x: 300, y: 60), control: .init(x: 300, y: 120))
+            p.addLine(to: .init(x: 300, y: -60))
+            p.addQuadCurve(to: .init(x: 240, y: -120), control: .init(x: 300, y: -120))
+            p.addLine(to: .init(x: 120, y: -120))
+            p.addQuadCurve(to: .init(x: 60, y: -60), control: .init(x: 60, y: -120))
+            p.addLine(to: .init(x: 60, y: 60))
+        }
+        .stroke(lineWidth: 3)
+        .padding(.top, 150)
+    }
+    
+    var weekDay: some View {
+        Path() { p in
+            p.move(to: .init(x: 60, y: 60))
+            p.addLine(to: .init(x: 60, y: 120))
+            p.addLine(to: .init(x: 60 + 120 + 60, y: 120))
+            p.addLine(to: .init(x: 60 + 120 + 60, y: 120 - 120 - 60))
+            p.addLine(to: .init(x: 60, y: -60))
+            p.addLine(to: .init(x: 60, y: -60+120))
+        }
+        .stroke(lineWidth: 3)
+        .padding(.top, 150)
+    }
+    var sunday: some View {
+        Path() { p in
+            p.move(to: CGPoint(x: 60, y: 60))
+            p.addQuadCurve(to: .init(x: 120, y: 120), control: .init(x: 60, y: 120))
+            p.addLine(to: .init(x: 120 + 120 + 60, y: 120))
+            p.addLine(to: .init(x: 300, y: -120))
+            p.addLine(to: .init(x: 120, y: -120))
+            p.addQuadCurve(to: .init(x: 60, y: -60), control: .init(x: 60, y: -120))
+            p.addLine(to: .init(x: 60, y: 60))
+        }
+        .stroke(lineWidth: 3)
+        .padding(.top, 150)
+    }
+    var satudary: some View {
+        Path() { p in
+            p.move(to: CGPoint(x: 60, y: 60))
+            p.addLine(to: .init(x: 60, y: 120))
+            p.addLine(to: .init(x: 120 + 120, y: 120))
+            p.addQuadCurve(to: .init(x: 300, y: 60), control: .init(x: 300, y: 120))
+            p.addLine(to: .init(x: 300, y: -60))
+            p.addQuadCurve(to: .init(x: 240, y: -120), control: .init(x: 300, y: -120))
+            p.addLine(to: .init(x: 60, y: -120))
+            p.addLine(to: .init(x: 60, y: 60))
+        }
+        .stroke(lineWidth: 3)
+        .padding(.top, 150)
+    }
+    var body: some View {
+        satudary
     }
 }
