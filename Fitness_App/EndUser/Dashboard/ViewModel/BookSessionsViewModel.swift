@@ -14,4 +14,5 @@ class BookSessionsViewModel: ObservableObject {
     @Published var selectedStartTime: Date = Date()
     @Published var selectedEndTime: Date = Date() + 7200
     @Published var selectedLength: Int = 1
+    @Published var selectedGym : gymPreferrence = .select
 }

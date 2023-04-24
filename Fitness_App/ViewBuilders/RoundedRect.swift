@@ -11,8 +11,8 @@ import SwiftUI
 struct RoundedRect: View {
     @Binding var isSelected : Bool
     var day: DayOfTheWeek
-    var size : CGFloat = 20
-    var cornerRadius : CGFloat = 5
+    var size : CGFloat = 100
+    var cornerRadius : CGFloat = 35
     var corners : [UIRectCorner] = []
     
     func makeRect(_ inner : Bool = false) -> some View {
@@ -69,7 +69,7 @@ struct RoundedRect: View {
 struct RoundedRect_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DatePickerCell()
+//            DatePickerCell()
             RoundedRect(isSelected: .constant(true), day: .sunday)
             RoundedRect(isSelected: .constant(false), day: .friday)
             RoundedRect(isSelected: .constant(true), day: .saturday)
@@ -94,21 +94,21 @@ struct RoundedCorner: Shape {
     }
 }
 struct DatePickerCell: View {
-    private var cell: some View {
-        Path() { p in
-            p.move(to: CGPoint(x: 60, y: 60))
-            p.addQuadCurve(to: .init(x: 120, y: 120), control: .init(x: 60, y: 120))
-            p.addLine(to: .init(x: 120 + 120, y: 120))
-            p.addQuadCurve(to: .init(x: 300, y: 60), control: .init(x: 300, y: 120))
-            p.addLine(to: .init(x: 300, y: -60))
-            p.addQuadCurve(to: .init(x: 240, y: -120), control: .init(x: 300, y: -120))
-            p.addLine(to: .init(x: 120, y: -120))
-            p.addQuadCurve(to: .init(x: 60, y: -60), control: .init(x: 60, y: -120))
-            p.addLine(to: .init(x: 60, y: 60))
-        }
-        .stroke(lineWidth: 3)
-        .padding(.top, 150)
-    }
+    //    private var cell: some View {
+    //        Path() { p in
+    //            p.move(to: CGPoint(x: 60, y: 60))
+    //            p.addQuadCurve(to: .init(x: 120, y: 120), control: .init(x: 60, y: 120))
+    //            p.addLine(to: .init(x: 120 + 120, y: 120))
+    //            p.addQuadCurve(to: .init(x: 300, y: 60), control: .init(x: 300, y: 120))
+    //            p.addLine(to: .init(x: 300, y: -60))
+    //            p.addQuadCurve(to: .init(x: 240, y: -120), control: .init(x: 300, y: -120))
+    //            p.addLine(to: .init(x: 120, y: -120))
+    //            p.addQuadCurve(to: .init(x: 60, y: -60), control: .init(x: 60, y: -120))
+    //            p.addLine(to: .init(x: 60, y: 60))
+    //        }
+    //        .stroke(lineWidth: 3)
+    //        .padding(.top, 150)
+    //    }
     
     var weekDay: some View {
         Path() { p in
@@ -120,7 +120,7 @@ struct DatePickerCell: View {
             p.addLine(to: .init(x: 60, y: -60+120))
         }
         .stroke(lineWidth: 3)
-        .padding(.top, 150)
+//        .padding(.top, 150)
     }
     var sunday: some View {
         Path() { p in
@@ -133,7 +133,7 @@ struct DatePickerCell: View {
             p.addLine(to: .init(x: 60, y: 60))
         }
         .stroke(lineWidth: 3)
-        .padding(.top, 150)
+//        .padding(.top, 150)
     }
     var satudary: some View {
         Path() { p in
@@ -147,9 +147,15 @@ struct DatePickerCell: View {
             p.addLine(to: .init(x: 60, y: 60))
         }
         .stroke(lineWidth: 3)
-        .padding(.top, 150)
+//        .padding(.top, 150)
     }
     var body: some View {
-        satudary
+        ScrollView{
+            sunday
+//            weekDay
+//            satudary
+            
+            
+        }
     }
 }
