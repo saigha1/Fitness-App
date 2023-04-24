@@ -14,6 +14,7 @@ struct PTPageProfileView: View {
     @State var counter: Int = 0
     @State var showLarge : Bool = false
     @State var showBookSessions: Bool = false
+    @EnvironmentObject var authVM : AuthViewModel
     
     var body: some View {
         ZStack{
@@ -179,7 +180,8 @@ struct PTPageProfileView: View {
                                 }
                         }
                         .sheet(isPresented: $showBookSessions) {
-                            BookSessionsView()
+                            BookSessionsView(pT: pt)
+                                .environmentObject(authVM)
                         }
                         Button {
                             print("Purchase Plans tapped.")
@@ -251,6 +253,7 @@ struct PTPageProfileView: View {
 struct PTPageView_Previews: PreviewProvider {
     static var previews: some View {
         PTPageProfileView(pt: emptyPTModel)
+            .environmentObject(AuthViewModel())
     }
 }
 
