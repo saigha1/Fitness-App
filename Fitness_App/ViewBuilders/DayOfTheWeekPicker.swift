@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DayOfTheWeekPicker :  View{
-    @State var selectedDays : [DayOfTheWeek] = []
+    @Binding var selectedDays : [DayOfTheWeek]
     var size: CGFloat = 25
     var body: some View{
         HStack{
@@ -23,16 +23,12 @@ struct DayOfTheWeekPicker :  View{
                         if !newVal && selectedDays.contains(day) {
                             selectedDays.removeAll { $0 == day }
                         }
+                        print(selectedDays)
                     }), day: day, size: size)
                     Text(String(day.rawValue.first!)).bold()
                         .font(.system(size: size / 2))
                 }
             }
         }
-    }
-}
-struct DayOfTheWeekPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        DayOfTheWeekPicker(selectedDays: [], size: 40)
     }
 }

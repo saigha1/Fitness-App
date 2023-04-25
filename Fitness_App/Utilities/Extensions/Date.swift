@@ -36,3 +36,21 @@ extension Date {
         return formatter.string(from: self)
     }
 }
+
+extension Date {
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
+    }
+    func asDayOfWeek() -> DayOfTheWeek? {
+        guard let dayNum = self.dayNumberOfWeek() else { return nil}
+        switch dayNum {
+        case 1: return .sunday
+        case 2: return .monday
+        case 3: return .tuesday
+        case 4: return .wednesday
+        case 5: return .thursday
+        case 6: return .friday
+        default: return .saturday
+        }
+    }
+}

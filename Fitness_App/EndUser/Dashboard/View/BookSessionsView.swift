@@ -12,7 +12,6 @@ struct BookSessionsView: View {
     @StateObject var vm = BookSessionsViewModel()
     @EnvironmentObject var authVM : AuthViewModel
     var pT : PTModel
-    
     var body: some View {
         NavigationView {
             List {
@@ -25,8 +24,21 @@ struct BookSessionsView: View {
                     location
                     gym
                 }
+                Button {
+                    //TODO: - validation (day picker, gym picker)
+                    vm.showTransactionSummary.toggle()
+                } label: {
+                    Text("Next")
+                        .bold()
+                        .foregroundColor(.white)
+                        .background(Color.assetColor.blue.cornerRadius(10))
+                }
+
                 Group { // Transaction Summary
-                    
+                    if vm.showTransactionSummary {
+                        transactionSummary
+
+                    }
                 }
             }
             .listStyle(.inset)
@@ -43,6 +55,92 @@ struct BookSessionsView: View {
             }
         }
         
+    }
+}
+
+//MARK: - Transaction Summary
+extension BookSessionsView {
+    var transactionSummary: some View {
+        VStack(alignment: .leading) {
+            Text("Transaction Summary").bold()
+            GroupBox {
+                VStack {
+                    numOfSessionsRow
+                    numOfHoursRow
+                    grandTotalRow
+                    promotionRow
+                    Divider()
+                    subTotalRow
+                    taxRow
+                    Divider()
+                    totalRow
+                }
+            }
+        }
+    }
+    var numOfSessionsRow: some View {
+        HStack {
+            Text("No. of Sessions")
+                .bold()
+                .font(.custom("System", fixedSize: 16))
+            Spacer()
+            Text("\(vm.getNoOfSessions())")
+        }
+    }
+    var numOfHoursRow: some View {
+        HStack {
+            Text("No. of Hrs.")
+                .bold()
+                .font(.custom("System", fixedSize: 16))
+            Spacer()
+            Text("\(vm.getNoOfHours(), specifier: "%.2f")")
+        }
+    }
+    var grandTotalRow: some View {
+        //TODO: - Fetch price per hour from PTModel
+        HStack {
+            Text("Grand Total")
+                .bold()
+                .font(.custom("System", fixedSize: 16))
+            Spacer()
+            Text("$ 2,350.00")
+        }
+    }
+    var promotionRow: some View {
+        HStack {
+            Text("Promo/Bonus")
+                .bold()
+                .font(.custom("System", fixedSize: 16))
+            Spacer()
+            Text("$ -200.00")
+        }
+    }
+    var subTotalRow: some View {
+        HStack {
+            Text("Subtotal")
+                .bold()
+                .font(.custom("System", fixedSize: 16))
+            Spacer()
+            Text("$ 2,350.00")
+        }
+    }
+    var taxRow: some View {
+        HStack {
+            Text("Estimated Tax")
+                .bold()
+                .font(.custom("System", fixedSize: 16))
+            Spacer()
+            Text("$ 305.00")
+        }
+    }
+    var totalRow: some View {
+        HStack {
+            Text("Total")
+                .bold()
+                .font(.custom("System", fixedSize: 16))
+            Spacer()
+            Text("$ 2,655.50")
+        }
     }
 }
 
@@ -68,7 +166,7 @@ extension BookSessionsView {
                     .foregroundColor(.secondary)
             }
             Spacer()
-            DayOfTheWeekPicker(selectedDays: vm.selectedDays)
+            DayOfTheWeekPicker(selectedDays: $vm.selectedDays)
         }
     }
     // Free trial text
@@ -95,13 +193,17 @@ extension BookSessionsView {
     }
     // Time Slot
     private var timeSlotPickers: some View {
+        //TODO: - Fetch availability from PTModel
         HStack {
             Text("Time Slot")
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            DatePicker("Start Time", selection: $vm.selectedStartDate, displayedComponents: .hourAndMinute)
+            DatePicker("Start Time", selection: $vm.selectedStartTime, displayedComponents: .hourAndMinute)
                 .labelsHidden()
+                .onAppear {
+                    UIDatePicker.appearance().minuteInterval = 15
+                }
             Text("~")
             DatePicker("End Time", selection: $vm.selectedEndTime, displayedComponents: .hourAndMinute)
                 .labelsHidden()
