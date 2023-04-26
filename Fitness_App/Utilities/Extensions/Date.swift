@@ -54,3 +54,7 @@ extension Date {
         }
     }
 }
+
+extension Date {
+    func isInSameDay(as date: Date) -> Bool { Calendar.current.isDate(self, inSameDayAs: date) }
+}

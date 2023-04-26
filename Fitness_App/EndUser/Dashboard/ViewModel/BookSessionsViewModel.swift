@@ -13,12 +13,54 @@ class BookSessionsViewModel: ObservableObject {
     @Published var selectedStartDate: Date = Date()
     @Published var selectedStartTime: Date = Date()
     @Published var selectedEndTime: Date = Date() + 3600
-    @Published var selectedLength: Int = 1
+    @Published var selectedLength: Int = 0
     @Published var selectedGym : gymPreferrence = .select
+    @Published var errorMsg : String = ""
+    let ratePerHour = 15.0
+
     // View Controller
     @Published var showTransactionSummary: Bool = false
+    
+    func buttonValidation(){
+        
+        guard selectedDays.count > 0 else {
+            errorMsg = "Please schedule your days of training"
+            showTransactionSummary = false
+            return }
+        
+        //selectedStartDate = Time BookSessions was loaded
+        guard selectedStartDate > Date() || selectedStartDate.isInSameDay(as: Date()) else {
+            errorMsg = "Please ensure start date is today or after."
+            showTransactionSummary = false
+            return }
+        guard selectedStartTime > Date() else {
+            errorMsg = "Please ensure start-time is after current time"
+            showTransactionSummary = false
+            return }
+        guard selectedStartTime < selectedEndTime else {
+            errorMsg = "Please ensure end-time is after start-time"
+            showTransactionSummary = false
+            return }
+        
+        guard selectedLength != 0 else {
+            errorMsg = "Please make a length selection"
+            showTransactionSummary = false
+            return
+            
+        }
+        
+        guard selectedGym != .select else {
+            errorMsg = "Please make a gym selection"
+            showTransactionSummary = false
+            return }
+        
+        errorMsg = ""
+        showTransactionSummary = true
+
+    }
+    
     // Data for transaction summary
-    func getNoOfSessions() -> Int {
+    var NoOfSessions : Int {
         // Get Start Date and End Date
         var startDate = selectedStartDate
         let length = DateComponents(month: selectedLength)
@@ -37,8 +79,26 @@ class BookSessionsViewModel: ObservableObject {
         }
         return numberOfSessions
     }
-    func getNoOfHours() -> Double {
+    var NoOfHours: Double {
         let timeInterval = (selectedEndTime.timeIntervalSince(selectedStartTime))
-        return (Double(getNoOfSessions()) * timeInterval / 3600 / 0.25).rounded() * 0.25
+        return (Double(NoOfSessions) * timeInterval / 3600 / 0.25).rounded() * 0.25
     }
+    
+    var grandTotal : Double {
+        NoOfHours * ratePerHour
+    }
+    
+    var subTotal : Double{
+        grandTotal - ratePerHour
+    }
+    
+    var estimatedTax : Double{
+        subTotal * 0.13
+    }
+    
+    var total : Double{
+        subTotal + estimatedTax
+    }
+    
+    
 }

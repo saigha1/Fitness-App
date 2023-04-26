@@ -11,10 +11,12 @@ struct BookSessionsView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = BookSessionsViewModel()
     @EnvironmentObject var authVM : AuthViewModel
+    
     var pT : PTModel
+    
     var body: some View {
         NavigationView {
-            List {
+            ScrollView {
                 Group { // Form / Input
                     dayOfTheWeekPicker
                     freeTrial
@@ -24,12 +26,21 @@ struct BookSessionsView: View {
                     location
                     gym
                 }
+                //Error Message
+                if  !vm.errorMsg.isEmpty{
+                    Text(vm.errorMsg)
+                        .bold()
+                        .foregroundColor(.assetColor.red)
+                }
+                //"Next" Validation Button 
                 Button {
-                    //TODO: - validation (day picker, gym picker)
-                    vm.showTransactionSummary.toggle()
+                    vm.buttonValidation()
+                    
                 } label: {
                     Text("Next")
                         .bold()
+                        .font(.custom("System", fixedSize: 30))
+                        .frame(width: 150, height: 50)
                         .foregroundColor(.white)
                         .background(Color.assetColor.blue.cornerRadius(10))
                 }
@@ -41,7 +52,7 @@ struct BookSessionsView: View {
                     }
                 }
             }
-            .listStyle(.inset)
+//            .listStyle(.inset)
             .padding()
             .navigationTitle("Book Sessions")
             .navigationBarTitleDisplayMode(.inline)
@@ -74,6 +85,7 @@ extension BookSessionsView {
                     taxRow
                     Divider()
                     totalRow
+                    paymentButtons
                 }
             }
         }
@@ -84,7 +96,7 @@ extension BookSessionsView {
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            Text("\(vm.getNoOfSessions())")
+            Text("\(vm.NoOfSessions)")
         }
     }
     var numOfHoursRow: some View {
@@ -93,7 +105,7 @@ extension BookSessionsView {
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            Text("\(vm.getNoOfHours(), specifier: "%.2f")")
+            Text("\(vm.NoOfHours, specifier: "%.2f")")
         }
     }
     var grandTotalRow: some View {
@@ -103,7 +115,7 @@ extension BookSessionsView {
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            Text("$ 2,350.00")
+            Text(vm.grandTotal.formatted(.currency(code: "CAD")))
         }
     }
     var promotionRow: some View {
@@ -112,7 +124,8 @@ extension BookSessionsView {
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            Text("$ -200.00")
+            Text(((-vm.ratePerHour).formatted(.currency(code: "CAD"))))
+                .foregroundColor(.assetColor.red)
         }
     }
     var subTotalRow: some View {
@@ -121,7 +134,9 @@ extension BookSessionsView {
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            Text("$ 2,350.00")
+            
+            Text((vm.subTotal).formatted(.currency(code: "CAD")))
+                .bold()
         }
     }
     var taxRow: some View {
@@ -130,7 +145,7 @@ extension BookSessionsView {
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            Text("$ 305.00")
+            Text(vm.estimatedTax.formatted(.currency(code: "CAD")))
         }
     }
     var totalRow: some View {
@@ -139,8 +154,15 @@ extension BookSessionsView {
                 .bold()
                 .font(.custom("System", fixedSize: 16))
             Spacer()
-            Text("$ 2,655.50")
+            Text(vm.total.formatted(.currency(code: "CAD")))
+                .bold()
         }
+    }
+    
+    var paymentButtons: some View {
+        //Add ApplePay
+        //Add Stripe
+        Text(" ")
     }
 }
 
@@ -204,7 +226,7 @@ extension BookSessionsView {
                 .onAppear {
                     UIDatePicker.appearance().minuteInterval = 15
                 }
-            Text("~")
+            Text("-")
             DatePicker("End Time", selection: $vm.selectedEndTime, displayedComponents: .hourAndMinute)
                 .labelsHidden()
         }
@@ -216,9 +238,13 @@ extension BookSessionsView {
                 .font(.custom("System", fixedSize: 16))
             Spacer()
             Picker("Length", selection: $vm.selectedLength, content: {
-                let lengthOptions = [1, 3, 6, 9, 12, 24]
+                let lengthOptions = [0, 1, 3, 6, 9, 12, 24]
                 ForEach(lengthOptions, id: \.self) { len in
-                    Text("\(len) month" + (len == 1 ? "" : "s"))
+                    if len == 0{
+                        Text("-Select-")
+                    }else{
+                        Text("\(len) month" + (len == 1 ? "" : "s"))
+                    }
                 }
             })
                 .labelsHidden()
