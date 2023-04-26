@@ -26,6 +26,7 @@
 		047C5FA629942D82000A4F49 /* GymModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C5FA529942D82000A4F49 /* GymModel.swift */; };
 		0480661629881600005CD151 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480661529881600005CD151 /* AuthenticationViewModel.swift */; };
 		0480661929881E32005CD151 /* GoogleSignInAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480661829881E32005CD151 /* GoogleSignInAuthenticator.swift */; };
+		04876D6C29F97AA400A364C8 /* ApplePayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04876D6B29F97AA400A364C8 /* ApplePayButtonView.swift */; };
 		049833402954975400724C7B /* Fitness_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498333F2954975400724C7B /* Fitness_AppApp.swift */; };
 		049833422954975400724C7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049833412954975400724C7B /* ContentView.swift */; };
 		049833442954975700724C7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049833432954975700724C7B /* Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		047C5FA529942D82000A4F49 /* GymModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymModel.swift; sourceTree = "<group>"; };
 		0480661529881600005CD151 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		0480661829881E32005CD151 /* GoogleSignInAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInAuthenticator.swift; sourceTree = "<group>"; };
+		04876D6B29F97AA400A364C8 /* ApplePayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayButtonView.swift; sourceTree = "<group>"; };
 		04972DC1298AB8C400BF96E7 /* Fitness_App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fitness_App.entitlements; sourceTree = "<group>"; };
 		0498333F2954975400724C7B /* Fitness_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_AppApp.swift; sourceTree = "<group>"; };
 		049833412954975400724C7B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 				049A193429D5C2200084108E /* DashboardView.swift */,
 				257B5EEC29D7264A005A78AD /* PTPageProfileView.swift */,
 				A765FF0329EF1CDB0018DEE3 /* BookSessionsView.swift */,
+				04876D6B29F97AA400A364C8 /* ApplePayButtonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -750,6 +753,7 @@
 				2540709D29A9009300B305DB /* NewEndUser.swift in Sources */,
 				04A19260299C7685000792B4 /* GymOptions.swift in Sources */,
 				259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */,
+				04876D6C29F97AA400A364C8 /* ApplePayButtonView.swift in Sources */,
 				259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */,
 				25C2E4EE29D48B0800772C89 /* PTCardView.swift in Sources */,
 				2545A609298D60D900310999 /* FireBaseSignInWithEmailView.swift in Sources */,
