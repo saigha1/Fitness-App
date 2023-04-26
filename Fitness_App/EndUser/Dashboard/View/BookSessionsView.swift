@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PassKit
 
 struct BookSessionsView: View {
     @Environment(\.dismiss) var dismiss
@@ -162,7 +163,9 @@ extension BookSessionsView {
     var paymentButtons: some View {
         //Add ApplePay
         //Add Stripe
-        Text(" ")
+        HStack{
+            ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.total)
+        }
     }
 }
 
