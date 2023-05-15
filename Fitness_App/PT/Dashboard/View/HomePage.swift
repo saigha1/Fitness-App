@@ -17,7 +17,8 @@ struct HomePage: View {
     @EnvironmentObject var ptVM : PTValidationModel
     
     @EnvironmentObject var authVM : AuthViewModel
-    
+    @State var endUserTabSelection = "Dashboard"
+    @StateObject var paymentVM = ApplePayViewModel()
     var body: some View {
         if !authVM.isEndUser {
             homePageForPT
@@ -67,10 +68,6 @@ extension HomePage {
                                 Label("Calendar", systemImage: "calendar.badge.clock")
                             }
                     }
-//                } else if (pending) {
-//                    Text("Your profile approval in process. Please await the decision.")
-//                } else if (rejected) {
-//                    Text("Your profile is rejected. Please call support at 1213-456-7890")
                 } else {
                     Sign_Up_View(user: emptyPTModel)
                         .environmentObject(authVM)
@@ -113,24 +110,37 @@ extension HomePage {
         
     }
     private var endUserTabView: some View {
-        TabView {
+        TabView(selection: $endUserTabSelection) {
             DashboardView()
                 .environmentObject(authVM)
+                .environmentObject(paymentVM)
                 .tabItem{
                     Label("Dashboard", systemImage: "house")
                 }
+                .tag("Dashboard")
             EndUserChatView()
                 .tabItem{
                     Label("Chat", systemImage: "message")
                 }
+                .tag("Chat")
             EndUserExploreView()
                 .tabItem{
                     Label("Explore", systemImage: "safari.fill")
                 }
+                .tag("Explore")
             EndUserCalendarView()
                 .tabItem{
                     Label("Calendar", systemImage: "calendar.badge.clock")
                 }
+                .tag("Calendar")
+        }
+        .onChange(of: paymentVM.nextScreen) { newValue in
+            print("nextScreen should change")
+            switch newValue {
+            case .calendar: endUserTabSelection = NextScreenAfterPayment.calendar.rawValue
+            case .dashboard: endUserTabSelection = NextScreenAfterPayment.dashboard.rawValue
+            default: return
+            }
         }
     }
 }
