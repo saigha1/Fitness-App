@@ -7,53 +7,29 @@
 
 import SwiftUI
 import PassKit
+import AlertToast
 
 struct BookSessionsView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = BookSessionsViewModel()
     @EnvironmentObject var authVM : AuthViewModel
-    
+    @EnvironmentObject var paymentVM: ApplePayViewModel
+    @State private var showSuccessAlert: Bool = false
     var pT : PTModel
     
     var body: some View {
         NavigationView {
             ScrollView {
-                Group { // Form / Input
-                    dayOfTheWeekPicker
-                    freeTrial
-                    startDatePicker
-                    timeSlotPickers
-                    lengthPicker
-                    location
-                    gym
-                }
-                //Error Message
-                if  !vm.errorMsg.isEmpty{
-                    Text(vm.errorMsg)
-                        .bold()
-                        .foregroundColor(.assetColor.red)
-                }
-                //"Next" Validation Button 
-                Button {
-                    vm.buttonValidation()
-                    
-                } label: {
-                    Text("Next")
-                        .bold()
-                        .font(.custom("System", fixedSize: 30))
-                        .frame(width: 150, height: 50)
-                        .foregroundColor(.white)
-                        .background(Color.assetColor.blue.cornerRadius(10))
-                }
+                ZStack {
+                    VStack {
+                        content
+                    }
 
-                Group { // Transaction Summary
-                    if vm.showTransactionSummary {
-                        transactionSummary
-
+                    if showSuccessAlert {
+                        alert
                     }
                 }
             }
-//            .listStyle(.inset)
             .padding()
             .navigationTitle("Book Sessions")
             .navigationBarTitleDisplayMode(.inline)
@@ -66,10 +42,108 @@ struct BookSessionsView: View {
                 }
             }
         }
+        .onDisappear {
+            paymentVM.clearPaymentStates()
+        }
         
     }
 }
+//MARK: - Alert Structure
+extension BookSessionsView {
+    private var alert: some View {
+        ZStack {
+            LinearGradient(colors: [.assetColor.blue, .assetColor.white, .assetColor.white], startPoint: .top, endPoint: .bottom)
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.35, alignment: .center)
+                .cornerRadius(15)
+                .shadow(color: .assetColor.blue, radius: 5)
+            VStack {
+                VStack {
+                    Text("Payment Successful!")
+                        .foregroundColor(.white)
+                        .bold()
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .frame(width: 40, height: 40, alignment: .center)
 
+                        .foregroundColor(.green)
+                }
+                .font(.title2)
+                .padding(.vertical, 40)
+
+                Spacer()
+                    .frame(height: UIScreen.main.bounds.height * 0.2 * 0.05)
+                VStack(spacing: 7) {
+                    Button {
+                        paymentVM.nextScreen = .calendar
+                        dismiss()
+                    } label: {
+                        Text("View Upcoming Sessions")
+                            .foregroundColor(.assetColor.red)
+                            .bold()
+                            .frame(width: 200, height: 40)
+                            .padding(.horizontal)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color.assetColor.red, lineWidth: 2)
+                            )
+                    }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Continue Browsing")
+                            .foregroundColor(.assetColor.red)
+                            .bold()
+                            .frame(width: 200, height: 40)
+                            .padding(.horizontal)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color.assetColor.red, lineWidth: 2)
+                            )
+                    }
+                }
+                .padding(.vertical, 30)
+            }.padding()
+        }
+    }
+    private var content: some View {
+        Group {
+            Group { // Form / Input
+                dayOfTheWeekPicker
+                freeTrial
+                startDatePicker
+                timeSlotPickers
+                lengthPicker
+                location
+                gym
+            }
+            //Error Message
+            if  !vm.errorMsg.isEmpty{
+                Text(vm.errorMsg)
+                    .bold()
+                    .foregroundColor(.assetColor.red)
+            }
+            //"Next" Validation Button
+            Button {
+                vm.buttonValidation()
+                
+            } label: {
+                Text("Next")
+                    .bold()
+                    .font(.custom("System", fixedSize: 30))
+                    .frame(width: 150, height: 50)
+                    .foregroundColor(.white)
+                    .background(Color.assetColor.blue.cornerRadius(10))
+            }
+
+            Group { // Transaction Summary
+                if vm.showTransactionSummary {
+                    transactionSummary
+
+                }
+            }
+        }
+    }
+}
 //MARK: - Transaction Summary
 extension BookSessionsView {
     var transactionSummary: some View {
@@ -86,7 +160,13 @@ extension BookSessionsView {
                     taxRow
                     Divider()
                     totalRow
-                    paymentButtons
+                    switch paymentVM.paymentStatus {
+                    case .success: paymentSuccess
+                            .onAppear {
+                                showSuccessAlert.toggle()
+                            }
+                    default: paymentButtons
+                    }
                 }
             }
         }
@@ -165,14 +245,20 @@ extension BookSessionsView {
         //Add Stripe
         HStack{
             ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.total)
+                .environmentObject(paymentVM)
         }
+    }
+    var paymentSuccess: some View {
+        VStack {}
     }
 }
 
 struct BookSessionsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        BookSessionsView(pT: .init(id: "Hello", ptProfileImage: "Hello", name: "Hello", email: "Hello", phone: "Hello", gender: .m, isFeatured: true, isFavorite: true, isApproved: true, education: .Bachelors, certification: [.CanFitProI], selectedExperience: .One, cityLocation: .Mississauga, gymPreference: [.FitnessPlanet, .GoodLife, .LAFitness], workoutTypes: [.calisthenic, .machine, .americanBoxing], motto: "Hello", description: "Hello", imageString: ["Hello"], videoUrl: ["Hello"])).environmentObject(AuthViewModel())
+        BookSessionsView(pT: .init(id: "Hello", ptProfileImage: "Hello", name: "Hello", email: "Hello", phone: "Hello", gender: .m, isFeatured: true, isFavorite: true, isApproved: true, education: .Bachelors, certification: [.CanFitProI], selectedExperience: .One, cityLocation: .Mississauga, gymPreference: [.FitnessPlanet, .GoodLife, .LAFitness], workoutTypes: [.calisthenic, .machine, .americanBoxing], motto: "Hello", description: "Hello", imageString: ["Hello"], videoUrl: ["Hello"]))
+            .environmentObject(AuthViewModel())
+            .environmentObject(ApplePayViewModel())
     }
 }
 

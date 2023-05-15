@@ -33,10 +33,12 @@ class BookSessionsViewModel: ObservableObject {
             errorMsg = "Please ensure start date is today or after."
             showTransactionSummary = false
             return }
-        guard selectedStartTime > Date() else {
-            errorMsg = "Please ensure start-time is after current time"
-            showTransactionSummary = false
-            return }
+        if selectedStartDate.isInSameDay(as: Date()) {
+            guard selectedStartTime > Date() else {
+                errorMsg = "Please ensure start-time is after current time"
+                showTransactionSummary = false
+                return }
+        }
         guard selectedStartTime < selectedEndTime else {
             errorMsg = "Please ensure end-time is after start-time"
             showTransactionSummary = false

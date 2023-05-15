@@ -21,17 +21,15 @@ struct ApplyPayButton: View {
     var tax : Double = 0
     var total : Double = 0
     let paymentHandler = PaymentHandler() //As defined by Taif
-    
-    //Added this for payment values
-   
+    @EnvironmentObject var vm: ApplePayViewModel
     var body: some View {
         Button(action: {
             // Using the code from Tarif!
             self.paymentHandler.startPayment(amount: amount, tax: tax, total: total ){ success in
                 if success {
-                    print("Success")
+                    vm.paymentStatus = .success
                 } else {
-                    print("Failed")
+                    vm.paymentStatus = .failure
                 }
             }
         }, label: { EmptyView() } )
@@ -129,8 +127,6 @@ extension PaymentHandler: PKPaymentAuthorizationControllerDelegate {
         if payment.shippingContact?.emailAddress == nil || payment.shippingContact?.phoneNumber == nil {
             paymentStatus = .failure
         } else {
-            // Here you would send the payment token to your server or payment provider to process
-            // Once processed, return an appropriate status in the completion handler (success, failure, etc)
             paymentStatus = .success
         }
         
@@ -154,5 +150,6 @@ extension PaymentHandler: PKPaymentAuthorizationControllerDelegate {
 struct ApplePayButton_Previews: PreviewProvider {
     static var previews: some View {
     ApplyPayButton()
+            .environmentObject(ApplePayViewModel())
     }
 }
