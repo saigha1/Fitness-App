@@ -56,7 +56,7 @@ struct UserProfileIconView: View {
     }//view
 }
 
-var emptyPTModel = PTModel(id: "", ptProfileImage: "", name: "", email: "", phone: "", gender: .select, isFeatured: false, isFavorite: false, isApproved: false, education: .select, certification: [.select, .select], selectedExperience: .select, cityLocation: .select, gymPreference: [.select, .select, .select], workoutTypes: [.select, .select, .select], motto: "", description: "", imageString: ["","",""], videoUrl: [""])
+
 
 struct UserProfileIconView_Previews: PreviewProvider {
     static let authVM = AuthViewModel()
