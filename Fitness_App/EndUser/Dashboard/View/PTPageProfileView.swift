@@ -13,6 +13,7 @@ struct PTPageProfileView: View {
     @State var mediaFiles: [String] = [""]
     @State var counter: Int = 0
     @State var showLarge : Bool = false
+    @State var showPurchasePlan : Bool = false
     @State var showBookSessions: Bool = false
     @EnvironmentObject var authVM : AuthViewModel
     
@@ -185,6 +186,7 @@ struct PTPageProfileView: View {
                         }
                         Button {
                             print("Purchase Plans tapped.")
+                            showPurchasePlan.toggle()
                         } label: {
                             Text("Purchase Plans")
                                 .bold()
@@ -196,6 +198,9 @@ struct PTPageProfileView: View {
                                         .stroke(lineWidth: 1)
                                         .foregroundColor(Color.assetColor.purple)
                                 }
+                        }
+                        .sheet(isPresented: $showPurchasePlan){
+                            PurchasePlansView(pt: pt)
                         }
                     }
                 }

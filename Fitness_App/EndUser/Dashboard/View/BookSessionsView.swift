@@ -7,7 +7,6 @@
 
 import SwiftUI
 import PassKit
-import AlertToast
 
 struct BookSessionsView: View {
     @Environment(\.dismiss) var dismiss

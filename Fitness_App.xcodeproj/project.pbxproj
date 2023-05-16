@@ -31,6 +31,8 @@
 		049833422954975400724C7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049833412954975400724C7B /* ContentView.swift */; };
 		049833442954975700724C7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049833432954975700724C7B /* Assets.xcassets */; };
 		049833472954975700724C7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049833462954975700724C7B /* Preview Assets.xcassets */; };
+		049865392A13BED2006F8620 /* PurchasePlansView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049865382A13BED2006F8620 /* PurchasePlansView.swift */; };
+		0498653B2A13D3A4006F8620 /* PuchasePlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498653A2A13D3A3006F8620 /* PuchasePlanViewModel.swift */; };
 		049991B429A84CB7005B1DD2 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049991B329A84CB7005B1DD2 /* ImageView.swift */; };
 		049A193529D5C2200084108E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A193429D5C2200084108E /* DashboardView.swift */; };
 		049FAB702982D297001CDC84 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 049FAB6F2982D297001CDC84 /* .gitignore */; };
@@ -95,7 +97,6 @@
 		25CA33EE2A1287A4007415EB /* ApplePayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CA33ED2A1287A4007415EB /* ApplePayViewModel.swift */; };
 		25E6D8F529914A220015B8B0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F429914A220015B8B0 /* Color.swift */; };
 		25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6D8F929915FC00015B8B0 /* Icons.swift */; };
-		25EF11FC2A1297DB00D05541 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 25EF11FB2A1297DB00D05541 /* AlertToast */; };
 		A74B7D5829F1B0AC00375F55 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B7D5729F1B0AC00375F55 /* DayOfWeek.swift */; };
 		A74B7D5A29F1B1A100375F55 /* DayOfTheWeekPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B7D5929F1B1A100375F55 /* DayOfTheWeekPicker.swift */; };
 		A74B7D5C29F1B35C00375F55 /* BookSessionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B7D5B29F1B35C00375F55 /* BookSessionsViewModel.swift */; };
@@ -131,6 +132,8 @@
 		049833412954975400724C7B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		049833432954975700724C7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		049833462954975700724C7B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		049865382A13BED2006F8620 /* PurchasePlansView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasePlansView.swift; sourceTree = "<group>"; };
+		0498653A2A13D3A3006F8620 /* PuchasePlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuchasePlanViewModel.swift; sourceTree = "<group>"; };
 		049991B329A84CB7005B1DD2 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		049A193429D5C2200084108E /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		049FAB6F2982D297001CDC84 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -203,7 +206,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				253ADE0B298D647D0038AE85 /* FacebookCore in Frameworks */,
-				25EF11FC2A1297DB00D05541 /* AlertToast in Frameworks */,
 				04AA754B29B64B640062413B /* FirebaseAuth in Frameworks */,
 				25A8E77C298D8130008FA6FD /* GoogleSignInSwift in Frameworks */,
 				253ADE0D298D647D0038AE85 /* FacebookLogin in Frameworks */,
@@ -558,6 +560,7 @@
 				257B5EEC29D7264A005A78AD /* PTPageProfileView.swift */,
 				A765FF0329EF1CDB0018DEE3 /* BookSessionsView.swift */,
 				04876D6B29F97AA400A364C8 /* ApplePayButtonView.swift */,
+				049865382A13BED2006F8620 /* PurchasePlansView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				25C2E4EF29D48B2400772C89 /* EndUserDashboardViewModel.swift */,
 				A74B7D5B29F1B35C00375F55 /* BookSessionsViewModel.swift */,
 				25CA33ED2A1287A4007415EB /* ApplePayViewModel.swift */,
+				0498653A2A13D3A3006F8620 /* PuchasePlanViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -639,7 +643,6 @@
 				25A8E779298D8130008FA6FD /* GoogleSignIn */,
 				25A8E77B298D8130008FA6FD /* GoogleSignInSwift */,
 				04AA754A29B64B640062413B /* FirebaseAuth */,
-				25EF11FB2A1297DB00D05541 /* AlertToast */,
 			);
 			productName = Fitness_App;
 			productType = "com.apple.product-type.application";
@@ -672,7 +675,6 @@
 				253ADE09298D647D0038AE85 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				25D62163298D7DCE0084637C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				04AA754929B64B640062413B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				25EF11FA2A1297DB00D05541 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 049833332954975400724C7B;
 			projectDirPath = "";
@@ -709,6 +711,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0480661629881600005CD151 /* AuthenticationViewModel.swift in Sources */,
+				049865392A13BED2006F8620 /* PurchasePlansView.swift in Sources */,
 				044639722983FC8500C1741B /* TextFieldView.swift in Sources */,
 				04A19264299D747E000792B4 /* Sign_Up_Form.swift in Sources */,
 				04A19257299A9A15000792B4 /* pTPending.swift in Sources */,
@@ -728,6 +731,7 @@
 				2545A5FE298D607E00310999 /* FireBaseSignInWithAppleViewModel.swift in Sources */,
 				047200FC298ACFF300B04964 /* AppDelegate.swift in Sources */,
 				049991B429A84CB7005B1DD2 /* ImageView.swift in Sources */,
+				0498653B2A13D3A4006F8620 /* PuchasePlanViewModel.swift in Sources */,
 				049A193529D5C2200084108E /* DashboardView.swift in Sources */,
 				A765FF0629EF20B80018DEE3 /* RoundedRect.swift in Sources */,
 				049833422954975400724C7B /* ContentView.swift in Sources */,
@@ -1018,14 +1022,6 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		25EF11FA2A1297DB00D05541 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/elai950/AlertToast.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1058,11 +1054,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 25D62163298D7DCE0084637C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
-		};
-		25EF11FB2A1297DB00D05541 /* AlertToast */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 25EF11FA2A1297DB00D05541 /* XCRemoteSwiftPackageReference "AlertToast" */;
-			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
