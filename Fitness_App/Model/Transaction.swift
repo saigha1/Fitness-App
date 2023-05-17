@@ -26,7 +26,7 @@ struct Transaction: Codable {
     let location: gymLocation?
     let gymBrand: gymPreferrence?
     let numOfSessions: Int?
-    let numOfHrs: Int?
+    let numOfHrs: Double?
     let grandTotal: Double?
     let bonus: Double?
     
@@ -35,7 +35,7 @@ struct Transaction: Codable {
     let planOption: PurchasePlan?
     
     // Book Sessions Init
-    init(trainerUID: String, endUserUID: String, subTotal: Double, estimatedTax: Double, total: Double, dates: [DayOfTheWeek]?, startDate: Date?, startTime: Date?, endTime: Date?, length: Int?, location: gymLocation?, gymBrand: gymPreferrence?, numOfSessions: Int?, numOfHrs: Int?, grandTotal: Double?, bonus: Double?) {
+    init(trainerUID: String, endUserUID: String, subTotal: Double, estimatedTax: Double, total: Double, dates: [DayOfTheWeek]?, startDate: Date?, startTime: Date?, endTime: Date?, length: Int?, location: gymLocation?, gymBrand: gymPreferrence?, numOfSessions: Int?, numOfHrs: Double?, grandTotal: Double?, bonus: Double?) {
         self.isPlan = false
         self.transactionID = UUID().uuidString
         self.trainerUID = trainerUID

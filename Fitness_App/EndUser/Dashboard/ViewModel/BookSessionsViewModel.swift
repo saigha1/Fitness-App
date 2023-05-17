@@ -101,6 +101,9 @@ class BookSessionsViewModel: ObservableObject {
     var total : Double{
         subTotal + estimatedTax
     }
-    
+    func saveTransaction(pt: PTModel, endUser: NewEndUser, location: gymLocation) {
+        let transaction = Transaction(trainerUID: pt.id, endUserUID: endUser.id, subTotal: subTotal, estimatedTax: estimatedTax, total: total, dates: selectedDays, startDate: selectedStartDate, startTime: selectedStartTime, endTime: selectedEndTime, length: selectedLength, location: location, gymBrand: selectedGym, numOfSessions: NoOfSessions, numOfHrs: NoOfHours, grandTotal: grandTotal, bonus: ratePerHour)
+        add(newEntry: transaction, filename: "Transactions.json", location: .document)
+    }
     
 }

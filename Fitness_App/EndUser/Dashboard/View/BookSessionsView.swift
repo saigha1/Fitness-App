@@ -143,6 +143,8 @@ extension BookSessionsView {
                     switch paymentVM.paymentStatus {
                     case .success: paymentSuccess
                             .onAppear {
+                                guard let endUser = authVM.currentEndUser else { return }
+                                vm.saveTransaction(pt: pT, endUser: endUser, location: .init(rawValue: endUser.gymLocation) ?? .Other)
                                 showSuccessAlert.toggle()
                             }
                     default: paymentButtons
