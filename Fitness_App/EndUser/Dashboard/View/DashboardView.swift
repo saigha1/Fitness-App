@@ -12,6 +12,7 @@ struct DashboardView: View {
     @State var pTS : [PTModel] = []
     @EnvironmentObject var authVM: AuthViewModel
     @State var sortState : sortingType = .rating
+    @EnvironmentObject var paymentVM: ApplePayViewModel
     
     var body: some View {
         NavigationView {
@@ -51,6 +52,7 @@ struct DashboardView: View {
                         NavigationLink {
                             PTPageProfileView(pt: pt)
                                 .environmentObject(authVM)
+                                .environmentObject(paymentVM)
                         } label: {
                             PTCardView(showCategory: true, pt: pt, category: pt.workoutTypes.first!)
                                 .foregroundColor(.primary)
@@ -158,6 +160,7 @@ struct DashboardView: View {
                             ) { pt in
                                 NavigationLink {
                                     PTPageProfileView(pt: pt)
+                                        .environmentObject(paymentVM)
                                 } label: {
                                     PTCardView(showCategory: false, pt: pt, category: workoutCategory)
                                         .foregroundColor(.primary)
@@ -215,5 +218,6 @@ struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         DashboardView()
             .environmentObject(AuthViewModel())
+            .environmentObject(ApplePayViewModel())
     }
 }

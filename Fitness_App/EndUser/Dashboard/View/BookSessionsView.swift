@@ -50,58 +50,39 @@ struct BookSessionsView: View {
 //MARK: - Alert Structure
 extension BookSessionsView {
     private var alert: some View {
-        ZStack {
-            LinearGradient(colors: [.assetColor.blue, .assetColor.white, .assetColor.white], startPoint: .top, endPoint: .bottom)
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.35, alignment: .center)
-                .cornerRadius(15)
-                .shadow(color: .assetColor.blue, radius: 5)
-            VStack {
-                VStack {
-                    Text("Payment Successful!")
-                        .foregroundColor(.white)
-                        .bold()
-                    Image(systemName: "checkmark.circle")
-                        .resizable()
-                        .frame(width: 40, height: 40, alignment: .center)
-
-                        .foregroundColor(.green)
-                }
-                .font(.title2)
-                .padding(.vertical, 40)
-
-                Spacer()
-                    .frame(height: UIScreen.main.bounds.height * 0.2 * 0.05)
-                VStack(spacing: 7) {
-                    Button {
-                        paymentVM.nextScreen = .calendar
-                        dismiss()
-                    } label: {
-                        Text("View Upcoming Sessions")
-                            .foregroundColor(.assetColor.red)
-                            .bold()
-                            .frame(width: 200, height: 40)
-                            .padding(.horizontal)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color.assetColor.red, lineWidth: 2)
-                            )
-                    }
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Continue Browsing")
-                            .foregroundColor(.assetColor.red)
-                            .bold()
-                            .frame(width: 200, height: 40)
-                            .padding(.horizontal)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color.assetColor.red, lineWidth: 2)
-                            )
-                    }
-                }
-                .padding(.vertical, 30)
-            }.padding()
+        PaymentConfirmationAlert {
+            buttons
+        }
+    }
+    private var buttons: some View {
+        VStack(spacing: 7) {
+            Button {
+                paymentVM.nextScreen = .calendar
+                dismiss()
+            } label: {
+                Text("View Upcoming Sessions")
+                    .foregroundColor(.assetColor.red)
+                    .bold()
+                    .frame(width: 200, height: 40)
+                    .padding(.horizontal)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.assetColor.red, lineWidth: 2)
+                    )
+            }
+            Button {
+                dismiss()
+            } label: {
+                Text("Continue Browsing")
+                    .foregroundColor(.assetColor.red)
+                    .bold()
+                    .frame(width: 200, height: 40)
+                    .padding(.horizontal)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.assetColor.red, lineWidth: 2)
+                    )
+            }
         }
     }
     private var content: some View {

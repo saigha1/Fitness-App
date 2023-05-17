@@ -137,8 +137,9 @@ extension HomePage {
         .onChange(of: paymentVM.nextScreen) { newValue in
             print("nextScreen should change")
             switch newValue {
-            case .calendar: endUserTabSelection = NextScreenAfterPayment.calendar.rawValue
-            case .dashboard: endUserTabSelection = NextScreenAfterPayment.dashboard.rawValue
+            case .calendar: endUserTabSelection = NextScreenPayment.calendar.rawValue
+            case .dashboard: endUserTabSelection = NextScreenPayment.dashboard.rawValue
+            case .chat: endUserTabSelection = NextScreenPayment.chat.rawValue
             default: return
             }
         }

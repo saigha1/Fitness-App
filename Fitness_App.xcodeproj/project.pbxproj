@@ -76,6 +76,8 @@
 		2558E65629B7B6660099BC0A /* EndUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558E65529B7B6660099BC0A /* EndUserProfileViewModel.swift */; };
 		256E909D2993EA11005138B4 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E909C2993EA11005138B4 /* Double.swift */; };
 		256E909F2993FAF1005138B4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E909E2993FAF1005138B4 /* String.swift */; };
+		256FAD522A150B9B0067900E /* PaymentConfirmationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256FAD512A150B9B0067900E /* PaymentConfirmationAlert.swift */; };
+		256FAD542A15312B0067900E /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256FAD532A15312B0067900E /* Transaction.swift */; };
 		2570932D298D6E62004D9176 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570932C298D6E62004D9176 /* AuthViewModel.swift */; };
 		257337AB29ACFCC800357E78 /* EndUserDashBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337AA29ACFCC800357E78 /* EndUserDashBoardView.swift */; };
 		257337AD29ACFD4300357E78 /* EndUserChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337AC29ACFD4300357E78 /* EndUserChatView.swift */; };
@@ -173,6 +175,8 @@
 		2558E65529B7B6660099BC0A /* EndUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserProfileViewModel.swift; sourceTree = "<group>"; };
 		256E909C2993EA11005138B4 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		256E909E2993FAF1005138B4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		256FAD512A150B9B0067900E /* PaymentConfirmationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentConfirmationAlert.swift; sourceTree = "<group>"; };
+		256FAD532A15312B0067900E /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		2570932C298D6E62004D9176 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		257337AA29ACFCC800357E78 /* EndUserDashBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserDashBoardView.swift; sourceTree = "<group>"; };
 		257337AC29ACFD4300357E78 /* EndUserChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserChatView.swift; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 				047C5F9F2993EFE1000A4F49 /* PTModel.swift */,
 				047C5FA529942D82000A4F49 /* GymModel.swift */,
 				047C5FA129940D1F000A4F49 /* ModelData.swift */,
+				256FAD532A15312B0067900E /* Transaction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -561,6 +566,7 @@
 				A765FF0329EF1CDB0018DEE3 /* BookSessionsView.swift */,
 				04876D6B29F97AA400A364C8 /* ApplePayButtonView.swift */,
 				049865382A13BED2006F8620 /* PurchasePlansView.swift */,
+				256FAD512A150B9B0067900E /* PaymentConfirmationAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -712,6 +718,7 @@
 			files = (
 				0480661629881600005CD151 /* AuthenticationViewModel.swift in Sources */,
 				049865392A13BED2006F8620 /* PurchasePlansView.swift in Sources */,
+				256FAD522A150B9B0067900E /* PaymentConfirmationAlert.swift in Sources */,
 				044639722983FC8500C1741B /* TextFieldView.swift in Sources */,
 				04A19264299D747E000792B4 /* Sign_Up_Form.swift in Sources */,
 				04A19257299A9A15000792B4 /* pTPending.swift in Sources */,
@@ -789,6 +796,7 @@
 				047C5F5329914E59000A4F49 /* facebookLogin.swift in Sources */,
 				256E909F2993FAF1005138B4 /* String.swift in Sources */,
 				25C09DB029953E7F00099C8E /* Array.swift in Sources */,
+				256FAD542A15312B0067900E /* Transaction.swift in Sources */,
 				2545A605298D60C500310999 /* AuthenticationFlow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
