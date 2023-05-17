@@ -11,16 +11,23 @@ import PassKit
 
 struct PurchasePlansView: View {
     var pt: PTModel
+    @EnvironmentObject var authVM: AuthViewModel
     @StateObject var vm = PurchasePlanViewModel()
     @EnvironmentObject var paymentVM: ApplePayViewModel
-
+    @State var showSuccessAlert = false
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 ZStack {
                     VStack {
                         content
-                        
+                    }
+                    if showSuccessAlert {
+                        PaymentConfirmationAlert(buttons: {
+                            paymentConfirmationButton
+                        }, height: UIScreen.main.bounds.height * 0.28, spacerHeight: UIScreen.main.bounds.height * 0.1 * 0.05)
                     }
                 }
             }
@@ -28,44 +35,83 @@ struct PurchasePlansView: View {
             .navigationTitle("Purchase Plans")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .onAppear {
+            if let firstType = pt.workoutTypes.first {
+                vm.selectedTypeOfWorkOut = firstType
+            }
+        }
+        .onDisappear {
+            paymentVM.clearPaymentStates()
+        }
     }
-    
+    var paymentConfirmationButton: some View {
+        Button {
+            dismiss()
+        } label: {
+            Text("Continue Browsing")
+                .foregroundColor(.assetColor.red)
+                .bold()
+                .frame(width: 200, height: 40)
+                .padding(.horizontal)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(Color.assetColor.red, lineWidth: 2)
+                )
+        }
+
+    }
     var content: some View{
         return Group{
-            Text("Select a plan from the following options")
-            Group{
-                HStack{
-                    Button {
-                        vm.selectedPurchasePlan = .Workout
-                    } label: {
-                        HStack{
-                            Image(systemName: "figure.run")
-                                .resizable()
-                                .frame(width: 23, height: 28)
-                            Text("Workout Plan")
-                                .bold()
-                        }
-                        .foregroundColor(.white)
+            VStack(alignment: .leading) {
+                Text("Select a workout category")
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+                    .bold()
+                Picker(selection: $vm.selectedTypeOfWorkOut) {
+                    ForEach(pt.workoutTypes, id: \.self) { type in
+                        let matching = matchingTypesOfWorkOut.contains(type)
+                        Text((matching ? "🟠  " : "") + type.rawValue)
                     }
-                    .frame(width: UIScreen.main.bounds.width/2.5, height: 50)
-                    .background(Color.assetColor.blue.cornerRadius(5))
-                    
-                    
-                    Button {
-                        vm.selectedPurchasePlan = .Diet
-                    } label: {
-                        HStack{
-                            Image(systemName: "fork.knife")
-                                .resizable()
-                                .frame(width: 23, height: 25)
-                            Text("Diet Plan")
-                                .bold()
-                        }
-                        .foregroundColor(.white)
-                    }
-                    .frame(width: UIScreen.main.bounds.width/2.5, height: 50)
-                    .background(Color.assetColor.darkPurple.cornerRadius(5))
+                } label: {
+                    Text("")
                 }
+                .pickerStyle(.segmented)
+                Text("Select a plan option")
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+                    .bold()
+            }
+            HStack{
+                Button {
+                    vm.selectedPurchasePlan = .Workout
+                } label: {
+                    HStack{
+                        Image(systemName: "figure.run")
+                            .resizable()
+                            .frame(width: 23, height: 28)
+                        Text("Workout Plan")
+                            .bold()
+                    }
+                    .foregroundColor(.white)
+                }
+                .frame(width: UIScreen.main.bounds.width/2.5, height: 50)
+                .background(Color.assetColor.blue.cornerRadius(5))
+                
+                
+                Button {
+                    vm.selectedPurchasePlan = .Diet
+                } label: {
+                    HStack{
+                        Image(systemName: "fork.knife")
+                            .resizable()
+                            .frame(width: 23, height: 25)
+                        Text("Diet Plan")
+                            .bold()
+                    }
+                    .foregroundColor(.white)
+                }
+                .frame(width: UIScreen.main.bounds.width/2.5, height: 50)
+                .background(Color.assetColor.darkPurple.cornerRadius(5))
             }
             
             Button {
@@ -90,14 +136,15 @@ struct PurchasePlansView: View {
             .frame(width: UIScreen.main.bounds.width/1.21, height: 50)
             .background(Color.assetColor.pink.opacity(0.5).cornerRadius(5))
             
-            
-            Text("Or, contact the trainer to learn more about plans first")
-                .foregroundColor(.secondary)
-                .font(.system(size: 12))
+            VStack(alignment: .leading) {
+                Text("Or, contact the trainer to learn more about plans first")
+                    .foregroundColor(.secondary)
+                    .font(.system(size: 12))
+            }
             
             GroupBox{
                 HStack{
-                    pt.ptProfileImage.asProfileImage(100)
+                    pt.ptProfileImage.asProfileImage(100, padding: 0)
                     
                     VStack(alignment: .leading){
                         HStack{
@@ -112,58 +159,96 @@ struct PurchasePlansView: View {
                                 .padding(.horizontal, 10)
                             Spacer()
                         }
-                        ForEach(pt.workoutTypes, id: \.rawValue) {
-                            if $0 != .select {
-                                Text($0.rawValue)
-                            }
-                        }
+                        Text(vm.selectedTypeOfWorkOut.rawValue)
                         
                     }
-                    Image(systemName: "ellipses.bubble")
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .foregroundColor(.secondary)
+                    
+                    chatButton
                 }
             }
             
             Divider()
-                summary
+            summary
         }
     }
-    
-    var summary : some View{
-        Group{
-            Text("Summary")
-                .bold()
-            GroupBox {
-                VStack{
-                HStack{
-                    VStack{
-                        Text("Trainer:")
-                        Text("Plan:")
-                        Text("SubTotal:")
-                        Text("Estimated Tax:")
-                        Text("SubTotal:")
-                    }
-                    Spacer()
-                    VStack{
-                        Text(pt.name)
-                        Text(vm.selectedPurchasePlan.rawValue)
-                        Text(vm.subTotal.formatted(.currency(code: "CAD")))
-                        Text(vm.estimatedTax.formatted(.currency(code: "CAD")))
-                        Text(vm.Total.formatted(.currency(code: "CAD")))
-                    }
-                }
-                
-                HStack{
-                    ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.Total)
-                        .environmentObject(paymentVM)
-                }
+    var chatButton: some View {
+        Button {
+            paymentVM.nextScreen = .chat
+            dismiss()
+        } label: {
+            Group {
+                if #available(iOS 16.0, *) {
+                    Image(systemName: "ellipsis.message")
+                        .resizable()
+                        .foregroundColor(.secondary)
+                } else {
+                    Image(systemName: "ellipses.bubble")
+                        .resizable()
+                        .foregroundColor(.secondary)
                 }
             }
+            .frame(width: 35, height: 35)
+            
+        }
+
+    }
+    var summary : some View{
+        Group{
+            VStack(alignment: .leading) {
+                Text("Summary")
+                    .bold()
+                GroupBox {
+                    VStack{
+                    HStack{
+                        VStack(alignment: .leading){
+                            Text("Trainer:")
+                            Text("Plan:")
+                            Text("SubTotal:")
+                            Text("Estimated Tax:")
+                            Text("SubTotal:")
+                        }
+                        Spacer()
+                        VStack(alignment: .leading){
+                            Text(pt.name)
+                            Text(vm.selectedPurchasePlan.rawValue)
+                            Text(vm.subTotal.formatted(.currency(code: "CAD")))
+                            Text(vm.estimatedTax.formatted(.currency(code: "CAD")))
+                            Text(vm.Total.formatted(.currency(code: "CAD")))
+                        }
+                    }
+                    
+                        switch paymentVM.paymentStatus {
+                        case .success: VStack {}
+                                .onAppear {
+                                    guard let user = authVM.currentEndUser else { return }
+                                    vm.saveTransaction(pt: pt, endUser: user)
+                                    showSuccessAlert.toggle()
+                        }
+                        default: paymentButton
+                        }
+                    }
+                }
+            }
+            
         }
     }
     
+    var paymentButton: some View {
+        HStack{
+            ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.Total)
+                .environmentObject(paymentVM)
+        }
+    }
+    private var matchingTypesOfWorkOut: [typesOfWorkOut] {
+        let ptTypes = pt.workoutTypes
+        guard let userTypes = authVM.currentEndUser?.typesOfWorkOut else { return [] }
+        let result = ptTypes.filter { ptType in
+            userTypes.contains { userType in
+                userType.rawValue == ptType.rawValue
+            }
+        }
+        return result
+    }
 }
 
 struct PurchasePlansView_Previews: PreviewProvider {
@@ -172,6 +257,7 @@ struct PurchasePlansView_Previews: PreviewProvider {
         
         PurchasePlansView(pt: emptyPTModel)
             .environmentObject(ApplePayViewModel())
+            .environmentObject(AuthViewModel())
     }
 }
 

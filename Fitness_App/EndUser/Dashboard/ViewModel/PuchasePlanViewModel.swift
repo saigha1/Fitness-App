@@ -9,7 +9,7 @@ import SwiftUI
 
 class PurchasePlanViewModel: ObservableObject{
     @Published var selectedPurchasePlan : PurchasePlan = .Workout
-    
+    @Published var selectedTypeOfWorkOut: typesOfWorkOut = .select
     var estimatedTax : Double{
         subTotal * 0.13
     }
@@ -30,9 +30,17 @@ class PurchasePlanViewModel: ObservableObject{
     }
 }
 
-enum PurchasePlan : String{
+enum PurchasePlan : String, Codable {
     case Workout
     case Diet
     case Bundle
     
+}
+
+//MARK: - Payment Completion Handler
+extension PurchasePlanViewModel {
+    func saveTransaction(pt: PTModel, endUser: NewEndUser) {
+        let transaction = Transaction(trainerUID: pt.id, endUserUID: endUser.id, subTotal: subTotal, estimatedTax: estimatedTax, total: Total, typeOfWorkOut: selectedTypeOfWorkOut, planOption: selectedPurchasePlan)
+        add(newEntry: transaction, filename: "Transactions.json", location: .document)
+    }
 }
