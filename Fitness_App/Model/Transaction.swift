@@ -8,6 +8,7 @@
 import Foundation
 
 struct Transaction: Codable {
+    //Transaction Details
     let isPlan: Bool
     let transactionID: String
     let trainerUID: String
@@ -18,7 +19,8 @@ struct Transaction: Codable {
     let transTime: Date
     
     // Book Sessions Transactions
-    let dates: [DayOfTheWeek]?
+    //Session Details
+    let weekDays: [DayOfTheWeek]?
     let startDate: Date?
     let startTime: Date?
     let endTime: Date?
@@ -44,7 +46,7 @@ struct Transaction: Codable {
         self.estimatedTax = estimatedTax
         self.total = total
         self.transTime = Date()
-        self.dates = dates
+        self.weekDays = dates
         self.startDate = startDate
         self.startTime = startTime
         self.endTime = endTime
@@ -69,7 +71,7 @@ struct Transaction: Codable {
         self.estimatedTax = estimatedTax
         self.total = total
         self.transTime = Date()
-        self.dates = nil
+        self.weekDays = nil
         self.startDate = nil
         self.startTime = nil
         self.endTime = nil

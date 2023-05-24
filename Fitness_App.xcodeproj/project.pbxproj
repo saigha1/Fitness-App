@@ -38,7 +38,7 @@
 		049FAB702982D297001CDC84 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 049FAB6F2982D297001CDC84 /* .gitignore */; };
 		04A19246299A8DF3000792B4 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19245299A8DF3000792B4 /* HomePage.swift */; };
 		04A19248299A9077000792B4 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19247299A9077000792B4 /* ChatView.swift */; };
-		04A1924A299A9400000792B4 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19249299A9400000792B4 /* Calendar.swift */; };
+		04A1924A299A9400000792B4 /* PTCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19249299A9400000792B4 /* PTCalendar.swift */; };
 		04A1924C299A9460000792B4 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1924B299A9460000792B4 /* Dashboard.swift */; };
 		04A19257299A9A15000792B4 /* pTPending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19256299A9A15000792B4 /* pTPending.swift */; };
 		04A1925A299C5911000792B4 /* EmptyEndUser.json in Resources */ = {isa = PBXBuildFile; fileRef = 04A19259299C5910000792B4 /* EmptyEndUser.json */; };
@@ -49,10 +49,13 @@
 		04A19264299D747E000792B4 /* Sign_Up_Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19263299D747E000792B4 /* Sign_Up_Form.swift */; };
 		04A19266299E7614000792B4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A19265299E7614000792B4 /* ImagePicker.swift */; };
 		04A1926929A685E6000792B4 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1926829A685E6000792B4 /* PhotoView.swift */; };
+		04A239BD2A1E516A001CF235 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A239BC2A1E516A001CF235 /* Calendar.swift */; };
+		04A239C22A1E52F2001CF235 /* CalendarViewEndUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A239C12A1E52F2001CF235 /* CalendarViewEndUser.swift */; };
+		04A239C42A1E531B001CF235 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A239C32A1E531B001CF235 /* CalendarViewModel.swift */; };
+		04A239C52A1E7103001CF235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */; };
+		04A239DD2A1E8AE6001CF235 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 04A239DC2A1E8AE6001CF235 /* FirebaseAuth */; };
 		04A32EFF29AE562400AA336C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A32EFE29AE562400AA336C /* CameraView.swift */; };
 		04A32F0329B249B400AA336C /* PTValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A32F0229B249B300AA336C /* PTValidationModel.swift */; };
-		04AA754B29B64B640062413B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 04AA754A29B64B640062413B /* FirebaseAuth */; };
-		04BC0EC1298C041E000EE16E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */; };
 		04BC0EFA298C1C77000EE16E /* Google-Firebase-LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC0EF9298C1C77000EE16E /* Google-Firebase-LoginVM.swift */; };
 		04BC0EFC298C1EF7000EE16E /* FacebookFirebaseSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC0EFB298C1EF7000EE16E /* FacebookFirebaseSignIn.swift */; };
 		2506A6DD299E9EF800FC5D7A /* FileLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506A6DC299E9EF800FC5D7A /* FileLocation.swift */; };
@@ -141,7 +144,7 @@
 		049FAB6F2982D297001CDC84 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		04A19245299A8DF3000792B4 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		04A19247299A9077000792B4 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
-		04A19249299A9400000792B4 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		04A19249299A9400000792B4 /* PTCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCalendar.swift; sourceTree = "<group>"; };
 		04A1924B299A9460000792B4 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		04A19256299A9A15000792B4 /* pTPending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pTPending.swift; sourceTree = "<group>"; };
 		04A19259299C5910000792B4 /* EmptyEndUser.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmptyEndUser.json; sourceTree = "<group>"; };
@@ -152,6 +155,9 @@
 		04A19263299D747E000792B4 /* Sign_Up_Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign_Up_Form.swift; sourceTree = "<group>"; };
 		04A19265299E7614000792B4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		04A1926829A685E6000792B4 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		04A239BC2A1E516A001CF235 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		04A239C12A1E52F2001CF235 /* CalendarViewEndUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewEndUser.swift; sourceTree = "<group>"; };
+		04A239C32A1E531B001CF235 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		04A32EFE29AE562400AA336C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		04A32F0229B249B300AA336C /* PTValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTValidationModel.swift; sourceTree = "<group>"; };
 		04BC0EC0298C041E000EE16E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -210,7 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				253ADE0B298D647D0038AE85 /* FacebookCore in Frameworks */,
-				04AA754B29B64B640062413B /* FirebaseAuth in Frameworks */,
+				04A239DD2A1E8AE6001CF235 /* FirebaseAuth in Frameworks */,
 				25A8E77C298D8130008FA6FD /* GoogleSignInSwift in Frameworks */,
 				253ADE0D298D647D0038AE85 /* FacebookLogin in Frameworks */,
 				25A8E77A298D8130008FA6FD /* GoogleSignIn in Frameworks */,
@@ -453,9 +459,35 @@
 		04A19255299A9582000792B4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				04A19249299A9400000792B4 /* Calendar.swift */,
+				04A19249299A9400000792B4 /* PTCalendar.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		04A239BE2A1E5214001CF235 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				04A239C02A1E5254001CF235 /* ViewModel */,
+				04A239BF2A1E523C001CF235 /* View */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		04A239BF2A1E523C001CF235 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04A239C12A1E52F2001CF235 /* CalendarViewEndUser.swift */,
+				257337B029ACFE1500357E78 /* EndUserCalendarView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04A239C02A1E5254001CF235 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				04A239C32A1E531B001CF235 /* CalendarViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		25180FD6299FC7F300498E30 /* Managers */ = {
@@ -512,10 +544,10 @@
 		257337A929ACFC8C00357E78 /* EndUser */ = {
 			isa = PBXGroup;
 			children = (
+				04A239BE2A1E5214001CF235 /* Calendar */,
 				25C2E4EC29D48AD100772C89 /* Dashboard */,
 				257337AC29ACFD4300357E78 /* EndUserChatView.swift */,
 				257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */,
-				257337B029ACFE1500357E78 /* EndUserCalendarView.swift */,
 			);
 			path = EndUser;
 			sourceTree = "<group>";
@@ -622,6 +654,7 @@
 				25C09DAD299536A500099C8E /* Date.swift */,
 				25C09DAF29953E7F00099C8E /* Array.swift */,
 				254A6F2B29C4B82300B22A93 /* View.swift */,
+				04A239BC2A1E516A001CF235 /* Calendar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -648,7 +681,7 @@
 				253ADE0E298D647D0038AE85 /* FacebookShare */,
 				25A8E779298D8130008FA6FD /* GoogleSignIn */,
 				25A8E77B298D8130008FA6FD /* GoogleSignInSwift */,
-				04AA754A29B64B640062413B /* FirebaseAuth */,
+				04A239DC2A1E8AE6001CF235 /* FirebaseAuth */,
 			);
 			productName = Fitness_App;
 			productType = "com.apple.product-type.application";
@@ -680,7 +713,7 @@
 			packageReferences = (
 				253ADE09298D647D0038AE85 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				25D62163298D7DCE0084637C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				04AA754929B64B640062413B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				04A239DB2A1E8AE6001CF235 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 049833332954975400724C7B;
 			projectDirPath = "";
@@ -696,6 +729,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A239C52A1E7103001CF235 /* GoogleService-Info.plist in Resources */,
 				049FAB702982D297001CDC84 /* .gitignore in Resources */,
 				0437CDC729968BB100E789F5 /* Gyms.json in Resources */,
 				049833472954975700724C7B /* Preview Assets.xcassets in Resources */,
@@ -704,7 +738,6 @@
 				049833442954975700724C7B /* Assets.xcassets in Resources */,
 				044639712983FC8500C1741B /* PTs.json in Resources */,
 				25C2E4F629D4AA5100772C89 /* Test-PTs.json in Resources */,
-				04BC0EC1298C041E000EE16E /* GoogleService-Info.plist in Resources */,
 				0437CDC92996B3E000E789F5 /* TestGyms.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -723,8 +756,9 @@
 				04A19264299D747E000792B4 /* Sign_Up_Form.swift in Sources */,
 				04A19257299A9A15000792B4 /* pTPending.swift in Sources */,
 				2545A5FF298D607E00310999 /* FireBaseSignInWithEmailViewModel.swift in Sources */,
-				04A1924A299A9400000792B4 /* Calendar.swift in Sources */,
+				04A1924A299A9400000792B4 /* PTCalendar.swift in Sources */,
 				04A19262299D629D000792B4 /* EditModeView.swift in Sources */,
+				04A239C42A1E531B001CF235 /* CalendarViewModel.swift in Sources */,
 				257337B129ACFE1500357E78 /* EndUserCalendarView.swift in Sources */,
 				A7A2A17E29EEE199004E3CB0 /* FullScreenCoverWithDismissButton.swift in Sources */,
 				047C5F5729929EC7000A4F49 /* Sign_Up_View.swift in Sources */,
@@ -752,6 +786,7 @@
 				04A1926929A685E6000792B4 /* PhotoView.swift in Sources */,
 				2545A603298D60BC00310999 /* AuthenticationState.swift in Sources */,
 				04A32F0329B249B400AA336C /* PTValidationModel.swift in Sources */,
+				04A239BD2A1E516A001CF235 /* Calendar.swift in Sources */,
 				047C5FA229940D1F000A4F49 /* ModelData.swift in Sources */,
 				047B2FDB29A8CB7C00F3E6F1 /* VideoPicker.swift in Sources */,
 				25E6D8F529914A220015B8B0 /* Color.swift in Sources */,
@@ -765,6 +800,7 @@
 				049833402954975400724C7B /* Fitness_AppApp.swift in Sources */,
 				A74B7D5C29F1B35C00375F55 /* BookSessionsViewModel.swift in Sources */,
 				251A49A12995F6F20066A9CF /* Components.swift in Sources */,
+				04A239C22A1E52F2001CF235 /* CalendarViewEndUser.swift in Sources */,
 				25CA33EE2A1287A4007415EB /* ApplePayViewModel.swift in Sources */,
 				2558E65629B7B6660099BC0A /* EndUserProfileViewModel.swift in Sources */,
 				251A499E2995F6870066A9CF /* WorkOutAppointment.swift in Sources */,
@@ -1006,7 +1042,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		04AA754929B64B640062413B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		04A239DB2A1E8AE6001CF235 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -1033,9 +1069,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		04AA754A29B64B640062413B /* FirebaseAuth */ = {
+		04A239DC2A1E8AE6001CF235 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 04AA754929B64B640062413B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 04A239DB2A1E8AE6001CF235 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
 		253ADE0A298D647D0038AE85 /* FacebookCore */ = {

@@ -57,4 +57,60 @@ extension Date {
 
 extension Date {
     func isInSameDay(as date: Date) -> Bool { Calendar.current.isDate(self, inSameDayAs: date) }
+    
+    // 0 - same day, -1 - is earlier, 1 - is later
+    func isLater(than date: Date) -> Int {
+        let cal = Calendar.current
+        let dayComponent: Set<Calendar.Component> = [.day]
+        let monthComponent: Set<Calendar.Component> = [.month]
+        let yearComponent: Set<Calendar.Component> = [.year]
+        
+        //gets the Year
+        func year(_ date: Date) -> Int {
+            cal.dateComponents(yearComponent, from: date).year!
+        }
+        //gets the Month
+        func month(_ date: Date) -> Int {
+            cal.dateComponents(monthComponent, from: date).month!
+        }
+        //gets the Day
+        func day(_ date: Date) -> Int {
+            cal.dateComponents(dayComponent, from: date).day!
+        }
+        
+        let selfYear = year(self)
+        let selfMonth = month(self)
+        let selfDay = day(self)
+        
+        let dateYear = year(date)
+        let dateMonth = month(date)
+        let dateDay = day(date)
+        
+        if selfYear > dateYear {
+            return 1
+        } else if selfYear < dateYear {
+            return -1
+        } else {
+            if selfMonth > dateMonth {
+                return 1
+            } else if selfMonth < dateMonth {
+                return -1
+            } else {
+                if selfDay > dateDay {
+                    return 1
+                } else if selfDay < dateDay {
+                    return -1
+                } else {
+                    return 0
+                }
+            }
+        }
+    }
+}
+
+
+extension Date {
+    func addMonth(_ month: Int) -> Date {
+        Calendar.current.date(byAdding: .month, value: month, to: self)!
+    }
 }
