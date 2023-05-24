@@ -234,9 +234,19 @@ struct PurchasePlansView: View {
     }
     
     var paymentButton: some View {
-        HStack{
-            ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.Total)
-                .environmentObject(paymentVM)
+        VStack{
+            HStack{
+                ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.Total)
+                    .environmentObject(paymentVM)
+                    .padding(.bottom, 0)
+            }
+            Image("paymentOptions")
+                .resizable()
+                .scaledToFit()
+                .scaleEffect(0.8)
+                .frame(width: UIScreen.main.bounds.width*0.5, height: 50)
+                .padding(0)
+//                .background(.red)
         }
     }
     private var matchingTypesOfWorkOut: [typesOfWorkOut] {

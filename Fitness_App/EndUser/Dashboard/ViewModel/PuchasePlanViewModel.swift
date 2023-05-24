@@ -25,7 +25,7 @@ class PurchasePlanViewModel: ObservableObject{
         case .Diet:
             return 50
         case .Bundle:
-            return 120
+            return 120  
         }
     }
 }
