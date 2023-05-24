@@ -225,9 +225,18 @@ extension BookSessionsView {
     var paymentButtons: some View {
         //Add ApplePay
         //Add Stripe
-        HStack{
-            ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.total)
-                .environmentObject(paymentVM)
+        VStack{
+            HStack{
+                ApplyPayButton(amount: vm.subTotal, tax: vm.estimatedTax, total: vm.total)
+                    .environmentObject(paymentVM)
+            }
+            Image("paymentOptions")
+                .resizable()
+                .scaledToFit()
+                .scaleEffect(0.8)
+                .frame(width: UIScreen.main.bounds.width*0.5, height: 50)
+                .padding(0)
+
         }
     }
     var paymentSuccess: some View {
