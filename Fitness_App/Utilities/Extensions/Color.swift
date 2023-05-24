@@ -20,4 +20,6 @@ struct AssetColor {
     let white = Color("default5White")
     let red = Color("default6Red")
     let pink = Color("default7Pink")
+    let skyblue = Color("skyblue")
+    let crimson = Color("crimson")
 }
