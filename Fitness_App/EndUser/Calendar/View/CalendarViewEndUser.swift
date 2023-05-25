@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CalendarViewEndUser: View {
 
-    @StateObject var vm = CalendarViewModel()
+    @ObservedObject var vm: CalendarViewModel
     
     var body: some View {
         VStack {
@@ -78,9 +78,9 @@ struct CalendarViewEndUser: View {
                     ForEach(vm.getCalendarDays(), id: \.self) { date in
                         ZStack {
                             // show skyblue circle for dates with sessions
-                            if vm.datesWithSessions.contains(date) {
+                            if vm.datesWithSessions.contains(where: { $0.0 == date }) {
                                 let isStroke = date.isLater(than: Date()) == -1
-                                CalCellCircleView(isToday: false, isStroke: isStroke)
+                                CalCellCircleView(isToday: false, isStroke: isStroke, isOpaque: !vm.isCurrentMonth(date: date))
                             }
                             // show crimson circle for today
                             if date.isLater(than: Date()) == 0 {
@@ -94,6 +94,9 @@ struct CalendarViewEndUser: View {
                                 .frame(width: 35, height: 35, alignment: .center)
                                 .foregroundColor(.clear)
                             
+                        }
+                        .onAppear {
+                            print(vm.month, date)
                         }
                     }
                 }
@@ -136,10 +139,21 @@ struct CalCellNumberView: View {
 struct CalCellCircleView: View {
     let isToday: Bool
     let isStroke: Bool
+    let isOpaque: Bool
+    
+    init(isToday: Bool, isStroke: Bool, isOpaque: Bool = false) {
+        self.isToday = isToday
+        self.isStroke = isStroke
+        self.isOpaque = isOpaque
+    }
+
+    private var fgColor: Color {
+        isToday ? .assetColor.crimson : .assetColor.skyblue.opacity(isOpaque ? 0.5 : 1)
+    }
     var body: some View {
         circle
             .frame(width: 35, height: 35, alignment: .center)
-            .foregroundColor(isToday ? .assetColor.crimson : .assetColor.skyblue)
+            .foregroundColor(fgColor)
     }
     var circle: some View {
         Group {
@@ -154,7 +168,7 @@ struct CalCellCircleView: View {
 
 struct CalendarViewEndUser_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarViewEndUser()
+        CalendarViewEndUser(vm: CalendarViewModel())
     }
 }
 

@@ -129,6 +129,7 @@ extension HomePage {
                 }
                 .tag("Explore")
             EndUserCalendarView()
+                .environmentObject(authVM)
                 .tabItem{
                     Label("Calendar", systemImage: "calendar.badge.clock")
                 }

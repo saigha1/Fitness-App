@@ -12,10 +12,16 @@ class CalendarViewModel: ObservableObject {
     @Published var month: Int = 1
     @Published var year: Int = 1999
     
-    var datesWithSessions : [Date] {
-        var results : [Date] = []
-        let transactions : [Transaction] = load(filename: "Transactions.json", location: .document) ?? []
-        
+    var transactions: [Transaction] = []
+    
+    init() {
+        self.month = 1
+        self.year = 1999
+        self.transactions = load(filename: "Transactions.json", location: .document) ?? []
+    }
+    
+    var datesWithSessions : [(Date, Transaction)] {
+        var results : [(Date, Transaction)] = []
         for transaction in transactions {
             guard let length = transaction.length else { return results }
             guard let startDate = transaction.startDate else { return results }
@@ -31,7 +37,7 @@ class CalendarViewModel: ObservableObject {
                 guard let weekday = date.asDayOfWeek() else { return results }
                 
                 if weekDays.contains(weekday){
-                    results.append(date)
+                    results.append((date, transaction))
                 }
             }
         }
@@ -77,4 +83,15 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
+}
+
+//MARK: - PT Contact Banner Functions
+extension CalendarViewModel {
+    var pt: PTModel? {
+        let allDates = datesWithSessions.filter { $0.0.isLater(than: Date()) == 1 }.sorted { $0.0 < $1.0 }
+        guard let transaction = allDates.first?.1 else { return nil }
+        guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return nil }
+        guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
+        return PTFound
+    }
 }
