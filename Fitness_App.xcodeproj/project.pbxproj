@@ -87,6 +87,7 @@
 		257337AF29ACFDAE00357E78 /* EndUserExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */; };
 		257337B129ACFE1500357E78 /* EndUserCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257337B029ACFE1500357E78 /* EndUserCalendarView.swift */; };
 		257B5EED29D7264A005A78AD /* PTPageProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B5EEC29D7264A005A78AD /* PTPageProfileView.swift */; };
+		258D6B492A1F9F01006E881E /* CalendarLegendViewEndUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258D6B482A1F9F01006E881E /* CalendarLegendViewEndUser.swift */; };
 		259813302992A2CE00EA9B36 /* ButtonLabelWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */; };
 		259813342992B2DE00EA9B36 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259813332992B2DE00EA9B36 /* UserProfileView.swift */; };
 		259813362992B2E900EA9B36 /* UserSignUpFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259813352992B2E900EA9B36 /* UserSignUpFormView.swift */; };
@@ -189,6 +190,7 @@
 		257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserExploreView.swift; sourceTree = "<group>"; };
 		257337B029ACFE1500357E78 /* EndUserCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserCalendarView.swift; sourceTree = "<group>"; };
 		257B5EEC29D7264A005A78AD /* PTPageProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTPageProfileView.swift; sourceTree = "<group>"; };
+		258D6B482A1F9F01006E881E /* CalendarLegendViewEndUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLegendViewEndUser.swift; sourceTree = "<group>"; };
 		2598132F2992A2CE00EA9B36 /* ButtonLabelWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelWithIconView.swift; sourceTree = "<group>"; };
 		259813332992B2DE00EA9B36 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		259813352992B2E900EA9B36 /* UserSignUpFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpFormView.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				04A239C12A1E52F2001CF235 /* CalendarViewEndUser.swift */,
+				258D6B482A1F9F01006E881E /* CalendarLegendViewEndUser.swift */,
 				257337B029ACFE1500357E78 /* EndUserCalendarView.swift */,
 			);
 			path = View;
@@ -777,6 +780,7 @@
 				A765FF0629EF20B80018DEE3 /* RoundedRect.swift in Sources */,
 				049833422954975400724C7B /* ContentView.swift in Sources */,
 				A765FF0429EF1CDB0018DEE3 /* BookSessionsView.swift in Sources */,
+				258D6B492A1F9F01006E881E /* CalendarLegendViewEndUser.swift in Sources */,
 				2570932D298D6E62004D9176 /* AuthViewModel.swift in Sources */,
 				254A6F2C29C4B82300B22A93 /* View.swift in Sources */,
 				047C5FA629942D82000A4F49 /* GymModel.swift in Sources */,

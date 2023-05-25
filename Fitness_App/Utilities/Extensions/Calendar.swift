@@ -29,16 +29,22 @@ extension Calendar {
         return dates
     }
     
-    // get all dates of a month + ending days from last month + startings days from next month
+    // get all dates of a month + ending days from last month + startings days from next month + another week if the result is less than 6 weeks
     func getAllRealDays(for month: Date) -> [Date] {
+        var results: [Date] = []
         guard
             let monthInterval = self.dateInterval(of: .month, for: month),
             let monthFirstWeek = self.dateInterval(of: .weekOfMonth, for: monthInterval.start),
             let monthLastWeek = self.dateInterval(of: .weekOfMonth, for: monthInterval.end)
-        else { return [] }
-        return self.getAllDates(
+        else { return results }
+        results += self.getAllDates(
             dateInterval: DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end),
             dateComponent: DateComponents(hour: 0, minute: 0, second: 0)
         )
+        if results.count < 42 {
+            let endOfNextWeek = Calendar.current.date(byAdding: .weekOfMonth, value: 1, to: monthLastWeek.end)!
+            results += self.getAllDates(dateInterval: .init(start: monthLastWeek.end, end: endOfNextWeek), dateComponent: DateComponents(hour: 0, minute: 0, second: 0))
+        }
+        return results
     }
 }
