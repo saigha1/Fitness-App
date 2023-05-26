@@ -108,6 +108,7 @@ extension CalendarViewModel {
         guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
         return PTFound
     }
+    //TODO: Can you explain this?
     func getPT(transaction : Transaction) -> PTModel? {
             guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return nil }
             guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
