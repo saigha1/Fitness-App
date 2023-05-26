@@ -41,8 +41,12 @@ class CalendarViewModel: ObservableObject {
                 }
             }
         }
-        return results
-    }
+        
+        return results.sorted {
+            $0.0 < $1.0
+        }
+        }
+    
     
     let calendar = Calendar.current
     let dateFormatter: DateFormatter = {
@@ -50,6 +54,16 @@ class CalendarViewModel: ObservableObject {
         formatter.dateFormat = "d"
         return formatter
     }()
+    
+    var formatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy"
+        return formatter
+    }
+     
+    func toString(_ date: Date) -> String {
+        formatter.string(from: date)
+    }
     
     // load current year and month
     func showToday() {
@@ -93,5 +107,11 @@ extension CalendarViewModel {
         guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return nil }
         guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
         return PTFound
+    }
+    //TODO: Can you explain this?
+    func getPT(transaction : Transaction) -> PTModel? {
+            guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return nil }
+            guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
+            return PTFound
     }
 }
