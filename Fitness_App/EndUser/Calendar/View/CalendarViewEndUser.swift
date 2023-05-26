@@ -20,22 +20,26 @@ struct CalendarViewEndUser: View {
     
                 if #available(iOS 16.1, *) {
                     Text("\(vm.calendar.monthSymbols[vm.month - 1]) \(String(vm.year))")
-                        .font(.title)
+                        .font(.title2)
                         .fontDesign(.monospaced)
                 } else {
                     // Fallback on earlier versions
                     Text("\(vm.calendar.monthSymbols[vm.month - 1]) \(String(vm.year))")
-                        .font(.title)
+                        .font(.title2)
                 }
                 Spacer()
+                    .frame(width: 100)
                 Button {
                     vm.showToday()
                 } label: {
                     Text("Today")
                         .bold()
+                        .padding(.trailing, 50)
                 }
 
             }
+           
+            
             //
             HStack(spacing: 2) {
                 Image(systemName: "chevron.backward.circle.fill")

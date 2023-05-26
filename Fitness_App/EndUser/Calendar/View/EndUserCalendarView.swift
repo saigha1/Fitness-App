@@ -12,7 +12,7 @@ struct EndUserCalendarView: View {
     @EnvironmentObject var authVM: AuthViewModel
     var body: some View {
         NavigationView {
-            VStack{
+            ScrollView{
                 CalendarViewEndUser(vm: vm)
                 CalendarLegendViewEndUser()
                 trainerContactCard
@@ -20,12 +20,9 @@ struct EndUserCalendarView: View {
                     
             }
             .navigationTitle("Calendar")
-            
-            
         }
     }
 
-    
     var trainerContactCard: some View{
         Group {
             if let pt = vm.pt {
@@ -36,7 +33,7 @@ struct EndUserCalendarView: View {
                                 .resizable()
                                 .frame(width: 52, height: 52)
                                 .cornerRadius(15)
-                            VStack{
+                            VStack(alignment: .leading){
                                 HStack {
                                     Text(pt.name)
                                         .bold()
@@ -44,26 +41,22 @@ struct EndUserCalendarView: View {
                                     Text("Trainer")
                                         .bold()
                                         .foregroundColor(.white)
-                                        .padding(5)
+                                        .padding(3)
                                         .background(Color.assetColor.blue.cornerRadius(10))
                                 }
-
-//                                if let workoutType = pt.workoutTypes.filter({ ptType in
-//                                    print("Step 1")
-//                                    guard let user = authVM.currentEndUser else {
-//                                        print("Step 2")
-//                                        return false
-//                                    }
-//                                    return user.typesOfWorkOut.contains { userType in
-//                                        print("Step 3")
-//                                        return userType.rawValue == ptType.rawValue
-//                                    }
-//                                }).first {
-//                                    Text(workoutType.rawValue)
-//                                        .onAppear {
-//                                            print("Step 4")
-//                                        }
-//                                }
+                                .padding(0)
+                                Spacer()
+                                    .frame(height:0)
+                                if let workoutType = pt.workoutTypes.filter({ ptType in
+                                    guard let user = authVM.currentEndUser else {
+                                        return false
+                                    }
+                                    return user.typesOfWorkOut.contains { userType in
+                                        return userType.rawValue == ptType.rawValue
+                                    }
+                                }).first {
+                                    Text(workoutType.rawValue)
+                                }
                             }
                             Spacer()
                             sharedIcon_Chat
@@ -72,18 +65,59 @@ struct EndUserCalendarView: View {
                                 .frame(width: 29, height: 29)
                         }
                     }
-                    .padding(15)
+                    .padding(.horizontal, 60)
                 }
             }
         }
+        
     }
     
     var upcomingSessions : some View{
+       
         VStack{
             Text("Upcoming Sessions")
+            
+            ForEach(Array(vm.datesWithSessions.filter({ (date, _) in
+                vm.isCurrentMonth(date: date)
+                
+            }).enumerated()) , id: \.offset){ offset, element in
+                
+                let date = element.0
+                let transaction = element.1
+                VStack{
+                    HStack{
+                        Text("\(vm.toString(date))")
+                        
+                        if let pt = vm.getPT(transaction: transaction){
+                            Text("\(pt.name)")
+                            
+                            let gymText = (pt.gymPreference.filter{ gym in
+                                guard let endUser = authVM.currentEndUser else { return false }
+                                
+                                return endUser.preferredGym.contains{ userGym in
+                                    userGym.rawValue == gym.rawValue
+                                    
+                                }
+                            }.first?.rawValue)
+                            Text(gymText ?? "")
+                            
+                        }
+                        if let start = transaction.startTime, let end = transaction.endTime {
+                            Text("\(start.formatted(date: .omitted, time: .shortened)) -  \(end.formatted(date: .omitted, time: .shortened))")
+                            
+                        }
+                    }
+                    .padding(.vertical, 0)
+                    .background(Color.gray.opacity(offset % 2 == 0 ? 0.7 : 0.2).cornerRadius(3))
+                    .padding(.vertical, 0)
+//                    Divider()
+                }
+                }
+            }
+
         }
     }
-}
+
 
 struct EndUserCalendarView_Previews: PreviewProvider {
     static var previews: some View {
