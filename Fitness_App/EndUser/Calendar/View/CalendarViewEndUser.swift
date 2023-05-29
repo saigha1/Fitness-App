@@ -120,7 +120,7 @@ struct CalendarViewEndUser: View {
         .padding()
         .onAppear {
             vm.showToday()
-            print(Date().isLater(than: Date()))
+            vm.loadTransactions()
         }
     }
 }

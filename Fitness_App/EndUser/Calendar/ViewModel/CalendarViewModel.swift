@@ -7,21 +7,32 @@
 
 import Foundation
 
+typealias Session = (Date, Transaction)
+typealias Sessions = [Session]
 class CalendarViewModel: ObservableObject {
     
     @Published var month: Int = 1
     @Published var year: Int = 1999
     
+    // Sort Descriptor for upcoming sessions
+    @Published var selectedSortOption: SessionSortOption = .date
+    @Published var isAscending: Bool = true
+    private var user: NewEndUser? = nil
     var transactions: [Transaction] = []
     
-    init() {
+    init(user: NewEndUser? = nil) {
         self.month = 1
         self.year = 1999
+        if user != nil {
+            self.user = user!
+        }
+        loadTransactions()
+    }
+    func loadTransactions() {
         self.transactions = load(filename: "Transactions.json", location: .document) ?? []
     }
-    
-    var datesWithSessions : [(Date, Transaction)] {
-        var results : [(Date, Transaction)] = []
+    var datesWithSessions : Sessions {
+        var results : Sessions = []
         for transaction in transactions {
             guard let length = transaction.length else { return results }
             guard let startDate = transaction.startDate else { return results }
@@ -56,13 +67,22 @@ class CalendarViewModel: ObservableObject {
     }()
     
     var formatter: DateFormatter {
+        dateFormatter(format: "MMM dd, yyyy")
+    }
+    var timeFormatter: DateFormatter {
+        dateFormatter(format: "HH:ss")
+    }
+    func dateFormatter(format: String) -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd, yyyy"
+        formatter.dateFormat = format
         return formatter
     }
-     
-    func toString(_ date: Date) -> String {
-        formatter.string(from: date)
+    func toString(_ date: Date, formatter: DateFormatter? = nil) -> String {
+        if formatter == nil {
+            return self.formatter.string(from: date)
+        } else {
+            return formatter!.string(from: date)
+        }
     }
     
     // load current year and month
@@ -108,10 +128,69 @@ extension CalendarViewModel {
         guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
         return PTFound
     }
-    //TODO: Can you explain this?
+
     func getPT(transaction : Transaction) -> PTModel? {
             guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return nil }
             guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
             return PTFound
     }
+    func getGymText(transaction: Transaction, user: NewEndUser?) -> String {
+        guard let pt = getPT(transaction: transaction) else { return "" }
+        let gymText = (pt.gymPreference.filter{ gym in
+            guard let endUser = user else { return false }
+            return endUser.preferredGym.contains{ userGym in
+                userGym.rawValue == gym.rawValue
+            }
+        }.first?.rawValue ?? "")
+        return gymText
+    }
+}
+
+//MARK: - Upcoming Sessions & Sorting Logic
+extension CalendarViewModel {
+    var upcomingSessionsEnumerated: [(offset: Int, element: Session)] {
+        var sessions: Sessions {
+            datesWithSessions
+                .filter({ (date, _) in
+                    isCurrentMonth(date: date)
+                })
+                .sorted { session1, session2 in
+                    switch selectedSortOption {
+                    case .trainer:
+                        guard let trainer1 = getPT(transaction: session1.1) else { return false }
+                        guard let trainer2 = getPT(transaction: session2.1) else { return false }
+                        return isAscending ? trainer1.name < trainer2.name : trainer1.name > trainer2.name
+                    case .gym:
+                        let gymText1 = getGymText(transaction: session1.1, user: self.user)
+                        let gymText2 = getGymText(transaction: session2.1, user: self.user)
+                        return isAscending ? gymText1 < gymText2 : gymText1 > gymText2
+                    case .time:
+                        guard let startTime1 = session1.1.startTime else { return false }
+                        guard let startTime2 = session2.1.startTime else { return false }
+                        let startHour1 = Calendar.current.component(.hour, from: startTime1)
+                        let startMinute1 = Calendar.current.component(.minute, from: startTime1)
+                        let startHour2 = Calendar.current.component(.hour, from: startTime2)
+                        let startMinute2 = Calendar.current.component(.minute, from: startTime2)
+                        let startTime1IsGreater = startHour1 > startHour2 ? true : startMinute1 > startMinute2
+                        return isAscending && startTime1IsGreater
+                    default: // date
+                        return isAscending ? session1.0 < session2.0 : session1.0 > session2.0
+                    }
+                }
+        }
+        return Array(sessions.enumerated())
+    }
+    func reorderSessions(_ option: SessionSortOption) {
+        if option == selectedSortOption {
+            isAscending.toggle()
+        } else {
+            selectedSortOption = option
+        }
+    }
+}
+enum SessionSortOption: String, CaseIterable {
+    case date = "Date"
+    case trainer = "Trainer"
+    case gym = "Gym & Location"
+    case time = "Time"
 }
