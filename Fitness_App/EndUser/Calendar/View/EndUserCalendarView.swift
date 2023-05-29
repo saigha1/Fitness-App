@@ -17,12 +17,12 @@ struct EndUserCalendarView: View {
                 CalendarLegendViewEndUser()
                 trainerContactCard
                 upcomingSessions
-                    
+                
             }
             .navigationTitle("Calendar")
         }
     }
-
+    
     var trainerContactCard: some View{
         Group {
             if let pt = vm.pt {
@@ -73,50 +73,77 @@ struct EndUserCalendarView: View {
     }
     
     var upcomingSessions : some View{
-       
+        
         VStack{
-            Text("Upcoming Sessions")
+            HStack {
+                Text("Upcoming Sessions")
+                    .bold()
+                    .font(.title2)
+                    .padding(.leading)
+                    .padding(.bottom, 5)
+                Spacer()
+                    .frame(maxWidth: UIScreen.main.bounds.width * 0.5)
+            }
+            // Header Row
+            HStack {
+                Spacer()
+                ForEach(SessionSortOption.allCases, id: \.rawValue) { option in
+                    HStack {
+                        Text(option.rawValue).bold()
+                        if vm.selectedSortOption == option {
+                            Image(systemName: vm.isAscending ? "chevron.up" : "chevron.down")
+                                .resizable()
+                                .frame(width: 12, height: 8)
+                                .scaleEffect(0.6)
+                        }
+                    }
+                    .onTapGesture {
+                        withAnimation {
+                            vm.reorderSessions(option)
+                        }
+                    }
+                    Spacer()
+                }
+            }
+            .padding(.vertical, 5)
+            .font(.caption)
+            .frame(width: UIScreen.main.bounds.width * 0.9)
+            .background(Color.gray.cornerRadius(3))
+            .padding(.horizontal, 10)
             
-            ForEach(Array(vm.datesWithSessions.filter({ (date, _) in
-                vm.isCurrentMonth(date: date)
-                
-            }).enumerated()) , id: \.offset){ offset, element in
+            ForEach(vm.upcomingSessionsEnumerated, id: \.offset){ offset, element in
                 
                 let date = element.0
                 let transaction = element.1
                 VStack{
                     HStack{
+                        Spacer()
                         Text("\(vm.toString(date))")
-                        
+                        Spacer()
                         if let pt = vm.getPT(transaction: transaction){
                             Text("\(pt.name)")
-                            
-                            let gymText = (pt.gymPreference.filter{ gym in
-                                guard let endUser = authVM.currentEndUser else { return false }
-                                
-                                return endUser.preferredGym.contains{ userGym in
-                                    userGym.rawValue == gym.rawValue
-                                    
-                                }
-                            }.first?.rawValue)
-                            Text(gymText ?? "")
+                            Spacer()
+                            Text(vm.getGymText(transaction: transaction, user: authVM.currentEndUser) + ", " + transaction.location!.rawValue)
                             
                         }
+                        Spacer()
                         if let start = transaction.startTime, let end = transaction.endTime {
-                            Text("\(start.formatted(date: .omitted, time: .shortened)) -  \(end.formatted(date: .omitted, time: .shortened))")
+                            Text(vm.toString(start, formatter: vm.timeFormatter) + "-" + vm.toString(end, formatter: vm.timeFormatter))
                             
                         }
+                        Spacer()
                     }
+                    .font(.footnote)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
                     .padding(.vertical, 0)
-                    .background(Color.gray.opacity(offset % 2 == 0 ? 0.7 : 0.2).cornerRadius(3))
+                    .background(Color.gray.opacity(offset % 2 != 0 ? 0.7 : 0.2).cornerRadius(3))
                     .padding(.vertical, 0)
-//                    Divider()
-                }
                 }
             }
-
         }
+        
     }
+}
 
 
 struct EndUserCalendarView_Previews: PreviewProvider {
