@@ -172,7 +172,7 @@ extension CalendarViewModel {
                         let startHour2 = Calendar.current.component(.hour, from: startTime2)
                         let startMinute2 = Calendar.current.component(.minute, from: startTime2)
                         let startTime1IsGreater = startHour1 > startHour2 ? true : startMinute1 > startMinute2
-                        return isAscending && startTime1IsGreater
+                        return isAscending ? startTime1IsGreater : !startTime1IsGreater
                     default: // date
                         return isAscending ? session1.0 < session2.0 : session1.0 > session2.0
                     }
