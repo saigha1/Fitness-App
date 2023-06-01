@@ -33,6 +33,7 @@ class CalendarViewModel: ObservableObject {
     }
     var datesWithSessions : Sessions {
         var results : Sessions = []
+        
         for transaction in transactions {
             guard let length = transaction.length else { return results }
             guard let startDate = transaction.startDate else { return results }
@@ -94,7 +95,7 @@ class CalendarViewModel: ObservableObject {
         let startDate = calendar.date(from: DateComponents(year: year, month: month))!
         return calendar.getAllRealDays(for: startDate)
     }
-    func isCurrentMonth(date: Date) -> Bool {
+    func isMonthInView(date: Date) -> Bool {
         let components = calendar.dateComponents([.year, .month], from: date)
         return components.month == month && components.year == year
     }
@@ -146,13 +147,15 @@ extension CalendarViewModel {
     }
 }
 
-//MARK: - Upcoming Sessions & Sorting Logic
+//MARK: - Upcoming Sessions & Sorting Logic for the List
 extension CalendarViewModel {
     var upcomingSessionsEnumerated: [(offset: Int, element: Session)] {
         var sessions: Sessions {
             datesWithSessions
                 .filter({ (date, _) in
-                    isCurrentMonth(date: date)
+                     isMonthInView(date: date) &&
+                    date.isLater(than: Date()) != -1 && date > Date()
+                    
                 })
                 .sorted { session1, session2 in
                     switch selectedSortOption {
@@ -180,6 +183,30 @@ extension CalendarViewModel {
         }
         return Array(sessions.enumerated())
     }
+    
+    func nextSession() -> Session?{
+        var sessions: Sessions {
+            datesWithSessions
+                .filter({ date, _ in
+                    date > Date()
+//                    date.isLater(than: Date()) != -1
+                })
+                .sorted { session1, session2 in
+                    session1.0 < session2.0
+                }
+                
+        }
+        guard let first = sessions.first else { return nil }
+        return first
+    }
+    
+    func isNextSession(_ session : Session) -> Bool{
+        guard let next = nextSession() else { return false}
+        return session.0 == next.0 &&  session.1 == next.1
+        
+    }
+    
+    
     func reorderSessions(_ option: SessionSortOption) {
         if option == selectedSortOption {
             isAscending.toggle()
