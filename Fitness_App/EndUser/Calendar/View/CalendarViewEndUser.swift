@@ -17,7 +17,7 @@ struct CalendarViewEndUser: View {
             HStack {
                 // title
                 Spacer()
-    
+
                 if #available(iOS 16.1, *) {
                     Text("\(vm.calendar.monthSymbols[vm.month - 1]) \(String(vm.year))")
                         .font(.title2)
@@ -78,29 +78,29 @@ struct CalendarViewEndUser: View {
                         }
                         .foregroundColor(.secondary)
                     }
-                    
+
                     ForEach(vm.getCalendarDays(), id: \.self) { date in
                         ZStack {
-                            // show skyblue circle for dates with sessions
+                             //show skyblue circle for dates with sessions
                             if vm.datesWithSessions.contains(where: { $0.0 == date }) {
                                 let isStroke = date.isLater(than: Date()) == -1
-                                CalCellCircleView(isToday: false, isStroke: isStroke, isOpaque: !vm.isCurrentMonth(date: date))
+                                CalCellCircleView(isToday: false, isStroke: isStroke, isOpaque: !vm.isMonthInView(date: date))
                             }
                             // show crimson circle for today
                             if date.isLater(than: Date()) == 0 {
                                 CalCellCircleView(isToday: true, isStroke: true)
                             }
-                            
-                            // show date number on the top
-                            CalCellNumberView(number: Int(vm.dateFormatter.string(from: date))!, isBlack: vm.isCurrentMonth(date: date))
-                            // transparent circle for padding
+
+//                             show date number on the top
+                            CalCellNumberView(number: Int(vm.dateFormatter.string(from: date))!, isBlack: vm.isMonthInView(date: date))
+//                             transparent circle for padding
                             Circle()
                                 .frame(width: 35, height: 35, alignment: .center)
                                 .foregroundColor(.clear)
-                            
+
                         }
                         .onAppear {
-                            print(vm.month, date)
+//                            print(vm.month, date)
                         }
                     }
                 }
@@ -113,7 +113,7 @@ struct CalendarViewEndUser: View {
                     .onTapGesture {
                         vm.nextMonth()
                     }
-                
+
             }
             .padding(.horizontal, 20)
         }

@@ -122,6 +122,10 @@ struct EndUserCalendarView: View {
                         Spacer()
                         if let pt = vm.getPT(transaction: transaction){
                             Text("\(pt.name)")
+                                .if( vm.isNextSession(element) , transform: { view in
+                                    view.bold()
+                                    
+                                })
                             Spacer()
                             Text(vm.getGymText(transaction: transaction, user: authVM.currentEndUser) + ", " + transaction.location!.rawValue)
                             

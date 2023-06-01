@@ -86,3 +86,11 @@ struct Transaction: Codable {
         self.planOption = planOption
     }
 }
+
+
+extension Transaction: Equatable{
+   
+    static func == (lhs: Transaction, rhs : Transaction) -> Bool {
+        lhs.transactionID  == rhs.transactionID
+    }
+}
