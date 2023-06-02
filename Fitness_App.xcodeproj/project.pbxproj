@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04350FBC2A2A444F00799242 /* CalendarViewModelSorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04350FBB2A2A444F00799242 /* CalendarViewModelSorting.swift */; };
+		04350FBE2A2A48B100799242 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04350FBD2A2A48B100799242 /* NavigationViewModel.swift */; };
 		0437CDC729968BB100E789F5 /* Gyms.json in Resources */ = {isa = PBXBuildFile; fileRef = 047C5FA4299411B4000A4F49 /* Gyms.json */; };
 		0437CDC92996B3E000E789F5 /* TestGyms.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437CDC82996B3E000E789F5 /* TestGyms.json */; };
 		044639712983FC8500C1741B /* PTs.json in Resources */ = {isa = PBXBuildFile; fileRef = 0446396D2983FC8500C1741B /* PTs.json */; };
@@ -112,6 +114,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04350FBB2A2A444F00799242 /* CalendarViewModelSorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModelSorting.swift; sourceTree = "<group>"; };
+		04350FBD2A2A48B100799242 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		0437CDC82996B3E000E789F5 /* TestGyms.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestGyms.json; sourceTree = "<group>"; };
 		0446396D2983FC8500C1741B /* PTs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PTs.json; sourceTree = "<group>"; };
 		0446396F2983FC8500C1741B /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -229,6 +233,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04350FBA2A2A442800799242 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				04350FBB2A2A444F00799242 /* CalendarViewModelSorting.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		0446396A2983FC8400C1741B /* LoginPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +539,7 @@
 		2570932A298D6E16004D9176 /* Archive */ = {
 			isa = PBXGroup;
 			children = (
+				04350FBA2A2A442800799242 /* ViewModel */,
 				257B5F0829D72AED005A78AD /* View */,
 				047C200A29B8F78D002E3FA0 /* Model */,
 				25E6D8F229913B8C0015B8B0 /* AuthenticationViewModels */,
@@ -551,6 +564,7 @@
 				25C2E4EC29D48AD100772C89 /* Dashboard */,
 				257337AC29ACFD4300357E78 /* EndUserChatView.swift */,
 				257337AE29ACFDAE00357E78 /* EndUserExploreView.swift */,
+				04350FBD2A2A48B100799242 /* NavigationViewModel.swift */,
 			);
 			path = EndUser;
 			sourceTree = "<group>";
@@ -824,6 +838,7 @@
 				A74B7D5829F1B0AC00375F55 /* DayOfWeek.swift in Sources */,
 				0446397529841B9E00C1741B /* rootViewController.swift in Sources */,
 				251A499C2995EEC70066A9CF /* EndUser.swift in Sources */,
+				04350FBC2A2A444F00799242 /* CalendarViewModelSorting.swift in Sources */,
 				044639732983FC8500C1741B /* LoginPage.swift in Sources */,
 				25C09DAE299536A500099C8E /* Date.swift in Sources */,
 				04A19246299A8DF3000792B4 /* HomePage.swift in Sources */,
@@ -831,6 +846,7 @@
 				257B5EED29D7264A005A78AD /* PTPageProfileView.swift in Sources */,
 				047C5F5E2992AD7B000A4F49 /* Model.swift in Sources */,
 				25E6D8FA29915FC00015B8B0 /* Icons.swift in Sources */,
+				04350FBE2A2A48B100799242 /* NavigationViewModel.swift in Sources */,
 				04A32EFF29AE562400AA336C /* CameraView.swift in Sources */,
 				04A19266299E7614000792B4 /* ImagePicker.swift in Sources */,
 				047C5F5329914E59000A4F49 /* facebookLogin.swift in Sources */,

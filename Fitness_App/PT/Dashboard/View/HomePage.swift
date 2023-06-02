@@ -19,6 +19,8 @@ struct HomePage: View {
     @EnvironmentObject var authVM : AuthViewModel
     @State var endUserTabSelection = "Dashboard"
     @StateObject var paymentVM = ApplePayViewModel()
+    @StateObject var navVM = NavigationViewModel()
+    
     var body: some View {
         if !authVM.isEndUser {
             homePageForPT
@@ -110,39 +112,46 @@ extension HomePage {
         
     }
     private var endUserTabView: some View {
+        
         TabView(selection: $endUserTabSelection) {
             DashboardView()
                 .environmentObject(authVM)
                 .environmentObject(paymentVM)
+                .environmentObject(navVM)
                 .tabItem{
                     Label("Dashboard", systemImage: "house")
                 }
                 .tag("Dashboard")
             EndUserChatView()
+                .environmentObject(navVM)
                 .tabItem{
                     Label("Chat", systemImage: "message")
                 }
                 .tag("Chat")
             EndUserExploreView()
+                .environmentObject(navVM)
                 .tabItem{
                     Label("Explore", systemImage: "safari.fill")
                 }
                 .tag("Explore")
             EndUserCalendarView()
+                .environmentObject(navVM)
                 .environmentObject(authVM)
                 .tabItem{
                     Label("Calendar", systemImage: "calendar.badge.clock")
                 }
                 .tag("Calendar")
         }
-        .onChange(of: paymentVM.nextScreen) { newValue in
+        .onChange(of: navVM.nextScreen) { newValue in
             print("nextScreen should change")
             switch newValue {
-            case .calendar: endUserTabSelection = NextScreenPayment.calendar.rawValue
-            case .dashboard: endUserTabSelection = NextScreenPayment.dashboard.rawValue
-            case .chat: endUserTabSelection = NextScreenPayment.chat.rawValue
+            case .calendar: endUserTabSelection = NextTab.calendar.rawValue
+            case .dashboard: endUserTabSelection = NextTab.dashboard.rawValue
+            case .chat: endUserTabSelection = NextTab.chat.rawValue
+            case .explore : endUserTabSelection = NextTab.explore.rawValue
             default: return
             }
         }
+        
     }
 }

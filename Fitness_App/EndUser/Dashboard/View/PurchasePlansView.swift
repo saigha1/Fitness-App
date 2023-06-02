@@ -12,6 +12,7 @@ import PassKit
 struct PurchasePlansView: View {
     var pt: PTModel
     @EnvironmentObject var authVM: AuthViewModel
+    @EnvironmentObject var navVM: NavigationViewModel
     @StateObject var vm = PurchasePlanViewModel()
     @EnvironmentObject var paymentVM: ApplePayViewModel
     @State var showSuccessAlert = false
@@ -42,6 +43,7 @@ struct PurchasePlansView: View {
         }
         .onDisappear {
             paymentVM.clearPaymentStates()
+            navVM.selectNone()
         }
     }
     var paymentConfirmationButton: some View {
@@ -173,7 +175,7 @@ struct PurchasePlansView: View {
     }
     var chatButton: some View {
         Button {
-            paymentVM.nextScreen = .chat
+            navVM.nextScreen = .chat
             dismiss()
         } label: {
             Group {
@@ -268,6 +270,7 @@ struct PurchasePlansView_Previews: PreviewProvider {
         PurchasePlansView(pt: emptyPTModel)
             .environmentObject(ApplePayViewModel())
             .environmentObject(AuthViewModel())
+            .environmentObject(NavigationViewModel())
     }
 }
 

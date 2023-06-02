@@ -9,14 +9,28 @@ import Foundation
 
 extension Date {
     
+    /// An integer that represents the day of the date instance itself
+    var day: Int {
+        Calendar.current.component(.day, from: self)
+    }
+    
     /// An integer that represents the month of the date instance itself
     var month: Int {
         Calendar.current.component(.month, from: self)
     }
     
+    
     /// An integer that represents the year of the date instance itself
     var year: Int {
         Calendar.current.component(.year, from: self)
+    }
+    /// An integer that represents the hour of the date instance itself
+    var hour: Int {
+        Calendar.current.component(.hour, from: self)
+    }
+    
+    var minute: Int {
+        Calendar.current.component(.minute, from: self)
     }
     
     /// Date Formatter - yyyy-MM
@@ -65,6 +79,10 @@ extension Date {
         let monthComponent: Set<Calendar.Component> = [.month]
         let yearComponent: Set<Calendar.Component> = [.year]
         
+        //time
+        let hourComponent: Set<Calendar.Component> = [.hour]
+        let minuteComponent: Set<Calendar.Component> = [.minute]
+        
         //gets the Year
         func year(_ date: Date) -> Int {
             cal.dateComponents(yearComponent, from: date).year!
@@ -77,14 +95,26 @@ extension Date {
         func day(_ date: Date) -> Int {
             cal.dateComponents(dayComponent, from: date).day!
         }
+        //get hour
+        func hour(_ hour: Date) -> Int {
+            cal.dateComponents(hourComponent, from: date).hour!
+        }
+        //get minute
+        func minute(_ date: Date) -> Int {
+            cal.dateComponents(minuteComponent, from: date).minute!
+        }
         
         let selfYear = year(self)
         let selfMonth = month(self)
         let selfDay = day(self)
+        let selfHour = hour(self)
+        let selfMinute = minute(self)
         
         let dateYear = year(date)
         let dateMonth = month(date)
         let dateDay = day(date)
+        let dateHour = year(date)
+        let dateMinute = minute(date)
         
         if selfYear > dateYear {
             return 1
@@ -104,6 +134,10 @@ extension Date {
                     return 0
                 }
             }
+            
+        
+            
+            
         }
     }
 }

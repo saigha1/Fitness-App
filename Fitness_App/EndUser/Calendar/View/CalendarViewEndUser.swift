@@ -82,7 +82,10 @@ struct CalendarViewEndUser: View {
                     ForEach(vm.getCalendarDays(), id: \.self) { date in
                         ZStack {
                              //show skyblue circle for dates with sessions
-                            if vm.datesWithSessions.contains(where: { $0.0 == date }) {
+                            if vm.datesWithSessions.contains(where: {
+                                $0.0.year == date.year  && $0.0.month == date.month && $0.0.day == date.day
+                                
+                            }) {
                                 let isStroke = date.isLater(than: Date()) == -1
                                 CalCellCircleView(isToday: false, isStroke: isStroke, isOpaque: !vm.isMonthInView(date: date))
                             }

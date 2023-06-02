@@ -10,6 +10,8 @@ import SwiftUI
 struct EndUserCalendarView: View {
     @StateObject var vm = CalendarViewModel()
     @EnvironmentObject var authVM: AuthViewModel
+    @EnvironmentObject var navVM: NavigationViewModel
+    
     var body: some View {
         NavigationView {
             ScrollView{
@@ -63,6 +65,12 @@ struct EndUserCalendarView: View {
                                 .resizable()
                                 .foregroundColor(.secondary)
                                 .frame(width: 29, height: 29)
+                                .onTapGesture {
+                                    navVM.nextScreen = .chat
+                                }
+                                .onAppear{
+                                    navVM.selectNone()
+                                }
                         }
                     }
                     .padding(.horizontal, 60)
@@ -98,7 +106,7 @@ struct EndUserCalendarView: View {
                         }
                     }
                     .onTapGesture {
-                        withAnimation {
+                        withAnimation(.easeInOut(duration: 0.5)){
                             vm.reorderSessions(option)
                         }
                     }
@@ -110,29 +118,41 @@ struct EndUserCalendarView: View {
             .frame(width: UIScreen.main.bounds.width * 0.9)
             .background(Color.gray.cornerRadius(3))
             .padding(.horizontal, 10)
-            
-            ForEach(vm.upcomingSessionsEnumerated, id: \.offset){ offset, element in
-                
+            ForEach(vm.isAscending ? vm.upcomingSessionSortedByDateAscending : vm.upcomingSessionSortedByDateDescending, id: \.offset){ offset, element in
+
                 let date = element.0
                 let transaction = element.1
                 VStack{
                     HStack{
                         Spacer()
                         Text("\(vm.toString(date))")
+                            .if( vm.isNextSession(element) , transform: { view in
+                                view.bold()
+                                
+                            })
                         Spacer()
                         if let pt = vm.getPT(transaction: transaction){
                             Text("\(pt.name)")
-                                .if( vm.isNextSession(element) , transform: { view in
-                                    view.bold()
-                                    
-                                })
+                                    .if( vm.isNextSession(element) , transform: { view in
+                                        view.bold()
+                                        
+                                    })
+                                
                             Spacer()
                             Text(vm.getGymText(transaction: transaction, user: authVM.currentEndUser) + ", " + transaction.location!.rawValue)
+                                        .if( vm.isNextSession(element) , transform: { view in
+                                            view.bold()
+                                            
+                                        })
                             
                         }
                         Spacer()
                         if let start = transaction.startTime, let end = transaction.endTime {
                             Text(vm.toString(start, formatter: vm.timeFormatter) + "-" + vm.toString(end, formatter: vm.timeFormatter))
+                                .if( vm.isNextSession(element) , transform: { view in
+                                    view.bold()
+                                    
+                                })
                             
                         }
                         Spacer()
@@ -140,8 +160,14 @@ struct EndUserCalendarView: View {
                     .font(.footnote)
                     .frame(width: UIScreen.main.bounds.width * 0.9)
                     .padding(.vertical, 0)
+                    .if( vm.isNextSession(element) , transform: { view in
+                        view.background(Color.assetColor.red.opacity(0.5).cornerRadius(3))
+                            .foregroundColor(.white)
+                        
+                    })
                     .background(Color.gray.opacity(offset % 2 != 0 ? 0.7 : 0.2).cornerRadius(3))
                     .padding(.vertical, 0)
+                              
                 }
             }
         }
@@ -153,6 +179,7 @@ struct EndUserCalendarView: View {
 struct EndUserCalendarView_Previews: PreviewProvider {
     static var previews: some View {
         EndUserCalendarView()
+            .environmentObject(NavigationViewModel())
     }
 }
 
