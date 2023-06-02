@@ -19,6 +19,10 @@ class CalendarViewModel: ObservableObject {
     @Published var isAscending: Bool = true
     private var user: NewEndUser? = nil
     var transactions: [Transaction] = []
+    var pTModel = [PTModel]()
+    
+//    @Published var startDate: Date = Date()
+//    @Published var endDate: Date = Date()
     
     init(user: NewEndUser? = nil) {
         self.month = 1
@@ -27,7 +31,20 @@ class CalendarViewModel: ObservableObject {
             self.user = user!
         }
         loadTransactions()
+        let start = Date()
+        guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return }
+        performanceCheck(start: start, end: Date())
+        print("JSON: ")
+        pTModel = allPTApproved
+        
     }
+    
+    func performanceCheck(start: Date, end : Date) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy MM dd hh mm ss SSS"
+        print("tiME: ", formatter.string(from: start), formatter.string(from: end))
+    }
+    
     func loadTransactions() {
         self.transactions = load(filename: "Transactions.json", location: .document) ?? []
     }
@@ -42,7 +59,7 @@ class CalendarViewModel: ObservableObject {
             
             let dates = Calendar.current.getAllDates(
                 dateInterval: DateInterval(start: startDate, end: endDate),
-                dateComponent: DateComponents(hour: 0, minute: 0, second: 0)
+                dateComponent: DateComponents(hour: transaction.startTime?.hour, minute: transaction.startTime?.minute, second: 0)
             )
             
             for date in dates{
@@ -125,14 +142,12 @@ extension CalendarViewModel {
     var pt: PTModel? {
         let allDates = datesWithSessions.filter { $0.0.isLater(than: Date()) == 1 }.sorted { $0.0 < $1.0 }
         guard let transaction = allDates.first?.1 else { return nil }
-        guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return nil }
-        guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
+        guard let PTFound: PTModel = pTModel.first(where: { $0.id == transaction.trainerUID }) else { return nil }
         return PTFound
     }
 
     func getPT(transaction : Transaction) -> PTModel? {
-            guard let allPTApproved: [PTModel] = load(filename: "PTs.json", location: .document) else { return nil }
-            guard let PTFound: PTModel = allPTApproved.first(where: { $0.id == transaction.trainerUID }) else { return nil }
+        guard let PTFound: PTModel = pTModel.first(where: { $0.id == transaction.trainerUID }) else { return nil }
             return PTFound
     }
     func getGymText(transaction: Transaction, user: NewEndUser?) -> String {
@@ -149,53 +164,59 @@ extension CalendarViewModel {
 
 //MARK: - Upcoming Sessions & Sorting Logic for the List
 extension CalendarViewModel {
+    
+    var upcomingSessionSortedByDateAscending : [(offset: Int, element: Session)]{
+    upcomingSessionsEnumerated
+            .sorted { lhs, rhs in
+                let session1 = lhs.element
+                let session2 = rhs.element
+                    return  session1.0 < session2.0
+            }
+    }
+    
+//MARK: -Improved performance by 1600% or 160x by storing filtered & stored result separately and loading JSON data in init call
+    var upcomingSessionSortedByDateDescending : [(offset: Int, element: Session)]{
+        upcomingSessionSortedByDateAscending.reversed()
+    }
+    
     var upcomingSessionsEnumerated: [(offset: Int, element: Session)] {
         var sessions: Sessions {
             datesWithSessions
                 .filter({ (date, _) in
-                     isMonthInView(date: date) &&
-                    date.isLater(than: Date()) != -1 && date > Date()
+                    isMonthInView(date: date) && date > Date()
+                })
+
+        }
+        return Array(sessions.enumerated())
+    }
+    
+    
+    var upcomingSessionsStorage: [(offset: Int, element: Session)] {
+        var sessions: Sessions {
+            datesWithSessions
+                .filter({ (date, _) in
+                    date > Date()
                     
                 })
-                .sorted { session1, session2 in
-                    switch selectedSortOption {
-                    case .trainer:
-                        guard let trainer1 = getPT(transaction: session1.1) else { return false }
-                        guard let trainer2 = getPT(transaction: session2.1) else { return false }
-                        return isAscending ? trainer1.name < trainer2.name : trainer1.name > trainer2.name
-                    case .gym:
-                        let gymText1 = getGymText(transaction: session1.1, user: self.user)
-                        let gymText2 = getGymText(transaction: session2.1, user: self.user)
-                        return isAscending ? gymText1 < gymText2 : gymText1 > gymText2
-                    case .time:
-                        guard let startTime1 = session1.1.startTime else { return false }
-                        guard let startTime2 = session2.1.startTime else { return false }
-                        let startHour1 = Calendar.current.component(.hour, from: startTime1)
-                        let startMinute1 = Calendar.current.component(.minute, from: startTime1)
-                        let startHour2 = Calendar.current.component(.hour, from: startTime2)
-                        let startMinute2 = Calendar.current.component(.minute, from: startTime2)
-                        let startTime1IsGreater = startHour1 > startHour2 ? true : startMinute1 > startMinute2
-                        return isAscending ? startTime1IsGreater : !startTime1IsGreater
-                    default: // date
-                        return isAscending ? session1.0 < session2.0 : session1.0 > session2.0
-                    }
-                }
         }
         return Array(sessions.enumerated())
     }
     
     func nextSession() -> Session?{
-        var sessions: Sessions {
-            datesWithSessions
-                .filter({ date, _ in
-                    date > Date()
-//                    date.isLater(than: Date()) != -1
-                })
-                .sorted { session1, session2 in
-                    session1.0 < session2.0
-                }
+        let sessions: Sessions =
+            upcomingSessionsStorage
+                .sorted { lhs, rhs in
+                let session1 = lhs.element
+                let session2 = rhs.element
                 
-        }
+                return session1.0 < session2.0
+                
+            }
+            .map { _ , session in
+                    session
+            }
+        
+        
         guard let first = sessions.first else { return nil }
         return first
     }
@@ -221,3 +242,6 @@ enum SessionSortOption: String, CaseIterable {
     case gym = "Gym & Location"
     case time = "Time"
 }
+
+
+

@@ -13,6 +13,7 @@ struct BookSessionsView: View {
     @StateObject var vm = BookSessionsViewModel()
     @EnvironmentObject var authVM : AuthViewModel
     @EnvironmentObject var paymentVM: ApplePayViewModel
+    @EnvironmentObject var navVM: NavigationViewModel
     @State private var showSuccessAlert: Bool = false
     var pT : PTModel
     
@@ -43,6 +44,7 @@ struct BookSessionsView: View {
         }
         .onDisappear {
             paymentVM.clearPaymentStates()
+            navVM.selectNone()
         }
         
     }
@@ -57,7 +59,7 @@ extension BookSessionsView {
     private var buttons: some View {
         VStack(spacing: 7) {
             Button {
-                paymentVM.nextScreen = .calendar
+                navVM.nextScreen = .calendar
                 dismiss()
             } label: {
                 Text("View Upcoming Sessions")
@@ -250,6 +252,7 @@ struct BookSessionsView_Previews: PreviewProvider {
         BookSessionsView(pT: .init(id: "Hello", ptProfileImage: "Hello", name: "Hello", email: "Hello", phone: "Hello", gender: .m, isFeatured: true, isFavorite: true, isApproved: true, education: .Bachelors, certification: [.CanFitProI], selectedExperience: .One, cityLocation: .Mississauga, gymPreference: [.FitnessPlanet, .GoodLife, .LAFitness], workoutTypes: [.calisthenic, .machine, .americanBoxing], motto: "Hello", description: "Hello", imageString: ["Hello"], videoUrl: ["Hello"]))
             .environmentObject(AuthViewModel())
             .environmentObject(ApplePayViewModel())
+            .environmentObject(NavigationViewModel())
     }
 }
 

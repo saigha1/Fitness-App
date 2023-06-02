@@ -17,6 +17,7 @@ struct PTPageProfileView: View {
     @State var showBookSessions: Bool = false
     @EnvironmentObject var authVM : AuthViewModel
     @EnvironmentObject var paymentVM: ApplePayViewModel
+    @EnvironmentObject var navVM: NavigationViewModel
     
     var body: some View {
         ZStack{
@@ -111,7 +112,7 @@ struct PTPageProfileView: View {
                             .bold()
                         Spacer()
                         Button {
-                            paymentVM.nextScreen = .chat
+                            navVM.nextScreen = .chat
                         } label: {
                             sharedIcon_Chat
                                 .resizable()
@@ -256,6 +257,7 @@ struct PTPageProfileView: View {
         }
         .onDisappear {
             paymentVM.clearPaymentStates()
+            navVM.selectNone()
         }
     }
 }
@@ -265,6 +267,7 @@ struct PTPageView_Previews: PreviewProvider {
         PTPageProfileView(pt: emptyPTModel)
             .environmentObject(AuthViewModel())
             .environmentObject(ApplePayViewModel())
+            .environmentObject(NavigationViewModel())
     }
 }
 

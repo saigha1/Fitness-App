@@ -72,8 +72,8 @@ extension CalendarLegendViewEndUser {
     }
     private var circleText: some View {
         VStack(alignment: .leading, spacing: 20) {
-            LengendText("Session Scheduled")
-            LengendText("Passed Sessions")
+            LengendText("Past Session")
+            LengendText("Upcoming Session")
         }
     }
     private var todayCircle: some View {
